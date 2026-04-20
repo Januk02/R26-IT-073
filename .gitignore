@@ -25,8 +25,7 @@ __pycache__/
 *.pyd
 
 # Machine Learning Models & Local Data
-# (We do not want to commit massive CSVs or trained Scikit-learn models)
-ai-engine/data/*.csv
+
 ai-engine/data/*.json
 ai-engine/models/*.pkl
 ai-engine/models/*.joblib
@@ -51,7 +50,7 @@ yarn-error.log*
 # ------------------------------------------
 # 4. Environment Variables & Secrets
 # ------------------------------------------
-# NEVER commit your Neo4j passwords, MongoDB URIs, or API Keys!
+
 .env
 .env.local
 .env.development.local
