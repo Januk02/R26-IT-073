@@ -1,0 +1,66 @@
+# ==========================================
+# MASTER .GITIGNORE FOR ADAPTIVE CAREER SYSTEM
+# ==========================================
+
+# ------------------------------------------
+# 1. OS & Editor Configs (Windows/Mac/VS Code)
+# ------------------------------------------
+.vscode/
+.DS_Store
+Thumbs.db
+*.swp
+
+# ------------------------------------------
+# 2. Python & AI Engine (Phase 1 & Phase 4)
+# ------------------------------------------
+# Virtual Environments
+ai-engine/venv/
+venv/
+env/
+
+# Python Cache & Compiled Files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Machine Learning Models & Local Data
+# (We do not want to commit massive CSVs or trained Scikit-learn models)
+ai-engine/data/*.csv
+ai-engine/data/*.json
+ai-engine/models/*.pkl
+ai-engine/models/*.joblib
+
+# ------------------------------------------
+# 3. Node.js & React (Backend & Frontend)
+# ------------------------------------------
+# Dependencies
+node_modules/
+backend-orchestrator/node_modules/
+frontend-client/node_modules/
+
+# Build Outputs (React)
+frontend-client/build/
+frontend-client/dist/
+
+# NPM/Yarn Error Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ------------------------------------------
+# 4. Environment Variables & Secrets
+# ------------------------------------------
+# NEVER commit your Neo4j passwords, MongoDB URIs, or API Keys!
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# ------------------------------------------
+# 5. Web Scraping & Automation
+# ------------------------------------------
+# Ignore browser driver caches if Selenium downloads them locally
+.wdm/
+geckodriver.log
