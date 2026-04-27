@@ -1,4 +1,4 @@
-from recommender import GraphRecommender
+from career_recommender import GraphRecommender
 from sgi_engine import SkillGapEngine
 
 class AdaptiveCareerSystem:
