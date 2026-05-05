@@ -1,6 +1,8 @@
+import os
 import pandas as pd
 import time
 import random
+from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -9,18 +11,27 @@ class MultiRoleHarvester:
     def __init__(self):
         self.master_dataset = []
 
-        # Reduced to 2 Core IT Tracks for rapid testing
+        # Ensure the raw data folder exists
+        self.raw_data_dir = "../data/raw"
+        os.makedirs(self.raw_data_dir, exist_ok=True)
+
+        # THE DELTA EXPANSION: 6 Brand New Highly Demanded Roles
         self.target_roles = [
-            "Software Engineer",
-            "DevOps Engineer",
-            "Business Analyst",
-            "Cybersecurity"
-            
+            "Cloud Architect",
+            "Data Engineer",
+            "Machine Learning Engineer",
+            "Mobile Developer",
+            "Full Stack Developer", 
+            "UI UX Designer",
+            "IT Project Manager",
+            "Systems Administrator"
         ]
 
     def _get_fresh_driver(self):
         print("Booting fresh Chrome session...")
         options = webdriver.ChromeOptions()
+        # Minor anti-bot boost
+        options.add_argument('--disable-blink-features=AutomationControlled') 
         return webdriver.Chrome(options=options)
 
     def harvest_links_for_role(self, driver, role):
@@ -31,20 +42,15 @@ class MultiRoleHarvester:
         time.sleep(5) 
         
         try:
-            # STRATEGY: Grab ALL input fields on the page
             all_inputs = driver.find_elements(By.TAG_NAME, "input")
-            
-            # Filter out hidden fields, leaving only the ones we can see on screen
             visible_inputs = [inp for inp in all_inputs if inp.is_displayed()]
             
             if not visible_inputs:
                 print("Error: Could not find any visible search boxes.")
                 return []
                 
-            # The "Job Title" box is geometrically the FIRST visible input on the screen
             search_box = visible_inputs[0]
             
-            # Type the role into the correct box and press ENTER
             print("Typing role into the Job Title box...")
             search_box.clear()
             search_box.send_keys(role)
@@ -53,7 +59,6 @@ class MultiRoleHarvester:
             print("Search submitted! Waiting 8 seconds for targeted results to load...")
             time.sleep(8) 
             
-            # Harvest the links from the loaded results
             job_links = []
             links = driver.find_elements(By.XPATH, "//a[contains(@href, '/jobs/')]")
             for link in links:
@@ -75,6 +80,7 @@ class MultiRoleHarvester:
         time.sleep(random.uniform(2.5, 4.0)) 
         
         try:
+            # Grab the whole body text for NLP processing
             description_element = driver.find_element(By.TAG_NAME, "body")
             description_text = description_element.text
             
@@ -89,7 +95,7 @@ class MultiRoleHarvester:
             print(f"Failed to extract {job_url}")
 
     def run_pipeline(self):
-        print("Starting Targeted UI-Driven Aggregation...")
+        print("Starting Targeted UI-Driven Aggregation (Delta Batch)...")
         
         for role in self.target_roles:
             driver = self._get_fresh_driver()
@@ -109,8 +115,10 @@ class MultiRoleHarvester:
                 print("\n[ANTI-BOT COOLDOWN] Waiting 10 seconds...")
                 time.sleep(10) 
                 
+        # Timestamped Saving Logic
         df = pd.DataFrame(self.master_dataset)
-        save_path = '../data/raw_multi_role_jobs_2.csv'
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M")
+        save_path = os.path.join(self.raw_data_dir, f"rooster_batch_{timestamp}.csv")
         
         if not df.empty:
             df.to_csv(save_path, index=False)

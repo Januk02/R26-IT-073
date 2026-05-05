@@ -61,6 +61,8 @@ class UnifiedAIEngine:
         # Dictionary mapping academic keywords to job roles
         affinity_map = {
             "Data Scientist": ["data science", "statistics", "mathematics", "analytics"],
+            "Data Engineer": ["data science", "data engineering", "computer science", "information systems"], # NEW
+            "Cloud Architect": ["cloud", "networking", "computer science", "information technology"], # NEW
             "Software Engineer": ["software", "computer science", "computing", "programming"],
             "QA Engineer": ["quality assurance", "software testing", "qa"],
             "Cybersecurity": ["security", "cybersecurity", "information security"],
@@ -182,7 +184,7 @@ if __name__ == "__main__":
     try:
         # TEST CASE: The Data Science Degree Trap
         engine.generate_adaptive_pathway(
-            user_skills=["Python", "SQL", "AWS"], 
+            user_skills=["Python", "SQL", "AWS","excel"], 
             user_current_degree="Bachelor's in Data Science"
         )
     finally:
