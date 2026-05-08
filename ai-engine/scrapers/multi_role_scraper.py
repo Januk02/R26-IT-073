@@ -15,16 +15,23 @@ class MultiRoleHarvester:
         self.raw_data_dir = "../data/raw"
         os.makedirs(self.raw_data_dir, exist_ok=True)
 
-        # THE DELTA EXPANSION: 6 Brand New Highly Demanded Roles
+        # THE MEGA EXPANSION: 15 Brand New High-Demand Roles
         self.target_roles = [
-            "Cloud Architect",
-            "Data Engineer",
-            "Machine Learning Engineer",
-            "Mobile Developer",
-            "Full Stack Developer", 
-            "UI UX Designer",
-            "IT Project Manager",
-            "Systems Administrator"
+            "Site Reliability Engineer",
+            "Network Engineer",
+            "Database Administrator",
+            "Frontend Developer",
+            "Backend Developer",
+            "Tech Lead",
+            "Product Manager",
+            "Scrum Master",
+            "Data Analyst",
+            "Information Security Analyst",
+            "Salesforce Developer",
+            "ERP Consultant",
+            "Game Developer",
+            "Blockchain Developer",
+            "AI Engineer"
         ]
 
     def _get_fresh_driver(self):
@@ -66,7 +73,8 @@ class MultiRoleHarvester:
                 if href and '/jobs/' in href and href not in job_links:
                     job_links.append(href)
                     
-            job_links = job_links[:20]
+            # UPGRADED LIMIT: Grabbing up to 35 jobs per role to hit the ~500 target
+            job_links = job_links[:35]
             print(f"✅ Found {len(job_links)} targeted job links for {role}.")
             return job_links
             
@@ -95,7 +103,7 @@ class MultiRoleHarvester:
             print(f"Failed to extract {job_url}")
 
     def run_pipeline(self):
-        print("Starting Targeted UI-Driven Aggregation (Delta Batch)...")
+        print("Starting Targeted UI-Driven Aggregation (Mega-Batch)...")
         
         for role in self.target_roles:
             driver = self._get_fresh_driver()

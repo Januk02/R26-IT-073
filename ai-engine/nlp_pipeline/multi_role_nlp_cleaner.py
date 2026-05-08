@@ -21,25 +21,120 @@ class AdvancedNLPCleaner:
         self.skill_dictionary = [
             # Programming & Scripting
             'Python', 'Java', 'C++', 'C#', 'JavaScript', 'TypeScript', 'Go', 'Golang', 'Ruby', 'PHP', 'Swift', 'Kotlin', 'Rust', 'Scala',
+            # Programming & Scripting (Extended)
+            'C', 'R', 'Fortran', 'Assembly', 'COBOL', 'REXX', 'ABAP', 'VBA', 'Scripting',
             # Frontend & UI
             'React', 'Angular', 'Vue', 'Next.js', 'Node.js', 'HTML', 'CSS', 'Tailwind', 'Figma', 'React Native', 'Flutter',
             # Databases & Storage
             'SQL', 'NoSQL', 'PostgreSQL', 'MongoDB', 'MySQL', 'Oracle', 'Redis', 'Elasticsearch', 'Cassandra', 'DynamoDB',
-            # Cloud & Infrastructure (Expanded for Cloud Architect)
+            # Cloud & Infrastructure
             'AWS', 'Azure', 'GCP', 'Google Cloud', 'Docker', 'Kubernetes', 'Terraform', 'Linux', 'Bash', 'Shell Scripting', 'Ansible', 'VMware',
-            # Data Engineering (NEW)
+            # Data Engineering
             'Hadoop', 'Spark', 'Kafka', 'ETL', 'Airflow', 'Snowflake', 'BigQuery', 'Databricks',
             # CI/CD & Version Control
             'CI/CD', 'Jenkins', 'Git', 'GitHub', 'Bitbucket', 'GitLab', 'CircleCI',
             # QA & Testing
             'QA', 'Manual Testing', 'Automation', 'Selenium', 'Cypress', 'Appium', 'JMeter', 'Postman', 'JUnit', 'TestNG',
-            # Data Science & Machine Learning (Expanded for ML Engineer)
+            # Data Science & Machine Learning
             'Machine Learning', 'Data Science', 'Pandas', 'NumPy', 'TensorFlow', 'PyTorch', 'Scikit-Learn', 'Keras', 'NLP', 'Computer Vision',
             'Tableau', 'PowerBI', 'Data Warehousing', 'Data Analytics', 'Excel',
-            # Architecture & Methodologies (Expanded for IT Project Manager)
+            # Architecture & Methodologies
             'Agile', 'Scrum', 'Jira', 'Kanban', 'Confluence', 'REST API', 'GraphQL', 'Microservices', 'System Design', 'PMP',
-            # Security & IT Admin (Expanded for SysAdmin)
-            'Cybersecurity', 'Penetration Testing', 'Firewalls', 'Security', 'Active Directory', 'Networking', 'TCP/IP', 'DNS', 'VPN'
+            # Security & IT Admin
+            'Cybersecurity', 'Penetration Testing', 'Firewalls', 'Security', 'Active Directory', 'Networking', 'TCP/IP', 'DNS', 'VPN',
+            # RPA & Low-Code Tools
+            'UiPath', 'Automation Anywhere', 'Blue Prism', 'Power Automate', 'Power Apps', 'Orchestrator', 'WorkFusion', 'ProcessGold', 'Bots', 'OCR',
+            'OutSystems', 'Mendix', 'Appian', 'Microsoft 365', 'Dataverse',
+            # BI & Data Visualization Tools
+            'Power BI', 'Looker', 'MicroStrategy', 'Qlik', 'Cognos', 'SSRS', 'SSAS', 'DAX', 'MDX',
+            'Data Modeling', 'Data Visualization', 'Data Analysis', 'Redshift',
+            # ETL & Data Pipeline Tools
+            'Informatica', 'Talend', 'SSIS', 'DataStage', 'Pentaho', 'Matillion', 'Ab Initio',
+            'Informatica MDM', 'IBM InfoSphere', 'Apache Atlas', 'Alation', 'Collibra', 'Atlan',
+            # IoT & Edge Computing
+            'MQTT', 'Arduino', 'Raspberry Pi', 'AWS IoT', 'Azure IoT Hub', 'Zigbee', 'LoRaWAN', 'Node-RED', 'CoAP',
+            'AWS Greengrass', 'Azure IoT Edge', 'NVIDIA Jetson', 'KubeEdge', 'EdgeX Foundry', 'OpenVINO', 'Balena', 'IoT',
+            # Embedded & Firmware
+            'FreeRTOS', 'Zephyr', 'AUTOSAR', 'CAN Bus', 'LIN', 'MISRA', 'JTAG', 'Keil MDK', 'ARM Cortex', 'ARM',
+            'UART', 'SPI', 'I2C', 'RTOS', 'OpenOCD', 'IAR Embedded Workbench',
+            'Real-Time Systems', 'Bare Metal Programming', 'Embedded Systems', 'PCB', 'Hardware', 'Oscilloscope', 'Keil',
+            # Mainframe
+            'JCL', 'CICS', 'DB2', 'VSAM', 'IBM MQ', 'IMS', 'RACF', 'TSO/ISPF', 'Easytrieve', 'Batch Processing',
+            # Quantum Computing
+            'Qiskit', 'Cirq', 'Q#', 'PennyLane', 'Braket', 'IBM Quantum', 'Quantum Inspire', 'Forest SDK', 'Classiq', 'QuTiP',
+            # HPC & Parallel Computing
+            'MPI', 'OpenMP', 'CUDA', 'SLURM', 'PBS Pro', 'OpenMPI', 'InfiniBand', 'BLAS', 'LAPACK',
+            'ROCm', 'OpenCL', 'Parallel Programming', 'Performance Tuning',
+            # MLOps & AI Platform Tools
+            'MLflow', 'Kubeflow', 'DVC', 'Weights & Biases', 'BentoML', 'Seldon', 'Feast',
+            'SageMaker', 'Vertex AI', 'Triton', 'ONNX', 'TensorRT',
+            # NLP & Conversational AI
+            'HuggingFace', 'spaCy', 'NLTK', 'Transformers', 'LangChain', 'Rasa', 'Gensim', 'FastText', 'BERT',
+            'OpenAI API', 'LlamaIndex', 'Dialogflow', 'Amazon Lex', 'Azure Bot Service', 'IBM Watson',
+            'Botpress', 'Twilio', 'Wit.ai', 'Kore.ai', 'Voiceflow', 'Data Preprocessing',
+            # Computer Vision
+            'OpenCV', 'YOLO', 'MediaPipe', 'Detectron2', 'Roboflow', 'LabelImg', 'Deep Learning',
+            # Robotics
+            'ROS', 'ROS2', 'Gazebo', 'MoveIt', 'PCL', 'SLAM', 'Rviz', 'Nav2', 'Behavior Trees', 'Kinematics', 'Control Systems',
+            # Digital Twin & Simulation
+            'Azure Digital Twins', 'AWS IoT TwinMaker', 'PTC ThingWorx', 'Siemens MindSphere', 'Bentley iTwin',
+            'MATLAB', 'Simulink', 'ANSYS', 'OpenFOAM', 'Adams', 'Modelica', 'dSPACE', 'CarSim', 'AVL', 'Amesim', 'COMSOL',
+            'Physics Modelling', 'Simulation',
+            # AR/VR & 3D
+            'Unity', 'Unreal Engine', 'ARKit', 'ARCore', 'OpenXR', 'WebXR', 'Vuforia', 'HoloLens',
+            'Maya', 'Blender', 'SteamVR', '3D Modeling', 'Shader Programming', 'Physics Simulation', 'UX Design',
+            # GIS & Spatial
+            'ArcGIS', 'QGIS', 'PostGIS', 'Leaflet', 'MapServer', 'GDAL', 'OpenLayers', 'GeoServer', 'ArcPy', 'Mapbox', 'Spatial Data',
+            # Middleware & Integration
+            'MuleSoft', 'Apigee', 'WSO2', 'TIBCO', 'RabbitMQ', 'ActiveMQ', 'Azure Service Bus',
+            'API Gateway', 'AWS API Gateway', 'Azure API Management', 'Kong', 'OAuth', 'SOAP', 'XML', 'JSON',
+            # Security & Penetration Testing Tools
+            'Metasploit', 'Burp Suite', 'Nmap', 'Nessus', 'Kali Linux', 'Wireshark', 'SQLMap', 'Hydra',
+            'John the Ripper', 'Cobalt Strike', 'BloodHound', 'Exploit Development', 'Social Engineering',
+            'OWASP', 'CVE', 'Malware Analysis', 'Incident Response',
+            # Cloud Security & Compliance Tools
+            'AWS GuardDuty', 'Azure Defender', 'Prisma Cloud', 'HashiCorp Vault', 'Cloudtrail', 'CSPM',
+            'CrowdStrike', 'Wiz', 'Tenable', 'Falco', 'Qualys', 'Splunk', 'SIEM', 'IAM', 'Compliance',
+            'ISO 27001', 'NIST', 'COBIT', 'GDPR', 'SOC 2', 'HIPAA', 'PCI DSS',
+            'Archer GRC', 'RSA Archer', 'ServiceNow GRC', 'OneTrust',
+            # Digital Forensics
+            'EnCase', 'FTK', 'Autopsy', 'Volatility', 'Sleuth Kit', 'X-Ways', 'Cellebrite', 'Magnet AXIOM', 'Chain of Custody',
+            # Cloud FinOps
+            'AWS Cost Explorer', 'Azure Cost Management', 'CloudHealth', 'Apptio', 'Kubecost',
+            'Spot.io', 'Cloudability', 'Infracost', 'Cost Optimization', 'Forecasting', 'Budgeting',
+            # Platform & DevOps Tools (Extended)
+            'ArgoCD', 'FluxCD', 'Crossplane', 'Backstage', 'Consul', 'Packer', 'Pulumi',
+            'Helm', 'Vault', 'CloudFormation', 'Lucidchart', 'Draw.io',
+            # Observability & Monitoring
+            'Prometheus', 'Grafana', 'Datadog', 'Jaeger', 'OpenTelemetry', 'Elastic Stack', 'Dynatrace',
+            'New Relic', 'Loki', 'Zipkin', 'InfluxDB', 'PagerDuty', 'Opsgenie',
+            'Monitoring', 'Alerting', 'Log Management', 'Distributed Tracing',
+            # Chaos Engineering
+            'Gremlin', 'Chaos Monkey', 'LitmusChaos', 'Chaos Toolkit', 'AWS Fault Injection',
+            'Steadybit', 'Pumba', 'Chaos Blade', 'Toxiproxy', 'SRE', 'Distributed Systems',
+            # Networking & Wireless Infrastructure
+            'WiFi 6', '5G', 'LTE', 'Cisco WLC', 'Aruba Networks', 'Ekahau', 'Juniper Mist',
+            'RF Planning', 'Spectrum Analyzer', 'WLAN', 'Ruckus', 'Routing', 'Switching',
+            # Storage & Backup
+            'NetApp', 'EMC', 'Pure Storage', 'Veeam', 'Commvault', 'HPE 3PAR', 'SAN', 'NAS',
+            'iSCSI', 'Fibre Channel', 'Zerto', 'RAID', 'Backup & Recovery', 'Disaster Recovery', 'Windows Server',
+            # SAP Ecosystem
+            'SAP', 'SAP HANA', 'SAP BW', 'SAP Fiori', 'SAP NetWeaver', 'SAP S/4HANA',
+            'SAP Cloud ALM', 'Solution Manager', 'Transport Management System', 'CCMS',
+            # ITSM & Project Management Tools
+            'ServiceNow', 'Freshservice', 'Remedy', 'CMDB', 'ManageEngine', 'ITIL',
+            'Jira Service Management', 'Zendesk', 'MS Project', 'Smartsheet', 'Monday.com',
+            'Trello', 'Asana', 'PRINCE2', 'Gantt Charts', 'SLA Management',
+            'Incident Management', 'Change Management', 'Risk Management',
+            # Technical Writing Tools
+            'MadCap Flare', 'Sphinx', 'Swagger', 'GitHub Pages', 'RoboHelp', 'Oxygen XML',
+            'Notion', 'ReadMe.io', 'Markdown', 'API Documentation', 'Content Management',
+            # General IT Skills
+            'Documentation', 'Requirements Gathering', 'Stakeholder Management', 'Reporting',
+            'Risk Assessment', 'Auditing', 'Testing', 'Debugging', 'Unit Testing', 'Research',
+            'Data Quality', 'Metadata Management', 'Process Mapping', 'High Availability',
+            'Troubleshooting', 'Resource Planning', 'Waterfall', 'KPI Tracking',
+            'Statistics', 'Mathematics', 'Linear Algebra', 'BPMN', 'UML', 'Editing', 'Visualization',
         ]
         
         self.skill_dictionary_lower = [skill.lower() for skill in self.skill_dictionary]
