@@ -11,17 +11,15 @@ import {
   Platform,
   ScrollView,
 } from 'react-native';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
-import { auth, db } from '../firebase';
 import { useRouter } from 'expo-router';
+import { useAuth } from '../contexts/AuthContext';
 
-export default function LoginScreen() {
-  console.log('LoginScreen component is rendering!');
+export default function MentorLoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { login } = useAuth();
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -31,51 +29,25 @@ export default function LoginScreen() {
 
     setLoading(true);
     try {
-      // Sign in with Firebase Auth
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-
-      // Check if user is a student in Firestore
-      const userDoc = await getDoc(doc(db, 'students', user.uid));
+      const result = await login(email, password);
       
-      if (!userDoc.exists()) {
-        Alert.alert('Access Denied', 'This account is not registered as a student');
-        await auth.signOut();
+      if (!result.success) {
+        Alert.alert('Login Failed', result.error || 'An error occurred');
         return;
       }
 
-      const userData = userDoc.data();
-      if (userData.role !== 'student') {
-        Alert.alert('Access Denied', 'Only students are allowed to login');
-        await auth.signOut();
+      // Check if user is a mentor
+      if (result.role !== 'mentor') {
+        Alert.alert('Access Denied', 'Only mentors are allowed to login');
         return;
       }
 
-      // Login successful, navigate to dashboard
-      Alert.alert('Success', 'Welcome back!');
-      router.replace('/(tabs)/dashboard');
+      // Login successful, navigate to mentor dashboard (outside tabs for no bottom bar)
+      Alert.alert('Success', 'Welcome back, Mentor!');
+      router.replace('/mentor-dashboard');
 
     } catch (error: any) {
-      let errorMessage = 'An error occurred during login';
-      
-      switch (error.code) {
-        case 'auth/user-not-found':
-          errorMessage = 'No account found with this email';
-          break;
-        case 'auth/wrong-password':
-          errorMessage = 'Incorrect password';
-          break;
-        case 'auth/invalid-email':
-          errorMessage = 'Invalid email address';
-          break;
-        case 'auth/too-many-requests':
-          errorMessage = 'Too many failed attempts. Please try again later';
-          break;
-        default:
-          errorMessage = error.message;
-      }
-      
-      Alert.alert('Login Failed', errorMessage);
+      Alert.alert('Login Failed', error.message || 'An error occurred during login');
     } finally {
       setLoading(false);
     }
@@ -88,8 +60,11 @@ export default function LoginScreen() {
     >
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.content}>
-          <Text style={styles.title}>Student Login</Text>
-          <Text style={styles.subtitle}>Welcome back! Please login to continue</Text>
+          <View style={styles.iconContainer}>
+            <Text style={styles.icon}>👨‍🏫</Text>
+          </View>
+          <Text style={styles.title}>Mentor Login</Text>
+          <Text style={styles.subtitle}>Welcome back! Login to manage your mentorship</Text>
 
           <View style={styles.form}>
             <View style={styles.inputContainer}>
@@ -124,22 +99,15 @@ export default function LoginScreen() {
               {loading ? (
                 <ActivityIndicator color="#ffffff" size="small" />
               ) : (
-                <Text style={styles.loginButtonText}>Login</Text>
+                <Text style={styles.loginButtonText}>Login as Mentor</Text>
               )}
             </TouchableOpacity>
           </View>
 
           <View style={styles.footer}>
-            <Text style={styles.footerText}>Don't have an account?</Text>
-            <TouchableOpacity onPress={() => router.push('/register')}>
-              <Text style={styles.linkText}>Register</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.mentorLinkContainer}>
-            <Text style={styles.footerText}>Are you a mentor?</Text>
-            <TouchableOpacity onPress={() => router.push('/mentor-login')}>
-              <Text style={[styles.linkText, styles.mentorLink]}>Mentor Login</Text>
+            <Text style={styles.footerText}>Are you a student?</Text>
+            <TouchableOpacity onPress={() => router.push('/login')}>
+              <Text style={styles.linkText}>Student Login</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -162,10 +130,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingVertical: 32,
   },
+  iconContainer: {
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  icon: {
+    fontSize: 64,
+  },
   title: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: '#1e293b',
+    color: '#7c3aed',
     textAlign: 'center',
     marginBottom: 8,
   },
@@ -197,12 +172,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     color: '#1f2937',
   },
-  inputFocused: {
-    borderColor: '#3b82f6',
-    borderWidth: 2,
-  },
   loginButton: {
-    backgroundColor: '#3b82f6',
+    backgroundColor: '#7c3aed',
     borderRadius: 12,
     paddingVertical: 16,
     alignItems: 'center',
@@ -236,17 +207,5 @@ const styles = StyleSheet.create({
     color: '#3b82f6',
     fontWeight: '600',
     marginLeft: 4,
-  },
-  mentorLinkContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 16,
-    paddingTop: 16,
-    borderTopWidth: 1,
-    borderTopColor: '#e5e7eb',
-  },
-  mentorLink: {
-    color: '#7c3aed',
   },
 });
