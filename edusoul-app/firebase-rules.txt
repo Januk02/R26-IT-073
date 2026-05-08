@@ -12,10 +12,11 @@ service cloud.firestore {
       return isAuthenticated() && request.auth.uid == userId;
     }
     
-    // Helper function to check if user has a specific role
+    // Helper function to check if user has a specific role (checks both users and students collections)
     function hasRole(role) {
       return isAuthenticated() && 
-             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == role;
+             (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == role ||
+              get(/databases/$(database)/documents/students/$(request.auth.uid)).data.role == role);
     }
     
     // Helper function to check if user is either mentor or admin
@@ -23,22 +24,44 @@ service cloud.firestore {
       return hasRole('mentor') || hasRole('admin');
     }
     
-    // Users collection rules
+    // Helper function to check if user is a student
+    function isStudent() {
+      return isAuthenticated() && 
+             get(/databases/$(database)/documents/students/$(request.auth.uid)).data.role == 'student';
+    }
+    
+    // Users collection rules (for mentors)
     match /users/{userId} {
-      // Allow read if user is the owner or if it's a public profile
-      allow read: if isOwner(userId) || 
-                     isMentorOrAdmin();
+      // Allow read if user is the owner (simple auth check, no role lookup needed)
+      allow read: if isAuthenticated() && request.auth.uid == userId;
       
       // Allow create only during registration (authenticated user creating their own doc)
       allow create: if isAuthenticated() && 
                        request.auth.uid == userId &&
-                       request.resource.data.role in ['student', 'mentor'];
+                       request.resource.data.role == 'mentor';
       
       // Allow update only if user is the owner
-      allow update: if isOwner(userId);
+      allow update: if isAuthenticated() && request.auth.uid == userId;
       
-      // Allow delete only if user is the owner or admin
-      allow delete: if isOwner(userId) || hasRole('admin');
+      // Allow delete only if user is the owner
+      allow delete: if isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    // Students collection rules
+    match /students/{userId} {
+      // Allow read if user is the owner (simple auth check, no role lookup needed)
+      allow read: if isAuthenticated() && request.auth.uid == userId;
+      
+      // Allow create only during registration (authenticated user creating their own doc)
+      allow create: if isAuthenticated() && 
+                       request.auth.uid == userId &&
+                       request.resource.data.role == 'student';
+      
+      // Allow update only if user is the owner
+      allow update: if isAuthenticated() && request.auth.uid == userId;
+      
+      // Allow delete only if user is the owner
+      allow delete: if isAuthenticated() && request.auth.uid == userId;
     }
     
     // Courses collection rules

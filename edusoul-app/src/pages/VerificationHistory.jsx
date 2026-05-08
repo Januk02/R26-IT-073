@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { collection, query, where, orderBy, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
+import MedalBadge, { getMedalTier } from '../components/MedalBadge';
 
 const VerificationHistory = ({ onClose }) => {
   const { user } = useAuth();
@@ -167,10 +168,19 @@ const VerificationHistory = ({ onClose }) => {
                 {interviewVerifications.map((verification, index) => (
                   <div key={index} className="bg-gray-50 rounded-xl p-6 border border-gray-200">
                     <div className="flex items-start justify-between mb-4">
-                      <div>
-                        <p className="text-sm text-gray-500 mb-1">{formatDate(verification.createdAt)}</p>
-                        <h3 className="font-semibold text-gray-900">Interview #{interviewVerifications.length - index}</h3>
-                        <span className="inline-block mt-1 px-2 py-0.5 bg-purple-100 text-purple-700 text-xs rounded-full">AI Interview</span>
+                      <div className="flex items-start gap-4">
+                        <div className="w-16 h-16 flex-shrink-0">
+                          <MedalBadge 
+                            tier={getMedalTier(verification.overallScore)} 
+                            size="sm" 
+                            showLabel={false}
+                          />
+                        </div>
+                        <div>
+                          <p className="text-sm text-gray-500 mb-1">{formatDate(verification.createdAt)}</p>
+                          <h3 className="font-semibold text-gray-900">Interview #{interviewVerifications.length - index}</h3>
+                          <span className="inline-block mt-1 px-2 py-0.5 bg-purple-100 text-purple-700 text-xs rounded-full">AI Interview</span>
+                        </div>
                       </div>
                       <div className="text-right">
                         <p className={`text-3xl font-bold ${getScoreColor(verification.overallScore)}`}>
@@ -235,10 +245,19 @@ const VerificationHistory = ({ onClose }) => {
                 {cvVerifications.map((verification, index) => (
                   <div key={index} className={`rounded-xl p-6 border ${getScoreBgColor(verification.overallScore)}`}>
                     <div className="flex items-start justify-between mb-4">
-                      <div>
-                        <p className="text-sm text-gray-500 mb-1">{formatDate(verification.uploadedAt)}</p>
-                        <h3 className="font-semibold text-gray-900">{verification.fileName}</h3>
-                        <span className="inline-block mt-1 px-2 py-0.5 bg-blue-100 text-blue-700 text-xs rounded-full">CV Analysis</span>
+                      <div className="flex items-start gap-4">
+                        <div className="w-16 h-16 flex-shrink-0">
+                          <MedalBadge 
+                            tier={getMedalTier(verification.overallScore)} 
+                            size="sm" 
+                            showLabel={false}
+                          />
+                        </div>
+                        <div>
+                          <p className="text-sm text-gray-500 mb-1">{formatDate(verification.uploadedAt)}</p>
+                          <h3 className="font-semibold text-gray-900">{verification.fileName}</h3>
+                          <span className="inline-block mt-1 px-2 py-0.5 bg-blue-100 text-blue-700 text-xs rounded-full">CV Analysis</span>
+                        </div>
                       </div>
                       <div className="text-right">
                         <p className={`text-3xl font-bold ${getScoreColor(verification.overallScore)}`}>

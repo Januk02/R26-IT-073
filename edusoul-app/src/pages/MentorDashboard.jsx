@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import MentorMedals from '../components/MentorMedals';
 
 const MentorDashboard = ({ onStartVerification, onViewHistory, onStartCVVerification }) => {
   const { user, userRole, logout } = useAuth();
@@ -98,6 +99,25 @@ const MentorDashboard = ({ onStartVerification, onViewHistory, onStartCVVerifica
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Achievements & Medals Section */}
+        <div className="bg-white rounded-xl shadow-md p-6 border border-purple-100 mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <svg className="w-6 h-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+              </svg>
+              <h2 className="text-xl font-semibold text-gray-900">My Achievements</h2>
+            </div>
+            <button 
+              onClick={onViewHistory}
+              className="text-purple-600 hover:text-purple-800 text-sm font-medium"
+            >
+              View All
+            </button>
+          </div>
+          <MentorMedals />
         </div>
 
         {/* Main Content Area */}

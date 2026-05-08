@@ -31,11 +31,21 @@ export const AuthProvider = ({ children, onAuthChange }) => {
       
       if (user) {
         try {
+          // Check users collection (mentors) first
           const userDoc = await getDoc(doc(db, 'users', user.uid));
           if (userDoc.exists()) {
             setUserRole(userDoc.data().role);
             if (onAuthChange) {
               onAuthChange(true, userDoc.data().role);
+            }
+          } else {
+            // Check students collection
+            const studentDoc = await getDoc(doc(db, 'students', user.uid));
+            if (studentDoc.exists()) {
+              setUserRole(studentDoc.data().role);
+              if (onAuthChange) {
+                onAuthChange(true, studentDoc.data().role);
+              }
             }
           }
         } catch (error) {
@@ -71,8 +81,11 @@ export const AuthProvider = ({ children, onAuthChange }) => {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
+      // Determine collection based on role
+      const collectionName = role === 'student' ? 'students' : 'users';
+
       // Store user data in Firestore
-      await setDoc(doc(db, 'users', user.uid), {
+      await setDoc(doc(db, collectionName, user.uid), {
         uid: user.uid,
         email: email,
         role: role,
@@ -94,16 +107,22 @@ export const AuthProvider = ({ children, onAuthChange }) => {
       const userCredential = await signInWithPopup(auth, provider);
       const user = userCredential.user;
 
-      // Check if user exists in Firestore
+      // Check if user exists in users collection (mentors)
       const userDoc = await getDoc(doc(db, 'users', user.uid));
-      
-      if (!userDoc.exists()) {
-        // If new user, ask for role selection
-        return { success: true, user, isNewUser: true };
+      if (userDoc.exists()) {
+        setUserRole(userDoc.data().role);
+        return { success: true, user, isNewUser: false };
       }
 
-      setUserRole(userDoc.data().role);
-      return { success: true, user, isNewUser: false };
+      // Check if user exists in students collection
+      const studentDoc = await getDoc(doc(db, 'students', user.uid));
+      if (studentDoc.exists()) {
+        setUserRole(studentDoc.data().role);
+        return { success: true, user, isNewUser: false };
+      }
+
+      // If new user, ask for role selection
+      return { success: true, user, isNewUser: true };
     } catch (error) {
       return { success: false, error: error.message };
     }
@@ -116,7 +135,10 @@ export const AuthProvider = ({ children, onAuthChange }) => {
         return { success: false, error: 'No authenticated user' };
       }
 
-      await setDoc(doc(db, 'users', user.uid), {
+      // Determine collection based on role
+      const collectionName = role === 'student' ? 'students' : 'users';
+
+      await setDoc(doc(db, collectionName, user.uid), {
         uid: user.uid,
         email: user.email,
         displayName: user.displayName,

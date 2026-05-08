@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { doc, setDoc, collection } from 'firebase/firestore';
 import { db } from '../firebase';
+import MedalBadge, { getMedalTier, getMedalInfo } from '../components/MedalBadge';
 
 const CVVerification = ({ onComplete, onCancel }) => {
   const { user } = useAuth();
@@ -256,13 +257,21 @@ const CVVerification = ({ onComplete, onCancel }) => {
       <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-50 flex items-center justify-center px-4 py-8">
         <div className="max-w-3xl w-full bg-white rounded-2xl shadow-xl p-8">
           <div className="text-center mb-8">
-            <div className={`mx-auto w-20 h-20 rounded-full flex items-center justify-center mb-4 ${getScoreColor(analysisResult.overallScore, 100).split(' ')[1]}`}>
-              <svg className={`w-10 h-10 ${getScoreColor(analysisResult.overallScore, 100).split(' ')[0]}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
+            <div className="mx-auto w-32 h-32 mb-4">
+              <MedalBadge 
+                tier={getMedalTier(analysisResult.overallScore)} 
+                size="lg" 
+                showLabel={false}
+                animated={true}
+              />
             </div>
             <h2 className="text-3xl font-bold text-gray-900 mb-2">CV Analysis Complete!</h2>
             <p className="text-gray-600">Your CV has been analyzed for mentorship suitability</p>
+            <div className="mt-3">
+              <span className="inline-block px-4 py-1.5 bg-gradient-to-r from-blue-100 to-blue-200 text-blue-800 rounded-full text-sm font-semibold">
+                🏆 {getMedalInfo(getMedalTier(analysisResult.overallScore)).name} Earned!
+              </span>
+            </div>
           </div>
 
           {/* Overall Score */}

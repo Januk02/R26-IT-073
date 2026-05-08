@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { doc, setDoc, collection, getDocs, query, where, orderBy } from 'firebase/firestore';
 import { db } from '../firebase';
+import MedalBadge, { getMedalTier, getMedalInfo } from '../components/MedalBadge';
 
 const QUESTIONS = [
   {
@@ -297,13 +298,21 @@ const MentorVerification = ({ onComplete, onCancel }) => {
           ) : (
             <>
               <div className="text-center mb-8">
-                <div className="mx-auto w-20 h-20 bg-gradient-to-br from-purple-600 to-purple-800 rounded-full flex items-center justify-center mb-4">
-                  <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
+                <div className="mx-auto w-32 h-32 mb-4">
+                  <MedalBadge 
+                    tier={getMedalTier(finalScore)} 
+                    size="lg" 
+                    showLabel={false}
+                    animated={true}
+                  />
                 </div>
                 <h2 className="text-3xl font-bold text-gray-900 mb-2">Verification Complete!</h2>
                 <p className="text-gray-600">Your mentorship interview has been analyzed</p>
+                <div className="mt-3">
+                  <span className="inline-block px-4 py-1.5 bg-gradient-to-r from-purple-100 to-purple-200 text-purple-800 rounded-full text-sm font-semibold">
+                    🏆 {getMedalInfo(getMedalTier(finalScore)).name} Earned!
+                  </span>
+                </div>
               </div>
 
               <div className="bg-purple-50 rounded-xl p-6 mb-6 border border-purple-200">

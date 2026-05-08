@@ -11,18 +11,14 @@ import ProtectedRoute from './components/ProtectedRoute';
 import './App.css';
 
 function AppContent({ currentView, setCurrentView }) {
-  const { user, userRole } = useAuth();
-  const [mounted, setMounted] = useState(false);
+  const { user, userRole, loading: authLoading } = useAuth();
 
-  // Only redirect to dashboard on initial mount if user is authenticated and on login page
+  // Handle navigation after login - wait for role to be loaded
   useEffect(() => {
-    if (!mounted) {
-      setMounted(true);
-      if (user && currentView === 'login') {
-        setCurrentView('dashboard');
-      }
+    if (user && userRole && currentView === 'login') {
+      setCurrentView('dashboard');
     }
-  }, [user, currentView, setCurrentView, mounted]);
+  }, [user, userRole, currentView, setCurrentView]);
 
   const handleVerificationComplete = () => {
     setCurrentView('dashboard');
@@ -79,7 +75,14 @@ function AppContent({ currentView, setCurrentView }) {
       )}
       {currentView === 'dashboard' && (
         <ProtectedRoute>
-          {userRole === 'mentor' ? (
+          {authLoading || !userRole ? (
+            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 via-white to-purple-50">
+              <div className="text-center">
+                <div className="mx-auto w-12 h-12 border-4 border-purple-600 border-t-transparent rounded-full animate-spin mb-4"></div>
+                <p className="text-gray-600">Loading your dashboard...</p>
+              </div>
+            </div>
+          ) : userRole === 'mentor' ? (
             <MentorDashboard 
               onStartVerification={handleStartVerification}
               onViewHistory={handleViewHistory}
