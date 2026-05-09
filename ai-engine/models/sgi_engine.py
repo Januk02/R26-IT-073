@@ -13,7 +13,7 @@ class UnifiedAIEngine:
         self.password = os.getenv("NEO4J_PASSWORD")
         
         if not self.uri or not self.password:
-            raise ValueError("⚠️ Missing Neo4j credentials! Check your .env file.")
+            raise ValueError("[WARN] Missing Neo4j credentials! Check your .env file.")
             
         self.driver = GraphDatabase.driver(self.uri, auth=(self.user, self.password))
 
@@ -35,6 +35,9 @@ class UnifiedAIEngine:
         return requirements
 
     def get_academic_benchmark(self, target_role):
+        # Creative Tech Override: Roles where portfolios outweigh formal CS degrees
+        creative_tech_roles = ["Frontend Developer", "UI/UX Designer", "Web Developer", "Game Developer", "React Developer", "Frontend Engineer"]
+        
         query = """
         MATCH (r:JobRole {name: $role})-[rel:REQUIRES_DEGREE]->(d:Degree)
         RETURN d.name AS degree, rel.weight AS weight
@@ -44,9 +47,15 @@ class UnifiedAIEngine:
         with self.driver.session() as session:
             result = session.run(query, role=target_role)
             record = result.single()
-            if record:
-                return record["degree"], record["weight"]
-            return "Bachelor's Degree in IT / Computer Science", 5
+            
+            degree = record["degree"] if record else "Bachelor's Degree in IT / Computer Science"
+            weight = record["weight"] if record else 5
+            
+            if target_role in creative_tech_roles or any(role.lower() in target_role.lower() for role in creative_tech_roles):
+                degree = "CS Degree OR Strong Portfolio"
+                weight = 2  # Lower the penalty since self-taught is common here
+                
+            return degree, weight
 
     def apply_academic_affinity(self, predictions, user_degree):
         """
@@ -90,11 +99,99 @@ class UnifiedAIEngine:
         adjusted_predictions.sort(key=lambda x: x['confidence'], reverse=True)
         return adjusted_predictions
 
+    def _analyze_single_role(self, target_role, confidence, user_skills, user_current_degree):
+        """
+        Runs the full SGI gap analysis for a single target role.
+        Returns a dictionary with all scores and missing requirements.
+        """
+        core_reqs = self.get_core_competencies(target_role, top_n=10)
+        recommended_degree, degree_weight = self.get_academic_benchmark(target_role)
+        
+        total_market_weight = sum(core_reqs.values()) + degree_weight
+        user_matched_weight = 0
+        missing_requirements = []
+        user_skills_lower = [s.lower() for s in user_skills]
+
+        # Grade Technical Skills
+        for required_skill, weight in core_reqs.items():
+            if required_skill.lower() in user_skills_lower:
+                user_matched_weight += weight
+            else:
+                missing_requirements.append({"req": required_skill, "weight": weight, "type": "Skill"})
+
+        # Grade Academic Profile (Tier-Matching Entity Resolution)
+        degree_met = False
+        if user_current_degree and user_current_degree.lower() != "none":
+            user_deg_clean = user_current_degree.lower()
+            req_deg_clean = recommended_degree.lower()
+            academic_tiers = ['bachelor', 'bsc', 'b.sc', 'degree', 'master', 'msc', 'phd']
+            if user_deg_clean == req_deg_clean:
+                degree_met = True
+            else:
+                for tier in academic_tiers:
+                    if tier in user_deg_clean and tier in req_deg_clean:
+                        degree_met = True
+                        break
+                        
+        if degree_met:
+            user_matched_weight += degree_weight
+        else:
+            missing_requirements.append({"req": recommended_degree, "weight": degree_weight, "type": "Degree"})
+
+        # Final SGI Formula
+        match_percentage = (user_matched_weight / total_market_weight) * 100 if total_market_weight > 0 else 0
+        sgi_score = 100 - match_percentage
+        missing_requirements.sort(key=lambda x: x["weight"], reverse=True)
+
+        return {
+            "target_role": target_role,
+            "confidence_score": confidence,
+            "sgi_score": sgi_score,
+            "market_readiness": match_percentage,
+            "recommended_degree": recommended_degree,
+            "missing_requirements": missing_requirements
+        }
+
+    def generate_top3_pathways(self, user_skills, user_current_degree=None):
+        """
+        Returns full SGI analysis for all top 3 predicted career paths.
+        """
+        print("\n=======================================================")
+        print(f"[USER] TOP-3 ANALYSIS INITIATED: {user_skills}")
+        if user_current_degree:
+            print(f"[DEGREE] CURRENT EDUCATION: {user_current_degree}")
+        print("=======================================================")
+        
+        predictions = self.recommender.predict_top_pathways(user_skills, top_n=3)
+        if not predictions:
+            return []
+            
+        print("\n[Brain 1.5] Running Academic Affinity Diagnostics...")
+        adjusted_predictions = self.apply_academic_affinity(predictions, user_current_degree)
+        
+        results = []
+        for i, pred in enumerate(adjusted_predictions):
+            target_role = pred['role']
+            confidence = pred['confidence']
+            print(f"\n--- Analyzing Role {i+1}: {target_role} (Confidence: {confidence:.1f}%) ---")
+            
+            analysis = self._analyze_single_role(target_role, confidence, user_skills, user_current_degree)
+            results.append(analysis)
+            
+            print(f"   Market Readiness: {analysis['market_readiness']:.1f}%")
+            print(f"   SGI Score: {analysis['sgi_score']:.1f}%")
+            print(f"   Missing Items: {len(analysis['missing_requirements'])}")
+        
+        print("\n=======================================================\n")
+        # Sort by readiness so the highest readiness is the first choice
+        results.sort(key=lambda x: x['market_readiness'], reverse=True)
+        return results
+
     def generate_adaptive_pathway(self, user_skills, user_current_degree=None):
         print("\n=======================================================")
-        print(f"👤 USER PROFILE INITIATED: {user_skills}")
+        print(f"[USER] USER PROFILE INITIATED: {user_skills}")
         if user_current_degree:
-            print(f"🎓 CURRENT EDUCATION: {user_current_degree}")
+            print(f"[DEGREE] CURRENT EDUCATION: {user_current_degree}")
         print("=======================================================")
         
         # --- BRAIN 1: Predict the Destination ---
@@ -109,7 +206,7 @@ class UnifiedAIEngine:
             
         target_role = adjusted_predictions[0]['role']
         confidence = adjusted_predictions[0]['confidence']
-        print(f"\n🎯 Target Destination Locked: {target_role} (Adjusted Confidence: {confidence:.1f}%)")
+        print(f"\n[TARGET] Target Destination Locked: {target_role} (Adjusted Confidence: {confidence:.1f}%)")
         
         # --- BRAIN 2: Calculate the Pathway ---
         core_reqs = self.get_core_competencies(target_role, top_n=10)
@@ -153,20 +250,20 @@ class UnifiedAIEngine:
         sgi_score = 100 - match_percentage
 
         # --- OUTPUT THE RESULTS ---
-        print("\n📊 HOLISTIC PATHWAY ANALYSIS RESULTS:")
+        print("\n[RESULTS] HOLISTIC PATHWAY ANALYSIS RESULTS:")
         print(f"   Overall Market Readiness: {match_percentage:.1f}%")
         print(f"   Skill & Academic Gap Index (SGI): {sgi_score:.1f}%")
         
-        print("\n🗺️ PRIORITIZED ADAPTIVE PATHWAY (What you need to acquire):")
+        print("\n[ROADMAP] PRIORITIZED ADAPTIVE PATHWAY (What you need to acquire):")
         if not missing_requirements:
-            print("   ✅ Profile is 100% optimized. Ready for job applications.")
+            print("   [OK] Profile is 100% optimized. Ready for job applications.")
         else:
             missing_requirements.sort(key=lambda x: x["weight"], reverse=True)
             for item in missing_requirements:
                 if item["type"] == "Degree":
-                    print(f"   🎓 ACQUIRE DEGREE: {item['req']} (Market Weight: {item['weight']})")
+                    print(f"   [DEGREE] ACQUIRE DEGREE: {item['req']} (Market Weight: {item['weight']})")
                 else:
-                    print(f"   ❌ LEARN SKILL: {item['req']} (Market Weight: {item['weight']})")
+                    print(f"   [GAP] LEARN SKILL: {item['req']} (Market Weight: {item['weight']})")
         print("=======================================================\n")
         
         return {
