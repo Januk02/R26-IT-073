@@ -1,0 +1,16 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow read/write access to students collection
+    match /students/{documentId} {
+      allow read, write: if request.auth != null;
+      // For development, allow all access
+      allow read, write: if true;
+    }
+    
+    // Allow read/write access to any collection (for development)
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}
