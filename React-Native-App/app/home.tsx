@@ -17,7 +17,7 @@ export default function HomeScreen() {
                 {/* Module 1: Degree Advisor */}
                 <TouchableOpacity
                     style={styles.card}
-                    onPress={() => router.push('/(degree-module)/')}
+                     onPress={() => router.push('/(member1)')}
                 >
                     <View style={[styles.iconContainer, { backgroundColor: '#e3f2fd' }]}>
                         <Ionicons name="school-outline" size={32} color="#1976d2" />
