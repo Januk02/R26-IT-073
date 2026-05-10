@@ -10,6 +10,7 @@ export const CareerProvider = ({ children }: { children: React.ReactNode }) => {
     const [latestSGI, setLatestSGI] = useState<number>(0);
     const [readiness, setReadiness] = useState<number>(0);
     const [recentPathways, setRecentPathways] = useState<any[]>([]);
+    const [selectedPathway, setSelectedPathway] = useState<any>(null);
 
     useEffect(() => {
         fetchUserPathways();
@@ -35,6 +36,7 @@ export const CareerProvider = ({ children }: { children: React.ReactNode }) => {
                 setRecentPathways(fetchedPaths);
                 setLatestSGI(fetchedPaths[0].matchScore || fetchedPaths[0].sgi_score);
                 setReadiness(fetchedPaths[0].market_readiness || 85);
+                setSelectedPathway(fetchedPaths[0]); // Default to the most recent one
             }
         } catch (error) {
             console.error("Error fetching pathways from Firebase:", error);
@@ -58,6 +60,7 @@ export const CareerProvider = ({ children }: { children: React.ReactNode }) => {
             setLatestSGI(newDoc.matchScore || newDoc.sgi_score);
             setReadiness(newDoc.market_readiness || 85);
             setRecentPathways(prev => [newDoc, ...prev]);
+            setSelectedPathway(newDoc); // Set newly saved as active
             
             return true;
         } catch (error) {
@@ -66,8 +69,32 @@ export const CareerProvider = ({ children }: { children: React.ReactNode }) => {
         }
     };
 
+    const updatePathwayProgress = (pathwayId: string, updatedData: any) => {
+        // In a real app, update the Firebase document here:
+        // const uid = auth.currentUser?.uid || 'guest_user';
+        // await updateDoc(doc(db, 'users', uid, 'pathways', pathwayId), updatedData);
+        
+        // Optimistic local update
+        setRecentPathways(prev => prev.map(p => p.id === pathwayId ? { ...p, ...updatedData } : p));
+        if (selectedPathway && selectedPathway.id === pathwayId) {
+            const newPathway = { ...selectedPathway, ...updatedData };
+            setSelectedPathway(newPathway);
+            setLatestSGI(newPathway.matchScore || newPathway.sgi_score);
+            setReadiness(newPathway.market_readiness);
+        }
+    };
+
     return (
-        <CareerContext.Provider value={{ latestSGI, readiness, recentPathways, saveNewPathway, fetchUserPathways }}>
+        <CareerContext.Provider value={{ 
+            latestSGI, 
+            readiness, 
+            recentPathways, 
+            selectedPathway, 
+            setSelectedPathway,
+            saveNewPathway, 
+            fetchUserPathways,
+            updatePathwayProgress
+        }}>
             {children}
         </CareerContext.Provider>
     );
@@ -75,3 +102,7 @@ export const CareerProvider = ({ children }: { children: React.ReactNode }) => {
 
 // Custom hook to easily grab data in any file
 export const useCareerData = () => useContext(CareerContext);
+
+export default function DummyExport() {
+    return null;
+}

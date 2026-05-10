@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
+import React, { useState, useCallback } from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions, RefreshControl } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import Animated, { FadeInUp } from 'react-native-reanimated';
@@ -10,17 +10,38 @@ const { width } = Dimensions.get('window');
 
 export default function CareerDashboard() {
     const router = useRouter();
-    const { latestSGI, readiness, recentPathways } = useCareerData();
+    const { latestSGI, readiness, recentPathways, selectedPathway, setSelectedPathway } = useCareerData();
     const [isRoadmapVisible, setIsRoadmapVisible] = useState(false);
+    const [refreshing, setRefreshing] = useState(false);
+
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        // Simulate a network request to give a modern, responsive feel
+        setTimeout(() => {
+            setRefreshing(false);
+        }, 1500);
+    }, []);
 
     // Determine readiness level
     const readinessLevel = readiness >= 80 ? 'Excellent' : readiness >= 50 ? 'Moderate' : 'Needs Work';
-    const readinessColor = readiness >= 80 ? '#2E7D32' : readiness >= 50 ? '#F59E0B' : '#DC2626';
+    const readinessColor = readiness >= 80 ? '#1E3A8A' : readiness >= 50 ? '#F59E0B' : '#DC2626';
 
     const hasData = recentPathways.length > 0;
 
     return (
-        <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
+        <ScrollView 
+            contentContainerStyle={styles.container} 
+            showsVerticalScrollIndicator={false}
+            refreshControl={
+                <RefreshControl 
+                    refreshing={refreshing} 
+                    onRefresh={onRefresh} 
+                    tintColor="#1E3A8A" 
+                    colors={['#1E3A8A', '#0284C7', '#9333EA']} 
+                    progressBackgroundColor="#FFFFFF"
+                />
+            }
+        >
             {/* Header */}
             <View style={styles.header}>
                 <View>
@@ -35,8 +56,8 @@ export default function CareerDashboard() {
             {/* Top Overview Cards */}
             <View style={styles.statsContainer}>
                 <View style={styles.statBox}>
-                    <View style={[styles.iconBg, { backgroundColor: '#E8F5E9' }]}>
-                        <Ionicons name="analytics-outline" size={24} color="#2E7D32" />
+                    <View style={[styles.iconBg, { backgroundColor: '#DBEAFE' }]}>
+                        <Ionicons name="analytics-outline" size={24} color="#1E3A8A" />
                     </View>
                     <Text style={styles.statValue}>{latestSGI ? `${latestSGI.toFixed(0)}%` : '--'}</Text>
                     <Text style={styles.statLabel}>Latest SGI</Text>
@@ -54,7 +75,9 @@ export default function CareerDashboard() {
             {hasData && (
                 <Animated.View entering={FadeInUp.delay(100)} style={styles.progressWidget}>
                     <View style={styles.progressHeader}>
-                        <Text style={styles.progressTitle}>Market Readiness</Text>
+                        <Text style={styles.progressTitle}>
+                            {selectedPathway ? selectedPathway.role : "Market Readiness"}
+                        </Text>
                         <View style={[styles.badge, { backgroundColor: readinessColor + '20' }]}>
                             <Text style={[styles.badgeText, { color: readinessColor }]}>{readinessLevel}</Text>
                         </View>
@@ -124,11 +147,15 @@ export default function CareerDashboard() {
                 {hasData ? (
                     recentPathways.map((pathway: any, index: number) => {
                         const dateStr = pathway.date ? new Date(pathway.date).toLocaleDateString() : 'Today';
+                        const isSelected = selectedPathway && selectedPathway.id === pathway.id;
                         return (
                             <Animated.View key={index} entering={FadeInUp.delay(200 + (index * 100))}>
-                                <TouchableOpacity style={styles.historyCard}>
+                                <TouchableOpacity 
+                                    style={[styles.historyCard, isSelected && { borderColor: '#1E3A8A', borderWidth: 2 }]}
+                                    onPress={() => setSelectedPathway(pathway)}
+                                >
                                     <View style={styles.historyCardIcon}>
-                                        <Ionicons name="trending-up" size={20} color="#2E7D32" />
+                                        <Ionicons name="trending-up" size={20} color="#1E3A8A" />
                                     </View>
                                     <View style={styles.historyCardContent}>
                                         <Text style={styles.historyRole}>{pathway.role}</Text>
@@ -154,8 +181,7 @@ export default function CareerDashboard() {
             <XAIRoadmapModal 
                 visible={isRoadmapVisible} 
                 onClose={() => setIsRoadmapVisible(false)} 
-                readiness={readiness} 
-                latestSGI={latestSGI} 
+                pathway={selectedPathway}
             />
         </ScrollView>
     );
@@ -189,11 +215,11 @@ const styles = StyleSheet.create({
     progressFooterText: { fontSize: 11, color: '#94A3B8' },
 
     // Action Card
-    actionCard: { flexDirection: 'row', backgroundColor: '#2E7D32', padding: 20, borderRadius: 16, alignItems: 'center', marginBottom: 25, elevation: 4, shadowColor: '#2E7D32', shadowOpacity: 0.3, shadowRadius: 6 },
+    actionCard: { flexDirection: 'row', backgroundColor: '#1E3A8A', padding: 20, borderRadius: 16, alignItems: 'center', marginBottom: 25, elevation: 4, shadowColor: '#1E3A8A', shadowOpacity: 0.3, shadowRadius: 6 },
     actionIcon: { backgroundColor: 'rgba(255,255,255,0.2)', padding: 12, borderRadius: 12, marginRight: 15 },
     actionTextContainer: { flex: 1 },
     actionTitle: { color: '#FFFFFF', fontSize: 18, fontWeight: 'bold', marginBottom: 4 },
-    actionDesc: { color: '#E8F5E9', fontSize: 13, lineHeight: 18, paddingRight: 10 },
+    actionDesc: { color: '#DBEAFE', fontSize: 13, lineHeight: 18, paddingRight: 10 },
 
     // Quick Actions
     sectionTitle: { fontSize: 18, fontWeight: 'bold', color: '#1E293B', marginBottom: 15 },
@@ -205,10 +231,10 @@ const styles = StyleSheet.create({
     // History Section
     historySection: { flex: 1 },
     historyHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 },
-    viewAllText: { color: '#2E7D32', fontSize: 13, fontWeight: '600' },
+    viewAllText: { color: '#1E3A8A', fontSize: 13, fontWeight: '600' },
     
     historyCard: { flexDirection: 'row', backgroundColor: '#FFFFFF', padding: 16, borderRadius: 16, alignItems: 'center', marginBottom: 12, elevation: 1, shadowColor: '#000', shadowOpacity: 0.03, shadowRadius: 3 },
-    historyCardIcon: { backgroundColor: '#E8F5E9', padding: 12, borderRadius: 12, marginRight: 15 },
+    historyCardIcon: { backgroundColor: '#DBEAFE', padding: 12, borderRadius: 12, marginRight: 15 },
     historyCardContent: { flex: 1 },
     historyRole: { fontSize: 15, fontWeight: 'bold', color: '#1E293B', marginBottom: 4 },
     historyDate: { fontSize: 12, color: '#64748B' },

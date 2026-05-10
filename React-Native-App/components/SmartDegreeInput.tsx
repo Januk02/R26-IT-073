@@ -70,7 +70,7 @@ export default function SmartDegreeInput({ onDegreeChange, apiBaseUrl }: Props) 
                     placeholder="e.g. BSc in IT, Master in CS..."
                     placeholderTextColor="#94A3B8"
                 />
-                {isLoading && <ActivityIndicator size="small" color="#2E7D32" style={styles.spinner} />}
+                {isLoading && <ActivityIndicator size="small" color="#1E3A8A" style={styles.spinner} />}
                 {isSelected && (
                     <TouchableOpacity onPress={clearDegree} style={styles.clearBtn}>
                         <Ionicons name="close-circle" size={20} color="#64748B" />
@@ -88,7 +88,7 @@ export default function SmartDegreeInput({ onDegreeChange, apiBaseUrl }: Props) 
                 <ScrollView style={styles.suggestionBox} keyboardShouldPersistTaps="handled" nestedScrollEnabled={true}>
                     {suggestions.map((item, index) => (
                         <TouchableOpacity key={index} style={styles.suggestionItem} onPress={() => selectDegree(item)}>
-                            <Ionicons name="school-outline" size={16} color="#2E7D32" style={{ marginRight: 10 }} />
+                            <Ionicons name="school-outline" size={16} color="#1E3A8A" style={{ marginRight: 10 }} />
                             <Text style={styles.suggestionText}>{item}</Text>
                         </TouchableOpacity>
                     ))}
@@ -102,11 +102,11 @@ const styles = StyleSheet.create({
     container: { position: 'relative', zIndex: 40 },
     inputRow: { position: 'relative' },
     input: { backgroundColor: '#FFFFFF', borderWidth: 1, borderColor: '#E2E8F0', borderRadius: 12, padding: 14, fontSize: 16, color: '#1E293B', paddingRight: 40 },
-    inputSelected: { borderColor: '#2E7D32', backgroundColor: '#E8F5E9' },
+    inputSelected: { borderColor: '#1E3A8A', backgroundColor: '#DBEAFE' },
     spinner: { position: 'absolute', right: 14, top: 16 },
     clearBtn: { position: 'absolute', right: 14, top: 16 },
     hint: { fontSize: 12, color: '#94A3B8', marginTop: 6, marginLeft: 4 },
-    suggestionBox: { position: 'absolute', top: '100%', left: 0, right: 0, backgroundColor: '#FFFFFF', borderRadius: 12, marginTop: 5, elevation: 5, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 10, maxHeight: 200, zIndex: 100, borderWidth: 1, borderColor: '#C8E6C9' },
+    suggestionBox: { position: 'absolute', bottom: '100%', left: 0, right: 0, backgroundColor: '#FFFFFF', borderRadius: 12, marginBottom: 5, elevation: 5, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 10, maxHeight: 200, zIndex: 100, borderWidth: 1, borderColor: '#BFDBFE' },
     suggestionItem: { flexDirection: 'row', alignItems: 'center', padding: 15, borderBottomWidth: 1, borderBottomColor: '#F8FAFC' },
     suggestionText: { color: '#1E293B', fontSize: 15, fontWeight: '500' }
 });

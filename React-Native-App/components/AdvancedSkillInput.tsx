@@ -79,7 +79,7 @@ export default function AdvancedSkillInput({ onSkillsChange, apiBaseUrl }: Props
                     <Animated.View key={index} entering={FadeIn.duration(200)} exiting={FadeOut.duration(200)} style={styles.chip}>
                         <Text style={styles.chipText}>{skill}</Text>
                         <TouchableOpacity onPress={() => removeSkill(skill)}>
-                            <Ionicons name="close-circle" size={18} color="#2E7D32" />
+                            <Ionicons name="close-circle" size={18} color="#1E3A8A" />
                         </TouchableOpacity>
                     </Animated.View>
                 ))}
@@ -93,14 +93,14 @@ export default function AdvancedSkillInput({ onSkillsChange, apiBaseUrl }: Props
                     placeholder={skills.length === 0 ? "Type a skill and press comma or space..." : "Add another skill..."}
                     placeholderTextColor="#94A3B8"
                 />
-                {isLoading && <ActivityIndicator size="small" color="#2E7D32" style={styles.spinner} />}
+                {isLoading && <ActivityIndicator size="small" color="#1E3A8A" style={styles.spinner} />}
             </View>
 
             {suggestions.length > 0 && (
                 <ScrollView style={styles.suggestionBox} keyboardShouldPersistTaps="handled" nestedScrollEnabled={true}>
                     {suggestions.map((item, index) => (
                         <TouchableOpacity key={index} style={styles.suggestionItem} onPress={() => addSkill(item)}>
-                            <Ionicons name="flash-outline" size={16} color="#2E7D32" style={{ marginRight: 10 }} />
+                            <Ionicons name="flash-outline" size={16} color="#1E3A8A" style={{ marginRight: 10 }} />
                             <Text style={styles.suggestionText}>{item}</Text>
                         </TouchableOpacity>
                     ))}
@@ -113,12 +113,12 @@ export default function AdvancedSkillInput({ onSkillsChange, apiBaseUrl }: Props
 const styles = StyleSheet.create({
     container: { position: 'relative', zIndex: 50 },
     chipContainer: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 12 },
-    chip: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#E8F5E9', paddingVertical: 6, paddingHorizontal: 12, borderRadius: 16, gap: 6 },
-    chipText: { color: '#2E7D32', fontWeight: '700', fontSize: 14 },
+    chip: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#DBEAFE', paddingVertical: 6, paddingHorizontal: 12, borderRadius: 16, gap: 6 },
+    chipText: { color: '#1E40AF', fontWeight: '700', fontSize: 14 },
     inputRow: { position: 'relative' },
     input: { backgroundColor: '#FFFFFF', borderWidth: 1, borderColor: '#E2E8F0', borderRadius: 12, padding: 14, fontSize: 16, color: '#1E293B' },
     spinner: { position: 'absolute', right: 14, top: 16 },
-    suggestionBox: { position: 'absolute', top: '100%', left: 0, right: 0, backgroundColor: '#FFFFFF', borderRadius: 12, marginTop: 5, elevation: 5, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 10, maxHeight: 200, zIndex: 100, borderWidth: 1, borderColor: '#C8E6C9' },
+    suggestionBox: { position: 'absolute', bottom: '100%', left: 0, right: 0, backgroundColor: '#FFFFFF', borderRadius: 12, marginBottom: 5, elevation: 5, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 10, maxHeight: 200, zIndex: 100, borderWidth: 1, borderColor: '#BFDBFE' },
     suggestionItem: { flexDirection: 'row', alignItems: 'center', padding: 15, borderBottomWidth: 1, borderBottomColor: '#F8FAFC' },
     suggestionText: { color: '#1E293B', fontSize: 16, fontWeight: '500' }
 });
