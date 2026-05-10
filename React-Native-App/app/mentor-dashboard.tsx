@@ -111,7 +111,7 @@ export default function MentorDashboardScreen() {
         tier: getMedalTier(doc.data().overallScore),
       }));
 
-      const allVerifications = [...interviews, ...cvs].sort((a, b) => 
+      const allVerifications = [...interviews, ...cvs].sort((a, b) =>
         new Date(b.date).getTime() - new Date(a.date).getTime()
       );
 
@@ -241,19 +241,19 @@ export default function MentorDashboardScreen() {
   };
 
   const handleCreateCourse = () => {
-    router.push('/create-course');
+    router.push('/create-course' as any);
   };
 
   const handleViewMessages = () => {
-    router.push('/messages');
+    router.push('/messages' as any);
   };
 
   const handleViewAssignments = () => {
-    router.push('/assignments');
+    router.push('/assignments' as any);
   };
 
   const handleViewStudents = () => {
-    router.push('/my-students');
+    router.push('/my-students' as any);
   };
 
   if (loading) {
@@ -347,15 +347,15 @@ export default function MentorDashboardScreen() {
               <Text style={styles.viewAllText}>View All</Text>
             </TouchableOpacity>
           </View>
-          
+
           {/* Medals Display */}
           <View style={styles.medalsContainer}>
             {stats.highestTier && stats.highestTier !== 'participant' ? (
               <View style={styles.bestMedalContainer}>
                 {/* Show medal image if available, otherwise show emoji */}
                 {medalImages[stats.highestTier] ? (
-                  <Image 
-                    source={medalImages[stats.highestTier]} 
+                  <Image
+                    source={medalImages[stats.highestTier]}
                     style={styles.medalImage}
                     resizeMode="contain"
                   />
@@ -452,7 +452,7 @@ export default function MentorDashboardScreen() {
             {/* Quick Actions */}
             <View style={styles.quickActionsSection}>
               <Text style={styles.quickActionsTitle}>Quick Actions</Text>
-              
+
               <TouchableOpacity style={styles.quickActionButton} onPress={handleStartVerification}>
                 <View style={[styles.quickActionIcon, { backgroundColor: '#ede9fe' }]}>
                   <Ionicons name="shield-checkmark-outline" size={20} color="#7c3aed" />

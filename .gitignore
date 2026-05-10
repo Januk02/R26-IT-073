@@ -25,11 +25,12 @@ __pycache__/
 *.pyd
 
 # Machine Learning Models & Local Data
-
 ai-engine/data/*.json
 ai-engine/models/*.pkl
 ai-engine/models/*.joblib
 
+# Ignore temporary and raw data
+ai-engine/data/raw_*.csv
 # ------------------------------------------
 # 3. Node.js & React (Backend & Frontend)
 # ------------------------------------------

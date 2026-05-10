@@ -37,7 +37,7 @@ export default function LoginScreen() {
 
       // Check if user is a student in Firestore
       const userDoc = await getDoc(doc(db, 'students', user.uid));
-      
+
       if (!userDoc.exists()) {
         Alert.alert('Access Denied', 'This account is not registered as a student');
         await auth.signOut();
@@ -53,11 +53,11 @@ export default function LoginScreen() {
 
       // Login successful, navigate to dashboard
       Alert.alert('Success', 'Welcome back!');
-      router.replace('/(tabs)/dashboard');
+      router.replace('/home');
 
     } catch (error: any) {
       let errorMessage = 'An error occurred during login';
-      
+
       switch (error.code) {
         case 'auth/user-not-found':
           errorMessage = 'No account found with this email';
@@ -74,7 +74,7 @@ export default function LoginScreen() {
         default:
           errorMessage = error.message;
       }
-      
+
       Alert.alert('Login Failed', errorMessage);
     } finally {
       setLoading(false);
@@ -82,8 +82,8 @@ export default function LoginScreen() {
   };
 
   return (
-    <KeyboardAvoidingView 
-      style={styles.container} 
+    <KeyboardAvoidingView
+      style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -116,8 +116,8 @@ export default function LoginScreen() {
               />
             </View>
 
-            <TouchableOpacity 
-              style={[styles.loginButton, loading && styles.disabledButton]} 
+            <TouchableOpacity
+              style={[styles.loginButton, loading && styles.disabledButton]}
               onPress={handleLogin}
               disabled={loading}
             >
