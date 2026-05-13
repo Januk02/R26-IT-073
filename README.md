@@ -58,7 +58,7 @@ StudyFyX is a state-of-the-art, AI-driven mobile ecosystem engineered to solve t
 ---
 
 ## Architecture
-
+```text
 ┌───────────────────────────────────────────────────────────────────────┐
 │                        React Native Mobile App                        │
 │   Degree Advisor │ Skill-Gap Analyzer │ Mentorship │ Study Planner    │
@@ -80,7 +80,7 @@ StudyFyX is a state-of-the-art, AI-driven mobile ecosystem engineered to solve t
     │ & Cloud DB  │    │ Knowledge   │   │  Mentors DB │ │ Health DB │
     │ (Firestore) │    │   Graph     │   │ (PostgreSQL)│ │ (MongoDB) │
     └─────────────┘    └─────────────┘   └─────────────┘ └───────────┘
-
+```
 ##Project Structure
 
 📦 R26-IT-073 (StudyFyX)
