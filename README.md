@@ -83,6 +83,7 @@ StudyFyX is a state-of-the-art, AI-driven mobile ecosystem engineered to solve t
 ```
 ##Project Structure
 
+```text
 📦 R26-IT-073 (StudyFyX)
  ┣ 📂 mobile-app                 # Unified React Native / Expo Frontend
  ┃ ┣ 📂 src
@@ -97,7 +98,7 @@ StudyFyX is a state-of-the-art, AI-driven mobile ecosystem engineered to solve t
  ┃ ┗ 📂 study-planner-api        # Workload & Stress Analysis API
  ┣ 📂 data-pipeline              # Shared data sources, scrapers, and CSVs
  ┗ 📜 README.md                  # Master project documentation
-
+```
 
 ## Tech Stack
 ## Frontend
