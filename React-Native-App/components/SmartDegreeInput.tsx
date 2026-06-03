@@ -99,7 +99,7 @@ export default function SmartDegreeInput({ onDegreeChange, apiBaseUrl }: Props) 
 }
 
 const styles = StyleSheet.create({
-    container: { position: 'relative', zIndex: 40 },
+    container: { position: 'relative', zIndex: 60 },
     inputRow: { position: 'relative' },
     input: { backgroundColor: '#FFFFFF', borderWidth: 1, borderColor: '#E2E8F0', borderRadius: 12, padding: 14, fontSize: 16, color: '#1E293B', paddingRight: 40 },
     inputSelected: { borderColor: '#1E3A8A', backgroundColor: '#DBEAFE' },

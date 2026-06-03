@@ -9,7 +9,7 @@ export default function HomeScreen() {
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.welcomeText}>Welcome to EduSoul</Text>
+                <Text style={styles.welcomeText}>Welcome to StudyFyx</Text>
                 <Text style={styles.subtitleText}>What would you like to focus on today?</Text>
             </View>
 
@@ -17,7 +17,7 @@ export default function HomeScreen() {
                 {/* Module 1: Degree Advisor */}
                 <TouchableOpacity
                     style={styles.card}
-                     onPress={() => router.push('/(member1)')}
+                    onPress={() => router.push('/(member1)')}
                 >
                     <View style={[styles.iconContainer, { backgroundColor: '#e3f2fd' }]}>
                         <Ionicons name="school-outline" size={32} color="#1976d2" />
