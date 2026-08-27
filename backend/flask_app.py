@@ -570,8 +570,6 @@ def extract_personality_traits_from_text(description, detected_traits):
                 personality_scores['competition'] = min(5, personality_scores['competition'] + 3)
                 personality_scores['leadership'] = min(5, personality_scores['leadership'] + 2)
                 personality_scores['risk_taking'] = min(5, personality_scores['risk_taking'] + 1)
-    
-    return personality_scores
                 
             # Communication traits
             elif 'communicator' in trait_lower or 'great communicator' in trait_lower:
@@ -601,7 +599,6 @@ def extract_personality_traits_from_text(description, detected_traits):
                 personality_scores['analytical'] = min(5, personality_scores['analytical'] + 1)
                 personality_scores['leadership'] = min(5, personality_scores['leadership'] + 1)
     
-    return personality_scores
 
 def analyze_personality_description(description):
     """Analyze personality description for traits"""
@@ -925,7 +922,6 @@ class BackwardChainingModel:
             student_level = trait_mapping.get(trait, 0.6)
             personality_scores[trait] = min(1.0, student_level / required_level)
         
-        return personality_scores
 
     def _calculate_academic_feasibility(self, career_info, student_profile):
         """Calculate academic feasibility scores"""
@@ -1097,6 +1093,268 @@ def home():
 @app.route('/health')
 def health_check():
     return jsonify({"status": "healthy", "model_loaded": True})
+
+def get_backward_analysis(dream_job):
+    """Get backward analysis for dream job from backend model"""
+    
+    # Comprehensive job analysis database
+    job_analysis = {
+        "Software Engineer": {
+            "required_education": "Bachelor's degree in Computer Science, Software Engineering, or related field",
+            "key_skills": ["Programming", "Problem Solving", "System Design", "Team Collaboration", "Continuous Learning"],
+            "career_path": "👨‍💻 Junior Developer → 💻 Software Engineer → 🚀 Senior Engineer → 👨‍💼 Tech Lead → 🏢 CTO",
+            "industries": ["Technology", "Finance", "Healthcare", "E-commerce", "Startups"],
+            "timeline": "4 years degree + 2-4 years experience for senior roles",
+            "salary_range": "$70,000 - $200,000+ depending on experience and location"
+        },
+        "Doctor": {
+            "required_education": "MBBS/MD degree + Medical residency (3-7 years)",
+            "key_skills": ["Medical Knowledge", "Patient Care", "Diagnostic Skills", "Communication", "Empathy"],
+            "career_path": "🎓 Medical Student → 🏥 Intern → 🩺 Resident → 🧑‍⚕️ Specialist → 👨‍⚕️ Consultant",
+            "industries": ["Healthcare", "Hospitals", "Research", "Public Health", "Private Practice"],
+            "timeline": "5-6 years medical school + 3-7 years residency",
+            "salary_range": "$150,000 - $500,000+ depending on specialization"
+        },
+        "Data Scientist": {
+            "required_education": "Bachelor's/Master's degree in Computer Science, Statistics, Mathematics, or related field",
+            "key_skills": ["Statistics", "Programming (Python, R)", "Machine Learning", "Data Visualization", "Business Acumen"],
+            "career_path": "📊 Junior Data Scientist → 📈 Data Scientist → 📊 Senior Data Scientist → 📊 Lead Data Scientist → 🏢 Chief Data Officer",
+            "industries": ["Technology", "Finance", "Healthcare", "E-commerce", "Research"],
+            "timeline": "4-6 years education + 2-4 years experience for senior roles",
+            "salary_range": "$85,000 - $200,000+ depending on experience and industry"
+        },
+        "AI Engineer": {
+            "required_education": "Bachelor's/Master's degree in Computer Science, AI, or Machine Learning",
+            "key_skills": ["Machine Learning", "Deep Learning", "Python", "Neural Networks", "Data Science"],
+            "career_path": "🤖 Junior AI Engineer → 🧠 AI Engineer → 🚀 Senior AI Engineer → 🎯 AI Lead → 🏢 AI Director",
+            "industries": ["Technology", "Healthcare", "Finance", "Automotive", "Research"],
+            "timeline": "4-6 years education + 2-4 years experience for senior roles",
+            "salary_range": "$90,000 - $250,000+ depending on expertise and industry"
+        },
+        "Teacher": {
+            "required_education": "Bachelor's degree + Teaching Certification/License",
+            "key_skills": ["Subject Matter Expertise", "Communication", "Patience", "Lesson Planning", "Classroom Management"],
+            "career_path": "📚 Student Teacher → 👩‍🏫 Teacher → 🎓 Department Head → 🏫 Principal → 🏢 District Administrator",
+            "industries": ["Education", "Private Tutoring", "Curriculum Development", "Educational Technology"],
+            "timeline": "4 years degree + 1-2 years certification",
+            "salary_range": "$40,000 - $80,000+ depending on location and level"
+        },
+        "Business Manager": {
+            "required_education": "Bachelor's degree in Business Administration, Management, or related field",
+            "key_skills": ["Leadership", "Strategic Planning", "Financial Analysis", "Communication", "Decision Making"],
+            "career_path": "💼 Management Trainee → 👔 Manager → 👨‍💼 Senior Manager → 👨‍💼 Director → 🏢 VP → 🏢 CEO",
+            "industries": ["Corporate", "Retail", "Manufacturing", "Technology", "Consulting"],
+            "timeline": "4 years degree + 3-5 years experience for management roles",
+            "salary_range": "$70,000 - $200,000+ depending on company size and industry"
+        },
+        "Nurse": {
+            "required_education": "Bachelor of Science in Nursing + Nursing License",
+            "key_skills": ["Patient Care", "Medical Knowledge", "Communication", "Empathy", "Critical Thinking"],
+            "career_path": "🩺 Staff Nurse → 🏥 Charge Nurse → 👩‍⚕️ Nurse Manager → 👨‍⚕️ Director of Nursing → 👩‍⚕️ Chief Nursing Officer",
+            "industries": ["Hospitals", "Clinics", "Home Healthcare", "Schools", "Community Health"],
+            "timeline": "4 years nursing degree + licensing exam",
+            "salary_range": "$55,000 - $95,000+ depending on specialization and location"
+        },
+        "Accountant": {
+            "required_education": "Bachelor's degree in Accounting or Finance + CPA (optional)",
+            "key_skills": ["Accounting Principles", "Financial Analysis", "Attention to Detail", "Tax Knowledge", "Software Proficiency"],
+            "career_path": "🧮 Staff Accountant → 📊 Senior Accountant → 👨‍💼 Manager → 🏢 Controller → 💼 CFO",
+            "industries": ["Accounting", "Finance", "Corporate", "Government", "Non-profit"],
+            "timeline": "4 years degree + CPA certification (1-2 years)",
+            "salary_range": "$50,000 - $120,000+ depending on certification and experience"
+        },
+        "Financial Analyst": {
+            "required_education": "Bachelor's degree in Finance, Economics, or Business + CFA (optional)",
+            "key_skills": ["Financial Analysis", "Excel Modeling", "Market Research", "Risk Assessment", "Communication"],
+            "career_path": "📊 Junior Analyst → 📈 Financial Analyst → 📊 Senior Analyst → 👨‍💼 Manager → 👨‍💼 Director",
+            "industries": ["Finance", "Banking", "Investment", "Corporate", "Consulting"],
+            "timeline": "4 years degree + CFA certification + 2-4 years experience",
+            "salary_range": "$65,000 - $130,000+ depending on certification and industry"
+        },
+        "Architect": {
+            "required_education": "Bachelor's degree in Architecture + Architect License",
+            "key_skills": ["Design", "Mathematics", "Project Management", "Communication", "Technical Drawing"],
+            "career_path": "🎓 Intern Architect → 🏗 Licensed Architect → 👷 Senior Architect → 🏗 Project Manager → 🏢 Firm Partner",
+            "industries": ["Architecture", "Construction", "Urban Planning", "Interior Design", "Real Estate"],
+            "timeline": "5 years degree + 3 years internship + license exam",
+            "salary_range": "$60,000 - $150,000+ depending on experience and location"
+        },
+        "Engineer": {
+            "required_education": "Bachelor's degree in Engineering (Civil, Mechanical, Electrical, etc.)",
+            "key_skills": ["Technical Design", "Problem Solving", "Project Management", "Mathematics", "Innovation"],
+            "career_path": "🔧 Junior Engineer → ⚙️ Engineer → 👷 Senior Engineer → 🏗 Project Manager → 🏗 Engineering Director",
+            "industries": ["Construction", "Manufacturing", "Technology", "Energy", "Consulting"],
+            "timeline": "4 years degree + 3-5 years experience for senior roles",
+            "salary_range": "$65,000 - $150,000+ depending on specialization and industry"
+        },
+        "Lawyer": {
+            "required_education": "Bachelor's degree + Juris Doctor (JD) + Bar License",
+            "key_skills": ["Legal Research", "Argumentation", "Writing", "Analytical Thinking", "Client Relations"],
+            "career_path": "⚖️ Law Student → 🧑‍⚖️ Associate → 🤝 Partner → 👨‍⚖️ Senior Partner → 👨‍⚖️ Managing Partner",
+            "industries": ["Law Firms", "Corporate Legal", "Government", "Non-profit", "Academia"],
+            "timeline": "4 years bachelor's + 3 years law school + bar exam",
+            "salary_range": "$80,000 - $300,000+ depending on specialization and firm size"
+        },
+        "Psychologist": {
+            "required_education": "Bachelor's degree + Master's/PhD in Psychology + License",
+            "key_skills": ["Counseling", "Assessment", "Research", "Empathy", "Communication"],
+            "career_path": "🧠 Intern → 🧑‍⚕️ Psychologist → 👨‍⚕️ Senior Psychologist → 🏥 Clinical Director → 🏢 Practice Owner",
+            "industries": ["Healthcare", "Education", "Research", "Private Practice", "Corporate"],
+            "timeline": "6-8 years education + licensing + 2-4 years experience",
+            "salary_range": "$60,000 - $120,000+ depending on specialization and setting"
+        },
+        "Marketing Manager": {
+            "required_education": "Bachelor's degree in Marketing, Business, or Communications",
+            "key_skills": ["Marketing Strategy", "Communication", "Analytics", "Creativity", "Leadership"],
+            "career_path": "📢 Marketing Coordinator → 📈 Manager → 📊 Senior Manager → 👨‍💼 Director → 🏢 CMO",
+            "industries": ["Technology", "Retail", "Manufacturing", "Services", "Advertising"],
+            "timeline": "4 years degree + 3-5 years experience for management roles",
+            "salary_range": "$60,000 - $150,000+ depending on industry and company size"
+        },
+        "Entrepreneur": {
+            "required_education": "High school diploma + Business training/certification (varies by industry)",
+            "key_skills": ["Business Planning", "Leadership", "Risk Management", "Innovation", "Financial Management"],
+            "career_path": "🚀 Startup Founder → 🏪 Small Business Owner → 📈 Scale-up → 🌟 Serial Entrepreneur",
+            "industries": ["Technology", "Retail", "Services", "Manufacturing", "Consulting"],
+            "timeline": "Variable - depends on business model and industry",
+            "salary_range": "$30,000 - $500,000+ depending on business success"
+        },
+        "Pilot": {
+            "required_education": "High school diploma + Flight School + Commercial Pilot License",
+            "key_skills": ["Aviation", "Navigation", "Communication", "Decision Making", "Technical Skills"],
+            "career_path": "🎓 Student Pilot → ✈️ Commercial Pilot → 👨‍✈️ Captain → 👨‍🏫 Flight Instructor → 🏢 Airline Management",
+            "industries": ["Aviation", "Transportation", "Tourism", "Military", "Cargo"],
+            "timeline": "1-2 years flight school + 1500+ flight hours",
+            "salary_range": "$80,000 - $250,000+ depending on aircraft type and airline"
+        },
+        "Chef": {
+            "required_education": "High school diploma + Culinary School (2-4 years)",
+            "key_skills": ["Cooking", "Menu Planning", "Kitchen Management", "Creativity", "Time Management"],
+            "career_path": "🍳 Line Cook → 👨‍🍳 Chef → 👨‍🍳 Executive Chef → 🏪 Restaurant Owner → 🍽 Culinary Director",
+            "industries": ["Restaurants", "Hotels", "Catering", "Food Service", "Entertainment"],
+            "timeline": "2-4 years culinary school + 3-5 years experience",
+            "salary_range": "$35,000 - $100,000+ depending on establishment and experience"
+        },
+        "Artist": {
+            "required_education": "High school diploma + Art School/Training (2-4 years, optional)",
+            "key_skills": ["Artistic Skills", "Creativity", "Portfolio Development", "Marketing", "Business Skills"],
+            "career_path": "🎨 Emerging Artist → 👨‍🎨 Professional Artist → 🖼️ Gallery Owner → 🎨 Art Director",
+            "industries": ["Arts", "Entertainment", "Design", "Education", "Freelance"],
+            "timeline": "2-4 years training + portfolio development",
+            "salary_range": "$30,000 - $80,000+ depending on medium and success"
+        },
+        "Writer": {
+            "required_education": "Bachelor's degree in Journalism, English, Communications (optional but recommended)",
+            "key_skills": ["Writing", "Research", "Editing", "Communication", "Creativity"],
+            "career_path": "✍️ Junior Writer → 📝 Staff Writer → 📊 Senior Writer → ✏️ Editor → 📚 Author/Publisher",
+            "industries": ["Media", "Publishing", "Technology", "Corporate", "Freelance"],
+            "timeline": "4 years degree + 2-5 years experience",
+            "salary_range": "$35,000 - $100,000+ depending on medium and success"
+        },
+        "Photographer": {
+            "required_education": "High school diploma + Photography training/certification (optional)",
+            "key_skills": ["Photography", "Photo Editing", "Lighting", "Composition", "Business Skills"],
+            "career_path": "📷 Assistant Photographer → 📸 Photographer → 📷 Senior Photographer → 🖼️ Studio Owner → 🎨 Creative Director",
+            "industries": ["Media", "Advertising", "Fashion", "Events", "Freelance"],
+            "timeline": "6 months-2 years training + portfolio development",
+            "salary_range": "$30,000 - $80,000+ depending on specialization and client base"
+        },
+        "Videographer": {
+            "required_education": "High school diploma + Video Production training",
+            "key_skills": ["Video Production", "Editing", "Camera Operation", "Storytelling", "Audio Engineering"],
+            "career_path": "📹 Assistant Videographer → 🎥 Videographer → 📷 Senior Videographer → 🎬 Director → 🏗 Production Manager",
+            "industries": ["Media", "Advertising", "Events", "Corporate", "Film Industry"],
+            "timeline": "1-2 years training + portfolio building",
+            "salary_range": "$35,000 - $85,000+ depending on experience and industry"
+        },
+        "Fashion Designer": {
+            "required_education": "Bachelor's degree in Fashion Design or related field",
+            "key_skills": ["Design", "Sketching", "Sewing", "Trend Analysis", "Business Management"],
+            "career_path": "🎨 Assistant Designer → 👗 Designer → 🎨 Senior Designer → 🎯 Creative Director → 🏢 Brand Owner",
+            "industries": ["Fashion", "Retail", "Entertainment", "Costume Design", "Bridal"],
+            "timeline": "4 years degree + portfolio + 2-5 years experience",
+            "salary_range": "$45,000 - $120,000+ depending on brand and experience"
+        },
+        "Interior Designer": {
+            "required_education": "Bachelor's degree in Interior Design + License/Certification",
+            "key_skills": ["Design", "Space Planning", "CAD Software", "Project Management", "Client Communication"],
+            "career_path": "🎨 Junior Designer → 🏗 Interior Designer → 👷 Senior Designer → 🏗 Project Manager → 🏢 Firm Partner",
+            "industries": ["Interior Design", "Architecture", "Real Estate", "Hospitality", "Retail"],
+            "timeline": "4 years degree + licensing + 2-4 years experience",
+            "salary_range": "$50,000 - $100,000+ depending on projects and location"
+        },
+        "Electrician": {
+            "required_education": "High school diploma + Electrical Apprenticeship + License",
+            "key_skills": ["Electrical Systems", "Safety Protocols", "Troubleshooting", "Reading Blueprints", "Customer Service"],
+            "career_path": "⚡ Apprentice → 🔧 Journeyman → ⚡ Master Electrician → 🏗 Contractor → 🏪 Business Owner",
+            "industries": ["Construction", "Maintenance", "Manufacturing", "Utilities", "Residential"],
+            "timeline": "4-5 years apprenticeship + licensing",
+            "salary_range": "$45,000 - $85,000+ depending on specialization and location"
+        },
+        "Mechanic": {
+            "required_education": "High school diploma + Technical Training + Certification",
+            "key_skills": ["Automotive Repair", "Diagnostics", "Mechanical Skills", "Customer Service", "Technology"],
+            "career_path": "🔧 Apprentice Mechanic → ⚙️ Mechanic → 👨‍🔧 Senior Mechanic → 🏪 Shop Manager → 🏪 Owner",
+            "industries": ["Automotive", "Transportation", "Equipment Repair", "Dealerships", "Independent Shops"],
+            "timeline": "1-2 years technical training + 2-4 years experience",
+            "salary_range": "$35,000 - $75,000+ depending on specialization and location"
+        },
+        "Construction Manager": {
+            "required_education": "Bachelor's degree in Construction Management + Experience",
+            "key_skills": ["Project Management", "Construction Knowledge", "Budgeting", "Safety", "Leadership"],
+            "career_path": "🏗 Assistant Manager → 🏗 Construction Manager → 👷 Senior Manager → 🏗 Project Director → 🏢 VP Operations",
+            "industries": ["Construction", "Real Estate Development", "Infrastructure", "Government", "Commercial"],
+            "timeline": "4 years degree + 5-8 years experience",
+            "salary_range": "$70,000 - $150,000+ depending on project size and location"
+        },
+        "Sports Coach": {
+            "required_education": "Bachelor's degree in Physical Education, Sports Science, or related field + Coaching Certifications",
+            "key_skills": ["Sports Knowledge", "Training Techniques", "Leadership", "Communication", "Strategy"],
+            "career_path": "🏃 Assistant Coach → ⚽ Coach → 👨‍⚽ Head Coach → 🏃 Athletic Director → 🏢 Sports Director",
+            "industries": ["Sports", "Education", "Recreation", "Fitness", "Professional Sports"],
+            "timeline": "4 years degree + coaching certifications + 3-5 years experience",
+            "salary_range": "$35,000 - $90,000+ depending on sport and level"
+        },
+        "Fitness Trainer": {
+            "required_education": "High school diploma + Fitness Certification",
+            "key_skills": ["Exercise Science", "Nutrition", "Motivation", "Safety", "Business Skills"],
+            "career_path": "🏋 Trainer → 👨‍🏋 Senior Trainer → 🏃 Fitness Manager → 🖼️ Studio Owner → 🌐 Regional Manager",
+            "industries": ["Fitness", "Health Clubs", "Corporate Wellness", "Personal Training", "Recreation"],
+            "timeline": "3-6 months certification + 1-3 years experience",
+            "salary_range": "$30,000 - $70,000+ depending on certification and client base"
+        }
+    }
+    
+    return job_analysis.get(dream_job, {
+        "required_education": "Education requirements vary by field and employer",
+        "key_skills": ["Field-specific skills", "Communication", "Problem Solving", "Continuous Learning"],
+        "career_path": "Career progression depends on industry and individual performance",
+        "industries": "Various industries depending on specialization",
+        "timeline": "Varies by field and career path",
+        "salary_range": "Salary ranges vary significantly by industry and location"
+    })
+
+@app.route('/backward-analysis', methods=['POST'])
+def get_backward_analysis_endpoint():
+    """Get backward analysis for a specific dream job"""
+    try:
+        data = request.get_json()
+        dream_job = data.get('dream_job', '')
+        
+        if not dream_job:
+            return jsonify({"error": "Dream job is required"}), 400
+        
+        # Get backward analysis from backend model
+        analysis = get_backward_analysis(dream_job)
+        
+        return jsonify({
+            "dream_job": dream_job,
+            "backward_analysis": analysis,
+            "source": "backend_model"
+        }), 200
+        
+    except Exception as e:
+        return jsonify({"error": f"Error in backward analysis: {str(e)}"}), 500
 
 @app.route('/recommend', methods=['POST'])
 def get_recommendations():
@@ -1312,4 +1570,4 @@ if __name__ == "__main__":
     print("🔗 Health Check: http://localhost:8005/health")
     print("📝 Recommendations: http://localhost:8005/recommend")
     
-    app.run(host='0.0.0.0', port=8005, debug=True)
+    app.run(host='0.0.0.0', port=8006, debug=True)

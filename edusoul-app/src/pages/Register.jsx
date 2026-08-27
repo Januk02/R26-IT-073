@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 
-const Register = ({ onNavigateToLogin }) => {
+const Register = ({ onNavigateToLogin, onNavigateToHome, initialRole = 'student' }) => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     email: '',
     password: '',
     confirmPassword: '',
-    role: 'student',
+    role: initialRole,
     phone: '',
     bio: ''
   });
@@ -95,6 +95,15 @@ const Register = ({ onNavigateToLogin }) => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 via-white to-purple-50 px-4 py-8">
       <div className="max-w-2xl w-full bg-white rounded-2xl shadow-xl p-8 space-y-6 border border-purple-100">
+        {onNavigateToHome && (
+          <button
+            type="button"
+            onClick={onNavigateToHome}
+            className="flex items-center gap-2 text-gray-500 hover:text-gray-800 text-sm font-medium transition-colors duration-200"
+          >
+            ← Back to Home
+          </button>
+        )}
         <div className="text-center">
           <div className="mx-auto w-16 h-16 bg-gradient-to-br from-purple-600 to-purple-800 rounded-full flex items-center justify-center mb-4">
             <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -102,7 +111,7 @@ const Register = ({ onNavigateToLogin }) => {
             </svg>
           </div>
           <h2 className="text-3xl font-bold text-gray-900">Create Account</h2>
-          <p className="text-gray-600 mt-2">Join EduSoul as a Student or Mentor</p>
+          <p className="text-gray-600 mt-2">Join StudyFyx as a Student or Mentor</p>
         </div>
 
         {error && (

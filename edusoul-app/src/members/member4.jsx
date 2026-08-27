@@ -2,7 +2,7 @@
 export const member4 = {
   id: 'member4',
   name: 'Mentor Member 1',
-  email: 'mentor1@edusoul.com',
+  email: 'mentor1@studyfyx.com',
   role: 'mentor',
   dashboard: 'MentorDashboard',
   profile: {

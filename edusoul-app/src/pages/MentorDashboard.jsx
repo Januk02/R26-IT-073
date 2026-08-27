@@ -1,12 +1,37 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import MentorMedals from '../components/MentorMedals';
+import { subscribeToUserChats } from '../services/chatService';
 
-const MentorDashboard = ({ onStartVerification, onViewHistory, onStartCVVerification }) => {
-  const { user, userRole, logout } = useAuth();
+const MentorDashboard = ({ 
+  onStartVerification, 
+  onViewHistory, 
+  onStartCVVerification,
+  onNavigateToMessages 
+}) => {
+  const { user, logout } = useAuth();
+  const [studentChats, setStudentChats] = useState([]);
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  useEffect(() => {
+    if (!user?.uid) return;
+    const unsubscribe = subscribeToUserChats(
+      user.uid,
+      'mentor',
+      (chats) => {
+        setStudentChats(chats);
+        const totalUnread = chats.reduce((acc, c) => acc + (c.unreadMentor || 0), 0);
+        setUnreadCount(totalUnread);
+      }
+    );
+    return () => unsubscribe();
+  }, [user?.uid]);
+
+  const uniqueStudentCount = new Set(studentChats.map(c => c.studentId)).size;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-50">
+      {/* Top Navbar */}
       <nav className="bg-white shadow-sm border-b border-purple-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
@@ -16,9 +41,23 @@ const MentorDashboard = ({ onStartVerification, onViewHistory, onStartCVVerifica
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                 </svg>
               </div>
-              <span className="text-xl font-bold text-gray-900">EduSoul</span>
+              <span className="text-xl font-bold text-gray-900">StudyFyx</span>
             </div>
             <div className="flex items-center gap-4">
+              {onNavigateToMessages && (
+                <button
+                  onClick={onNavigateToMessages}
+                  className="relative p-2 text-purple-700 bg-purple-50 hover:bg-purple-100 rounded-lg transition-colors flex items-center gap-2 text-sm font-semibold"
+                  title="Open Student Messages"
+                >
+                  <span>💬 Messages</span>
+                  {unreadCount > 0 && (
+                    <span className="bg-red-500 text-white text-xs font-extrabold px-1.5 py-0.5 rounded-full">
+                      {unreadCount}
+                    </span>
+                  )}
+                </button>
+              )}
               <div className="text-right">
                 <p className="text-sm font-medium text-gray-900">{user?.email}</p>
                 <p className="text-xs text-purple-600 capitalize font-semibold">Mentor</p>
@@ -39,7 +78,7 @@ const MentorDashboard = ({ onStartVerification, onViewHistory, onStartCVVerifica
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
             Welcome, Mentor!
           </h1>
-          <p className="text-gray-600">Manage your courses and guide students on their learning journey</p>
+          <p className="text-gray-600">Manage your courses, guide students in real-time, and verify your expertise</p>
         </div>
 
         {/* Stats Cards */}
@@ -58,11 +97,14 @@ const MentorDashboard = ({ onStartVerification, onViewHistory, onStartCVVerifica
             </div>
           </div>
 
-          <div className="bg-white rounded-xl shadow-md p-6 border border-purple-100">
+          <div 
+            className="bg-white rounded-xl shadow-md p-6 border border-purple-100 cursor-pointer hover:border-purple-300 transition-all"
+            onClick={onNavigateToMessages}
+          >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Total Students</p>
-                <p className="text-3xl font-bold text-gray-900 mt-1">0</p>
+                <p className="text-sm font-medium text-gray-600">Active Students</p>
+                <p className="text-3xl font-bold text-gray-900 mt-1">{uniqueStudentCount}</p>
               </div>
               <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                 <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -72,15 +114,18 @@ const MentorDashboard = ({ onStartVerification, onViewHistory, onStartCVVerifica
             </div>
           </div>
 
-          <div className="bg-white rounded-xl shadow-md p-6 border border-purple-100">
+          <div 
+            className="bg-white rounded-xl shadow-md p-6 border border-purple-100 cursor-pointer hover:border-purple-300 transition-all"
+            onClick={onNavigateToMessages}
+          >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Pending Reviews</p>
-                <p className="text-3xl font-bold text-gray-900 mt-1">0</p>
+                <p className="text-sm font-medium text-gray-600">Unread Inquiries</p>
+                <p className="text-3xl font-bold text-gray-900 mt-1">{unreadCount}</p>
               </div>
               <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
                 <svg className="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                 </svg>
               </div>
             </div>
@@ -90,7 +135,7 @@ const MentorDashboard = ({ onStartVerification, onViewHistory, onStartCVVerifica
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Avg. Rating</p>
-                <p className="text-3xl font-bold text-gray-900 mt-1">0.0</p>
+                <p className="text-3xl font-bold text-gray-900 mt-1">5.0</p>
               </div>
               <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
                 <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -132,7 +177,6 @@ const MentorDashboard = ({ onStartVerification, onViewHistory, onStartCVVerifica
             </div>
             
             <div className="space-y-4">
-              {/* Course Item */}
               <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
                 <div className="flex items-start justify-between">
                   <div className="flex items-start gap-4">
@@ -149,7 +193,7 @@ const MentorDashboard = ({ onStartVerification, onViewHistory, onStartCVVerifica
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                           </svg>
-                          0 students
+                          {uniqueStudentCount} students
                         </span>
                         <span className="text-xs text-gray-500 flex items-center gap-1">
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -165,48 +209,88 @@ const MentorDashboard = ({ onStartVerification, onViewHistory, onStartCVVerifica
             </div>
           </div>
 
-          {/* Students Section */}
+          {/* Students Section with Live Firebase Chats */}
           <div className="bg-white rounded-xl shadow-md p-6 border border-purple-100">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-semibold text-gray-900">My Students</h2>
-              <button className="text-purple-600 hover:text-purple-800 text-sm font-medium">
-                View All
-              </button>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-semibold text-gray-900">Student Inquiries</h2>
+              {onNavigateToMessages && (
+                <button 
+                  onClick={onNavigateToMessages}
+                  className="text-purple-600 hover:text-purple-800 text-sm font-medium"
+                >
+                  Open Chat Hub →
+                </button>
+              )}
             </div>
             
-            <div className="space-y-4">
-              <div className="bg-gray-50 rounded-lg p-4 border border-gray-200 text-center">
-                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                  </svg>
+            <div className="space-y-3">
+              {studentChats.length === 0 ? (
+                <div className="bg-gray-50 rounded-lg p-4 border border-gray-200 text-center">
+                  <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                  </div>
+                  <p className="text-sm text-gray-600 mb-1">No student messages yet</p>
+                  <p className="text-xs text-gray-500">When students message you from Mentor Hub, their chats appear here in real-time</p>
                 </div>
-                <p className="text-sm text-gray-600 mb-1">No students yet</p>
-                <p className="text-xs text-gray-500">Students will appear here when they enroll</p>
-              </div>
+              ) : (
+                studentChats.slice(0, 3).map((c) => (
+                  <div
+                    key={c.id}
+                    onClick={onNavigateToMessages}
+                    className="p-3 bg-purple-50/60 hover:bg-purple-100/60 rounded-xl border border-purple-100 cursor-pointer transition-all flex items-center justify-between"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-purple-600 to-indigo-600 text-white font-bold flex items-center justify-center text-sm">
+                        {c.studentName?.[0] || 'S'}
+                      </div>
+                      <div>
+                        <div className="font-semibold text-sm text-gray-900">{c.studentName || 'Student'}</div>
+                        <div className="text-xs text-gray-500 truncate max-w-[160px]">{c.lastMessage || 'Sent a message'}</div>
+                      </div>
+                    </div>
+                    {c.unreadMentor > 0 && (
+                      <span className="bg-purple-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                        {c.unreadMentor}
+                      </span>
+                    )}
+                  </div>
+                ))
+              )}
             </div>
 
+            {/* Quick Actions */}
             <div className="mt-6 pt-6 border-t border-gray-200">
               <h3 className="text-sm font-semibold text-gray-900 mb-3">Quick Actions</h3>
               <div className="space-y-2">
                 <button 
+                  onClick={onNavigateToMessages}
+                  className="w-full text-left px-4 py-3 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors flex items-center justify-between border border-purple-200"
+                >
+                  <div className="flex items-center gap-3">
+                    <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                    </svg>
+                    <span className="text-sm font-medium text-purple-700">Open Real-Time Chat Hub</span>
+                  </div>
+                  {unreadCount > 0 && (
+                    <span className="bg-purple-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                      {unreadCount}
+                    </span>
+                  )}
+                </button>
+
+                <button 
                   onClick={onStartVerification}
-                  className="w-full text-left px-4 py-3 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors flex items-center gap-3 border border-purple-200"
+                  className="w-full text-left px-4 py-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors flex items-center gap-3 border border-gray-200"
                 >
                   <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                   </svg>
                   <span className="text-sm font-medium text-purple-700">Start Verification Interview</span>
                 </button>
-                <button 
-                  onClick={onViewHistory}
-                  className="w-full text-left px-4 py-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors flex items-center gap-3"
-                >
-                  <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <span className="text-sm font-medium text-gray-700">View Verification History</span>
-                </button>
+
                 <button 
                   onClick={onStartCVVerification}
                   className="w-full text-left px-4 py-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors flex items-center gap-3 border border-blue-200"
@@ -216,23 +300,15 @@ const MentorDashboard = ({ onStartVerification, onViewHistory, onStartCVVerifica
                   </svg>
                   <span className="text-sm font-medium text-blue-700">Upload CV for Analysis</span>
                 </button>
-                <button className="w-full text-left px-4 py-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors flex items-center gap-3">
+
+                <button 
+                  onClick={onViewHistory}
+                  className="w-full text-left px-4 py-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors flex items-center gap-3"
+                >
                   <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <span className="text-sm font-medium text-gray-700">Create Course</span>
-                </button>
-                <button className="w-full text-left px-4 py-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors flex items-center gap-3">
-                  <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                  </svg>
-                  <span className="text-sm font-medium text-gray-700">View Messages</span>
-                </button>
-                <button className="w-full text-left px-4 py-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors flex items-center gap-3">
-                  <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                  </svg>
-                  <span className="text-sm font-medium text-gray-700">View Assignments</span>
+                  <span className="text-sm font-medium text-gray-700">View Verification History</span>
                 </button>
               </div>
             </div>

@@ -1,168 +1,236 @@
 import { useAuth } from '../contexts/AuthContext';
 
-const StudentDashboard = () => {
-  const { user, userRole, logout } = useAuth();
+const StudentDashboard = ({
+  onStartDreamDegreeAdvisor,
+  onNavigateToCourses,
+  onNavigateToAnalytics,
+  onNavigateToMentorHub,
+  onNavigateToMessages,
+}) => {
+  const { user } = useAuth();
+  const firstName = user?.displayName?.split(' ')[0] || user?.email?.split('@')[0] || 'Student';
+
+  const features = [
+    {
+      id: 'career',
+      icon: '🚀',
+      title: 'Career Pathway',
+      desc: 'Explore curated courses and build the skills needed for your dream career.',
+      color: '#1d4ed8',
+      bg: '#eff6ff',
+      shadow: 'rgba(29,78,216,0.18)',
+      btnLabel: 'Explore Courses',
+      onClick: onNavigateToCourses,
+    },
+    {
+      id: 'stress',
+      icon: '🧠',
+      title: 'Stress Analysis',
+      desc: 'Track your study patterns, mental well-being, and academic performance.',
+      color: '#7c3aed',
+      bg: '#f5f3ff',
+      shadow: 'rgba(124,58,237,0.18)',
+      btnLabel: 'View Analytics',
+      onClick: onNavigateToAnalytics,
+    },
+    {
+      id: 'mentorship',
+      icon: '🧑‍🏫',
+      title: 'Mentorship Hub',
+      desc: 'Browse verified industry mentors and university lecturers across Sri Lanka.',
+      color: '#be185d',
+      bg: '#fdf2f8',
+      shadow: 'rgba(190,24,93,0.18)',
+      btnLabel: 'Find a Mentor',
+      onClick: onNavigateToMentorHub,
+    },
+    {
+      id: 'livechat',
+      icon: '💬',
+      title: 'Mentor Chat',
+      desc: 'Real-time 1-on-1 Firebase messaging with your mentors for academic advice.',
+      color: '#0d9488',
+      bg: '#f0fdfa',
+      shadow: 'rgba(13,148,136,0.18)',
+      btnLabel: 'Open Chat',
+      onClick: onNavigateToMessages || onNavigateToMentorHub,
+    },
+  ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
-      <nav className="bg-white shadow-sm border-b border-blue-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-lg flex items-center justify-center">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>
-              </div>
-              <span className="text-xl font-bold text-gray-900">EduSoul</span>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="text-right">
-                <p className="text-sm font-medium text-gray-900">{user?.email}</p>
-                <p className="text-xs text-blue-600 capitalize font-semibold">Student</p>
-              </div>
-              <button
-                onClick={logout}
-                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
-              >
-                Logout
-              </button>
-            </div>
-          </div>
+    <>
+      <style>{`
+        .sd-root { font-family: Inter, sans-serif; min-height: 100vh; background: #f8faff; }
+
+        .sd-header {
+          background: linear-gradient(135deg, #1d4ed8, #1e40af);
+          padding: 36px 48px; color: white; position: relative; overflow: hidden;
+        }
+
+        .sd-header::before {
+          content: ''; position: absolute;
+          width: 400px; height: 400px; border-radius: 50%;
+          background: rgba(255,255,255,0.06); top: -120px; right: -80px;
+        }
+
+        .sd-header::after {
+          content: ''; position: absolute;
+          width: 200px; height: 200px; border-radius: 50%;
+          background: rgba(255,255,255,0.04); bottom: -60px; left: 200px;
+        }
+
+        .sd-greeting {
+          font-size: 13px; font-weight: 600;
+          color: rgba(255,255,255,0.65); margin-bottom: 6px;
+          position: relative; z-index: 2;
+        }
+
+        .sd-header h1 {
+          font-size: 30px; font-weight: 900;
+          color: white; margin-bottom: 6px;
+          position: relative; z-index: 2;
+        }
+
+        .sd-header p {
+          font-size: 13px; color: rgba(255,255,255,0.70);
+          position: relative; z-index: 2;
+        }
+
+        .sd-body { padding: 36px 48px; }
+
+        /* ── Dream Advisor Banner ── */
+        .sd-advisor {
+          background: linear-gradient(135deg, #7c3aed, #4f46e5);
+          border-radius: 18px; padding: 26px 30px;
+          display: flex; align-items: center; justify-content: space-between;
+          gap: 20px; margin-bottom: 36px;
+          box-shadow: 0 12px 36px rgba(124,58,237,0.25);
+        }
+
+        .sd-advisor-left { display: flex; align-items: center; gap: 18px; }
+
+        .sd-advisor-icon {
+          width: 56px; height: 56px; border-radius: 16px;
+          background: rgba(255,255,255,0.18);
+          display: flex; align-items: center; justify-content: center;
+          font-size: 26px; flex-shrink: 0;
+        }
+
+        .sd-advisor h2 { font-size: 20px; font-weight: 800; color: white; margin-bottom: 4px; }
+        .sd-advisor p  { font-size: 13px; color: rgba(255,255,255,0.72); }
+
+        .sd-advisor-btn {
+          padding: 11px 24px;
+          background: white; color: #7c3aed;
+          font-size: 13px; font-weight: 800;
+          border: none; border-radius: 10px; cursor: pointer;
+          font-family: inherit; flex-shrink: 0;
+          transition: all 0.2s;
+          box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+        }
+
+        .sd-advisor-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.2); }
+
+        /* ── Section title ── */
+        .sd-section-title {
+          font-size: 18px; font-weight: 800; color: #0f172a;
+          margin-bottom: 20px;
+        }
+
+        /* ── Feature cards grid ── */
+        .sd-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+
+        .sd-feature-card {
+          background: white; border-radius: 18px;
+          border: 1.5px solid #e2e8f0; padding: 28px 24px;
+          display: flex; flex-direction: column;
+          transition: all 0.3s ease;
+          cursor: default;
+        }
+
+        .sd-feature-card:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 20px 48px var(--shadow);
+          border-color: var(--color);
+        }
+
+        .sd-feature-icon {
+          width: 56px; height: 56px; border-radius: 16px;
+          background: var(--bg); display: flex; align-items: center;
+          justify-content: center; font-size: 26px; margin-bottom: 18px;
+        }
+
+        .sd-feature-title {
+          font-size: 17px; font-weight: 800; color: #0f172a; margin-bottom: 10px;
+        }
+
+        .sd-feature-desc {
+          font-size: 13px; color: #64748b; line-height: 1.6; flex: 1; margin-bottom: 22px;
+        }
+
+        .sd-feature-btn {
+          padding: 11px 20px;
+          background: var(--color); color: white;
+          font-size: 13px; font-weight: 700;
+          border: none; border-radius: 10px; cursor: pointer;
+          font-family: inherit; transition: opacity 0.2s; width: 100%;
+        }
+
+        .sd-feature-btn:hover { opacity: 0.88; }
+
+        @media (max-width: 900px) {
+          .sd-header { padding: 28px 24px; }
+          .sd-body { padding: 24px; }
+          .sd-features { grid-template-columns: 1fr; }
+          .sd-advisor { flex-direction: column; align-items: flex-start; }
+        }
+
+        @media (max-width: 640px) {
+          .sd-advisor-btn { width: 100%; text-align: center; }
+        }
+      `}</style>
+
+      <div className="sd-root">
+        <div className="sd-header">
+          <div className="sd-greeting">👋 Welcome back</div>
+          <h1>{firstName}'s Dashboard</h1>
+          <p>Your personalised learning hub — everything you need in one place</p>
         </div>
-      </nav>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Welcome, Student!
-          </h1>
-          <p className="text-gray-600">Explore courses and track your learning journey</p>
-        </div>
-
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="bg-white rounded-xl shadow-md p-6 border border-blue-100">
-            <div className="flex items-center justify-between">
+        <div className="sd-body">
+          {/* Dream Degree Advisor Banner */}
+          <div className="sd-advisor">
+            <div className="sd-advisor-left">
+              <div className="sd-advisor-icon">🎓</div>
               <div>
-                <p className="text-sm font-medium text-gray-600">Enrolled Courses</p>
-                <p className="text-3xl font-bold text-gray-900 mt-1">0</p>
-              </div>
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>
+                <h2>Dream Degree Advisor</h2>
+                <p>AI-powered career guidance based on your dream job and academic profile</p>
               </div>
             </div>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-md p-6 border border-blue-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Completed</p>
-                <p className="text-3xl font-bold text-gray-900 mt-1">0</p>
-              </div>
-              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-md p-6 border border-blue-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Certificates</p>
-                <p className="text-3xl font-bold text-gray-900 mt-1">0</p>
-              </div>
-              <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
-                <svg className="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Main Content Area */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Browse Courses Section */}
-          <div className="lg:col-span-2 bg-white rounded-xl shadow-md p-6 border border-blue-100">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-semibold text-gray-900">Browse Courses</h2>
-              <button className="text-blue-600 hover:text-blue-800 text-sm font-medium">
-                View All
-              </button>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* Course Card 1 */}
-              <div className="bg-gray-50 rounded-lg p-4 border border-gray-200 hover:border-blue-300 transition-colors cursor-pointer">
-                <div className="w-full h-32 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg mb-4 flex items-center justify-center">
-                  <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                  </svg>
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-2">Introduction to Programming</h3>
-                <p className="text-sm text-gray-600 mb-3">Learn the basics of programming</p>
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-gray-500">12 lessons</span>
-                  <button className="bg-blue-600 text-white text-xs px-3 py-1 rounded-full hover:bg-blue-700 transition-colors">
-                    Enroll
-                  </button>
-                </div>
-              </div>
-
-              {/* Course Card 2 */}
-              <div className="bg-gray-50 rounded-lg p-4 border border-gray-200 hover:border-blue-300 transition-colors cursor-pointer">
-                <div className="w-full h-32 bg-gradient-to-br from-purple-400 to-purple-600 rounded-lg mb-4 flex items-center justify-center">
-                  <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-2">Web Development</h3>
-                <p className="text-sm text-gray-600 mb-3">Build modern web applications</p>
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-gray-500">24 lessons</span>
-                  <button className="bg-blue-600 text-white text-xs px-3 py-1 rounded-full hover:bg-blue-700 transition-colors">
-                    Enroll
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* My Learning Section */}
-          <div className="bg-white rounded-xl shadow-md p-6 border border-blue-100">
-            <h2 className="text-xl font-semibold text-gray-900 mb-6">My Learning</h2>
-            
-            <div className="space-y-4">
-              <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="font-medium text-gray-900 text-sm">No courses yet</h4>
-                    <p className="text-xs text-gray-500">Start learning today!</p>
-                  </div>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div className="bg-blue-600 h-2 rounded-full" style={{ width: '0%' }}></div>
-                </div>
-              </div>
-            </div>
-
-            <button className="w-full mt-6 bg-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
-              Browse All Courses
+            <button className="sd-advisor-btn" onClick={onStartDreamDegreeAdvisor}>
+              Start Analysis →
             </button>
+          </div>
+
+          {/* Feature Cards */}
+          <div className="sd-section-title">Explore Features</div>
+          <div className="sd-features">
+            {features.map(f => (
+              <div
+                key={f.id}
+                className="sd-feature-card"
+                style={{ '--color': f.color, '--bg': f.bg, '--shadow': f.shadow }}
+              >
+                <div className="sd-feature-icon">{f.icon}</div>
+                <div className="sd-feature-title">{f.title}</div>
+                <div className="sd-feature-desc">{f.desc}</div>
+                <button className="sd-feature-btn" onClick={f.onClick}>{f.btnLabel}</button>
+              </div>
+            ))}
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
