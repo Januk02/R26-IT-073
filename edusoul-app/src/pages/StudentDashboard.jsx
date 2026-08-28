@@ -14,12 +14,12 @@ const StudentDashboard = ({
     {
       id: 'career',
       icon: '🚀',
-      title: 'Career Pathway',
-      desc: 'Explore curated courses and build the skills needed for your dream career.',
-      color: '#1d4ed8',
-      bg: '#eff6ff',
-      shadow: 'rgba(29,78,216,0.18)',
-      btnLabel: 'Explore Courses',
+      title: 'Career Pathway & Skill-Gap AI',
+      desc: 'Calculate your Skill-Gap Index (SGI), discover top tech roles, and build your adaptive roadmap.',
+      color: '#7c3aed',
+      bg: '#f5f3ff',
+      shadow: 'rgba(124,58,237,0.18)',
+      btnLabel: 'Launch Career AI',
       onClick: onNavigateToCourses,
     },
     {

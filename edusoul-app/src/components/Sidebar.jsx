@@ -15,7 +15,7 @@ const publicNav = [
 const studentNav = [
   { id: 'studentHome',        label: 'Dashboard',     icon: '🏠' },
   { id: 'dreamDegreeAdvisor', label: 'Dream Advisor', icon: '🎓' },
-  { id: 'courses',            label: 'Courses',       icon: '📚' },
+  { id: 'courses',            label: 'Career Pathway', icon: '🚀' },
   { id: 'analytics',          label: 'Analytics',     icon: '🧠' },
   { id: 'mentorHub',          label: 'Mentor Hub',    icon: '🧑‍🏫' },
   { id: 'messages',           label: 'Messages',      icon: '💬' },
