@@ -16,7 +16,7 @@ print("Booting up Enterprise API Gateway...")
 # 1. Initialize the FastAPI App
 app = FastAPI(title="Adaptive Career Pathway API")
 
-# 2. Configure CORS (Crucial so your React/Node frontend can talk to it)
+# 2. Configure CORS (Crucial so the frontend can talk to it)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"], # Allows any frontend to connect during local testing
@@ -91,6 +91,13 @@ DEGREE_ALIASES = {
 class UserProfile(BaseModel):
     skills: List[str]
     current_degree: Optional[str] = None
+
+# ============================================================
+# HEALTH ENDPOINT
+# ============================================================
+@app.get("/api/health")
+async def health_check():
+    return {"status": "online", "engine_loaded": ai_engine is not None}
 
 # ============================================================
 # AUTOCOMPLETE ENDPOINTS
@@ -235,6 +242,112 @@ async def generate_top3(profile: UserProfile):
     except Exception as e:
         print(f"[API ERROR] {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
+
+# ============================================================
+# KNOWLEDGE GRAPH EXPLORER ENDPOINT
+# ============================================================
+
+@app.get("/api/graph-data")
+async def get_graph_data(role: str = Query(..., min_length=1), user_skills: str = Query("")):
+    """
+    Returns the "Skill Synergy & Career Pivot Web".
+    Tightly integrated: Focuses on the user's currently SELECTED role.
+    Unique Purpose: Shows the "Bonus Careers" (Pivots) that become available 
+    if the user learns the skills required for this target role.
+    """
+    if ai_engine is None:
+        raise HTTPException(status_code=500, detail="AI Engine not loaded.")
+        
+    role_name = role.strip()
+    owned_skills = set()
+    if user_skills:
+        owned_skills = {s.strip().lower() for s in user_skills.split(",") if s.strip()}
+        
+    try:
+        nodes = []
+        links = []
+        node_ids = set()
+        
+        # 1. Central Target Role
+        nodes.append({
+            "id": f"role_{role_name}",
+            "label": role_name,
+            "group": "target_role",
+            "weight": 25
+        })
+        node_ids.add(f"role_{role_name}")
+        
+        # 2. Get Top 10 Core Competencies (ensures sync with Roadmap)
+        core_reqs = ai_engine.get_core_competencies(role_name, top_n=10)
+        
+        with ai_engine.driver.session() as session:
+            for skill_name, req_weight in core_reqs.items():
+                skill_id = f"skill_{skill_name}"
+                is_owned = skill_name.lower() in owned_skills
+                group = "skill_owned" if is_owned else "skill_missing"
+                
+                if skill_id not in node_ids:
+                    nodes.append({
+                        "id": skill_id,
+                        "label": skill_name,
+                        "group": group,
+                        "weight": req_weight
+                    })
+                    node_ids.add(skill_id)
+                
+                # Link Target Role -> Skill
+                links.append({
+                    "source": f"role_{role_name}",
+                    "target": skill_id,
+                    "weight": req_weight,
+                    "type": "REQUIRES"
+                })
+                
+                # 3. Find 1 Career Pivot per skill (ROI Discovery)
+                pivot_query = """
+                MATCH (s:Skill {name: $skill_name})<-[rel:REQUIRES_SKILL]-(r:JobRole)
+                WHERE r.name <> $target_role
+                WITH r, rel
+                MATCH (r)-[all_rel:REQUIRES_SKILL]->()
+                WITH r, rel, max(all_rel.weight) AS max_weight
+                RETURN r.name AS pivot_role, (toFloat(rel.weight) / coalesce(max_weight, 1.0)) * 10.0 AS weight
+                ORDER BY weight DESC LIMIT 1
+                """
+                result = session.run(pivot_query, skill_name=skill_name, target_role=role_name)
+                record = result.single()
+                
+                if record:
+                    pivot_role = record["pivot_role"]
+                    pivot_weight = float(record["weight"])
+                    pivot_id = f"pivot_{pivot_role}"
+                    
+                    if pivot_id not in node_ids:
+                        nodes.append({
+                            "id": pivot_id,
+                            "label": pivot_role,
+                            "group": "pivot_role",
+                            "weight": pivot_weight
+                        })
+                        node_ids.add(pivot_id)
+                        
+                    # Link Skill -> Pivot Role
+                    # We check to prevent duplicate links if multiple skills map to the same pivot
+                    link_exists = any(l["source"] == skill_id and l["target"] == pivot_id for l in links)
+                    if not link_exists:
+                        links.append({
+                            "source": skill_id,
+                            "target": pivot_id,
+                            "weight": pivot_weight,
+                            "type": "UNLOCKS"
+                        })
+
+        print(f"[GRAPH API] Synergy Web Built for '{role_name}': {len(nodes)} nodes, {len(links)} links.")
+        return {"nodes": nodes, "links": links, "target_role": role_name}
+        
+    except Exception as e:
+        print(f"[GRAPH API ERROR] {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
 
 if __name__ == "__main__":
     print("\n=======================================================")

@@ -1,0 +1,109 @@
+/* SKILL INPUT */
+.skill-input-container { position: relative; }
+
+.skill-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.skill-chip {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: var(--radius-full);
+  background: var(--accent-subtle);
+  border: 1px solid var(--border-active);
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.chip-icon { color: var(--accent); flex-shrink: 0; }
+
+.chip-remove {
+  display: flex;
+  padding: 2px;
+  border-radius: 50%;
+  color: var(--text-muted);
+  transition: all var(--duration-fast);
+}
+.chip-remove:hover {
+  color: var(--danger);
+  background: var(--danger-subtle);
+}
+
+.skill-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 11px 14px;
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.skill-input-wrapper.focused {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-muted);
+  background: var(--bg-input-focus);
+}
+
+.input-icon { color: var(--text-muted); flex-shrink: 0; }
+.skill-input {
+  flex: 1;
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 14px;
+  min-width: 0;
+}
+.skill-input::placeholder { color: var(--text-muted); }
+
+.input-spinner {
+  color: var(--accent);
+  animation: spin 1s linear infinite;
+  flex-shrink: 0;
+}
+
+.skill-count {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  background: var(--accent-subtle);
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+}
+
+.suggestions-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: var(--bg-card-solid);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  max-height: 220px;
+  overflow-y: auto;
+  z-index: 200;
+}
+
+.suggestion-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 14px;
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  transition: background var(--duration-fast);
+  border-bottom: 1px solid var(--divider);
+}
+.suggestion-item:last-child { border-bottom: none; }
+.suggestion-item:hover { background: var(--accent-muted); }
+.suggestion-icon { color: var(--accent); flex-shrink: 0; }

@@ -9,9 +9,9 @@ import { useCareerData } from './CareerContext';
 
 
 //const PYTHON_API_BASE = 'http://192.168.1.4:8000';
-const PYTHON_API_BASE = 'http://192.168.1.2:8000';
+//const PYTHON_API_BASE = 'http://192.168.1.2:8000';
 
-//const PYTHON_API_BASE = 'https://polo-brittle-magma.ngrok-free.dev';
+const PYTHON_API_BASE = 'https://polo-brittle-magma.ngrok-free.dev';
 
 // Blue-Navy professional palette inspired by prototype
 const COLORS = {
@@ -352,7 +352,7 @@ export default function CareerAnalyzer() {
                                                                         </View>
                                                                     </View>
                                                                     <Text style={styles.roadmapReqDesc}>
-                                                                        Market Weight: {req.weight} — {isDegree ? 'Core academic foundation for this role' : 'High-impact skill needed to close the gap'}
+                                                                        Market Weight: {Number(req.weight).toFixed(1)} / 10.0 — {isDegree ? 'Core academic foundation for this role' : 'High-impact skill needed to close the gap'}
                                                                     </Text>
                                                                 </View>
                                                             </Animated.View>

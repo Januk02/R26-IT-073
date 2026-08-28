@@ -206,10 +206,36 @@ class AdvancedNLPCleaner:
         
         clean_df = master_df[['Target_Role', 'Job Title', 'Company', 'Job URL', 'Required_Degree', 'Extracted_Skills']]
         
-        print(f"\n[4/4] Saving final processed dataset...")
-        clean_df.to_csv(output_csv_path, index=False)
-        print(f"      🎉 SUCCESS! Enterprise dataset saved to: {output_csv_path}")
-        print(f"      Total validated, skill-rich records ready for Graph DB: {len(clean_df)}")
+        print(f"\n[4/4] Calculating Delta & Saving Datasets...")
+        delta_csv_path = os.path.join(os.path.dirname(output_csv_path), 'delta_new_jobs.csv')
+        existing_urls = set()
+        
+        if os.path.exists(output_csv_path):
+            try:
+                existing_df = pd.read_csv(output_csv_path)
+                if 'Job URL' in existing_df.columns:
+                    existing_urls = set(existing_df['Job URL'].dropna().tolist())
+            except Exception as e:
+                print(f"      Warning: Could not read existing master CSV: {e}")
+                existing_df = pd.DataFrame()
+        else:
+            existing_df = pd.DataFrame()
+
+        # Delta contains records with Job URLs that do not exist in the master file yet
+        delta_df = clean_df[~clean_df['Job URL'].isin(existing_urls)]
+        delta_df.to_csv(delta_csv_path, index=False)
+        print(f"      -> Delta dataset saved: {delta_csv_path} ({len(delta_df)} new records)")
+
+        # Combine existing records with the new delta records
+        if not existing_df.empty:
+            combined_df = pd.concat([existing_df, delta_df], ignore_index=True)
+            combined_df = combined_df.drop_duplicates(subset=['Job URL'], keep='last')
+        else:
+            combined_df = clean_df
+
+        combined_df.to_csv(output_csv_path, index=False)
+        print(f"      [OK] SUCCESS! Master dataset updated: {output_csv_path}")
+        print(f"      Total cumulative validated records: {len(combined_df)}")
 
 # --- Execution Entry Point ---
 if __name__ == "__main__":

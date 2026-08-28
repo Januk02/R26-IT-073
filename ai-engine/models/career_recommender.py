@@ -9,6 +9,7 @@ import warnings
 from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.ensemble import RandomForestClassifier, StackingClassifier
+from sklearn.naive_bayes import MultinomialNB
 from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
@@ -68,8 +69,9 @@ class AdaptiveCareerRecommender:
         
         # 1. Base Estimators (Slightly tuned for TF-IDF sparse matrices)
         base_learners = [
-            ('rf', RandomForestClassifier(n_estimators=150, max_depth=None, random_state=42, class_weight='balanced')),
-            ('svc', SVC(kernel='linear', probability=True, random_state=42, class_weight='balanced')) # Switched to 'linear' kernel for better NLP text classification
+            ('rf', RandomForestClassifier(n_estimators=200, max_depth=None, random_state=42, class_weight='balanced')),
+            ('svc', SVC(kernel='linear', probability=True, random_state=42, class_weight='balanced')), # Switched to 'linear' kernel for better NLP text classification
+            ('nb', MultinomialNB()) # Added Naive Bayes for optimal sparse TF-IDF accuracy
         ]
         
         # 2. Meta-Learner
@@ -88,7 +90,7 @@ class AdaptiveCareerRecommender:
         y_pred = self.model.predict(X_test)
         acc = accuracy_score(y_test, y_pred)
         
-        print(f"\n✅ Model Training Complete. Validation Accuracy: {acc * 100:.2f}%")
+        print(f"\n[OK] Model Training Complete. Validation Accuracy: {acc * 100:.2f}%")
         print("\n--- Model Classification Report ---")
         print(classification_report(y_test, y_pred))
         
@@ -103,6 +105,14 @@ class AdaptiveCareerRecommender:
             self.model = joblib.load(self.model_path)
             self.mlb = joblib.load(self.encoder_path)
             self.tfidf = joblib.load(self.tfidf_path) # Load the TF-IDF weights
+            
+            # Patch unpickled estimators for scikit-learn version compatibility
+            if hasattr(self.model, "final_estimator_") and not hasattr(self.model.final_estimator_, "multi_class"):
+                self.model.final_estimator_.multi_class = "auto"
+            if hasattr(self.model, "estimators_"):
+                for est in self.model.estimators_:
+                    if hasattr(est, "multi_class") is False:
+                        setattr(est, "multi_class", "auto")
             
         # Transform input through BOTH layers
         user_binary = self.mlb.transform([user_skills])
