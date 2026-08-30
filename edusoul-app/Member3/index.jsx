@@ -1,24 +1,24 @@
 import { useState } from 'react';
-import AnalyticsDashboard from './pages/AnalyticsDashboard';
+import StressAnalyticsHome from './pages/StressAnalyticsHome';
 import StudyPlanner from './pages/StudyPlanner';
 import ProgressReport from './pages/ProgressReport';
 
 export default function Member3Analytics({ onBack }) {
-  const [view, setView] = useState('dashboard');
+  const [view, setView] = useState('home');
 
   return (
     <div>
-      {view === 'dashboard' && (
-        <AnalyticsDashboard
+      {view === 'home' && (
+        <StressAnalyticsHome
           onViewPlanner={() => setView('planner')}
           onViewReport={() => setView('report')}
         />
       )}
       {view === 'planner' && (
-        <StudyPlanner onBack={() => setView('dashboard')} />
+        <StudyPlanner onBack={() => setView('home')} />
       )}
       {view === 'report' && (
-        <ProgressReport onBack={() => setView('dashboard')} />
+        <ProgressReport onBack={() => setView('home')} />
       )}
     </div>
   );

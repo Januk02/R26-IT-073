@@ -1,6 +1,6 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { initializeFirestore, memoryLocalCache, getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyA_H3i_IgScKtmLwCUf8Gcd5tjJeke61nk",
@@ -12,8 +12,18 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID || "G-96VXWKZHLK",
 };
 
-const app = initializeApp(firebaseConfig);
+// Initialize Firebase App instance
+const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app);
+
+// Use in-memory local cache to completely eliminate browser IndexedDB lock/corruption issues (app/idb-open)
+let db;
+try {
+  db = initializeFirestore(app, {
+    localCache: memoryLocalCache()
+  });
+} catch (e) {
+  db = getFirestore(app);
+}
 
 export { app, auth, db };

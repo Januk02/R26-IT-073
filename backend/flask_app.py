@@ -27,118 +27,131 @@ UNIVERSITY_DATABASE = {
     "government": {
         # Major National Universities
         "University of Colombo": {
-            "degrees": ["IT", "Business", "Bio Science", "Mathematics", "Medicine", "Law", "Arts"],
-            "z_score_requirements": {"IT": 1.8, "Business": 1.7, "Bio Science": 2.1, "Mathematics": 1.9, "Medicine": 3.8, "Law": 2.5, "Arts": 1.2},
+            "degrees": ["IT", "Computer Science", "Business", "Bio Science", "Mathematics", "Medicine", "Law", "Arts", "Education", "Social Sciences", "Management", "Nursing"],
+            "z_score_requirements": {"IT": 1.55, "Computer Science": 1.60, "Business": 1.45, "Bio Science": 1.65, "Mathematics": 1.50, "Medicine": 1.99, "Law": 1.65, "Arts": 0.85, "Education": 0.80, "Social Sciences": 0.90, "Management": 1.45, "Nursing": 1.40},
             "district_bonus": {"Colombo": 0.1, "Gampaha": 0.05},
             "location": "Colombo",
+            "coordinates": {"lat": 6.9022, "lon": 79.8598},
             "rankings": {"national": 1, "international": 1001},
             "facilities": ["Library", "Labs", "Sports", "Hostels", "Hospital", "Law Library"],
             "specialties": ["Computer Science", "Business Administration", "Medicine", "Law"]
         },
         "University of Peradeniya": {
-            "degrees": ["Engineering", "IT", "Bio Science", "Mathematics", "Medicine", "Agriculture", "Arts", "Dental"],
-            "z_score_requirements": {"Engineering": 1.7, "IT": 1.6, "Bio Science": 1.9, "Mathematics": 1.7, "Medicine": 3.7, "Agriculture": 1.8, "Arts": 1.3, "Dental": 3.5},
+            "degrees": ["Engineering", "IT", "Bio Science", "Mathematics", "Medicine", "Agriculture", "Arts", "Dental", "Veterinary Science", "Pharmacy", "Nursing", "Physical Science"],
+            "z_score_requirements": {"Engineering": 1.50, "IT": 1.40, "Bio Science": 1.55, "Mathematics": 1.45, "Medicine": 1.95, "Agriculture": 1.30, "Arts": 0.90, "Dental": 1.85, "Veterinary Science": 1.60, "Pharmacy": 1.55, "Nursing": 1.35, "Physical Science": 1.30},
             "district_bonus": {"Kandy": 0.1, "Matale": 0.05},
             "location": "Kandy",
+            "coordinates": {"lat": 7.2545, "lon": 80.5976},
             "rankings": {"national": 2, "international": 1200},
             "facilities": ["Library", "Labs", "Sports", "Hostels", "Hospital", "Agricultural Farm", "Dental Hospital"],
             "specialties": ["Engineering", "Agriculture", "Medicine", "Veterinary Science"]
         },
         "University of Moratuwa": {
-            "degrees": ["Engineering", "IT", "Architecture", "Town Planning", "Design"],
-            "z_score_requirements": {"Engineering": 1.9, "IT": 1.8, "Architecture": 1.7, "Town Planning": 1.6, "Design": 1.5},
+            "degrees": ["Engineering", "IT", "Computer Science", "Architecture", "Quantity Surveying"],
+            "z_score_requirements": {"Engineering": 1.55, "IT": 1.50, "Computer Science": 1.55, "Architecture": 1.40, "Quantity Surveying": 1.35},
             "district_bonus": {"Colombo": 0.05, "Gampaha": 0.05},
             "location": "Moratuwa",
+            "coordinates": {"lat": 6.7955, "lon": 79.9013},
             "rankings": {"national": 3, "international": 800},
             "facilities": ["Library", "Labs", "Sports", "Hostels", "Engineering Workshops"],
             "specialties": ["Engineering", "Architecture", "Technology", "Design"]
         },
         "University of Sri Jayewardenepura": {
-            "degrees": ["Business", "IT", "Bio Science", "Mathematics", "Management", "Applied Science"],
-            "z_score_requirements": {"Business": 1.6, "IT": 1.5, "Bio Science": 1.8, "Mathematics": 1.6, "Management": 1.7, "Applied Science": 1.6},
+            "degrees": ["Business", "IT", "Bio Science", "Mathematics", "Management", "Accounting", "Finance", "Nursing"],
+            "z_score_requirements": {"Business": 1.30, "IT": 1.35, "Bio Science": 1.50, "Mathematics": 1.35, "Management": 1.40, "Accounting": 1.35, "Finance": 1.30, "Nursing": 1.35},
             "district_bonus": {"Colombo": 0.05},
             "location": "Nugegoda",
+            "coordinates": {"lat": 6.8530, "lon": 79.8900},
             "rankings": {"national": 4, "international": 1500},
             "facilities": ["Library", "Labs", "Sports", "Hostels", "Business Center"],
             "specialties": ["Business Management", "Computer Science", "Applied Sciences"]
         },
         "University of Kelaniya": {
-            "degrees": ["Business", "Bio Science", "Mathematics", "Arts", "Commerce", "Medicine"],
-            "z_score_requirements": {"Business": 1.5, "Bio Science": 1.7, "Mathematics": 1.5, "Arts": 1.2, "Commerce": 1.6, "Medicine": 3.6},
+            "degrees": ["Business", "Bio Science", "Mathematics", "Arts", "Medicine", "Social Sciences", "Education"],
+            "z_score_requirements": {"Business": 1.25, "Bio Science": 1.45, "Mathematics": 1.30, "Arts": 0.80, "Medicine": 1.90, "Social Sciences": 0.85, "Education": 0.75},
             "district_bonus": {"Gampaha": 0.1, "Colombo": 0.05},
             "location": "Kelaniya",
+            "coordinates": {"lat": 6.9745, "lon": 79.9173},
             "rankings": {"national": 5, "international": 1800},
             "facilities": ["Library", "Labs", "Sports", "Hostels", "Medical Faculty"],
             "specialties": ["Commerce", "Science", "Humanities", "Medicine"]
         },
         "University of Jaffna": {
-            "degrees": ["IT", "Engineering", "Business", "Bio Science", "Arts", "Medicine", "Agriculture"],
-            "z_score_requirements": {"IT": 1.4, "Engineering": 1.5, "Business": 1.4, "Bio Science": 1.6, "Arts": 1.1, "Medicine": 3.4, "Agriculture": 1.5},
+            "degrees": ["IT", "Engineering", "Business", "Bio Science", "Arts", "Medicine", "Agriculture", "Social Sciences", "Education"],
+            "z_score_requirements": {"IT": 1.15, "Engineering": 1.25, "Business": 1.10, "Bio Science": 1.35, "Arts": 0.70, "Medicine": 1.80, "Agriculture": 1.20, "Social Sciences": 0.70, "Education": 0.65},
             "district_bonus": {"Jaffna": 0.15, "Mannar": 0.1, "Vavuniya": 0.05},
             "location": "Jaffna",
+            "coordinates": {"lat": 9.6834, "lon": 80.0234},
             "rankings": {"national": 6, "international": 2000},
             "facilities": ["Library", "Labs", "Sports", "Hostels", "Medical Faculty", "Agricultural Farm"],
             "specialties": ["Engineering", "Agriculture", "Medicine", "Tamil Studies"]
         },
         "Eastern University": {
-            "degrees": ["Business", "IT", "Bio Science", "Agriculture", "Arts"],
-            "z_score_requirements": {"Business": 1.3, "IT": 1.3, "Bio Science": 1.5, "Agriculture": 1.4, "Arts": 1.1},
+            "degrees": ["Business", "IT", "Bio Science", "Agriculture", "Arts", "Social Sciences", "Education"],
+            "z_score_requirements": {"Business": 1.05, "IT": 1.05, "Bio Science": 1.25, "Agriculture": 1.15, "Arts": 0.65, "Social Sciences": 0.70, "Education": 0.65},
             "district_bonus": {"Batticaloa": 0.15, "Ampara": 0.1, "Trincomalee": 0.1},
             "location": "Batticaloa",
+            "coordinates": {"lat": 7.7169, "lon": 81.6965},
             "rankings": {"national": 7, "international": 2500},
             "facilities": ["Library", "Labs", "Sports", "Hostels", "Agricultural Farm"],
             "specialties": ["Agriculture", "Business", "Science", "Cultural Studies"]
         },
         "South Eastern University": {
             "degrees": ["Business", "IT", "Arts", "Islamic Studies"],
-            "z_score_requirements": {"Business": 1.2, "IT": 1.2, "Arts": 1.0, "Islamic Studies": 1.1},
+            "z_score_requirements": {"Business": 0.95, "IT": 0.95, "Arts": 0.60, "Islamic Studies": 0.70},
             "district_bonus": {"Ampara": 0.1},
             "location": "Sammanthurai",
+            "coordinates": {"lat": 7.3728, "lon": 81.8236},
             "rankings": {"national": 8, "international": 3000},
             "facilities": ["Library", "Labs", "Sports", "Hostels"],
             "specialties": ["Business", "Computer Science", "Islamic Studies"]
         },
         "Ruhuna University": {
-            "degrees": ["Engineering", "IT", "Business", "Bio Science", "Medicine", "Agriculture", "Fisheries"],
-            "z_score_requirements": {"Engineering": 1.5, "IT": 1.4, "Business": 1.4, "Bio Science": 1.7, "Medicine": 3.5, "Agriculture": 1.6, "Fisheries": 1.3},
+            "degrees": ["Engineering", "IT", "Business", "Bio Science", "Medicine", "Agriculture", "Pharmacy", "Nursing"],
+            "z_score_requirements": {"Engineering": 1.30, "IT": 1.20, "Business": 1.15, "Bio Science": 1.45, "Medicine": 1.85, "Agriculture": 1.25, "Pharmacy": 1.40, "Nursing": 1.30},
             "district_bonus": {"Matara": 0.1, "Galle": 0.05, "Hambantota": 0.1},
             "location": "Matara",
+            "coordinates": {"lat": 5.9387, "lon": 80.5753},
             "rankings": {"national": 9, "international": 2200},
             "facilities": ["Library", "Labs", "Sports", "Hostels", "Medical Faculty", "Marine Research Center"],
             "specialties": ["Engineering", "Medicine", "Agriculture", "Marine Science"]
         },
         "Sabaragamuwa University": {
             "degrees": ["Business", "Bio Science", "IT", "Applied Science", "Agriculture"],
-            "z_score_requirements": {"Business": 1.3, "Bio Science": 1.5, "IT": 1.3, "Applied Science": 1.4, "Agriculture": 1.4},
+            "z_score_requirements": {"Business": 1.05, "Bio Science": 1.25, "IT": 1.05, "Applied Science": 1.15, "Agriculture": 1.10},
             "district_bonus": {"Ratnapura": 0.1, "Kegalle": 0.05},
             "location": "Belihuloya",
+            "coordinates": {"lat": 6.7226, "lon": 80.7892},
             "rankings": {"national": 10, "international": 2800},
             "facilities": ["Library", "Labs", "Sports", "Hostels", "Gemology Lab"],
             "specialties": ["Applied Sciences", "Agricultural Sciences", "Gemology"]
         },
         "Wayamba University": {
             "degrees": ["Business", "Bio Science", "IT", "Agriculture", "Plantation Management"],
-            "z_score_requirements": {"Business": 1.2, "Bio Science": 1.4, "IT": 1.2, "Agriculture": 1.3, "Plantation Management": 1.2},
+            "z_score_requirements": {"Business": 0.95, "Bio Science": 1.15, "IT": 0.95, "Agriculture": 1.05, "Plantation Management": 0.90},
             "district_bonus": {"Kurunegala": 0.1, "Puttalam": 0.05},
             "location": "Kuliyapitiya",
+            "coordinates": {"lat": 7.4697, "lon": 80.0417},
             "rankings": {"national": 11, "international": 3200},
             "facilities": ["Library", "Labs", "Sports", "Hostels", "Agricultural Farm"],
             "specialties": ["Agriculture", "Business Management", "Plantation Management"]
         },
         "Uva Wellassa University": {
             "degrees": ["Business", "IT", "Bio Science", "Entrepreneurship", "Management"],
-            "z_score_requirements": {"Business": 1.2, "IT": 1.2, "Bio Science": 1.4, "Entrepreneurship": 1.1, "Management": 1.3},
+            "z_score_requirements": {"Business": 0.90, "IT": 0.95, "Bio Science": 1.10, "Entrepreneurship": 0.85, "Management": 1.00},
             "district_bonus": {"Badulla": 0.1, "Monaragala": 0.1},
             "location": "Badulla",
+            "coordinates": {"lat": 6.9839, "lon": 81.0553},
             "rankings": {"national": 12, "international": 3500},
             "facilities": ["Library", "Labs", "Sports", "Hostels", "Business Incubator"],
             "specialties": ["Entrepreneurship", "Management", "Applied Sciences"]
         },
         "Rajarata University": {
-            "degrees": ["Business", "Bio Science", "IT", "Agriculture", "Medicine"],
-            "z_score_requirements": {"Business": 1.1, "Bio Science": 1.3, "IT": 1.1, "Agriculture": 1.3, "Medicine": 3.3},
+            "degrees": ["Business", "Bio Science", "IT", "Agriculture", "Medicine", "Management", "Social Sciences"],
+            "z_score_requirements": {"Business": 0.85, "Bio Science": 1.05, "IT": 0.85, "Agriculture": 1.00, "Medicine": 1.75, "Management": 0.90, "Social Sciences": 0.70},
             "district_bonus": {"Anuradhapura": 0.1, "Polonnaruwa": 0.1},
             "location": "Anuradhapura",
+            "coordinates": {"lat": 8.3551, "lon": 80.3976},
             "rankings": {"national": 13, "international": 3800},
             "facilities": ["Library", "Labs", "Sports", "Hostels", "Medical Faculty"],
             "specialties": ["Agriculture", "Business Studies", "Medicine"]
@@ -146,10 +159,11 @@ UNIVERSITY_DATABASE = {
         
         # Specialized Universities
         "University of Visual and Performing Arts": {
-            "degrees": ["Fine Arts", "Music", "Drama", "Dance", "Design"],
-            "z_score_requirements": {"Fine Arts": 1.0, "Music": 1.0, "Drama": 1.0, "Dance": 1.0, "Design": 1.1},
+            "degrees": ["Fine Arts"],
+            "z_score_requirements": {"Fine Arts": 1.0},
             "district_bonus": {"Colombo": 0.05},
             "location": "Colombo",
+            "coordinates": {"lat": 6.9190, "lon": 79.8613},
             "rankings": {"national": 14, "international": 4000},
             "facilities": ["Art Studios", "Theaters", "Music Rooms", "Dance Studios"],
             "specialties": ["Visual Arts", "Performing Arts", "Design"]
@@ -159,15 +173,17 @@ UNIVERSITY_DATABASE = {
             "z_score_requirements": {"Visual Arts": 1.0, "Sculpture": 1.0, "Painting": 1.0, "Graphic Design": 1.1},
             "district_bonus": {"Colombo": 0.05},
             "location": "Colombo",
+            "coordinates": {"lat": 6.9165, "lon": 79.8585},
             "rankings": {"national": 15, "international": 4200},
             "facilities": ["Art Studios", "Gallery", "Workshops"],
             "specialties": ["Visual Arts", "Sculpture", "Painting"]
         },
         "Sri Lanka Institute of Advanced Technology": {
             "degrees": ["Advanced Technology", "Engineering", "IT"],
-            "z_score_requirements": {"Advanced Technology": 1.6, "Engineering": 1.5, "IT": 1.5},
+            "z_score_requirements": {"Advanced Technology": 1.30, "Engineering": 1.25, "IT": 1.25},
             "district_bonus": {"Gampaha": 0.05},
             "location": "Malabe",
+            "coordinates": {"lat": 6.9147, "lon": 79.9729},
             "rankings": {"national": 16, "international": 4500},
             "facilities": ["Advanced Labs", "Workshops", "Library"],
             "specialties": ["Advanced Technology", "Engineering", "IT"]
@@ -176,18 +192,20 @@ UNIVERSITY_DATABASE = {
         # Campus Universities (Under Main Universities)
         "University of Colombo School of Computing": {
             "degrees": ["Computer Science", "IT", "Data Science", "Cyber Security"],
-            "z_score_requirements": {"Computer Science": 1.9, "IT": 1.8, "Data Science": 1.8, "Cyber Security": 1.9},
+            "z_score_requirements": {"Computer Science": 1.60, "IT": 1.50, "Data Science": 1.55, "Cyber Security": 1.60},
             "district_bonus": {"Colombo": 0.1},
             "location": "Colombo",
+            "coordinates": {"lat": 6.9022, "lon": 79.8612},
             "rankings": {"national": 1, "international": 1001},
             "facilities": ["Computer Labs", "Library", "Research Centers"],
             "specialties": ["Computer Science", "IT", "Data Science"]
         },
         "Sri Lanka Institute of Information Technology": {
             "degrees": ["IT", "Computer Science", "Software Engineering", "Business IT"],
-            "z_score_requirements": {"IT": 1.7, "Computer Science": 1.8, "Software Engineering": 1.8, "Business IT": 1.6},
+            "z_score_requirements": {"IT": 1.40, "Computer Science": 1.50, "Software Engineering": 1.50, "Business IT": 1.30},
             "district_bonus": {"Colombo": 0.05, "Gampaha": 0.05},
             "location": "Malabe",
+            "coordinates": {"lat": 6.9147, "lon": 79.9729},
             "rankings": {"national": 17, "international": 4000},
             "facilities": ["Computer Labs", "Library", "Research Centers", "Incubator"],
             "specialties": ["Information Technology", "Software Engineering"]
@@ -195,10 +213,11 @@ UNIVERSITY_DATABASE = {
         
         # Defense Universities
         "General Sir John Kotelawala Defence University": {
-            "degrees": ["Engineering", "Medicine", "IT", "Business", "Law", "Management"],
-            "z_score_requirements": {"Engineering": 1.6, "Medicine": 3.4, "IT": 1.5, "Business": 1.4, "Law": 2.3, "Management": 1.5},
+            "degrees": ["Engineering", "Medicine", "IT", "Business", "Law", "Management", "Nursing", "Computer Science"],
+            "z_score_requirements": {"Engineering": 1.35, "Medicine": 1.80, "IT": 1.25, "Business": 1.15, "Law": 1.50, "Management": 1.20, "Nursing": 1.30, "Computer Science": 1.30},
             "district_bonus": {"Colombo": 0.05, "Gampaha": 0.05},
             "location": "Kandana",
+            "coordinates": {"lat": 7.0480, "lon": 79.8940},
             "rankings": {"national": 18, "international": 4300},
             "facilities": ["Library", "Labs", "Sports", "Hostels", "Medical Center", "Training Facilities"],
             "specialties": ["Defense Studies", "Engineering", "Medicine", "Management"]
@@ -210,6 +229,7 @@ UNIVERSITY_DATABASE = {
             "z_score_requirements": {"Buddhist Studies": 1.0, "Pali": 1.0, "Philosophy": 1.1, "Archaeology": 1.1},
             "district_bonus": {"Colombo": 0.05},
             "location": "Homagama",
+            "coordinates": {"lat": 6.8440, "lon": 80.0032},
             "rankings": {"national": 19, "international": 5000},
             "facilities": ["Library", "Research Centers", "Meditation Center"],
             "specialties": ["Buddhist Studies", "Pali Language", "Archaeology"]
@@ -222,6 +242,7 @@ UNIVERSITY_DATABASE = {
             "z_score_requirements": {"IT": 1.0, "Business": 1.0, "Engineering": 1.0, "Architecture": 1.0, "Management": 1.0},
             "tuition_fee_range": {"IT": "500,000-800,000", "Business": "400,000-700,000", "Engineering": "600,000-900,000", "Architecture": "700,000-1,000,000", "Management": "450,000-750,000"},
             "location": "Malabe",
+            "coordinates": {"lat": 6.9147, "lon": 79.9729},
             "rankings": {"national": 1, "international": 4000},
             "facilities": ["Library", "Labs", "Sports", "Hostels", "Industry Partnerships", "Research Centers"],
             "specialties": ["Information Technology", "Business Administration", "Engineering"],
@@ -232,6 +253,7 @@ UNIVERSITY_DATABASE = {
             "z_score_requirements": {"Engineering": 1.0, "IT": 1.0, "Business": 1.0, "Maritime Studies": 1.0, "Logistics": 1.0},
             "tuition_fee_range": {"Engineering": "700,000-1,200,000", "IT": "600,000-900,000", "Business": "500,000-800,000", "Maritime Studies": "800,000-1,300,000", "Logistics": "550,000-850,000"},
             "location": "Malabe",
+            "coordinates": {"lat": 6.9147, "lon": 79.9729},
             "rankings": {"national": 2, "international": 4500},
             "facilities": ["Library", "Labs", "Sports", "Hostels", "Maritime Training", "Simulators"],
             "specialties": ["Maritime Studies", "Engineering", "IT"],
@@ -242,6 +264,7 @@ UNIVERSITY_DATABASE = {
             "z_score_requirements": {"Business": 1.0, "IT": 1.0, "Psychology": 1.0, "Marketing": 1.0},
             "tuition_fee_range": {"Business": "600,000-900,000", "IT": "700,000-1,000,000", "Psychology": "650,000-950,000", "Marketing": "550,000-850,000"},
             "location": "Colombo",
+            "coordinates": {"lat": 6.9271, "lon": 79.8612},
             "rankings": {"national": 3, "international": 5000},
             "facilities": ["Library", "Labs", "Sports", "Hostels", "Psychology Lab"],
             "specialties": ["Business Administration", "Computer Science", "Psychology"],
@@ -252,6 +275,7 @@ UNIVERSITY_DATABASE = {
             "z_score_requirements": {"Business": 1.0, "IT": 1.0, "Engineering": 1.0, "Management": 1.0, "Law": 1.0},
             "tuition_fee_range": {"Business": "500,000-800,000", "IT": "600,000-900,000", "Engineering": "700,000-1,000,000", "Management": "450,000-750,000", "Law": "800,000-1,200,000"},
             "location": "Homagama",
+            "coordinates": {"lat": 6.841, "lon": 80.008},
             "rankings": {"national": 4, "international": 5200},
             "facilities": ["Library", "Labs", "Sports", "Hostels", "Modern Campus", "Moot Court"],
             "specialties": ["Management", "Computing", "Engineering"],
@@ -262,6 +286,7 @@ UNIVERSITY_DATABASE = {
             "z_score_requirements": {"Business": 1.0, "IT": 1.0, "Hospitality": 1.0, "Engineering": 1.0},
             "tuition_fee_range": {"Business": "400,000-700,000", "IT": "500,000-800,000", "Hospitality": "450,000-750,000", "Engineering": "650,000-950,000"},
             "location": "Colombo",
+            "coordinates": {"lat": 6.9271, "lon": 79.8612},
             "rankings": {"national": 5, "international": 5500},
             "facilities": ["Library", "Labs", "Sports", "Hospitality Training Center"],
             "specialties": ["Business Studies", "Information Technology", "Hospitality"],
@@ -272,6 +297,7 @@ UNIVERSITY_DATABASE = {
             "z_score_requirements": {"IT": 1.0, "Business": 1.0, "Data Science": 1.0, "Cyber Security": 1.0},
             "tuition_fee_range": {"IT": "500,000-800,000", "Business": "400,000-700,000", "Data Science": "600,000-900,000", "Cyber Security": "650,000-950,000"},
             "location": "Colombo",
+            "coordinates": {"lat": 6.9271, "lon": 79.8612},
             "rankings": {"national": 6, "international": 5800},
             "facilities": ["Library", "Labs", "Sports", "Security Lab"],
             "specialties": ["Computing", "Business Management", "Data Science"],
@@ -282,6 +308,7 @@ UNIVERSITY_DATABASE = {
             "z_score_requirements": {"IT": 1.0, "Business": 1.0, "Engineering": 1.0, "Architecture": 1.0},
             "tuition_fee_range": {"IT": "400,000-700,000", "Business": "350,000-600,000", "Engineering": "600,000-900,000", "Architecture": "550,000-850,000"},
             "location": "Colombo",
+            "coordinates": {"lat": 6.9271, "lon": 79.8612},
             "rankings": {"national": 7, "international": 6000},
             "facilities": ["Library", "Labs", "Sports", "Engineering Workshops"],
             "specialties": ["Software Engineering", "Business Studies", "Architecture"],
@@ -292,6 +319,7 @@ UNIVERSITY_DATABASE = {
             "z_score_requirements": {"Business": 1.0, "IT": 1.0, "Law": 1.0, "Management": 1.0},
             "tuition_fee_range": {"Business": "800,000-1,200,000", "IT": "900,000-1,300,000", "Law": "700,000-1,100,000", "Management": "750,000-1,150,000"},
             "location": "Colombo",
+            "coordinates": {"lat": 6.9271, "lon": 79.8612},
             "rankings": {"national": 8, "international": 4800},
             "facilities": ["Library", "Labs", "Sports", "Hostels", "Moot Court"],
             "specialties": ["Business Administration", "Information Technology", "Law"],
@@ -304,6 +332,7 @@ UNIVERSITY_DATABASE = {
             "z_score_requirements": {"Business": 1.0, "IT": 1.0, "Engineering": 1.0, "Medicine": 1.0, "Law": 1.0},
             "tuition_fee_range": {"Business": "700,000-1,100,000", "IT": "800,000-1,200,000", "Engineering": "900,000-1,400,000", "Medicine": "2,000,000-3,000,000", "Law": "850,000-1,250,000"},
             "location": "Colombo",
+            "coordinates": {"lat": 6.9271, "lon": 79.8612},
             "rankings": {"national": 9, "international": 6200},
             "facilities": ["Library", "Labs", "Sports", "Hostels", "Medical Facilities"],
             "specialties": ["Business", "IT", "Medicine", "Law"],
@@ -314,6 +343,7 @@ UNIVERSITY_DATABASE = {
             "z_score_requirements": {"Business": 1.0, "IT": 1.0, "Engineering": 1.0, "Architecture": 1.0},
             "tuition_fee_range": {"Business": "450,000-750,000", "IT": "550,000-850,000", "Engineering": "650,000-950,000", "Architecture": "600,000-900,000"},
             "location": "Colombo",
+            "coordinates": {"lat": 6.9271, "lon": 79.8612},
             "rankings": {"national": 10, "international": 6500},
             "facilities": ["Library", "Labs", "Sports", "Engineering Workshops"],
             "specialties": ["Business Studies", "IT", "Engineering"],
@@ -324,6 +354,7 @@ UNIVERSITY_DATABASE = {
             "z_score_requirements": {"Business": 1.0, "IT": 1.0, "Hospitality": 1.0, "Psychology": 1.0},
             "tuition_fee_range": {"Business": "500,000-800,000", "IT": "600,000-900,000", "Hospitality": "450,000-750,000", "Psychology": "550,000-850,000"},
             "location": "Colombo",
+            "coordinates": {"lat": 6.9271, "lon": 79.8612},
             "rankings": {"national": 11, "international": 6800},
             "facilities": ["Library", "Labs", "Sports", "Hospitality Training"],
             "specialties": ["Business", "IT", "Hospitality Management"],
@@ -334,6 +365,7 @@ UNIVERSITY_DATABASE = {
             "z_score_requirements": {"Business": 1.0, "IT": 1.0, "Management": 1.0, "Marketing": 1.0},
             "tuition_fee_range": {"Business": "400,000-700,000", "IT": "500,000-800,000", "Management": "450,000-750,000", "Marketing": "350,000-650,000"},
             "location": "Colombo",
+            "coordinates": {"lat": 6.9271, "lon": 79.8612},
             "rankings": {"national": 12, "international": 7000},
             "facilities": ["Library", "Labs", "Sports", "Business Center"],
             "specialties": ["Business Management", "IT", "Marketing"],
@@ -344,6 +376,7 @@ UNIVERSITY_DATABASE = {
             "z_score_requirements": {"Business": 1.0, "IT": 1.0, "Engineering": 1.0, "Law": 1.0},
             "tuition_fee_range": {"Business": "450,000-750,000", "IT": "550,000-850,000", "Engineering": "650,000-950,000", "Law": "700,000-1,000,000"},
             "location": "Nugegoda",
+            "coordinates": {"lat": 6.853, "lon": 79.89},
             "rankings": {"national": 13, "international": 7200},
             "facilities": ["Library", "Labs", "Sports", "Hostels"],
             "specialties": ["Business", "IT", "Engineering"],
@@ -354,6 +387,7 @@ UNIVERSITY_DATABASE = {
             "z_score_requirements": {"Business": 1.0, "IT": 1.0, "Hospitality": 1.0, "Tourism": 1.0},
             "tuition_fee_range": {"Business": "350,000-600,000", "IT": "450,000-700,000", "Hospitality": "400,000-650,000", "Tourism": "300,000-550,000"},
             "location": "Kandy",
+            "coordinates": {"lat": 7.2906, "lon": 80.6337},
             "rankings": {"national": 14, "international": 7500},
             "facilities": ["Library", "Labs", "Sports", "Hospitality Training"],
             "specialties": ["Business", "IT", "Hospitality"],
@@ -364,6 +398,7 @@ UNIVERSITY_DATABASE = {
             "z_score_requirements": {"Tourism": 1.0, "Hospitality": 1.0, "Business": 1.0, "Management": 1.0},
             "tuition_fee_range": {"Tourism": "300,000-500,000", "Hospitality": "350,000-550,000", "Business": "400,000-600,000", "Management": "450,000-650,000"},
             "location": "Colombo",
+            "coordinates": {"lat": 6.9271, "lon": 79.8612},
             "rankings": {"national": 15, "international": 7800},
             "facilities": ["Library", "Labs", "Sports", "Hospitality Training Center"],
             "specialties": ["Tourism Management", "Hospitality"],
@@ -374,6 +409,7 @@ UNIVERSITY_DATABASE = {
             "z_score_requirements": {"Business": 1.0, "Management": 1.0, "Marketing": 1.0, "Finance": 1.0},
             "tuition_fee_range": {"Business": "400,000-650,000", "Management": "450,000-700,000", "Marketing": "350,000-600,000", "Finance": "500,000-750,000"},
             "location": "Colombo",
+            "coordinates": {"lat": 6.9271, "lon": 79.8612},
             "rankings": {"national": 16, "international": 8000},
             "facilities": ["Library", "Labs", "Sports", "Business Center"],
             "specialties": ["Business Administration", "Management"],
@@ -384,6 +420,7 @@ UNIVERSITY_DATABASE = {
             "z_score_requirements": {"IT": 1.0, "Business": 1.0, "Engineering": 1.0, "Architecture": 1.0},
             "tuition_fee_range": {"IT": "500,000-800,000", "Business": "400,000-700,000", "Engineering": "600,000-900,000", "Architecture": "550,000-850,000"},
             "location": "Colombo",
+            "coordinates": {"lat": 6.9271, "lon": 79.8612},
             "rankings": {"national": 17, "international": 8200},
             "facilities": ["Library", "Labs", "Sports", "Engineering Workshops"],
             "specialties": ["IT", "Business", "Engineering"],
@@ -394,6 +431,7 @@ UNIVERSITY_DATABASE = {
             "z_score_requirements": {"Business": 1.0, "IT": 1.0, "Management": 1.0, "Hospitality": 1.0},
             "tuition_fee_range": {"Business": "450,000-700,000", "IT": "550,000-800,000", "Management": "400,000-650,000", "Hospitality": "400,000-600,000"},
             "location": "Kandy",
+            "coordinates": {"lat": 7.2906, "lon": 80.6337},
             "rankings": {"national": 18, "international": 8500},
             "facilities": ["Library", "Labs", "Sports", "Business Center"],
             "specialties": ["Business Management", "IT", "Hospitality"],
@@ -404,6 +442,7 @@ UNIVERSITY_DATABASE = {
             "z_score_requirements": {"Business": 1.0, "Management": 1.0, "Marketing": 1.0, "HR": 1.0},
             "tuition_fee_range": {"Business": "350,000-600,000", "Management": "400,000-650,000", "Marketing": "300,000-550,000", "HR": "350,000-600,000"},
             "location": "Colombo",
+            "coordinates": {"lat": 6.9271, "lon": 79.8612},
             "rankings": {"national": 19, "international": 8800},
             "facilities": ["Library", "Labs", "Sports", "Business Center"],
             "specialties": ["Business Administration", "Management"],
@@ -414,6 +453,7 @@ UNIVERSITY_DATABASE = {
             "z_score_requirements": {"Business": 1.0, "IT": 1.0, "Law": 1.0, "Management": 1.0},
             "tuition_fee_range": {"Business": "800,000-1,200,000", "IT": "900,000-1,300,000", "Law": "850,000-1,250,000", "Management": "750,000-1,150,000"},
             "location": "Colombo",
+            "coordinates": {"lat": 6.9271, "lon": 79.8612},
             "rankings": {"national": 20, "international": 4600},
             "facilities": ["Library", "Labs", "Sports", "Hostels"],
             "specialties": ["Business", "IT", "Law"],
@@ -424,6 +464,7 @@ UNIVERSITY_DATABASE = {
             "z_score_requirements": {"Business": 1.0, "IT": 1.0, "Law": 1.0, "Psychology": 1.0},
             "tuition_fee_range": {"Business": "900,000-1,300,000", "IT": "1,000,000-1,400,000", "Law": "950,000-1,350,000", "Psychology": "850,000-1,250,000"},
             "location": "Colombo",
+            "coordinates": {"lat": 6.9271, "lon": 79.8612},
             "rankings": {"national": 21, "international": 4400},
             "facilities": ["Library", "Labs", "Sports", "Psychology Lab"],
             "specialties": ["Business", "IT", "Law", "Psychology"],
@@ -434,6 +475,7 @@ UNIVERSITY_DATABASE = {
             "z_score_requirements": {"Business": 1.0, "IT": 1.0, "Hospitality": 1.0, "Law": 1.0},
             "tuition_fee_range": {"Business": "850,000-1,250,000", "IT": "950,000-1,350,000", "Hospitality": "750,000-1,150,000", "Law": "900,000-1,300,000"},
             "location": "Colombo",
+            "coordinates": {"lat": 6.9271, "lon": 79.8612},
             "rankings": {"national": 22, "international": 4200},
             "facilities": ["Library", "Labs", "Sports", "Hospitality Training"],
             "specialties": ["Business", "IT", "Hospitality"],
@@ -444,6 +486,7 @@ UNIVERSITY_DATABASE = {
             "z_score_requirements": {"Business": 1.0, "IT": 1.0, "Engineering": 1.0, "Law": 1.0},
             "tuition_fee_range": {"Business": "800,000-1,200,000", "IT": "900,000-1,300,000", "Engineering": "1,000,000-1,500,000", "Law": "850,000-1,250,000"},
             "location": "Colombo",
+            "coordinates": {"lat": 6.9271, "lon": 79.8612},
             "rankings": {"national": 23, "international": 4000},
             "facilities": ["Library", "Labs", "Sports", "Engineering Workshops"],
             "specialties": ["Business", "IT", "Engineering"],
@@ -454,6 +497,7 @@ UNIVERSITY_DATABASE = {
             "z_score_requirements": {"Business": 1.0, "IT": 1.0, "Engineering": 1.0, "Law": 1.0},
             "tuition_fee_range": {"Business": "750,000-1,150,000", "IT": "850,000-1,250,000", "Engineering": "950,000-1,400,000", "Law": "800,000-1,200,000"},
             "location": "Colombo",
+            "coordinates": {"lat": 6.9271, "lon": 79.8612},
             "rankings": {"national": 24, "international": 3800},
             "facilities": ["Library", "Labs", "Sports", "Engineering Workshops"],
             "specialties": ["Business", "IT", "Engineering"],
@@ -464,6 +508,7 @@ UNIVERSITY_DATABASE = {
             "z_score_requirements": {"Business": 1.0, "IT": 1.0, "Law": 1.0, "Psychology": 1.0},
             "tuition_fee_range": {"Business": "700,000-1,100,000", "IT": "800,000-1,200,000", "Law": "750,000-1,150,000", "Psychology": "650,000-1,000,000"},
             "location": "Colombo",
+            "coordinates": {"lat": 6.9271, "lon": 79.8612},
             "rankings": {"national": 25, "international": 3600},
             "facilities": ["Library", "Labs", "Sports", "Psychology Lab"],
             "specialties": ["Business", "IT", "Law"],
@@ -487,7 +532,9 @@ def extract_personality_traits_from_text(description, detected_traits):
         'adaptability': 1,
         'empathy': 1,
         'independence': 1,
-        'competition': 1
+        'competition': 1,
+        'problem_solving': 1,
+        'attention_to_detail': 1
     }
     
     # Convert detected traits to scores (1-5 scale)
@@ -598,7 +645,9 @@ def extract_personality_traits_from_text(description, detected_traits):
             elif 'persistent' in trait_lower or 'persistent achiever' in trait_lower:
                 personality_scores['analytical'] = min(5, personality_scores['analytical'] + 1)
                 personality_scores['leadership'] = min(5, personality_scores['leadership'] + 1)
-    
+
+    return personality_scores
+
 
 def analyze_personality_description(description):
     """Analyze personality description for traits"""
@@ -637,61 +686,211 @@ def analyze_personality_description(description):
 # Enhanced Backward-Chaining Model (from notebook)
 class BackwardChainingModel:
     def __init__(self):
+        # All 30 dream jobs from frontend with complete profiles
         self.career_knowledge = {
             "Software Engineer": {
                 "required_skills": {"programming": 0.9, "logic": 0.85, "problem_solving": 0.8, "mathematics": 0.7},
-                "personality_traits": {"analytical": 0.8, "creativity": 0.6, "risk_taking": 0.5},
-                "degree_paths": {"IT": 0.85, "Engineering": 0.4, "Business": 0.2},
-                "z_score_threshold": 1.2,
-                "future_demand": 0.95,
-                "stress_level": 0.6,
-                "work_environment": {"office": 0.8, "remote": 0.7}
+                "personality_traits": {"analytical": 0.85, "creativity": 0.7, "leadership": 0.3, "communication": 0.5, "problem_solving": 0.9, "teamwork": 0.6, "adaptability": 0.7, "attention_to_detail": 0.8},
+                "degree_paths": {"IT": 0.85, "Computer Science": 0.9, "Engineering": 0.4},
+                "z_score_threshold": 1.2, "future_demand": 0.95,
+                "lifestyle_profile": {"stress_level": 0.6, "work_life_balance": 0.7, "salary_potential": 0.85, "career_growth": 0.9, "social_impact": 0.4, "location_type": "Urban", "family_friendly": 0.7}
             },
             "Doctor": {
                 "required_skills": {"biology": 0.95, "memory": 0.9, "stress_handling": 0.85, "empathy": 0.8},
-                "personality_traits": {"analytical": 0.7, "leadership": 0.6, "risk_taking": 0.3},
+                "personality_traits": {"analytical": 0.8, "creativity": 0.3, "leadership": 0.6, "communication": 0.7, "problem_solving": 0.7, "teamwork": 0.7, "adaptability": 0.5, "attention_to_detail": 0.9},
                 "degree_paths": {"Medicine": 0.95, "Bio Science": 0.3},
-                "z_score_threshold": 2.0,
-                "future_demand": 0.9,
-                "stress_level": 0.9,
-                "work_environment": {"hospital": 0.9, "clinic": 0.6}
+                "z_score_threshold": 2.0, "future_demand": 0.9,
+                "lifestyle_profile": {"stress_level": 0.9, "work_life_balance": 0.3, "salary_potential": 0.85, "career_growth": 0.7, "social_impact": 0.95, "location_type": "Any", "family_friendly": 0.3}
             },
             "Data Scientist": {
                 "required_skills": {"statistics": 0.9, "programming": 0.85, "analysis": 0.8, "mathematics": 0.75},
-                "personality_traits": {"analytical": 0.9, "creativity": 0.7, "risk_taking": 0.4},
-                "degree_paths": {"IT": 0.8, "Mathematics": 0.6, "Business": 0.3},
-                "z_score_threshold": 1.4,
-                "future_demand": 0.92,
-                "stress_level": 0.5,
-                "work_environment": {"office": 0.7, "remote": 0.8}
+                "personality_traits": {"analytical": 0.95, "creativity": 0.7, "leadership": 0.3, "communication": 0.5, "problem_solving": 0.9, "teamwork": 0.5, "adaptability": 0.6, "attention_to_detail": 0.85},
+                "degree_paths": {"IT": 0.8, "Computer Science": 0.85, "Mathematics": 0.6},
+                "z_score_threshold": 1.4, "future_demand": 0.92,
+                "lifestyle_profile": {"stress_level": 0.5, "work_life_balance": 0.75, "salary_potential": 0.9, "career_growth": 0.9, "social_impact": 0.4, "location_type": "Urban", "family_friendly": 0.75}
             },
             "Entrepreneur": {
                 "required_skills": {"leadership": 0.9, "creativity": 0.85, "risk_management": 0.8, "communication": 0.75},
-                "personality_traits": {"risk_taking": 0.9, "leadership": 0.85, "creativity": 0.8},
-                "degree_paths": {"Business": 0.7, "IT": 0.4, "Engineering": 0.3},
-                "z_score_threshold": 1.0,
-                "future_demand": 0.7,
-                "stress_level": 0.8,
-                "work_environment": {"office": 0.4, "remote": 0.3, "field": 0.6}
+                "personality_traits": {"analytical": 0.5, "creativity": 0.9, "leadership": 0.9, "communication": 0.85, "problem_solving": 0.7, "teamwork": 0.6, "adaptability": 0.9, "attention_to_detail": 0.4},
+                "degree_paths": {"Business": 0.7, "Management": 0.6, "Finance": 0.5, "IT": 0.4},
+                "z_score_threshold": 1.0, "future_demand": 0.7,
+                "lifestyle_profile": {"stress_level": 0.85, "work_life_balance": 0.3, "salary_potential": 0.9, "career_growth": 0.95, "social_impact": 0.5, "location_type": "Urban", "family_friendly": 0.35}
             },
             "Accountant": {
                 "required_skills": {"numbers": 0.95, "accuracy": 0.9, "analysis": 0.7, "ethics": 0.8},
-                "personality_traits": {"analytical": 0.8, "risk_taking": 0.2, "creativity": 0.3},
-                "degree_paths": {"Business": 0.9, "Finance": 0.7},
-                "z_score_threshold": 1.1,
-                "future_demand": 0.75,
-                "stress_level": 0.4,
-                "work_environment": {"office": 0.9}
+                "personality_traits": {"analytical": 0.8, "creativity": 0.2, "leadership": 0.3, "communication": 0.5, "problem_solving": 0.6, "teamwork": 0.4, "adaptability": 0.3, "attention_to_detail": 0.95},
+                "degree_paths": {"Accounting": 0.95, "Business": 0.8, "Finance": 0.7},
+                "z_score_threshold": 1.1, "future_demand": 0.75,
+                "lifestyle_profile": {"stress_level": 0.45, "work_life_balance": 0.7, "salary_potential": 0.6, "career_growth": 0.5, "social_impact": 0.2, "location_type": "Urban", "family_friendly": 0.8}
             },
             "Civil Engineer": {
                 "required_skills": {"mathematics": 0.9, "design": 0.85, "physics": 0.8, "project_management": 0.75},
-                "personality_traits": {"analytical": 0.8, "creativity": 0.7, "leadership": 0.6},
-                "degree_paths": {"Engineering": 0.95, "Architecture": 0.4},
-                "z_score_threshold": 1.5,
-                "future_demand": 0.85,
-                "stress_level": 0.6,
-                "work_environment": {"office": 0.5, "field": 0.8}
-            }
+                "personality_traits": {"analytical": 0.8, "creativity": 0.6, "leadership": 0.6, "communication": 0.5, "problem_solving": 0.8, "teamwork": 0.7, "adaptability": 0.5, "attention_to_detail": 0.85},
+                "degree_paths": {"Engineering": 0.95, "Quantity Surveying": 0.6, "Architecture": 0.4},
+                "z_score_threshold": 1.5, "future_demand": 0.85,
+                "lifestyle_profile": {"stress_level": 0.6, "work_life_balance": 0.5, "salary_potential": 0.7, "career_growth": 0.6, "social_impact": 0.7, "location_type": "Any", "family_friendly": 0.5}
+            },
+            "Teacher": {
+                "required_skills": {"communication": 0.9, "empathy": 0.85, "patience": 0.8, "knowledge": 0.75},
+                "personality_traits": {"analytical": 0.5, "creativity": 0.7, "leadership": 0.7, "communication": 0.9, "problem_solving": 0.5, "teamwork": 0.6, "adaptability": 0.7, "attention_to_detail": 0.5},
+                "degree_paths": {"Education": 0.95, "Arts": 0.8, "Social Sciences": 0.6},
+                "z_score_threshold": 0.8, "future_demand": 0.8,
+                "lifestyle_profile": {"stress_level": 0.5, "work_life_balance": 0.8, "salary_potential": 0.3, "career_growth": 0.3, "social_impact": 0.9, "location_type": "Any", "family_friendly": 0.9}
+            },
+            "Nurse": {
+                "required_skills": {"biology": 0.8, "empathy": 0.9, "stress_handling": 0.85, "communication": 0.8},
+                "personality_traits": {"analytical": 0.5, "creativity": 0.3, "leadership": 0.4, "communication": 0.8, "problem_solving": 0.6, "teamwork": 0.9, "adaptability": 0.8, "attention_to_detail": 0.85},
+                "degree_paths": {"Nursing": 0.95, "Bio Science": 0.4},
+                "z_score_threshold": 1.4, "future_demand": 0.9,
+                "lifestyle_profile": {"stress_level": 0.8, "work_life_balance": 0.4, "salary_potential": 0.5, "career_growth": 0.6, "social_impact": 0.95, "location_type": "Any", "family_friendly": 0.4}
+            },
+            "Dentist": {
+                "required_skills": {"biology": 0.9, "precision": 0.95, "empathy": 0.8, "communication": 0.7},
+                "personality_traits": {"analytical": 0.7, "creativity": 0.4, "leadership": 0.4, "communication": 0.7, "problem_solving": 0.7, "teamwork": 0.5, "adaptability": 0.4, "attention_to_detail": 0.95},
+                "degree_paths": {"Dental": 0.95, "Medicine": 0.3},
+                "z_score_threshold": 1.8, "future_demand": 0.85,
+                "lifestyle_profile": {"stress_level": 0.5, "work_life_balance": 0.7, "salary_potential": 0.8, "career_growth": 0.6, "social_impact": 0.7, "location_type": "Urban", "family_friendly": 0.7}
+            },
+            "Pharmacist": {
+                "required_skills": {"chemistry": 0.9, "biology": 0.8, "accuracy": 0.9, "ethics": 0.85},
+                "personality_traits": {"analytical": 0.8, "creativity": 0.3, "leadership": 0.3, "communication": 0.6, "problem_solving": 0.7, "teamwork": 0.5, "adaptability": 0.4, "attention_to_detail": 0.95},
+                "degree_paths": {"Pharmacy": 0.95, "Bio Science": 0.4},
+                "z_score_threshold": 1.6, "future_demand": 0.8,
+                "lifestyle_profile": {"stress_level": 0.4, "work_life_balance": 0.75, "salary_potential": 0.65, "career_growth": 0.5, "social_impact": 0.7, "location_type": "Urban", "family_friendly": 0.8}
+            },
+            "Veterinarian": {
+                "required_skills": {"biology": 0.9, "empathy": 0.85, "surgery": 0.8, "communication": 0.7},
+                "personality_traits": {"analytical": 0.7, "creativity": 0.4, "leadership": 0.4, "communication": 0.6, "problem_solving": 0.7, "teamwork": 0.5, "adaptability": 0.7, "attention_to_detail": 0.85},
+                "degree_paths": {"Veterinary Science": 0.95, "Bio Science": 0.4, "Agriculture": 0.3},
+                "z_score_threshold": 1.6, "future_demand": 0.7,
+                "lifestyle_profile": {"stress_level": 0.6, "work_life_balance": 0.5, "salary_potential": 0.55, "career_growth": 0.5, "social_impact": 0.7, "location_type": "Any", "family_friendly": 0.5}
+            },
+            "Lawyer": {
+                "required_skills": {"logic": 0.9, "communication": 0.95, "research": 0.85, "ethics": 0.85},
+                "personality_traits": {"analytical": 0.8, "creativity": 0.5, "leadership": 0.7, "communication": 0.95, "problem_solving": 0.7, "teamwork": 0.5, "adaptability": 0.5, "attention_to_detail": 0.8},
+                "degree_paths": {"Law": 0.95, "Social Sciences": 0.4, "Arts": 0.3},
+                "z_score_threshold": 1.5, "future_demand": 0.75,
+                "lifestyle_profile": {"stress_level": 0.7, "work_life_balance": 0.4, "salary_potential": 0.8, "career_growth": 0.7, "social_impact": 0.6, "location_type": "Urban", "family_friendly": 0.4}
+            },
+            "Architect": {
+                "required_skills": {"design": 0.95, "mathematics": 0.8, "creativity": 0.9, "communication": 0.7},
+                "personality_traits": {"analytical": 0.7, "creativity": 0.95, "leadership": 0.5, "communication": 0.6, "problem_solving": 0.7, "teamwork": 0.5, "adaptability": 0.5, "attention_to_detail": 0.9},
+                "degree_paths": {"Architecture": 0.95, "Quantity Surveying": 0.5, "Engineering": 0.3},
+                "z_score_threshold": 1.4, "future_demand": 0.7,
+                "lifestyle_profile": {"stress_level": 0.6, "work_life_balance": 0.5, "salary_potential": 0.7, "career_growth": 0.6, "social_impact": 0.6, "location_type": "Urban", "family_friendly": 0.5}
+            },
+            "Web Developer": {
+                "required_skills": {"programming": 0.85, "design": 0.7, "creativity": 0.75, "problem_solving": 0.8},
+                "personality_traits": {"analytical": 0.7, "creativity": 0.8, "leadership": 0.3, "communication": 0.5, "problem_solving": 0.8, "teamwork": 0.5, "adaptability": 0.8, "attention_to_detail": 0.7},
+                "degree_paths": {"IT": 0.9, "Computer Science": 0.85},
+                "z_score_threshold": 1.1, "future_demand": 0.88,
+                "lifestyle_profile": {"stress_level": 0.5, "work_life_balance": 0.75, "salary_potential": 0.7, "career_growth": 0.8, "social_impact": 0.3, "location_type": "Urban", "family_friendly": 0.75}
+            },
+            "Cybersecurity Analyst": {
+                "required_skills": {"programming": 0.8, "networking": 0.9, "analysis": 0.85, "ethics": 0.8},
+                "personality_traits": {"analytical": 0.9, "creativity": 0.6, "leadership": 0.4, "communication": 0.5, "problem_solving": 0.9, "teamwork": 0.5, "adaptability": 0.7, "attention_to_detail": 0.9},
+                "degree_paths": {"IT": 0.85, "Computer Science": 0.9},
+                "z_score_threshold": 1.3, "future_demand": 0.95,
+                "lifestyle_profile": {"stress_level": 0.7, "work_life_balance": 0.6, "salary_potential": 0.85, "career_growth": 0.9, "social_impact": 0.5, "location_type": "Urban", "family_friendly": 0.6}
+            },
+            "Financial Analyst": {
+                "required_skills": {"mathematics": 0.85, "analysis": 0.9, "economics": 0.8, "communication": 0.7},
+                "personality_traits": {"analytical": 0.9, "creativity": 0.4, "leadership": 0.4, "communication": 0.6, "problem_solving": 0.7, "teamwork": 0.5, "adaptability": 0.4, "attention_to_detail": 0.9},
+                "degree_paths": {"Finance": 0.9, "Accounting": 0.7, "Mathematics": 0.6, "Business": 0.5},
+                "z_score_threshold": 1.2, "future_demand": 0.8,
+                "lifestyle_profile": {"stress_level": 0.65, "work_life_balance": 0.55, "salary_potential": 0.85, "career_growth": 0.7, "social_impact": 0.2, "location_type": "Urban", "family_friendly": 0.6}
+            },
+            "Marketing Manager": {
+                "required_skills": {"communication": 0.9, "creativity": 0.85, "analysis": 0.7, "leadership": 0.8},
+                "personality_traits": {"analytical": 0.5, "creativity": 0.85, "leadership": 0.7, "communication": 0.9, "problem_solving": 0.5, "teamwork": 0.7, "adaptability": 0.8, "attention_to_detail": 0.4},
+                "degree_paths": {"Business": 0.85, "Management": 0.9},
+                "z_score_threshold": 1.0, "future_demand": 0.75,
+                "lifestyle_profile": {"stress_level": 0.6, "work_life_balance": 0.6, "salary_potential": 0.7, "career_growth": 0.7, "social_impact": 0.3, "location_type": "Urban", "family_friendly": 0.6}
+            },
+            "Human Resources Manager": {
+                "required_skills": {"communication": 0.9, "empathy": 0.85, "leadership": 0.8, "negotiation": 0.75},
+                "personality_traits": {"analytical": 0.4, "creativity": 0.4, "leadership": 0.7, "communication": 0.9, "problem_solving": 0.5, "teamwork": 0.8, "adaptability": 0.7, "attention_to_detail": 0.5},
+                "degree_paths": {"Management": 0.85, "Business": 0.8},
+                "z_score_threshold": 1.0, "future_demand": 0.7,
+                "lifestyle_profile": {"stress_level": 0.5, "work_life_balance": 0.7, "salary_potential": 0.6, "career_growth": 0.6, "social_impact": 0.4, "location_type": "Urban", "family_friendly": 0.7}
+            },
+            "Mechanical Engineer": {
+                "required_skills": {"mathematics": 0.9, "physics": 0.85, "design": 0.8, "problem_solving": 0.8},
+                "personality_traits": {"analytical": 0.85, "creativity": 0.6, "leadership": 0.4, "communication": 0.5, "problem_solving": 0.85, "teamwork": 0.6, "adaptability": 0.5, "attention_to_detail": 0.85},
+                "degree_paths": {"Engineering": 0.95, "Quantity Surveying": 0.3},
+                "z_score_threshold": 1.5, "future_demand": 0.8,
+                "lifestyle_profile": {"stress_level": 0.6, "work_life_balance": 0.5, "salary_potential": 0.75, "career_growth": 0.65, "social_impact": 0.5, "location_type": "Any", "family_friendly": 0.5}
+            },
+            "Biomedical Engineer": {
+                "required_skills": {"biology": 0.8, "engineering": 0.85, "mathematics": 0.75, "research": 0.8},
+                "personality_traits": {"analytical": 0.85, "creativity": 0.7, "leadership": 0.4, "communication": 0.5, "problem_solving": 0.85, "teamwork": 0.6, "adaptability": 0.6, "attention_to_detail": 0.85},
+                "degree_paths": {"Engineering": 0.7, "Bio Science": 0.8, "Computer Science": 0.4},
+                "z_score_threshold": 1.5, "future_demand": 0.85,
+                "lifestyle_profile": {"stress_level": 0.5, "work_life_balance": 0.65, "salary_potential": 0.8, "career_growth": 0.85, "social_impact": 0.7, "location_type": "Urban", "family_friendly": 0.65}
+            },
+            "Agricultural Scientist": {
+                "required_skills": {"biology": 0.85, "research": 0.8, "analysis": 0.75, "fieldwork": 0.7},
+                "personality_traits": {"analytical": 0.7, "creativity": 0.5, "leadership": 0.4, "communication": 0.5, "problem_solving": 0.7, "teamwork": 0.6, "adaptability": 0.7, "attention_to_detail": 0.7},
+                "degree_paths": {"Agriculture": 0.95, "Bio Science": 0.7},
+                "z_score_threshold": 1.1, "future_demand": 0.7,
+                "lifestyle_profile": {"stress_level": 0.4, "work_life_balance": 0.7, "salary_potential": 0.45, "career_growth": 0.5, "social_impact": 0.7, "location_type": "Rural", "family_friendly": 0.7}
+            },
+            "Environmental Scientist": {
+                "required_skills": {"biology": 0.8, "research": 0.85, "analysis": 0.8, "fieldwork": 0.75},
+                "personality_traits": {"analytical": 0.75, "creativity": 0.5, "leadership": 0.4, "communication": 0.5, "problem_solving": 0.7, "teamwork": 0.6, "adaptability": 0.7, "attention_to_detail": 0.7},
+                "degree_paths": {"Bio Science": 0.8, "Agriculture": 0.6, "Physical Science": 0.5},
+                "z_score_threshold": 1.2, "future_demand": 0.8,
+                "lifestyle_profile": {"stress_level": 0.4, "work_life_balance": 0.7, "salary_potential": 0.5, "career_growth": 0.6, "social_impact": 0.9, "location_type": "Any", "family_friendly": 0.65}
+            },
+            "Psychologist": {
+                "required_skills": {"empathy": 0.9, "communication": 0.9, "analysis": 0.8, "research": 0.75},
+                "personality_traits": {"analytical": 0.7, "creativity": 0.5, "leadership": 0.4, "communication": 0.9, "problem_solving": 0.6, "teamwork": 0.5, "adaptability": 0.6, "attention_to_detail": 0.7},
+                "degree_paths": {"Social Sciences": 0.8, "Medicine": 0.6, "Arts": 0.4},
+                "z_score_threshold": 1.3, "future_demand": 0.75,
+                "lifestyle_profile": {"stress_level": 0.6, "work_life_balance": 0.65, "salary_potential": 0.6, "career_growth": 0.6, "social_impact": 0.9, "location_type": "Urban", "family_friendly": 0.65}
+            },
+            "Social Worker": {
+                "required_skills": {"empathy": 0.95, "communication": 0.85, "counseling": 0.8, "advocacy": 0.75},
+                "personality_traits": {"analytical": 0.4, "creativity": 0.4, "leadership": 0.5, "communication": 0.85, "problem_solving": 0.5, "teamwork": 0.7, "adaptability": 0.7, "attention_to_detail": 0.4},
+                "degree_paths": {"Social Sciences": 0.9, "Arts": 0.6, "Education": 0.4},
+                "z_score_threshold": 0.8, "future_demand": 0.7,
+                "lifestyle_profile": {"stress_level": 0.7, "work_life_balance": 0.5, "salary_potential": 0.3, "career_growth": 0.4, "social_impact": 0.95, "location_type": "Any", "family_friendly": 0.5}
+            },
+            "Journalist": {
+                "required_skills": {"writing": 0.9, "communication": 0.85, "research": 0.8, "curiosity": 0.85},
+                "personality_traits": {"analytical": 0.5, "creativity": 0.8, "leadership": 0.4, "communication": 0.9, "problem_solving": 0.5, "teamwork": 0.5, "adaptability": 0.8, "attention_to_detail": 0.6},
+                "degree_paths": {"Arts": 0.8, "Social Sciences": 0.6},
+                "z_score_threshold": 0.8, "future_demand": 0.6,
+                "lifestyle_profile": {"stress_level": 0.7, "work_life_balance": 0.4, "salary_potential": 0.4, "career_growth": 0.5, "social_impact": 0.7, "location_type": "Urban", "family_friendly": 0.4}
+            },
+            "Graphic Designer": {
+                "required_skills": {"design": 0.95, "creativity": 0.9, "technology": 0.7, "communication": 0.65},
+                "personality_traits": {"analytical": 0.4, "creativity": 0.95, "leadership": 0.3, "communication": 0.5, "problem_solving": 0.5, "teamwork": 0.4, "adaptability": 0.7, "attention_to_detail": 0.8},
+                "degree_paths": {"Fine Arts": 0.9, "IT": 0.4, "Arts": 0.3},
+                "z_score_threshold": 0.7, "future_demand": 0.75,
+                "lifestyle_profile": {"stress_level": 0.5, "work_life_balance": 0.7, "salary_potential": 0.5, "career_growth": 0.6, "social_impact": 0.3, "location_type": "Urban", "family_friendly": 0.7}
+            },
+            "Pilot": {
+                "required_skills": {"physics": 0.8, "mathematics": 0.75, "stress_handling": 0.9, "spatial_awareness": 0.9},
+                "personality_traits": {"analytical": 0.7, "creativity": 0.3, "leadership": 0.6, "communication": 0.7, "problem_solving": 0.7, "teamwork": 0.6, "adaptability": 0.6, "attention_to_detail": 0.9},
+                "degree_paths": {"Physical Science": 0.7, "Engineering": 0.5, "Mathematics": 0.4},
+                "z_score_threshold": 1.3, "future_demand": 0.65,
+                "lifestyle_profile": {"stress_level": 0.7, "work_life_balance": 0.3, "salary_potential": 0.85, "career_growth": 0.5, "social_impact": 0.3, "location_type": "Urban", "family_friendly": 0.2}
+            },
+            "Police Officer": {
+                "required_skills": {"law": 0.8, "communication": 0.85, "stress_handling": 0.9, "fitness": 0.8},
+                "personality_traits": {"analytical": 0.5, "creativity": 0.3, "leadership": 0.7, "communication": 0.7, "problem_solving": 0.6, "teamwork": 0.7, "adaptability": 0.6, "attention_to_detail": 0.6},
+                "degree_paths": {"Law": 0.7, "Social Sciences": 0.6, "Arts": 0.4},
+                "z_score_threshold": 0.8, "future_demand": 0.7,
+                "lifestyle_profile": {"stress_level": 0.85, "work_life_balance": 0.3, "salary_potential": 0.4, "career_growth": 0.5, "social_impact": 0.8, "location_type": "Any", "family_friendly": 0.3}
+            },
+            "Chef": {
+                "required_skills": {"creativity": 0.9, "management": 0.7, "stress_handling": 0.8, "communication": 0.65},
+                "personality_traits": {"analytical": 0.3, "creativity": 0.9, "leadership": 0.6, "communication": 0.5, "problem_solving": 0.5, "teamwork": 0.7, "adaptability": 0.8, "attention_to_detail": 0.7},
+                "degree_paths": {"Fine Arts": 0.5, "Business": 0.3, "Management": 0.3},
+                "z_score_threshold": 0.6, "future_demand": 0.65,
+                "lifestyle_profile": {"stress_level": 0.8, "work_life_balance": 0.3, "salary_potential": 0.5, "career_growth": 0.5, "social_impact": 0.3, "location_type": "Urban", "family_friendly": 0.3}
+            },
         }
 
     def backward_chain(self, dream_job, student_profile):
@@ -767,6 +966,7 @@ class BackwardChainingModel:
                         university_recommendations[degree]["government"].append({
                             "name": uni_name,
                             "location": uni_info["location"],
+                            "coordinates": uni_info.get("coordinates"),
                             "admission_probability": admission_score,
                             "z_score_requirement": uni_info["z_score_requirements"].get(degree, 1.5),
                             "rankings": uni_info["rankings"],
@@ -788,6 +988,7 @@ class BackwardChainingModel:
                     university_recommendations[degree]["private"].append({
                         "name": uni_name,
                         "location": uni_info["location"],
+                        "coordinates": uni_info.get("coordinates"),
                         "admission_probability": admission_score,
                         "tuition_fee_range": uni_info.get("tuition_fee_range", {}).get(degree, "N/A"),
                         "rankings": uni_info["rankings"],
@@ -907,20 +1108,30 @@ class BackwardChainingModel:
         return skill_scores
 
     def _calculate_personality_match(self, career_info, student_profile):
-        """Calculate personality compatibility scores"""
+        """Calculate personality compatibility scores using all 8 traits"""
         traits = career_info["personality_traits"]
         personality_scores = {}
-        
+
+        # Map all 8 frontend personality traits to backend keys
         trait_mapping = {
             'analytical': safe_int(student_profile.get('analytical_skill', 3)) / 5.0,
             'creativity': safe_int(student_profile.get('creativity', 3)) / 5.0,
-            'risk_taking': safe_int(student_profile.get('risk_taking', 3)) / 5.0,
-            'leadership': safe_int(student_profile.get('leadership', 3)) / 5.0
+            'leadership': safe_int(student_profile.get('leadership', 3)) / 5.0,
+            'communication': safe_int(student_profile.get('communication_skill', 3)) / 5.0,
+            'problem_solving': safe_int(student_profile.get('problem_solving', 3)) / 5.0,
+            'teamwork': safe_int(student_profile.get('teamwork', 3)) / 5.0,
+            'adaptability': safe_int(student_profile.get('adaptability', 3)) / 5.0,
+            'attention_to_detail': safe_int(student_profile.get('attention_to_detail', 3)) / 5.0
         }
-        
+
         for trait, required_level in traits.items():
-            student_level = trait_mapping.get(trait, 0.6)
-            personality_scores[trait] = min(1.0, student_level / required_level)
+            student_level = trait_mapping.get(trait, 0.5)
+            if required_level > 0:
+                personality_scores[trait] = min(1.0, student_level / required_level)
+            else:
+                personality_scores[trait] = 1.0
+
+        return personality_scores
         
 
     def _calculate_academic_feasibility(self, career_info, student_profile):
@@ -939,20 +1150,73 @@ class BackwardChainingModel:
         }
 
     def _calculate_lifestyle_compatibility(self, career_info, student_profile):
-        """Calculate lifestyle compatibility scores"""
-        stress_level = career_info.get('stress_level', 0.5)
-        student_stress_tolerance = safe_int(student_profile.get('stress_tolerance', 3)) / 5.0
-        
-        stress_match = min(1.0, student_stress_tolerance / stress_level)
-        location_match = 0.7  # Simplified
-        social_match = 0.6  # Simplified
-        travel_match = 0.5  # Simplified
-        
+        """Calculate lifestyle compatibility using all 7 student lifestyle preferences.
+
+        Matching logic: For preference-based factors (WLB, salary, growth, social impact, family),
+        if the student cares a lot about X, the career must deliver X for a good match.
+        If the student doesn't care, any career value is acceptable.
+        Formula: match = 1.0 - importance * (1.0 - career_delivers)
+        """
+        lifestyle = career_info.get('lifestyle_profile', {})
+
+        # --- 1. Stress Match ---
+        # Student stress tolerance (1-5 scale) vs career stress level (0-1)
+        career_stress = lifestyle.get('stress_level', 0.5)
+        student_stress = safe_int(student_profile.get('stress_tolerance', 3)) / 5.0
+        stress_match = min(1.0, student_stress / career_stress) if career_stress > 0 else 1.0
+
+        # --- 2. Work-Life Balance Match ---
+        # How important WLB is to student (1-5) vs how much career offers (0-1)
+        wlb_importance = safe_int(student_profile.get('work_life_balance_priority', 3)) / 5.0
+        career_wlb = lifestyle.get('work_life_balance', 0.5)
+        wlb_match = 1.0 - wlb_importance * (1.0 - career_wlb)
+
+        # --- 3. Salary Match ---
+        # How important salary is to student (1-5) vs career salary potential (0-1)
+        salary_importance = safe_int(student_profile.get('financial_stability_need', 3)) / 5.0
+        career_salary = lifestyle.get('salary_potential', 0.5)
+        salary_match = 1.0 - salary_importance * (1.0 - career_salary)
+
+        # --- 4. Career Growth Match ---
+        # How important growth is (1-5) vs career growth opportunities (0-1)
+        growth_importance = safe_int(student_profile.get('career_sustainability_priority', 3)) / 5.0
+        career_growth = lifestyle.get('career_growth', 0.5)
+        career_growth_match = 1.0 - growth_importance * (1.0 - career_growth)
+
+        # --- 5. Social Impact Match ---
+        # How important social impact is (1-5) vs career's social impact (0-1)
+        impact_importance = safe_int(student_profile.get('social_impact_priority', 3)) / 5.0
+        career_impact = lifestyle.get('social_impact', 0.5)
+        social_impact_match = 1.0 - impact_importance * (1.0 - career_impact)
+
+        # --- 6. Location Match ---
+        # Compare student preferred location vs career's typical location
+        student_location = str(student_profile.get('preferred_location', 'Any'))
+        career_location = lifestyle.get('location_type', 'Urban')
+        if student_location == 'Any' or career_location == 'Any':
+            location_match = 1.0
+        elif student_location == career_location:
+            location_match = 1.0
+        elif (student_location == 'Suburban' and career_location == 'Urban') or \
+             (student_location == 'Urban' and career_location == 'Suburban'):
+            location_match = 0.7
+        else:
+            location_match = 0.4
+
+        # --- 7. Family Attachment Match ---
+        # How important family closeness is (1-5) vs career's family-friendliness (0-1)
+        family_importance = safe_int(student_profile.get('family_attachment_level', 3)) / 5.0
+        career_family = lifestyle.get('family_friendly', 0.5)
+        family_match = 1.0 - family_importance * (1.0 - career_family)
+
         return {
-            "stress_match": stress_match,
-            "location_match": location_match,
-            "social_match": social_match,
-            "travel_match": travel_match
+            "stress_match": round(stress_match, 3),
+            "work_life_balance": round(wlb_match, 3),
+            "salary_match": round(salary_match, 3),
+            "career_growth": round(career_growth_match, 3),
+            "social_impact": round(social_impact_match, 3),
+            "location_match": round(location_match, 3),
+            "family_friendly": round(family_match, 3)
         }
 
     def _calculate_overall_score(self, degree, results, student_profile):
@@ -1361,22 +1625,33 @@ def get_recommendations():
     try:
         student_profile = request.json
         print(f"Received student data: {student_profile}")
-        
-        # Process personality description if available
-        personality_description = student_profile.get('personality_description', '')
-        detected_traits = student_profile.get('detected_traits', [])
-        
-        if personality_description and detected_traits:
-            # Extract personality scores from text analysis
-            personality_scores = extract_personality_traits_from_text(personality_description, detected_traits)
-            
-            # Update student profile with enhanced personality data
-            student_profile['analytical_skill'] = personality_scores['analytical']
-            student_profile['creativity'] = personality_scores['creativity']
-            student_profile['leadership'] = personality_scores['leadership']
-            student_profile['risk_taking'] = personality_scores['risk_taking']
-            
-            print(f"Processed personality: {personality_scores}")
+
+        # Validate required fields
+        if not student_profile.get('dream_job'):
+            return jsonify({"error": "Dream job is required. Please select a career goal."}), 400
+        if not student_profile.get('stream'):
+            return jsonify({"error": "A/L stream is required. Please select your stream."}), 400
+        if not student_profile.get('z_score') and student_profile.get('z_score') != 0:
+            return jsonify({"error": "Z-Score is required. Please enter your Z-Score."}), 400
+
+        # Only use text-based personality extraction if numeric scores aren't already provided
+        if not student_profile.get('analytical_skill'):
+            personality_description = student_profile.get('personality_description', '')
+            detected_traits = student_profile.get('detected_traits', [])
+
+            if personality_description and detected_traits:
+                personality_scores = extract_personality_traits_from_text(personality_description, detected_traits)
+                student_profile['analytical_skill'] = personality_scores.get('analytical', 3)
+                student_profile['creativity'] = personality_scores.get('creativity', 3)
+                student_profile['leadership'] = personality_scores.get('leadership', 3)
+                student_profile['communication_skill'] = personality_scores.get('communication', 3)
+                student_profile['problem_solving'] = personality_scores.get('problem_solving', 3)
+                student_profile['teamwork'] = personality_scores.get('teamwork', 3)
+                student_profile['adaptability'] = personality_scores.get('adaptability', 3)
+                student_profile['attention_to_detail'] = personality_scores.get('attention_to_detail', 3)
+                print(f"Extracted personality from text: {personality_scores}")
+        else:
+            print(f"Using provided personality scores: analytical={student_profile.get('analytical_skill')}, creativity={student_profile.get('creativity')}, leadership={student_profile.get('leadership')}, communication={student_profile.get('communication_skill')}, problem_solving={student_profile.get('problem_solving')}, teamwork={student_profile.get('teamwork')}, adaptability={student_profile.get('adaptability')}, attention_to_detail={student_profile.get('attention_to_detail')}")
         
         # Use trained model for prediction
         prediction_result = model_predictor.predict_degree(student_profile)
@@ -1405,13 +1680,17 @@ def get_recommendations():
                 "skill_match": {
                     "analytical": float(student_profile.get('analytical_skill', 3) / 5.0),
                     "creativity": float(student_profile.get('creativity', 3) / 5.0),
-                    "risk_taking": float(student_profile.get('risk_taking', 3) / 5.0)
+                    "problem_solving": float(student_profile.get('problem_solving', 3) / 5.0)
                 },
                 "personality_match": {
                     "analytical": float(student_profile.get('analytical_skill', 3) / 5.0),
                     "creativity": float(student_profile.get('creativity', 3) / 5.0),
-                    "risk_taking": float(student_profile.get('risk_taking', 3) / 5.0),
-                    "leadership": float(student_profile.get('leadership', 3) / 5.0)
+                    "leadership": float(student_profile.get('leadership', 3) / 5.0),
+                    "communication": float(student_profile.get('communication_skill', 3) / 5.0),
+                    "problem_solving": float(student_profile.get('problem_solving', 3) / 5.0),
+                    "teamwork": float(student_profile.get('teamwork', 3) / 5.0),
+                    "adaptability": float(student_profile.get('adaptability', 3) / 5.0),
+                    "attention_to_detail": float(student_profile.get('attention_to_detail', 3) / 5.0)
                 },
                 "academic_feasibility": {
                     "z_score_feasibility": min(1.0, float(student_profile.get('z_score', 0)) / 2.0),
@@ -1419,10 +1698,13 @@ def get_recommendations():
                     "threshold_gap": max(0, 2.0 - float(student_profile.get('z_score', 0)))
                 },
                 "lifestyle_compatibility": {
-                    "stress_match": 0.8,
-                    "location_match": 0.7,
-                    "social_match": 0.6,
-                    "travel_match": 0.5
+                    "stress_match": min(1.0, safe_int(student_profile.get('stress_tolerance', 3)) / 5.0 / 0.5),
+                    "work_life_balance": 1.0 - (safe_int(student_profile.get('work_life_balance_priority', 3)) / 5.0) * 0.4,
+                    "salary_match": 1.0 - (safe_int(student_profile.get('financial_stability_need', 3)) / 5.0) * 0.3,
+                    "career_growth": 1.0 - (safe_int(student_profile.get('career_sustainability_priority', 3)) / 5.0) * 0.3,
+                    "social_impact": 1.0 - (safe_int(student_profile.get('social_impact_priority', 3)) / 5.0) * 0.4,
+                    "location_match": 0.8,
+                    "family_friendly": 1.0 - (safe_int(student_profile.get('family_attachment_level', 3)) / 5.0) * 0.4
                 },
                 "explanation": f"Based on your {student_profile.get('stream', '')} stream and {student_profile.get('z_score', 0)} Z-score, {predicted_degree} offers strong alignment with your {student_profile.get('dream_job', '')} career goals.",
                 "roadmap": _generate_roadmap(predicted_degree)
@@ -1502,8 +1784,37 @@ def get_recommendations():
             
             enhanced_recommendations.append(enhanced_rec)
         
+        # Model info for transparency
+        model_info = {
+            "method": method_used,
+            "method_label": {
+                "trained_random_forest": "Trained Random Forest Classifier",
+                "z_score_fallback": "Z-Score Based Rule Engine + Career Compatibility Matrix",
+                "fallback": "Rule-Based Fallback Engine"
+            }.get(method_used, method_used),
+            "description": {
+                "trained_random_forest": "A supervised machine learning model trained on historical student data. Uses ensemble decision trees to predict the best-fit degree based on your Z-score, stream, personality traits, and career goals.",
+                "z_score_fallback": "A hybrid recommendation engine combining Z-score threshold analysis with a stream-degree compatibility matrix (weighted 60%) and job-degree alignment scoring (weighted 40%). Evaluates your academic standing against university cutoff marks and matches career requirements.",
+                "fallback": "A rule-based recommendation system using predefined career-to-degree mappings and Z-score thresholds."
+            }.get(method_used, "AI-powered recommendation engine"),
+            "confidence_score": float(confidence),
+            "accuracy_note": "Confidence score indicates the model's certainty in its top prediction. Higher scores (>80%) suggest strong alignment between your profile and the recommended degree.",
+            "factors_used": [
+                f"Z-Score: {student_profile.get('z_score', 0)}",
+                f"Stream: {student_profile.get('stream', 'N/A')}",
+                f"Dream Job: {student_profile.get('dream_job', 'N/A')}",
+                f"District: {student_profile.get('district', 'N/A')}",
+                f"Analytical Skill: {student_profile.get('analytical_skill', 'N/A')}/5",
+                f"Creativity: {student_profile.get('creativity', 'N/A')}/5",
+                f"Leadership: {student_profile.get('leadership', 'N/A')}/5",
+            ],
+            "universities_analyzed": len(university_recommendations.get('government', [])) + len(university_recommendations.get('private', [])),
+            "total_university_database": 44,
+        }
+
         return jsonify({
             "method": method_used,
+            "model_info": model_info,
             "recommendations": enhanced_recommendations,
             "university_recommendations": university_recommendations,
             "best_degree": predicted_degree,

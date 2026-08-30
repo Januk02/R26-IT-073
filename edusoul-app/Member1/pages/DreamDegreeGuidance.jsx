@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Float, Sphere, Text } from '@react-three/drei';
 import { universities, dreamJobs, languageTranslations } from '../data/dreamDegreeData';
@@ -143,7 +143,7 @@ const ROTATING_JOBS = [
 function CareerGlobe({ jobs, isPaused, onJobClick, selectedJob }) {
   const groupRef = useRef();
 
-  useFrame((state) => {
+  useFrame(() => {
     if (groupRef.current && !isPaused) {
       groupRef.current.rotation.y += 0.003;
     }
@@ -541,7 +541,7 @@ function GuidanceScene({ jobs, isPaused, onJobClick, selectedJob, theme }) {
 /*  PAGE                                                                */
 /* ------------------------------------------------------------------ */
 
-export default function DreamDegreeGuidance({ studentData, onBack, onHome, onComplete }) {
+export default function DreamDegreeGuidance({ studentData, backendResults, onBack, onHome, onComplete }) {
   const [language, setLanguage] = useState('en');
   const [isPaused, setIsPaused] = useState(false);
   const [selectedJob, setSelectedJob] = useState(studentData.dreamJob || dreamJobs[0].title);
@@ -595,7 +595,7 @@ export default function DreamDegreeGuidance({ studentData, onBack, onHome, onCom
     }
 
     const lowPersonalityTraits = Object.entries(studentData.personalityScores || {})
-      .filter(([trait, score]) => score < 6)
+      .filter(([, score]) => score < 6)
       .map(([trait, score]) => ({ trait, score }));
 
     if (lowPersonalityTraits.length > 0) {
@@ -678,6 +678,21 @@ export default function DreamDegreeGuidance({ studentData, onBack, onHome, onCom
   };
 
   const counterfactuals = generateCounterfactuals();
+
+  // Merge backend counterfactual guidance if available
+  const backendGuidance = backendResults?.counterfactual_guidance || {};
+  if (backendGuidance.skill_improvement) {
+    counterfactuals.unshift({
+      category: 'AI Insight',
+      icon: '🤖',
+      title: 'AI Skill Improvement Advice',
+      current: 'Current skills',
+      target: 'Optimal level',
+      impact: 'High',
+      suggestions: [backendGuidance.skill_improvement],
+      ifThen: backendGuidance.z_score_improvement || 'Follow the AI recommendations to improve your chances.',
+    });
+  }
 
   const getImpactColor = (impact) => {
     switch (impact) {

@@ -77,10 +77,10 @@ export default function HomePage({ onNavigateToLogin, onNavigateToRegister }) {
 
   const features = [
     { icon: '🧠', title: 'AI Dream Advisor',      desc: 'Our AI analyses your academic profile, personality and goals to recommend the perfect degree path tailored just for you.', color: '#1d4ed8', bg: '#eff6ff' },
+    { icon: '⌚', title: 'Study & Stress Analytics', desc: 'Real-time smartwatch health telemetry via Firebase health_reports. Biometric stress tracking and adaptive AI study planning.', color: '#0284c7', bg: '#f0f9ff' },
     { icon: '🏛️', title: 'University Matching',   desc: 'Smart matching with Sri Lankan universities based on your Z-Score, stream, district, and career aspirations.',              color: '#0891b2', bg: '#ecfeff' },
     { icon: '🗺️', title: 'Career Roadmaps',       desc: 'Get a personalised step-by-step roadmap from where you are now to your dream career — with milestones and resources.',     color: '#7c3aed', bg: '#f5f3ff' },
     { icon: '🧑‍🏫', title: 'Expert Mentors',      desc: 'Connect with verified mentors who have walked the path. Get real guidance from professionals in your target field.',        color: '#0d9488', bg: '#f0fdfa' },
-    { icon: '🌐', title: 'Multilingual Support',   desc: 'Fully available in English, Sinhala and Tamil — making quality career guidance accessible to every Sri Lankan student.',   color: '#d97706', bg: '#fffbeb' },
     { icon: '📊', title: 'Explainable AI (XAI)',   desc: "We don't just give recommendations — we explain WHY, using transparent AI that shows exactly how each decision was made.", color: '#be185d', bg: '#fdf2f8' },
   ];
 
