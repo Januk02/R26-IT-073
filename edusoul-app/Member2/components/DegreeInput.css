@@ -1,0 +1,94 @@
+/* DEGREE INPUT */
+.degree-input-container { position: relative; }
+
+.degree-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 11px 14px;
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.degree-input-wrapper.focused {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-muted);
+  background: var(--bg-input-focus);
+}
+
+.degree-input-wrapper.selected {
+  border-color: var(--success);
+  background: var(--success-subtle);
+}
+
+.degree-icon { color: var(--text-muted); flex-shrink: 0; }
+.degree-input-wrapper.selected .degree-icon { color: var(--success); }
+
+.degree-input {
+  flex: 1;
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 14px;
+  min-width: 0;
+}
+.degree-input::placeholder { color: var(--text-muted); }
+
+.degree-spinner {
+  color: var(--accent);
+  animation: spin 1s linear infinite;
+  flex-shrink: 0;
+}
+
+.degree-clear {
+  display: flex;
+  padding: 3px;
+  border-radius: 50%;
+  color: var(--text-muted);
+  transition: all var(--duration-fast);
+}
+.degree-clear:hover {
+  color: var(--danger);
+  background: var(--danger-subtle);
+}
+
+.degree-hint {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.degree-suggestions {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: var(--bg-card-solid);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 200;
+}
+
+.degree-suggestion-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 14px;
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  transition: background var(--duration-fast);
+  border-bottom: 1px solid var(--divider);
+}
+.degree-suggestion-item:last-child { border-bottom: none; }
+.degree-suggestion-item:hover { background: var(--accent-muted); }
+.degree-suggestion-icon { color: var(--accent); flex-shrink: 0; }

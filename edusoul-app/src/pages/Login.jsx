@@ -481,7 +481,7 @@ function LoginForm({ role, onBack, onNavigateToRegister }) {
     if (!isValidEmail(email)) { setError('Enter a valid email address.'); return; }
 
     setLoading(true);
-    const result = await login(email, password);
+    const result = await login(email, password, role);
 
     if (!result.success) {
       // Map Firebase error codes to friendly messages
@@ -499,17 +499,13 @@ function LoginForm({ role, onBack, onNavigateToRegister }) {
       return;
     }
 
-    // Role mismatch check happens via AuthContext → App.jsx routing.
-    // Nothing more needed here — App.jsx reads userRole from Firestore
-    // and routes accordingly. If they land on the wrong dashboard the
-    // routing logic in App.jsx will direct them correctly.
     setLoading(false);
   };
 
   const handleGoogle = async () => {
     setError('');
     setLoading(true);
-    const result = await loginWithGoogle();
+    const result = await loginWithGoogle(role);
     if (!result.success) {
       setError('Google sign-in failed. Please try again.');
       setLoading(false);

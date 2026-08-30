@@ -1,3 +1,12 @@
+import React from 'react';
+import { 
+  GraduationCap, 
+  Rocket, 
+  Brain, 
+  Users, 
+  MessageSquare, 
+  ArrowUpRight
+} from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 const StudentDashboard = ({
@@ -9,50 +18,68 @@ const StudentDashboard = ({
 }) => {
   const { user } = useAuth();
   const firstName = user?.displayName?.split(' ')[0] || user?.email?.split('@')[0] || 'Student';
+  const hour = new Date().getHours();
+  const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
 
-  const features = [
+  const modules = [
+    {
+      id: 'degree',
+      num: '01',
+      icon: GraduationCap,
+      tag: 'DEGREE INTELLIGENCE',
+      title: 'FutureDream Degree Advisor',
+      desc: 'Discover personalized university degrees and optimal academic pathways matched to your dream career goals.',
+      btnLabel: 'Explore Degrees',
+      hoverBg: '#147df5',
+      accentColor: '#147df5',
+      onClick: onStartDreamDegreeAdvisor,
+    },
     {
       id: 'career',
-      icon: '🚀',
-      title: 'Career Pathway',
-      desc: 'Explore curated courses and build the skills needed for your dream career.',
-      color: '#1d4ed8',
-      bg: '#eff6ff',
-      shadow: 'rgba(29,78,216,0.18)',
-      btnLabel: 'Explore Courses',
+      num: '02',
+      icon: Rocket,
+      tag: 'SKILL-GAP & CAREER AI',
+      title: 'Adaptive Career Pathway & Skill-Gap AI',
+      desc: 'Calculate your real-time Skill-Gap Index (SGI), explore high-demand industry roles, and generate an adaptive roadmap.',
+      btnLabel: 'Launch Career AI',
+      hoverBg: 'linear-gradient(135deg, #7C3AED 0%, #6366F1 100%)',
+      accentColor: '#7C3AED',
       onClick: onNavigateToCourses,
     },
     {
-      id: 'stress',
-      icon: '🧠',
-      title: 'Stress Analysis',
-      desc: 'Track your study patterns, mental well-being, and academic performance.',
-      color: '#7c3aed',
-      bg: '#f5f3ff',
-      shadow: 'rgba(124,58,237,0.18)',
+      id: 'wellness',
+      num: '03',
+      icon: Brain,
+      tag: 'COGNITIVE & WELLNESS',
+      title: 'Study & Stress Analytics',
+      desc: 'Monitor study workload patterns, track cognitive stress telemetry, and optimize your daily academic performance.',
       btnLabel: 'View Analytics',
+      hoverBg: '#0284C7',
+      accentColor: '#0284C7',
       onClick: onNavigateToAnalytics,
     },
     {
-      id: 'mentorship',
-      icon: '🧑‍🏫',
-      title: 'Mentorship Hub',
-      desc: 'Browse verified industry mentors and university lecturers across Sri Lanka.',
-      color: '#be185d',
-      bg: '#fdf2f8',
-      shadow: 'rgba(190,24,93,0.18)',
-      btnLabel: 'Find a Mentor',
+      id: 'mentors',
+      num: '04',
+      icon: Users,
+      tag: 'VERIFIED MENTORS',
+      title: 'Professional Mentorship Hub',
+      desc: 'Connect 1-on-1 with verified industry leaders and university lecturers for structured career guidance.',
+      btnLabel: 'Find Mentors',
+      hoverBg: '#0D9488',
+      accentColor: '#0D9488',
       onClick: onNavigateToMentorHub,
     },
     {
-      id: 'livechat',
-      icon: '💬',
-      title: 'Mentor Chat',
-      desc: 'Real-time 1-on-1 Firebase messaging with your mentors for academic advice.',
-      color: '#0d9488',
-      bg: '#f0fdfa',
-      shadow: 'rgba(13,148,136,0.18)',
-      btnLabel: 'Open Chat',
+      id: 'messages',
+      num: '05',
+      icon: MessageSquare,
+      tag: 'LIVE MESSAGING',
+      title: 'Mentor Chat & Support',
+      desc: 'Direct 1-on-1 real-time messaging with your mentors for academic advice, portfolio review, and document sharing.',
+      btnLabel: 'Open Messages',
+      hoverBg: '#334155',
+      accentColor: '#475569',
       onClick: onNavigateToMessages || onNavigateToMentorHub,
     },
   ];
@@ -60,173 +87,330 @@ const StudentDashboard = ({
   return (
     <>
       <style>{`
-        .sd-root { font-family: Inter, sans-serif; min-height: 100vh; background: #f8faff; }
-
-        .sd-header {
-          background: linear-gradient(135deg, #1d4ed8, #1e40af);
-          padding: 36px 48px; color: white; position: relative; overflow: hidden;
+        /* ── Modern Architectural Editorial UI ── */
+        .cominvi-root {
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
+          min-height: 100vh;
+          background: #F8FAFC;
+          color: #0F172A;
+          padding-bottom: 80px;
         }
 
-        .sd-header::before {
-          content: ''; position: absolute;
-          width: 400px; height: 400px; border-radius: 50%;
-          background: rgba(255,255,255,0.06); top: -120px; right: -80px;
+        /* ── Animated 3D Students Hero Banner ── */
+        .cominvi-hero {
+          position: relative;
+          width: 100%;
+          min-height: 290px;
+          background: #0F172A;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          border-bottom: 1px solid #E2E8F0;
         }
 
-        .sd-header::after {
-          content: ''; position: absolute;
-          width: 200px; height: 200px; border-radius: 50%;
-          background: rgba(255,255,255,0.04); bottom: -60px; left: 200px;
+        .cominvi-hero-bg {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center 30%;
+          opacity: 0.88;
+          transform: scale(1.01);
+          transition: transform 6s ease;
         }
 
-        .sd-greeting {
-          font-size: 13px; font-weight: 600;
-          color: rgba(255,255,255,0.65); margin-bottom: 6px;
-          position: relative; z-index: 2;
+        .cominvi-hero:hover .cominvi-hero-bg {
+          transform: scale(1.03);
         }
 
-        .sd-header h1 {
-          font-size: 30px; font-weight: 900;
-          color: white; margin-bottom: 6px;
-          position: relative; z-index: 2;
+        .cominvi-hero-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(
+            90deg,
+            rgba(15, 23, 42, 0.90) 0%,
+            rgba(15, 23, 42, 0.72) 42%,
+            rgba(15, 23, 42, 0.28) 100%
+          );
         }
 
-        .sd-header p {
-          font-size: 13px; color: rgba(255,255,255,0.70);
-          position: relative; z-index: 2;
+        .cominvi-hero-container {
+          position: relative;
+          z-index: 2;
+          max-width: 1380px;
+          width: 100%;
+          margin: 0 auto;
+          padding: 40px 48px;
         }
 
-        .sd-body { padding: 36px 48px; }
-
-        /* ── Dream Advisor Banner ── */
-        .sd-advisor {
-          background: linear-gradient(135deg, #7c3aed, #4f46e5);
-          border-radius: 18px; padding: 26px 30px;
-          display: flex; align-items: center; justify-content: space-between;
-          gap: 20px; margin-bottom: 36px;
-          box-shadow: 0 12px 36px rgba(124,58,237,0.25);
+        .hero-title-group h1 {
+          font-size: 38px;
+          font-weight: 800;
+          color: #FFFFFF;
+          letter-spacing: -0.035em;
+          line-height: 1.15;
+          margin: 0 0 10px 0;
+          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
-        .sd-advisor-left { display: flex; align-items: center; gap: 18px; }
-
-        .sd-advisor-icon {
-          width: 56px; height: 56px; border-radius: 16px;
-          background: rgba(255,255,255,0.18);
-          display: flex; align-items: center; justify-content: center;
-          font-size: 26px; flex-shrink: 0;
+        .hero-title-group p {
+          font-size: 15.5px;
+          color: rgba(255, 255, 255, 0.82);
+          margin: 0;
+          max-width: 580px;
+          line-height: 1.6;
+          text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
         }
 
-        .sd-advisor h2 { font-size: 20px; font-weight: 800; color: white; margin-bottom: 4px; }
-        .sd-advisor p  { font-size: 13px; color: rgba(255,255,255,0.72); }
-
-        .sd-advisor-btn {
-          padding: 11px 24px;
-          background: white; color: #7c3aed;
-          font-size: 13px; font-weight: 800;
-          border: none; border-radius: 10px; cursor: pointer;
-          font-family: inherit; flex-shrink: 0;
-          transition: all 0.2s;
-          box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+        /* ── Main Interactive Section ── */
+        .cominvi-body {
+          max-width: 1380px;
+          margin: -32px auto 0;
+          padding: 0 48px;
+          position: relative;
+          z-index: 3;
         }
 
-        .sd-advisor-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.2); }
+        /* ── Architectural Cards Grid ── */
+        .cards-track {
+          display: grid;
+          grid-template-columns: repeat(5, 1fr);
+          gap: 16px;
+        }
 
-        /* ── Section title ── */
-        .sd-section-title {
-          font-size: 18px; font-weight: 800; color: #0f172a;
+        /* ── High-End Interactive Card ── */
+        .arch-card {
+          background: #FFFFFF;
+          border: 1px solid #E2E8F0;
+          border-radius: 18px;
+          min-height: 380px;
+          padding: 30px 24px 26px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          cursor: pointer;
+          position: relative;
+          overflow: hidden;
+          transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+        }
+
+        .arch-card:hover {
+          transform: translateY(-8px);
+          background: var(--card-hover-bg) !important;
+          border-color: transparent !important;
+          box-shadow: 0 20px 44px rgba(0, 0, 0, 0.18);
+        }
+
+        /* Top Bar in Card */
+        .card-head {
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+          position: relative;
+          z-index: 2;
+        }
+
+        .icon-symbol {
+          width: 50px;
+          height: 50px;
+          border-radius: 13px;
+          background: #F8FAFC;
+          border: 1px solid #E2E8F0;
+          color: var(--accent);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.35s ease;
+        }
+
+        .arch-card:hover .icon-symbol {
+          background: rgba(255, 255, 255, 0.18);
+          border-color: rgba(255, 255, 255, 0.28);
+          color: #FFFFFF;
+          transform: rotate(5deg) scale(1.06);
+        }
+
+        .index-num {
+          font-size: 13px;
+          font-weight: 800;
+          letter-spacing: 0.05em;
+          color: #94A3B8;
+          font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+          transition: color 0.3s ease;
+        }
+
+        .arch-card:hover .index-num {
+          color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Lower Content in Card */
+        .card-content {
+          margin-top: auto;
+          position: relative;
+          z-index: 2;
+        }
+
+        .tag-line {
+          font-size: 10.5px;
+          font-weight: 700;
+          letter-spacing: 0.08em;
+          color: var(--accent);
+          text-transform: uppercase;
+          margin-bottom: 8px;
+          display: block;
+          transition: color 0.3s ease;
+        }
+
+        .arch-card:hover .tag-line {
+          color: #E0E7FF;
+        }
+
+        .card-main-title {
+          font-size: 19px;
+          font-weight: 800;
+          color: #0F172A;
+          letter-spacing: -0.025em;
+          line-height: 1.25;
+          margin-bottom: 10px;
+          transition: color 0.3s ease;
+        }
+
+        .arch-card:hover .card-main-title {
+          color: #FFFFFF;
+        }
+
+        .card-expanded-desc {
+          font-size: 13px;
+          line-height: 1.55;
+          color: #64748B;
           margin-bottom: 20px;
+          transition: color 0.3s ease;
         }
 
-        /* ── Feature cards grid ── */
-        .sd-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+        .arch-card:hover .card-expanded-desc {
+          color: rgba(255, 255, 255, 0.88);
+        }
 
-        .sd-feature-card {
-          background: white; border-radius: 18px;
-          border: 1.5px solid #e2e8f0; padding: 28px 24px;
-          display: flex; flex-direction: column;
+        /* Bottom Action Link */
+        .card-action-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding-top: 14px;
+          border-top: 1px solid #E2E8F0;
+          transition: border-color 0.3s ease;
+        }
+
+        .arch-card:hover .card-action-row {
+          border-top-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .action-text {
+          font-size: 13px;
+          font-weight: 700;
+          color: #0F172A;
+          letter-spacing: -0.01em;
+          transition: color 0.3s ease;
+        }
+
+        .arch-card:hover .action-text {
+          color: #FFFFFF;
+        }
+
+        .arrow-circle {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          background: #F1F5F9;
+          color: #0F172A;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           transition: all 0.3s ease;
-          cursor: default;
         }
 
-        .sd-feature-card:hover {
-          transform: translateY(-6px);
-          box-shadow: 0 20px 48px var(--shadow);
-          border-color: var(--color);
+        .arch-card:hover .arrow-circle {
+          background: #FFFFFF;
+          color: #0F172A;
+          transform: translateX(4px);
         }
 
-        .sd-feature-icon {
-          width: 56px; height: 56px; border-radius: 16px;
-          background: var(--bg); display: flex; align-items: center;
-          justify-content: center; font-size: 26px; margin-bottom: 18px;
+        /* ── Responsive ── */
+        @media (max-width: 1280px) {
+          .cards-track { grid-template-columns: repeat(3, 1fr); }
         }
-
-        .sd-feature-title {
-          font-size: 17px; font-weight: 800; color: #0f172a; margin-bottom: 10px;
-        }
-
-        .sd-feature-desc {
-          font-size: 13px; color: #64748b; line-height: 1.6; flex: 1; margin-bottom: 22px;
-        }
-
-        .sd-feature-btn {
-          padding: 11px 20px;
-          background: var(--color); color: white;
-          font-size: 13px; font-weight: 700;
-          border: none; border-radius: 10px; cursor: pointer;
-          font-family: inherit; transition: opacity 0.2s; width: 100%;
-        }
-
-        .sd-feature-btn:hover { opacity: 0.88; }
 
         @media (max-width: 900px) {
-          .sd-header { padding: 28px 24px; }
-          .sd-body { padding: 24px; }
-          .sd-features { grid-template-columns: 1fr; }
-          .sd-advisor { flex-direction: column; align-items: flex-start; }
+          .cards-track { grid-template-columns: repeat(2, 1fr); }
+          .cominvi-hero-container { padding: 32px 24px; }
+          .cominvi-body { padding: 0 24px; }
         }
 
-        @media (max-width: 640px) {
-          .sd-advisor-btn { width: 100%; text-align: center; }
+        @media (max-width: 600px) {
+          .cards-track { grid-template-columns: 1fr; }
+          .hero-title-group h1 { font-size: 28px; }
         }
       `}</style>
 
-      <div className="sd-root">
-        <div className="sd-header">
-          <div className="sd-greeting">👋 Welcome back</div>
-          <h1>{firstName}'s Dashboard</h1>
-          <p>Your personalised learning hub — everything you need in one place</p>
+      <div className="cominvi-root">
+        {/* ── 3D Animated Students Hero Banner ── */}
+        <div className="cominvi-hero">
+          <img 
+            src="/dashboard_banner.jpg" 
+            alt="Students Collaborating in Study Lounge" 
+            className="cominvi-hero-bg"
+          />
+          <div className="cominvi-hero-overlay" />
+          
+          <div className="cominvi-hero-container">
+            <div className="hero-title-group">
+              <h1>{greeting}, {firstName}</h1>
+              <p>Explore your personalized degree recommendations, career pathways, study wellness, and verified mentorship.</p>
+            </div>
+          </div>
         </div>
 
-        <div className="sd-body">
-          {/* Dream Degree Advisor Banner */}
-          <div className="sd-advisor">
-            <div className="sd-advisor-left">
-              <div className="sd-advisor-icon">🎓</div>
-              <div>
-                <h2>Dream Degree Advisor</h2>
-                <p>AI-powered career guidance based on your dream job and academic profile</p>
-              </div>
-            </div>
-            <button className="sd-advisor-btn" onClick={onStartDreamDegreeAdvisor}>
-              Start Analysis →
-            </button>
-          </div>
+        {/* ── Core Modules: Cominvi-Style Interactive Architecture ── */}
+        <div className="cominvi-body">
+          <div className="cards-track">
+            {modules.map((m) => {
+              const Icon = m.icon;
+              return (
+                <div
+                  key={m.id}
+                  className="arch-card"
+                  style={{
+                    '--card-hover-bg': m.hoverBg,
+                    '--accent': m.accentColor
+                  }}
+                  onClick={m.onClick}
+                >
+                  {/* Top Bar: Icon + Index */}
+                  <div className="card-head">
+                    <div className="icon-symbol">
+                      <Icon size={24} strokeWidth={1.8} />
+                    </div>
+                    <span className="index-num">{m.num}</span>
+                  </div>
 
-          {/* Feature Cards */}
-          <div className="sd-section-title">Explore Features</div>
-          <div className="sd-features">
-            {features.map(f => (
-              <div
-                key={f.id}
-                className="sd-feature-card"
-                style={{ '--color': f.color, '--bg': f.bg, '--shadow': f.shadow }}
-              >
-                <div className="sd-feature-icon">{f.icon}</div>
-                <div className="sd-feature-title">{f.title}</div>
-                <div className="sd-feature-desc">{f.desc}</div>
-                <button className="sd-feature-btn" onClick={f.onClick}>{f.btnLabel}</button>
-              </div>
-            ))}
+                  {/* Bottom / Expanded Content */}
+                  <div className="card-content">
+                    <span className="tag-line">{m.tag}</span>
+                    <div className="card-main-title">{m.title}</div>
+                    <div className="card-expanded-desc">{m.desc}</div>
+
+                    <div className="card-action-row">
+                      <span className="action-text">{m.btnLabel}</span>
+                      <div className="arrow-circle">
+                        <ArrowUpRight size={16} strokeWidth={2.2} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

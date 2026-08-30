@@ -26,49 +26,90 @@ export const AuthProvider = ({ children, onAuthChange }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      setUser(currentUser);
 
-      if (!user) {
+      if (!currentUser) {
         setUserRole(null);
         setLoading(false);
         if (onAuthChange) onAuthChange(false, null);
         return;
       }
 
-      // Resolve loading immediately — role fetched in background
-      setLoading(false);
-
-      const fetchRole = async () => {
-        try {
-          const userDoc = await getDoc(doc(db, 'users', user.uid));
-          if (userDoc.exists()) {
-            const role = userDoc.data().role;
-            setUserRole(role);
-            if (onAuthChange) onAuthChange(true, role);
-            return;
-          }
-          const studentDoc = await getDoc(doc(db, 'students', user.uid));
-          if (studentDoc.exists()) {
-            const role = studentDoc.data().role;
-            setUserRole(role);
-            if (onAuthChange) onAuthChange(true, role);
-          }
-        } catch (error) {
-          console.error('Error fetching user role:', error);
+      try {
+        // 1. Check users collection (mentors / generic users)
+        const userDoc = await getDoc(doc(db, 'users', currentUser.uid));
+        if (userDoc.exists()) {
+          const role = userDoc.data().role || 'mentor';
+          setUserRole(role);
+          if (onAuthChange) onAuthChange(true, role);
+          setLoading(false);
+          return;
         }
-      };
 
-      fetchRole();
+        // 2. Check mentors collection
+        const mentorDoc = await getDoc(doc(db, 'mentors', currentUser.uid));
+        if (mentorDoc.exists()) {
+          const role = mentorDoc.data().role || 'mentor';
+          setUserRole(role);
+          if (onAuthChange) onAuthChange(true, role);
+          setLoading(false);
+          return;
+        }
+
+        // 3. Check students collection
+        const studentDoc = await getDoc(doc(db, 'students', currentUser.uid));
+        if (studentDoc.exists()) {
+          const role = studentDoc.data().role || 'student';
+          setUserRole(role);
+          if (onAuthChange) onAuthChange(true, role);
+          setLoading(false);
+          return;
+        }
+
+        // 4. Fallback to cached role from login selection or default to mentor if ambiguous
+        const cachedRole = sessionStorage.getItem('last_login_role') || 'mentor';
+        setUserRole(cachedRole);
+        if (onAuthChange) onAuthChange(true, cachedRole);
+      } catch (error) {
+        console.error('Error fetching user role:', error);
+        const cachedRole = sessionStorage.getItem('last_login_role') || 'mentor';
+        setUserRole(cachedRole);
+      } finally {
+        setLoading(false);
+      }
     });
 
     return unsubscribe;
   }, [onAuthChange]);
 
-  const login = async (email, password) => {
+  const login = async (email, password, roleHint = null) => {
     try {
+      if (roleHint) {
+        sessionStorage.setItem('last_login_role', roleHint);
+      }
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      return { success: true, user: userCredential.user };
+      const loggedUser = userCredential.user;
+
+      if (roleHint) {
+        const collectionName = roleHint === 'student' ? 'students' : 'users';
+        try {
+          const uDoc = await getDoc(doc(db, collectionName, loggedUser.uid));
+          if (!uDoc.exists()) {
+            await setDoc(doc(db, collectionName, loggedUser.uid), {
+              uid: loggedUser.uid,
+              email: loggedUser.email || email,
+              role: roleHint,
+              createdAt: new Date().toISOString()
+            });
+          }
+        } catch (e) {
+          console.warn('Could not auto-provision user document:', e);
+        }
+        setUserRole(roleHint);
+      }
+
+      return { success: true, user: loggedUser };
     } catch (error) {
       return { success: false, error: error.message };
     }
@@ -77,6 +118,9 @@ export const AuthProvider = ({ children, onAuthChange }) => {
   const register = async (userData) => {
     try {
       const { email, password, role, ...additionalData } = userData;
+      if (role) {
+        sessionStorage.setItem('last_login_role', role);
+      }
       
       // Create user with email and password
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -102,8 +146,11 @@ export const AuthProvider = ({ children, onAuthChange }) => {
     }
   };
 
-  const loginWithGoogle = async () => {
+  const loginWithGoogle = async (roleHint = null) => {
     try {
+      if (roleHint) {
+        sessionStorage.setItem('last_login_role', roleHint);
+      }
       const provider = new GoogleAuthProvider();
       const userCredential = await signInWithPopup(auth, provider);
       const user = userCredential.user;
@@ -111,18 +158,35 @@ export const AuthProvider = ({ children, onAuthChange }) => {
       // Check if user exists in users collection (mentors)
       const userDoc = await getDoc(doc(db, 'users', user.uid));
       if (userDoc.exists()) {
-        setUserRole(userDoc.data().role);
+        const role = userDoc.data().role || 'mentor';
+        setUserRole(role);
         return { success: true, user, isNewUser: false };
       }
 
       // Check if user exists in students collection
       const studentDoc = await getDoc(doc(db, 'students', user.uid));
       if (studentDoc.exists()) {
-        setUserRole(studentDoc.data().role);
+        const role = studentDoc.data().role || 'student';
+        setUserRole(role);
         return { success: true, user, isNewUser: false };
       }
 
-      // If new user, ask for role selection
+      // If roleHint is provided for new user, auto-register
+      if (roleHint) {
+        const collectionName = roleHint === 'student' ? 'students' : 'users';
+        await setDoc(doc(db, collectionName, user.uid), {
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+          role: roleHint,
+          createdAt: new Date().toISOString()
+        });
+        setUserRole(roleHint);
+        return { success: true, user, isNewUser: false };
+      }
+
+      // If new user and no roleHint, ask for role selection
       return { success: true, user, isNewUser: true };
     } catch (error) {
       return { success: false, error: error.message };
@@ -136,6 +200,7 @@ export const AuthProvider = ({ children, onAuthChange }) => {
         return { success: false, error: 'No authenticated user' };
       }
 
+      sessionStorage.setItem('last_login_role', role);
       // Determine collection based on role
       const collectionName = role === 'student' ? 'students' : 'users';
 
@@ -158,6 +223,7 @@ export const AuthProvider = ({ children, onAuthChange }) => {
 
   const logout = async () => {
     try {
+      sessionStorage.removeItem('last_login_role');
       await signOut(auth);
       setUserRole(null);
       return { success: true };

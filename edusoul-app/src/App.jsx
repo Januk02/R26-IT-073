@@ -5,10 +5,10 @@ import HomePage from './pages/HomePage';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import StudentDashboard from './pages/StudentDashboard';
-import MentorDashboard from './pages/MentorDashboard';
-import MentorVerification from './pages/MentorVerification';
-import VerificationHistory from './pages/VerificationHistory';
-import CVVerification from './pages/CVVerification';
+import MentorDashboard from '../Member4/pages/MentorDashboard';
+import MentorVerification from '../Member4/pages/MentorVerification';
+import VerificationHistory from '../Member4/pages/VerificationHistory';
+import CVVerification from '../Member4/pages/CVVerification';
 import ProtectedRoute from './components/ProtectedRoute';
 import StudyBot from './components/StudyBot';
 import ChatHub from './pages/ChatHub';
@@ -16,7 +16,7 @@ import Member1DreamDegreeAdvisor from '../Member1/index';
 import DreamDegreeInput from '../Member1/pages/DreamDegreeInput';
 import Member2Courses from '../Member2/index';
 import Member3Analytics from '../Member3/index';
-import Member4MentorHub from '../Member4/index';
+import MentorshipPage from '../Member4/pages/MentorshipPage';
 import './App.css';
 
 import { LanguageProvider, LanguageContext, useLanguage } from './contexts/LanguageContext';
@@ -26,8 +26,6 @@ export { LanguageContext, useLanguage };
 const WITH_SIDEBAR = [
   'dashboard', 
   'studentHome', 
-  'dreamDegreeAdvisor', 
-  'courses', 
   'analytics', 
   'mentorHub', 
   'messages', 
@@ -35,8 +33,8 @@ const WITH_SIDEBAR = [
   'cvVerification', 
   'history'
 ];
-// Views that are full-screen (no sidebar)
-const FULL_SCREEN  = ['home', 'login', 'register', 'onboarding'];
+// Views that are full-screen (no parent sidebar, own layout)
+const FULL_SCREEN  = ['home', 'login', 'register', 'onboarding', 'courses', 'dreamDegreeAdvisor'];
 
 // ── App shell layout ──────────────────────────────────────────
 function Layout({ currentView, setCurrentView, children }) {
@@ -189,13 +187,12 @@ function AppContent({ currentView, setCurrentView }) {
           </ProtectedRoute>
         );
 
-      // ── Member4: Mentor Hub ──
+      // ── Member4: Mentor Hub / AI Matching ──
       case 'mentorHub':
         return (
           <ProtectedRoute>
-            <Member4MentorHub 
-              onBack={go('studentHome')} 
-              onNavigateToMessages={(mentor) => goToMessages(mentor)}
+            <MentorshipPage 
+              onBack={go(userRole === 'mentor' ? 'dashboard' : 'studentHome')} 
             />
           </ProtectedRoute>
         );
@@ -222,6 +219,7 @@ function AppContent({ currentView, setCurrentView }) {
                 onStartVerification={go('verification')}
                 onViewHistory={go('history')}
                 onStartCVVerification={go('cvVerification')}
+                onMentorshipMatching={go('mentorHub')}
                 onNavigateToMessages={() => goToMessages(null)}
               />
             )}

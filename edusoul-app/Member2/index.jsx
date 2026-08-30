@@ -1,46 +1,32 @@
-import { useState } from 'react';
-import CoursesHome from './pages/CoursesHome';
-import CourseDetail from './pages/CourseDetail';
-import MyLearning from './pages/MyLearning';
+import React from 'react';
+import { MemoryRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { ThemeProvider } from './context/ThemeContext';
+import { CareerProvider } from './context/CareerContext';
+import './index.css';
+import Layout from './components/Layout';
+import Landing from './pages/Landing';
+import Dashboard from './pages/Dashboard';
+import Analyzer from './pages/Analyzer';
+import Roadmap from './pages/Roadmap';
+import GraphExplorer from './pages/GraphExplorer';
 
-export default function Member2CoursePlatform({ onBack }) {
-  const [view, setView] = useState('home');
-  const [selectedCourse, setSelectedCourse] = useState(null);
-  const [enrolledCourses, setEnrolledCourses] = useState([]);
-
-  const handleSelectCourse = (course) => {
-    setSelectedCourse(course);
-    setView('detail');
-  };
-
-  const handleEnroll = (course) => {
-    setEnrolledCourses(prev =>
-      prev.find(c => c.id === course.id) ? prev : [...prev, course]
-    );
-  };
-
+export default function Member2Module({ onBack }) {
   return (
-    <div>
-      {view === 'home' && (
-        <CoursesHome
-          onSelectCourse={handleSelectCourse}
-          onViewMyLearning={() => setView('mylearning')}
-        />
-      )}
-      {view === 'detail' && selectedCourse && (
-        <CourseDetail
-          course={selectedCourse}
-          onBack={() => setView('home')}
-          onEnroll={handleEnroll}
-        />
-      )}
-      {view === 'mylearning' && (
-        <MyLearning
-          enrolledCourses={enrolledCourses}
-          onBack={() => setView('home')}
-          onResume={handleSelectCourse}
-        />
-      )}
-    </div>
+    <ThemeProvider>
+      <CareerProvider>
+        <MemoryRouter initialEntries={['/']}>
+          <Routes>
+            <Route path="/" element={<Landing onBackToPortal={onBack} />} />
+            <Route path="/landing" element={<Landing onBackToPortal={onBack} />} />
+            <Route path="/dashboard" element={<Layout onBackToPortal={onBack}><Dashboard /></Layout>} />
+            <Route path="/analyzer" element={<Layout onBackToPortal={onBack}><Analyzer /></Layout>} />
+            <Route path="/roadmap" element={<Layout onBackToPortal={onBack}><Roadmap /></Layout>} />
+            <Route path="/roadmap/:pathwayId" element={<Layout onBackToPortal={onBack}><Roadmap /></Layout>} />
+            <Route path="/graph" element={<Layout onBackToPortal={onBack}><GraphExplorer /></Layout>} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </MemoryRouter>
+      </CareerProvider>
+    </ThemeProvider>
   );
 }
