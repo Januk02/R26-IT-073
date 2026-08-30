@@ -502,72 +502,140 @@ export const universities = [
 ];
 
 export const personalityTraits = {
-  leadership: {
-    description: "Ability to guide and influence others",
-    questions: [
-      "I enjoy taking charge in group situations",
-      "People often look to me for direction",
-      "I'm comfortable making decisions for others"
-    ]
+  analytical_thinking: {
+    icon: "🔍",
+    label: "Analytical Thinking",
+    description: "Ability to analyze complex problems logically",
+    lowLabel: "Intuitive",
+    highLabel: "Highly Analytical"
   },
   creativity: {
-    description: "Ability to think outside the box",
-    questions: [
-      "I often come up with unique solutions",
-      "I enjoy creative activities like art or music",
-      "I prefer innovative approaches over traditional ones"
-    ]
+    icon: "🎨",
+    label: "Creativity",
+    description: "Ability to think outside the box and innovate",
+    lowLabel: "Practical",
+    highLabel: "Highly Creative"
   },
-  analytical_thinking: {
-    description: "Ability to analyze complex problems",
-    questions: [
-      "I enjoy solving logical puzzles",
-      "I break down problems systematically",
-      "I rely on data and facts for decisions"
-    ]
+  leadership: {
+    icon: "👑",
+    label: "Leadership",
+    description: "Ability to guide and influence others",
+    lowLabel: "Supportive",
+    highLabel: "Strong Leader"
   },
-  risk_taking: {
-    description: "Willingness to take calculated risks",
-    questions: [
-      "I'm comfortable with uncertainty",
-      "I'm willing to try new approaches",
-      "I see failure as a learning opportunity"
-    ]
+  communication: {
+    icon: "💬",
+    label: "Communication",
+    description: "Skill in expressing ideas clearly",
+    lowLabel: "Reserved",
+    highLabel: "Excellent Communicator"
   },
-  entrepreneurial_mindset: {
-    description: "Business and innovation orientation",
-    questions: [
-      "I'm interested in starting my own business",
-      "I spot opportunities others miss",
-      "I'm motivated by financial independence"
-    ]
+  problem_solving: {
+    icon: "🧩",
+    label: "Problem Solving",
+    description: "Ability to find solutions to challenges",
+    lowLabel: "Seeks Guidance",
+    highLabel: "Independent Solver"
+  },
+  teamwork: {
+    icon: "🤝",
+    label: "Teamwork",
+    description: "Ability to collaborate with others effectively",
+    lowLabel: "Solo Worker",
+    highLabel: "Great Team Player"
+  },
+  adaptability: {
+    icon: "🔄",
+    label: "Adaptability",
+    description: "Ability to adjust to new situations",
+    lowLabel: "Routine-oriented",
+    highLabel: "Highly Adaptable"
+  },
+  attention_to_detail: {
+    icon: "🎯",
+    label: "Attention to Detail",
+    description: "Precision and thoroughness in work",
+    lowLabel: "Big Picture",
+    highLabel: "Detail-oriented"
   }
 };
 
 export const lifestyleFactors = {
   locationPreference: {
-    options: ["Urban", "Suburban", "Rural"],
-    description: "Preferred living environment"
+    icon: "📍",
+    label: "Location Preference",
+    description: "Where would you prefer to live and work?",
+    options: [
+      { value: "Urban", label: "Urban", icon: "🏙️", desc: "City life with easy access" },
+      { value: "Suburban", label: "Suburban", icon: "🏘️", desc: "Quiet but connected" },
+      { value: "Rural", label: "Rural", icon: "🌿", desc: "Peaceful countryside" },
+      { value: "Any", label: "Any", icon: "🌍", desc: "No preference" }
+    ]
   },
-  travelTolerance: {
-    options: ["Low (max 30min)", "Medium (max 1hr)", "High (max 2hrs)", "Very High (any)"],
-    description: "Daily travel time tolerance"
+  workLifeBalance: {
+    icon: "⚖️",
+    label: "Work-Life Balance",
+    description: "How important is work-life balance to you?",
+    options: [
+      { value: "Very Important", label: "Very Important", icon: "🧘", desc: "Top priority" },
+      { value: "Important", label: "Important", icon: "⚖️", desc: "Matters a lot" },
+      { value: "Moderate", label: "Moderate", icon: "🤝", desc: "Balanced view" },
+      { value: "Not Important", label: "Not Important", icon: "💪", desc: "Career first" }
+    ]
   },
   familyAttachment: {
-    options: ["High - need to stay close", "Medium - occasional visits", "Low - independent"],
-    description: "Importance of proximity to family"
+    icon: "👨‍👩‍👧‍👦",
+    label: "Family Attachment",
+    description: "How important is staying close to family?",
+    options: [
+      { value: "Very Important", label: "Very Close", icon: "🏠", desc: "Need to stay nearby" },
+      { value: "Important", label: "Close", icon: "👨‍👩‍👧", desc: "Regular visits" },
+      { value: "Moderate", label: "Moderate", icon: "📞", desc: "Occasional visits" },
+      { value: "Not Important", label: "Independent", icon: "✈️", desc: "Comfortable far away" }
+    ]
   },
-  workEnvironment: {
-    options: ["Office-based", "Remote", "Hybrid", "Field work"],
-    description: "Preferred work setting"
+  salaryExpectation: {
+    icon: "💰",
+    label: "Salary Expectation",
+    description: "How important is a high salary to you?",
+    options: [
+      { value: "Very High", label: "Very High", icon: "💎", desc: "Top earning priority" },
+      { value: "High", label: "High", icon: "💰", desc: "Important factor" },
+      { value: "Medium", label: "Medium", icon: "💵", desc: "Comfortable enough" },
+      { value: "Low", label: "Low", icon: "🌱", desc: "Passion over pay" }
+    ]
+  },
+  careerGrowth: {
+    icon: "📈",
+    label: "Career Growth",
+    description: "How important is long-term career progression?",
+    options: [
+      { value: "Very Important", label: "Very Important", icon: "🚀", desc: "Rapid advancement" },
+      { value: "Important", label: "Important", icon: "📈", desc: "Steady growth" },
+      { value: "Moderate", label: "Moderate", icon: "🎯", desc: "Balanced approach" },
+      { value: "Not Important", label: "Not Important", icon: "😌", desc: "Stability preferred" }
+    ]
   },
   stressTolerance: {
-    options: ["Low", "Medium", "High"],
-    description: "Ability to handle work pressure"
+    icon: "🧠",
+    label: "Stress Tolerance",
+    description: "How well do you handle high-pressure situations?",
+    options: [
+      { value: "High", label: "High", icon: "💪", desc: "Thrive under pressure" },
+      { value: "Medium", label: "Medium", icon: "😊", desc: "Handle it okay" },
+      { value: "Low", label: "Low", icon: "🧘", desc: "Prefer calm environments" }
+    ]
   },
-  socialInteraction: {
-    options: ["High - team oriented", "Medium - balanced", "Low - independent work"],
-    description: "Preferred level of social interaction"
+  socialImpact: {
+    icon: "🌍",
+    label: "Social Impact",
+    description: "How important is making a difference in society?",
+    options: [
+      { value: "Very Important", label: "Very Important", icon: "🌟", desc: "Core motivation" },
+      { value: "Important", label: "Important", icon: "❤️", desc: "Matters to me" },
+      { value: "Moderate", label: "Moderate", icon: "🤝", desc: "Nice to have" },
+      { value: "Not Important", label: "Not Important", icon: "💼", desc: "Personal goals first" }
+    ]
   }
 };
 
