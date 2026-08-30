@@ -1,43 +1,30 @@
-import { useState } from 'react';
-import MentorHub from './pages/MentorHub';
-import MentorStudentChat from '../src/components/MentorStudentChat';
+import MentorDashboard from './pages/MentorDashboard';
+import MentorVerification from './pages/MentorVerification';
+import CVVerification from './pages/CVVerification';
+import VerificationHistory from './pages/VerificationHistory';
+import MentorshipPage from './pages/MentorshipPage';
+import MentorshipMatching from './components/MentorshipMatching';
+import MentorMedals from './components/MentorMedals';
+import MedalBadge, { getMedalTier, getMedalInfo } from './components/MedalBadge';
+import ChatList from './components/ChatList';
+import SecureChat from './components/SecureChat';
+import RealHumanAvatar from './components/RealHumanAvatar';
 
-export default function Member4MentorHub({ onBack, onNavigateToMessages }) {
-  const [selectedMentor, setSelectedMentor] = useState(null);
+export {
+  MentorDashboard,
+  MentorVerification,
+  CVVerification,
+  VerificationHistory,
+  MentorshipPage,
+  MentorshipMatching,
+  MentorMedals,
+  MedalBadge,
+  getMedalTier,
+  getMedalInfo,
+  ChatList,
+  SecureChat,
+  RealHumanAvatar
+};
 
-  const handleSelectMentor = (mentor) => {
-    if (onNavigateToMessages) {
-      onNavigateToMessages(mentor);
-    } else {
-      setSelectedMentor(mentor);
-    }
-  };
+export default MentorDashboard;
 
-  if (selectedMentor) {
-    return (
-      <div style={{ padding: '24px 32px' }}>
-        <button
-          onClick={() => setSelectedMentor(null)}
-          style={{
-            marginBottom: 16,
-            padding: '8px 16px',
-            background: 'white',
-            border: '1.5px solid #e2e8f0',
-            borderRadius: 10,
-            cursor: 'pointer',
-            fontWeight: 700,
-            color: '#475569',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 6
-          }}
-        >
-          ← Back to Mentor Directory
-        </button>
-        <MentorStudentChat initialMentor={selectedMentor} isEmbedded={false} />
-      </div>
-    );
-  }
-
-  return <MentorHub onSelectMentor={handleSelectMentor} />;
-}

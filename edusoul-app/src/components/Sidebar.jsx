@@ -27,6 +27,7 @@ const mentorNav = [
   { id: 'messages',       label: 'Messages',     icon: '💬' },
   { id: 'verification',   label: 'Verification', icon: '🎤' },
   { id: 'cvVerification', label: 'CV Analysis',  icon: '📄' },
+  { id: 'mentorHub',      label: 'AI Matching',  icon: '🔮' },
   { id: 'history',        label: 'History',      icon: '📋' },
 ];
 
