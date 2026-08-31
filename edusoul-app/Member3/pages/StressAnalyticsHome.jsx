@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Activity, Heart, Zap, Brain, Clock, Calendar, Sparkles, RefreshCw, 
-  AlertTriangle, CheckCircle2, TrendingUp, TrendingDown, Watch, Flame, 
-  Smile, Frown, Meh, Coffee, Play, Pause, RotateCcw, BookOpen, 
+import {
+  Activity, Heart, Zap, Brain, Clock, Calendar, Sparkles, RefreshCw,
+  AlertTriangle, CheckCircle2, TrendingUp, TrendingDown, Watch, Flame,
+  Smile, Frown, Meh, Coffee, Play, Pause, RotateCcw, BookOpen,
   ChevronRight, BarChart3, FileText, Sliders, Thermometer, Footprints,
   Moon, Sun, Check, Target, Lightbulb, Compass, ArrowRight, Database
 } from 'lucide-react';
-import { 
-  ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, 
-  CartesianGrid, PieChart, Pie, Cell 
+import {
+  ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip,
+  CartesianGrid, PieChart, Pie, Cell
 } from 'recharts';
 import { useAuth } from '../../src/contexts/AuthContext';
-import { 
-  subscribeToHealthReports, pushSimulatedWatchTelemetry, 
+import {
+  subscribeToHealthReports, pushSimulatedWatchTelemetry,
   fetchAllFirebaseHealthReports,
   DEFAULT_LATEST_REPORT, MOOD_CONFIG, STRESS_LEVELS, predictMood,
   generateAIStudyRecommendation,
@@ -53,12 +53,21 @@ export default function StressAnalyticsHome({ onViewPlanner, onViewReport }) {
       if (fetched && fetched.length > 0) {
         setReports(fetched);
         setLatestReport(fetched[0]);
-      } else {
-        setReports([]);
-        setLatestReport(null);
       }
       setLoading(false);
     });
+
+    // Also trigger direct fetch immediately
+    fetchAllFirebaseHealthReports(user?.uid).then((fetched) => {
+      if (fetched && fetched.length > 0) {
+        setReports(fetched);
+        setLatestReport(fetched[0]);
+      }
+      setLoading(false);
+    }).catch(() => {
+      setLoading(false);
+    });
+
     return () => { if (typeof unsub === 'function') unsub(); };
   }, [user]);
 
@@ -103,12 +112,12 @@ export default function StressAnalyticsHome({ onViewPlanner, onViewReport }) {
   // Chart data from pure Firebase reports
   const chartData = reports.length > 0
     ? [...reports].reverse().map((r, i) => ({
-        time: r.timeLabel || (r.timestamp ? new Date(r.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : `T-${i+1}`),
-        heartRate: r.heartRate || 72,
-        stressScore: r.stressScore || 40,
-        spo2: r.spo2 || 98,
-        mood: r.mood || 'Neutral',
-      }))
+      time: r.timeLabel || (r.timestamp ? new Date(r.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : `T-${i + 1}`),
+      heartRate: r.heartRate || 72,
+      stressScore: r.stressScore || 40,
+      spo2: r.spo2 || 98,
+      mood: r.mood || 'Neutral',
+    }))
     : [];
 
   // Daily Mood Distribution (pie from Firebase data)
@@ -318,9 +327,9 @@ export default function StressAnalyticsHome({ onViewPlanner, onViewReport }) {
               <div className="sa-tag">
                 <Database size={13} /> Firestore Subcollection: health_reports
               </div>
-              <div 
-                className="sa-tag" 
-                style={{ 
+              <div
+                className="sa-tag"
+                style={{
                   background: modelOnline ? 'rgba(16,185,129,0.2)' : 'rgba(239,68,68,0.2)',
                   borderColor: modelOnline ? 'rgba(52,211,153,0.5)' : 'rgba(248,113,113,0.5)',
                   color: modelOnline ? '#6ee7b7' : '#fca5a5'
@@ -336,7 +345,7 @@ export default function StressAnalyticsHome({ onViewPlanner, onViewReport }) {
           </div>
           <div className="sa-hero-actions">
             <button className="sa-btn sa-btn-glass" onClick={handleManualRefresh} disabled={refreshing}>
-              <RefreshCw size={15} className={refreshing ? 'animate-spin' : ''} /> 
+              <RefreshCw size={15} className={refreshing ? 'animate-spin' : ''} />
               {refreshing ? 'Fetching Firebase...' : 'Refresh Firebase'}
             </button>
             <button className="sa-btn sa-btn-glass" onClick={() => setShowSimModal(true)} disabled={syncing}>
@@ -446,7 +455,7 @@ export default function StressAnalyticsHome({ onViewPlanner, onViewReport }) {
                 <span style={{ fontSize: '32px', fontWeight: 900, color: aiRec.color }}>{aiRec.readinessScore}%</span>
                 <span style={{ fontSize: '12px', color: '#64748b' }}>Brain Capacity</span>
               </div>
-              
+
               <div style={{ fontSize: '12px', color: '#475569', marginBottom: '8px' }}>
                 <strong>Recommended Session:</strong> {aiRec.sessionBlock}
               </div>
@@ -472,8 +481,8 @@ export default function StressAnalyticsHome({ onViewPlanner, onViewReport }) {
               The application is listening directly to Firebase subcollection <code>students/{user?.uid || '{userId}'}/health_reports</code>.
               Sync your smartwatch or click the button below to push a test record directly into your Firestore subcollection.
             </p>
-            <button 
-              className="sa-btn sa-btn-primary" 
+            <button
+              className="sa-btn sa-btn-primary"
               onClick={() => setShowSimModal(true)}
               style={{ margin: '0 auto' }}
             >
@@ -564,12 +573,12 @@ export default function StressAnalyticsHome({ onViewPlanner, onViewReport }) {
                   <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                     <defs>
                       <linearGradient id="hrGrad" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#ef4444" stopOpacity={0.3}/>
-                        <stop offset="95%" stopColor="#ef4444" stopOpacity={0.0}/>
+                        <stop offset="5%" stopColor="#ef4444" stopOpacity={0.3} />
+                        <stop offset="95%" stopColor="#ef4444" stopOpacity={0.0} />
                       </linearGradient>
                       <linearGradient id="stressGrad" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#7c3aed" stopOpacity={0.4}/>
-                        <stop offset="95%" stopColor="#7c3aed" stopOpacity={0.0}/>
+                        <stop offset="5%" stopColor="#7c3aed" stopOpacity={0.4} />
+                        <stop offset="95%" stopColor="#7c3aed" stopOpacity={0.0} />
                       </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
@@ -744,7 +753,7 @@ export default function StressAnalyticsHome({ onViewPlanner, onViewReport }) {
                 disabled={syncing}
                 style={{ padding: '9px 18px', borderRadius: '8px', border: 'none', background: 'linear-gradient(135deg, #7c3aed 0%, #6366f1 100%)', color: 'white', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}
               >
-                <RefreshCw size={14} className={syncing ? 'animate-spin' : ''} /> 
+                <RefreshCw size={14} className={syncing ? 'animate-spin' : ''} />
                 {syncing ? 'Writing to Firestore...' : 'Push to health_reports'}
               </button>
             </div>
