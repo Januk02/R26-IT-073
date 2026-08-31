@@ -1,0 +1,98 @@
+{
+  "accuracy": 0.9728,
+  "n_train": 7360,
+  "n_test": 1840,
+  "n_features": 20,
+  "n_classes": 23,
+  "classes": [
+    "Accounting",
+    "Agriculture",
+    "Architecture",
+    "Arts",
+    "Bio Science",
+    "Business",
+    "Computer Science",
+    "Dental",
+    "Education",
+    "Engineering",
+    "Finance",
+    "Fine Arts",
+    "IT",
+    "Law",
+    "Management",
+    "Mathematics",
+    "Medicine",
+    "Nursing",
+    "Pharmacy",
+    "Physical Science",
+    "Quantity Surveying",
+    "Social Sciences",
+    "Veterinary Science"
+  ],
+  "features": [
+    "stream",
+    "z_score",
+    "district",
+    "dream_job",
+    "analytical_skill",
+    "creativity",
+    "leadership",
+    "communication_skill",
+    "problem_solving",
+    "teamwork",
+    "adaptability",
+    "attention_to_detail",
+    "preferred_location",
+    "stress_tolerance",
+    "work_life_balance_priority",
+    "family_attachment_level",
+    "financial_stability_need",
+    "career_sustainability_priority",
+    "innovation_interest",
+    "social_impact_priority"
+  ],
+  "top_features": [
+    {
+      "feature": "dream_job",
+      "importance": 0.268443
+    },
+    {
+      "feature": "stream",
+      "importance": 0.17323
+    },
+    {
+      "feature": "z_score",
+      "importance": 0.076433
+    },
+    {
+      "feature": "innovation_interest",
+      "importance": 0.046398
+    },
+    {
+      "feature": "attention_to_detail",
+      "importance": 0.041005
+    },
+    {
+      "feature": "social_impact_priority",
+      "importance": 0.039407
+    },
+    {
+      "feature": "adaptability",
+      "importance": 0.031355
+    },
+    {
+      "feature": "work_life_balance_priority",
+      "importance": 0.031151
+    },
+    {
+      "feature": "creativity",
+      "importance": 0.030533
+    },
+    {
+      "feature": "financial_stability_need",
+      "importance": 0.030307
+    }
+  ],
+  "dataset": "balanced_synthetic_v3_complete_srilanka",
+  "notes": "Complete Sri Lankan degree system: 23 degrees, 30 dream jobs, 6 streams, 8 personality traits, 7 lifestyle factors, Suburban location support"
+}
