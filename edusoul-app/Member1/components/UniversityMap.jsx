@@ -73,12 +73,12 @@ export default function UniversityMap({ universities, preferredUnis = [] }) {
 
   if (markers.length === 0) {
     return (
-      <div className="bg-white/5 rounded-2xl border border-white/10 p-12 text-center">
-        <svg className="w-16 h-16 mx-auto mb-4 text-white/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div className="bg-slate-50 rounded-2xl border border-slate-200 p-12 text-center">
+        <svg className="w-16 h-16 mx-auto mb-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
         </svg>
-        <p className="text-white/40 text-lg font-medium">No universities with location data available</p>
-        <p className="text-white/25 text-sm mt-2">Map coordinates are not available for the recommended universities</p>
+        <p className="text-slate-500 text-lg font-medium">No universities with location data available</p>
+        <p className="text-slate-400 text-sm mt-2">Map coordinates are not available for the recommended universities</p>
       </div>
     );
   }
@@ -96,25 +96,25 @@ export default function UniversityMap({ universities, preferredUnis = [] }) {
   return (
     <div className="space-y-4">
       {/* Legend */}
-      <div className="flex flex-wrap items-center gap-4 bg-white/5 rounded-xl p-3 border border-white/10">
-        <span className="text-white/50 text-xs font-medium uppercase tracking-wider">Legend:</span>
+      <div className="flex flex-wrap items-center gap-4 bg-slate-50 rounded-xl p-3 border border-slate-200">
+        <span className="text-slate-500 text-xs font-medium uppercase tracking-wider">Legend:</span>
         <div className="flex items-center gap-1.5">
           <span className="w-3 h-3 rounded-full bg-emerald-500 inline-block" />
-          <span className="text-white/70 text-sm">Government</span>
+          <span className="text-slate-700 text-sm">Government</span>
         </div>
         <div className="flex items-center gap-1.5">
           <span className="w-3 h-3 rounded-full bg-purple-500 inline-block" />
-          <span className="text-white/70 text-sm">Private</span>
+          <span className="text-slate-700 text-sm">Private</span>
         </div>
         <div className="flex items-center gap-1.5">
           <span className="w-3 h-3 rounded-full bg-amber-500 inline-block" />
-          <span className="text-white/70 text-sm">Preferred</span>
+          <span className="text-slate-700 text-sm">Preferred</span>
         </div>
-        <span className="ml-auto text-white/40 text-xs">{markers.length} universities shown</span>
+        <span className="ml-auto text-slate-400 text-xs">{markers.length} universities shown</span>
       </div>
 
       {/* Map */}
-      <div className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl" style={{ height: '520px' }}>
+      <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-lg" style={{ height: '520px' }}>
         <MapContainer
           ref={mapRef}
           center={center}
@@ -208,8 +208,8 @@ export default function UniversityMap({ universities, preferredUnis = [] }) {
           const badge = getAdmissionBadge(uni.admission_probability);
           const isGov = uni.type === 'Government';
           return (
-            <div key={uni.name} className={`flex items-start gap-3 p-3 rounded-xl border transition-all hover:bg-white/5 ${
-              uni.isPreferred ? 'border-amber-400/40 bg-amber-500/5' : isGov ? 'border-emerald-500/15 bg-emerald-500/5' : 'border-purple-500/15 bg-purple-500/5'
+            <div key={uni.name} className={`flex items-start gap-3 p-3 rounded-xl border transition-all hover:shadow-md ${
+              uni.isPreferred ? 'border-amber-300 bg-amber-50' : isGov ? 'border-emerald-200 bg-emerald-50' : 'border-purple-200 bg-purple-50'
             }`}>
               <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold text-white shrink-0 ${
                 uni.isPreferred ? 'bg-amber-500' : isGov ? 'bg-emerald-600' : 'bg-purple-600'
@@ -217,14 +217,14 @@ export default function UniversityMap({ universities, preferredUnis = [] }) {
                 {uni.national_rank ? `#${uni.national_rank}` : isGov ? 'G' : 'P'}
               </div>
               <div className="min-w-0">
-                <p className="text-white text-sm font-semibold truncate">{uni.name}</p>
-                <p className="text-white/40 text-xs">{uni.location}</p>
+                <p className="text-slate-800 text-sm font-semibold truncate">{uni.name}</p>
+                <p className="text-slate-400 text-xs">{uni.location}</p>
                 <div className="flex items-center gap-2 mt-1">
                   <span className="text-xs font-medium" style={{ color: badge.bg }}>
                     {(uni.admission_probability * 100).toFixed(0)}% admission
                   </span>
                   {uni.z_score_requirement && (
-                    <span className="text-white/30 text-xs">Z: {uni.z_score_requirement}</span>
+                    <span className="text-slate-400 text-xs">Z: {uni.z_score_requirement}</span>
                   )}
                 </div>
               </div>

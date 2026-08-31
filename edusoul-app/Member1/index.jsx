@@ -1,12 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
+import { db } from '../src/firebase';
+import { useAuth } from '../src/contexts/AuthContext';
 import DreamDegreeHome from './pages/DreamDegreeHome';
 import DreamDegreeInput from './pages/DreamDegreeInput';
 import DreamDegreeResults from './pages/DreamDegreeResults';
 import DreamDegreeRoadmap from './pages/DreamDegreeRoadmap';
 import DreamDegreeGuidance from './pages/DreamDegreeGuidance';
+import StudentProfile from './pages/StudentProfile';
 import { getRecommendations, getBackwardAnalysis } from './services/apiService';
 
 export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, onNavigateToDashboard, initialView = 'home', initialStudentData = null }) {
+  const { user } = useAuth();
   const [currentView, setCurrentView] = useState(initialView);
   const [studentData, setStudentData] = useState(initialStudentData);
   const [backendResults, setBackendResults] = useState(null);
@@ -14,6 +19,24 @@ export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, o
   const [selectedRecommendation, setSelectedRecommendation] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [existingProfile, setExistingProfile] = useState(null);
+
+  // Fetch existing profile from Firebase when user is logged in
+  useEffect(() => {
+    const fetchExisting = async () => {
+      if (!user) return;
+      try {
+        const snap = await getDoc(doc(db, 'students', user.uid));
+        if (snap.exists()) {
+          const data = snap.data();
+          if (data.personalInfo) setExistingProfile(data);
+        }
+      } catch (e) {
+        console.error('Error fetching existing profile:', e);
+      }
+    };
+    fetchExisting();
+  }, [user]);
 
   const handleStart = () => {
     setCurrentView('input');
@@ -25,6 +48,23 @@ export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, o
     setError(null);
 
     try {
+      // Save student profile to Firebase if user is logged in
+      if (user) {
+        const studentProfile = {
+          uid: user.uid,
+          email: user.email || '',
+          personalInfo: data.personalInfo,
+          dreamJob: data.dreamJob,
+          academicResults: data.academicResults,
+          personalityScores: data.personalityScores,
+          lifestylePreferences: data.lifestylePreferences,
+          role: 'student',
+          updatedAt: new Date().toISOString(),
+        };
+        await setDoc(doc(db, 'students', user.uid), studentProfile, { merge: true });
+        setExistingProfile(studentProfile);
+      }
+
       // Fetch recommendations and backward analysis in parallel
       // backward-analysis can fail for custom jobs not in knowledge base — don't block results
       const [recommendations, backward] = await Promise.all([
@@ -70,6 +110,10 @@ export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, o
 
   const handleBackToResults = () => {
     setCurrentView('results');
+  };
+
+  const handleViewProfile = () => {
+    setCurrentView('profile');
   };
 
   // Loading Screen
@@ -160,12 +204,21 @@ export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, o
   return (
     <div>
       {currentView === 'home' && (
-        <DreamDegreeHome onStart={handleStart} onLogin={onLogin} onLogout={onLogout} onNavigateToDashboard={onNavigateToDashboard} />
+        <DreamDegreeHome onStart={handleStart} onLogin={onLogin} onLogout={onLogout} onNavigateToDashboard={onNavigateToDashboard} onViewProfile={handleViewProfile} />
       )}
       {currentView === 'input' && (
         <DreamDegreeInput
           onAnalyze={handleAnalyze}
-          onBack={onBack}
+          onBack={handleBackToHome}
+          onViewProfile={handleViewProfile}
+          onNavigateToDashboard={onNavigateToDashboard}
+          initialData={existingProfile}
+        />
+      )}
+      {currentView === 'profile' && (
+        <StudentProfile
+          onBack={handleBackToHome}
+          onEditProfile={handleBackToInput}
         />
       )}
       {currentView === 'results' && studentData && backendResults && (
@@ -177,6 +230,8 @@ export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, o
           onHome={handleBackToHome}
           onViewRoadmap={handleViewRoadmap}
           onViewGuidance={handleViewGuidance}
+          onViewProfile={handleViewProfile}
+          onNavigateToDashboard={onNavigateToDashboard}
         />
       )}
       {currentView === 'guidance' && studentData && (
@@ -185,6 +240,8 @@ export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, o
           backendResults={backendResults}
           onBack={handleBackToResults}
           onHome={handleBackToHome}
+          onViewProfile={handleViewProfile}
+          onNavigateToDashboard={onNavigateToDashboard}
           onComplete={(rec) => {
             // If called without a recommendation (e.g. from Guidance page button),
             // use the first recommendation from backend results
@@ -203,6 +260,8 @@ export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, o
           studentData={studentData}
           onBack={handleBackToResults}
           onHome={handleBackToHome}
+          onViewProfile={handleViewProfile}
+          onNavigateToDashboard={onNavigateToDashboard}
         />
       )}
     </div>

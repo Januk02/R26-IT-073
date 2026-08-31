@@ -1,13 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import hom2Image from "../../src/assets/hom2.png";
 import { dreamJobs } from "../data/dreamDegreeData";
 import { useLanguage } from "../../src/App";
 import { translations } from "../data/languageTranslations";
+import { useAuth } from "../../src/contexts/AuthContext";
 
-export default function App({ onStart, onLogin, onLogout, onNavigateToDashboard }) {
+export default function App({ onStart, onLogin, onLogout, onNavigateToDashboard, onViewProfile }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedJob, setSelectedJob] = useState(null);
+  const [avatarOpen, setAvatarOpen] = useState(false);
+  const [portalOpen, setPortalOpen] = useState(false);
+  const avatarRef = useRef(null);
+  const portalRef = useRef(null);
+  let authUser = null;
+  try { const auth = useAuth(); authUser = auth?.user; } catch(e) {}
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClick = (e) => {
+      if (avatarRef.current && !avatarRef.current.contains(e.target)) setAvatarOpen(false);
+      if (portalRef.current && !portalRef.current.contains(e.target)) setPortalOpen(false);
+    };
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, []);
+
+  // Scroll-reveal observer
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.scroll-reveal').forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   const { language, changeLanguage } = useLanguage();
   const t = translations[language];
 
@@ -111,6 +146,177 @@ export default function App({ onStart, onLogin, onLogout, onNavigateToDashboard 
         }
 
         /* =====================================================
+           SCROLL REVEAL ANIMATIONS
+        ===================================================== */
+
+        .scroll-reveal {
+          opacity: 0;
+          transform: translateY(40px);
+          transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                      transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .scroll-reveal.revealed {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        /* Stagger children */
+        .scroll-reveal.revealed .stagger-child {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .stagger-child {
+          opacity: 0;
+          transform: translateY(24px);
+          transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .stagger-child:nth-child(1) { transition-delay: 0.08s; }
+        .stagger-child:nth-child(2) { transition-delay: 0.16s; }
+        .stagger-child:nth-child(3) { transition-delay: 0.24s; }
+        .stagger-child:nth-child(4) { transition-delay: 0.32s; }
+        .stagger-child:nth-child(5) { transition-delay: 0.40s; }
+        .stagger-child:nth-child(6) { transition-delay: 0.48s; }
+        .stagger-child:nth-child(7) { transition-delay: 0.56s; }
+        .stagger-child:nth-child(8) { transition-delay: 0.64s; }
+
+        /* Slide from left */
+        .scroll-reveal.from-left {
+          transform: translateX(-50px);
+        }
+        .scroll-reveal.from-left.revealed {
+          transform: translateX(0);
+        }
+
+        /* Slide from right */
+        .scroll-reveal.from-right {
+          transform: translateX(50px);
+        }
+        .scroll-reveal.from-right.revealed {
+          transform: translateX(0);
+        }
+
+        /* Scale up */
+        .scroll-reveal.scale-up {
+          transform: scale(0.9);
+        }
+        .scroll-reveal.scale-up.revealed {
+          transform: scale(1);
+        }
+
+        /* Hero entrance (plays immediately, no scroll trigger needed) */
+        .hero-animate-in .hero-content {
+          animation: heroSlideRight 1s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+        }
+        .hero-animate-in .hero-visual {
+          animation: heroSlideLeft 1s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
+        }
+        .hero-animate-in .eyebrow {
+          animation: heroBadgePop 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
+        }
+        .hero-animate-in h1 {
+          animation: heroTextReveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.7s both;
+        }
+        .hero-animate-in .hero-description {
+          animation: heroTextReveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.9s both;
+        }
+        .hero-animate-in .hero-actions {
+          animation: heroTextReveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1.1s both;
+        }
+
+        @keyframes heroSlideRight {
+          from { opacity: 0; transform: translateX(-60px); }
+          to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes heroSlideLeft {
+          from { opacity: 0; transform: translateX(60px) scale(0.95); }
+          to { opacity: 1; transform: translateX(0) scale(1); }
+        }
+        @keyframes heroBadgePop {
+          from { opacity: 0; transform: translateY(-15px) scale(0.9); }
+          to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes heroTextReveal {
+          from { opacity: 0; transform: translateY(25px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Stat counter bounce */
+        .scroll-reveal.revealed .stat {
+          animation: statPop 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        .scroll-reveal.revealed .stat:nth-child(1) { animation-delay: 0.1s; }
+        .scroll-reveal.revealed .stat:nth-child(2) { animation-delay: 0.2s; }
+        .scroll-reveal.revealed .stat:nth-child(3) { animation-delay: 0.3s; }
+        .scroll-reveal.revealed .stat:nth-child(4) { animation-delay: 0.4s; }
+        @keyframes statPop {
+          0% { opacity: 0; transform: translateY(30px) scale(0.9); }
+          60% { transform: translateY(-5px) scale(1.02); }
+          100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* Career card cascade */
+        .scroll-reveal.revealed .career-card {
+          animation: cardCascade 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        .scroll-reveal.revealed .career-card:nth-child(1) { animation-delay: 0.05s; }
+        .scroll-reveal.revealed .career-card:nth-child(2) { animation-delay: 0.10s; }
+        .scroll-reveal.revealed .career-card:nth-child(3) { animation-delay: 0.15s; }
+        .scroll-reveal.revealed .career-card:nth-child(4) { animation-delay: 0.20s; }
+        .scroll-reveal.revealed .career-card:nth-child(5) { animation-delay: 0.25s; }
+        .scroll-reveal.revealed .career-card:nth-child(6) { animation-delay: 0.30s; }
+        .scroll-reveal.revealed .career-card:nth-child(7) { animation-delay: 0.35s; }
+        .scroll-reveal.revealed .career-card:nth-child(8) { animation-delay: 0.40s; }
+        .scroll-reveal.revealed .career-card:nth-child(9) { animation-delay: 0.45s; }
+        .scroll-reveal.revealed .career-card:nth-child(10) { animation-delay: 0.50s; }
+        .scroll-reveal.revealed .career-card:nth-child(11) { animation-delay: 0.55s; }
+        .scroll-reveal.revealed .career-card:nth-child(12) { animation-delay: 0.60s; }
+        @keyframes cardCascade {
+          from { opacity: 0; transform: translateY(30px) scale(0.96); }
+          to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* Roadmap step stagger */
+        .scroll-reveal.revealed .roadmap-step {
+          animation: stepSlideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        .scroll-reveal.revealed .roadmap-step:nth-child(2) { animation-delay: 0.15s; }
+        .scroll-reveal.revealed .roadmap-step:nth-child(3) { animation-delay: 0.30s; }
+        .scroll-reveal.revealed .roadmap-step:nth-child(4) { animation-delay: 0.45s; }
+        .scroll-reveal.revealed .roadmap-step:nth-child(5) { animation-delay: 0.60s; }
+        @keyframes stepSlideUp {
+          from { opacity: 0; transform: translateY(35px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* University marquee-like fade in */
+        .scroll-reveal.revealed .university {
+          animation: uniFadeIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        .scroll-reveal.revealed .university:nth-child(1) { animation-delay: 0.05s; }
+        .scroll-reveal.revealed .university:nth-child(2) { animation-delay: 0.10s; }
+        .scroll-reveal.revealed .university:nth-child(3) { animation-delay: 0.15s; }
+        .scroll-reveal.revealed .university:nth-child(4) { animation-delay: 0.20s; }
+        .scroll-reveal.revealed .university:nth-child(5) { animation-delay: 0.25s; }
+        .scroll-reveal.revealed .university:nth-child(6) { animation-delay: 0.30s; }
+        .scroll-reveal.revealed .university:nth-child(7) { animation-delay: 0.35s; }
+        .scroll-reveal.revealed .university:nth-child(8) { animation-delay: 0.40s; }
+        @keyframes uniFadeIn {
+          from { opacity: 0; transform: translateX(20px); }
+          to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* CTA pulse glow */
+        .scroll-reveal.scale-up.revealed .cta-content {
+          animation: ctaGlow 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+        }
+        @keyframes ctaGlow {
+          0% { opacity: 0; transform: scale(0.95); }
+          60% { transform: scale(1.01); }
+          100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* =====================================================
            MAIN
         ===================================================== */
 
@@ -139,7 +345,8 @@ export default function App({ onStart, onLogin, onLogout, onNavigateToDashboard 
 
           border-bottom: 1px solid #edf2f7;
 
-          position: relative;
+          position: sticky;
+          top: 0;
           z-index: 100;
         }
 
@@ -269,6 +476,79 @@ export default function App({ onStart, onLogin, onLogout, onNavigateToDashboard 
           box-shadow:
             0 18px 35px
             rgba(37, 99, 235, 0.3);
+        }
+
+        /* Portal Button */
+        .portal-btn {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 10px 20px;
+          border-radius: 14px;
+          border: 2px solid #e2e8f0;
+          background: rgba(255,255,255,0.85);
+          backdrop-filter: blur(12px);
+          color: #475467;
+          font-size: 14px;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          position: relative;
+        }
+        .portal-btn:hover {
+          border-color: #3b82f6;
+          color: #3b82f6;
+          box-shadow: 0 4px 20px rgba(59,130,246,0.12);
+          transform: translateY(-2px);
+        }
+        .portal-btn.active {
+          border-color: #3b82f6;
+          color: #3b82f6;
+          background: #eff6ff;
+        }
+        .portal-dropdown {
+          position: absolute;
+          top: calc(100% + 10px);
+          right: 0;
+          width: 260px;
+          background: rgba(255,255,255,0.97);
+          backdrop-filter: blur(24px);
+          border-radius: 16px;
+          border: 1px solid #e5e7eb;
+          box-shadow: 0 20px 60px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.05);
+          z-index: 1000;
+          overflow: hidden;
+          animation: portalDropIn 0.2s ease-out;
+        }
+        @keyframes portalDropIn {
+          from { opacity: 0; transform: translateY(-8px) scale(0.96); }
+          to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .portal-dropdown-item {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 11px 18px;
+          background: none;
+          border: none;
+          cursor: pointer;
+          font-size: 13px;
+          font-weight: 500;
+          color: #334155;
+          transition: background 0.15s;
+        }
+        .portal-dropdown-item:hover {
+          background: #f1f5f9;
+        }
+        .portal-dropdown-icon {
+          width: 32px;
+          height: 32px;
+          border-radius: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
         }
 
         /* Language Switcher */
@@ -2106,13 +2386,13 @@ export default function App({ onStart, onLogin, onLogout, onNavigateToDashboard 
               AI Guidance
             </a>
 
-            <a href="#roadmap">
+            {/* <a href="#roadmap">
               Roadmap
             </a>
 
             <a href="#about">
               About Us
-            </a>
+            </a> */}
 
           </nav>
 
@@ -2138,15 +2418,123 @@ export default function App({ onStart, onLogin, onLogout, onNavigateToDashboard 
             </button>
           </div>
 
-          {onNavigateToDashboard && (
-            <button className="nav-button" onClick={onNavigateToDashboard}>
-              Dashboard →
+          {/* Portal Button */}
+          <div ref={portalRef} style={{ position: 'relative' }}>
+            <button className={`portal-btn ${portalOpen ? 'active' : ''}`} onClick={() => setPortalOpen(!portalOpen)}>
+              <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z" />
+              </svg>
+              Portal
             </button>
-          )}
-          {onLogout ? (
-            <button className="nav-button" onClick={onLogout}>
-              Logout
-            </button>
+
+            {portalOpen && (
+              <div className="portal-dropdown">
+                {/* Header */}
+                <div style={{ padding: '14px 18px 10px', borderBottom: '1px solid #f1f5f9', background: 'linear-gradient(135deg, #eff6ff, #fff7ed)' }}>
+                  <p style={{ fontSize: 12, fontWeight: 800, color: '#1e293b', margin: 0, letterSpacing: '0.5px', display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <span style={{ width: 22, height: 22, borderRadius: 7, background: 'linear-gradient(135deg, #3b82f6, #2563eb)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 10, fontWeight: 900 }}>D</span>
+                    Navigation
+                  </p>
+                </div>
+                <div style={{ padding: '6px 0' }}>
+                  {onNavigateToDashboard && (
+                    <button className="portal-dropdown-item" onClick={() => { setPortalOpen(false); onNavigateToDashboard(); }}>
+                      <span className="portal-dropdown-icon" style={{ background: '#eff6ff' }}>
+                        <svg width="16" height="16" fill="none" stroke="#3b82f6" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
+                      </span>
+                      Dashboard
+                    </button>
+                  )}
+                  {onViewProfile && (
+                    <button className="portal-dropdown-item" onClick={() => { setPortalOpen(false); onViewProfile(); }}>
+                      <span className="portal-dropdown-icon" style={{ background: '#fff7ed' }}>
+                        <svg width="16" height="16" fill="none" stroke="#f97316" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                      </span>
+                      My Profile
+                    </button>
+                  )}
+                  <button className="portal-dropdown-item" onClick={() => { setPortalOpen(false); onStart(); }}>
+                    <span className="portal-dropdown-icon" style={{ background: '#f0fdf4' }}>
+                      <svg width="16" height="16" fill="none" stroke="#22c55e" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                    </span>
+                    New Analysis
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {onLogout && authUser ? (
+            <div ref={avatarRef} style={{ position: 'relative' }}>
+              <button
+                onClick={() => setAvatarOpen(!avatarOpen)}
+                style={{
+                  width: 46, height: 46, borderRadius: '50%',
+                  background: 'linear-gradient(135deg, #3b82f6, #6366f1)',
+                  color: 'white', fontSize: 20, fontWeight: 800,
+                  border: '3px solid #e0e7ff',
+                  boxShadow: '0 4px 16px rgba(59,130,246,0.30)',
+                  cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  transition: 'all 0.25s ease', position: 'relative',
+                }}
+                onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.1)'; e.currentTarget.style.boxShadow = '0 6px 24px rgba(59,130,246,0.45)'; }}
+                onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(59,130,246,0.30)'; }}
+              >
+                {authUser.displayName ? authUser.displayName.charAt(0).toUpperCase()
+                  : authUser.email ? authUser.email.charAt(0).toUpperCase() : '?'}
+                {/* Online dot */}
+                <span style={{
+                  position: 'absolute', bottom: 0, right: 0, width: 12, height: 12,
+                  background: '#22c55e', borderRadius: '50%', border: '2px solid white',
+                }} />
+              </button>
+
+              {/* Avatar Dropdown */}
+              {avatarOpen && (
+                <div style={{
+                  position: 'absolute', top: 56, right: 0, width: 260,
+                  background: 'rgba(255,255,255,0.97)', backdropFilter: 'blur(20px)',
+                  borderRadius: 16, border: '1px solid #e5e7eb',
+                  boxShadow: '0 20px 60px rgba(0,0,0,0.15), 0 4px 12px rgba(0,0,0,0.06)',
+                  zIndex: 1000, overflow: 'hidden',
+                  animation: 'avatarDropIn 0.2s ease-out',
+                }}>
+                  <style>{`@keyframes avatarDropIn { from { opacity: 0; transform: translateY(-8px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }`}</style>
+                  {/* User header */}
+                  <div style={{ padding: '18px 18px 14px', borderBottom: '1px solid #f1f5f9', background: 'linear-gradient(135deg, #eff6ff, #f5f3ff)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                      <div style={{
+                        width: 40, height: 40, borderRadius: 12,
+                        background: 'linear-gradient(135deg, #3b82f6, #6366f1)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        color: 'white', fontWeight: 700, fontSize: 16,
+                      }}>
+                        {authUser.displayName ? authUser.displayName.charAt(0).toUpperCase()
+                          : authUser.email ? authUser.email.charAt(0).toUpperCase() : '?'}
+                      </div>
+                      <div style={{ flex: 1, overflow: 'hidden' }}>
+                        <p style={{ fontSize: 14, fontWeight: 700, color: '#1e293b', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                          {authUser.displayName || 'Student'}
+                        </p>
+                        <p style={{ fontSize: 11, color: '#94a3b8', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                          {authUser.email || ''}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  {/* Logout */}
+                  <div style={{ padding: 6 }}>
+                    <button onClick={() => { setAvatarOpen(false); onLogout(); }}
+                      style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 10, padding: '10px 18px', background: 'none', border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 500, color: '#ef4444', transition: 'background 0.15s', borderRadius: 8 }}
+                      onMouseEnter={e => e.currentTarget.style.background = '#fef2f2'}
+                      onMouseLeave={e => e.currentTarget.style.background = 'none'}
+                    >
+                      <span style={{ fontSize: 16 }}>🚪</span> Sign Out
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
           ) : (
             <button className="nav-button" onClick={onLogin}>
               {t.getStarted}
@@ -2162,7 +2550,7 @@ export default function App({ onStart, onLogin, onLogout, onNavigateToDashboard 
         =================================================== */}
 
         <section
-          className="hero"
+          className="hero hero-animate-in"
           id="home"
         >
 
@@ -2287,7 +2675,7 @@ export default function App({ onStart, onLogin, onLogout, onNavigateToDashboard 
             STATS
         =================================================== */}
 
-        <section className="stats-section">
+        <section className="stats-section scroll-reveal">
 
           <div className="stats-container">
 
@@ -2325,7 +2713,7 @@ export default function App({ onStart, onLogin, onLogout, onNavigateToDashboard 
         =================================================== */}
 
         <section
-          className="careers-section"
+          className="careers-section scroll-reveal"
           id="careers"
         >
 
@@ -2434,7 +2822,7 @@ export default function App({ onStart, onLogin, onLogout, onNavigateToDashboard 
             </div>
           )}
 
-          <div className="career-grid">
+          <div className="career-grid scroll-reveal">
 
             {displayJobs.map((job) => (
               <div
@@ -2472,7 +2860,7 @@ export default function App({ onStart, onLogin, onLogout, onNavigateToDashboard 
         =================================================== */}
 
         <section
-          className="ai-section"
+          className="ai-section scroll-reveal from-left"
           id="ai"
         >
 
@@ -2553,7 +2941,7 @@ export default function App({ onStart, onLogin, onLogout, onNavigateToDashboard 
         =================================================== */}
 
         <section
-          className="roadmap-section"
+          className="roadmap-section scroll-reveal"
           id="roadmap"
         >
 
@@ -2629,7 +3017,7 @@ export default function App({ onStart, onLogin, onLogout, onNavigateToDashboard 
         =================================================== */}
 
         <section
-          className="universities-section"
+          className="universities-section scroll-reveal from-right"
           id="about"
         >
 
@@ -2666,7 +3054,7 @@ export default function App({ onStart, onLogin, onLogout, onNavigateToDashboard 
             CTA
         =================================================== */}
 
-        <section className="cta-section">
+        <section className="cta-section scroll-reveal scale-up">
 
           <div className="cta-content">
 
