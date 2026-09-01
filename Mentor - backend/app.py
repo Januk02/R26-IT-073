@@ -43,6 +43,30 @@ def handle_error(error):
 model = None
 df_mentors = None
 df_mentees = None
+REAL_MENTOR_NAMES = [
+    "Dr. Samantha Gunawardena", "Eng. Tharindu Wijesekara", "Prof. Dilani Wickramasinghe",
+    "Kavinda Senaratne", "Malithi Dissanayake", "Sachini Bandara",
+    "Dr. Asanka Perera", "Eng. Kasun Jayawardena", "Nadeesha Senanayake",
+    "Roshan Wijesinghe", "Chathura Fernando", "Dinesha Silva",
+    "Anushka Ratnayake", "Pradeep Jayasuriya", "Isuru Abeywickrama",
+    "Shenali Cooray", "Harsha Weerasinghe", "Nimesha Wickramasinghe",
+    "Dinuka Ekanayake", "Chamari Kulatunga", "Ravindu Mendis",
+    "Kusal De Silva", "Thisara Karunaratne", "Nethmi Alahakoon",
+    "Damith Rajapaksha", "Buddhika Herath", "Sanduni Samarakoon",
+    "Janith Pathirana", "Oshani Jayalath", "Vimukthi Ranasinghe",
+    "Suren Madushanka", "Hasini Premaratne", "Nuwan Hettiarachchi",
+    "Subhashini Gamage", "Ruwan Wijethunga", "Amila Senadheera",
+    "Lakmali Wanigasooriya", "Gayan Jayasundara", "Piyumi Liyanage",
+    "Supun Weerakkody", "Menaka Abeyrathne", "Charith Jayatissa",
+    "Dhanushka Samarawickrama", "Pavithra Attanayake", "Tharaka Wickramasinghe"
+]
+
+def format_mentor_name(raw_name, mentor_id):
+    if raw_name and not str(raw_name).lower().startswith('mentor_') and not str(raw_name).lower().startswith('mentor '):
+        return raw_name
+    digits = ''.join(c for c in str(mentor_id) + str(raw_name) if c.isdigit())
+    idx = int(digits) if digits else abs(hash(str(mentor_id)))
+    return REAL_MENTOR_NAMES[idx % len(REAL_MENTOR_NAMES)]
 
 def load_data():
     """Load mentors and mentees datasets"""
@@ -73,6 +97,8 @@ def load_data():
     for path in mentors_paths:
         if os.path.exists(path):
             df_mentors = pd.read_csv(path)
+            # Assign real human names
+            df_mentors['name'] = [format_mentor_name(row.get('name', ''), row.get('mentor_id', '')) for _, row in df_mentors.iterrows()]
             print(f"✅ Loaded {len(df_mentors)} mentors from {path}")
             break
 
@@ -92,21 +118,24 @@ def generate_synthetic_data():
 
     import random
 
-    universities = ["University of Colombo", "University of Moratuwa", "SLIIT", "NSBM"]
-    domains = ["Software Engineering", "AI/ML", "Cybersecurity", "Data Science"]
-    locations = ["Colombo", "Kandy", "Galle"]
-    skills_pool = ["Python", "Java", "Machine Learning", "Cybersecurity", "Cloud Computing"]
+    universities = ["University of Colombo", "University of Moratuwa", "SLIIT", "NSBM", "University of Kelaniya", "University of Peradeniya"]
+    domains = ["Software Engineering", "AI/ML", "Cybersecurity", "Data Science", "Business IT", "Cloud Computing"]
+    locations = ["Colombo", "Kandy", "Galle", "Gampaha", "Kurunegala"]
+    skills_pool = ["Python", "Java", "Machine Learning", "Cybersecurity", "Cloud Computing", "Data Analysis", "React", "Node.js"]
+    roles = ['Senior Software Engineer', 'Data Scientist', 'Lead Architect', 'Lecturer', 'AI Researcher', 'Cybersecurity Specialist']
 
     # Generate mentors
     mentors = []
     for i in range(1000):
+        m_id = f"M{i}"
+        m_name = REAL_MENTOR_NAMES[i % len(REAL_MENTOR_NAMES)]
         mentors.append({
-            'mentor_id': f"M{i}",
-            'name': f"Mentor_{i}",
+            'mentor_id': m_id,
+            'name': m_name,
             'email': f"mentor{i}@edu.lk",
             'gender': random.choice(['Male', 'Female']),
             'university': random.choice(universities),
-            'industry_role': random.choice(['Lecturer', 'Engineer', 'Data Scientist']),
+            'industry_role': random.choice(roles),
             'domain': random.choice(domains),
             'experience_years': random.randint(2, 20),
             'skills': ",".join(random.sample(skills_pool, 3)),
@@ -408,9 +437,14 @@ def find_mentors_for_mentee():
             matches.append({
                 'mentor_id': mentor['mentor_id'],
                 'name': mentor['name'],
+                'industry_role': mentor.get('industry_role', 'Specialist'),
                 'domain': mentor['domain'],
                 'university': mentor['university'],
+                'location': mentor.get('location', 'Colombo'),
                 'experience_years': mentor['experience_years'],
+                'skills': mentor.get('skills', ''),
+                'availability_hours': mentor.get('availability_hours', 4),
+                'languages': mentor.get('languages', 'English'),
                 'verification_level': mentor.get('verification_level', 'Bronze'),
                 'compatibility_score': compatibility,
                 'breakdown': breakdown

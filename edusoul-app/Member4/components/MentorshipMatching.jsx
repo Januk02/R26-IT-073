@@ -41,6 +41,35 @@ const MEDAL_IMG = {
   Bronze: '/images/bronze.png',
 };
 
+const MENTOR_NAMES = [
+  "Dr. Samantha Gunawardena", "Eng. Tharindu Wijesekara", "Prof. Dilani Wickramasinghe",
+  "Kavinda Senaratne", "Malithi Dissanayake", "Sachini Bandara",
+  "Dr. Asanka Perera", "Eng. Kasun Jayawardena", "Nadeesha Senanayake",
+  "Roshan Wijesinghe", "Chathura Fernando", "Dinesha Silva",
+  "Anushka Ratnayake", "Pradeep Jayasuriya", "Isuru Abeywickrama",
+  "Shenali Cooray", "Harsha Weerasinghe", "Nimesha Wickramasinghe",
+  "Dinuka Ekanayake", "Chamari Kulatunga", "Ravindu Mendis",
+  "Kusal De Silva", "Thisara Karunaratne", "Nethmi Alahakoon",
+  "Damith Rajapaksha", "Buddhika Herath", "Sanduni Samarakoon",
+  "Janith Pathirana", "Oshani Jayalath", "Vimukthi Ranasinghe",
+  "Suren Madushanka", "Hasini Premaratne", "Nuwan Hettiarachchi",
+  "Subhashini Gamage", "Ruwan Wijethunga", "Amila Senadheera",
+  "Lakmali Wanigasooriya", "Gayan Jayasundara", "Piyumi Liyanage",
+  "Supun Weerakkody", "Menaka Abeyrathne", "Charith Jayatissa",
+  "Dhanushka Samarawickrama", "Pavithra Attanayake", "Tharaka Wickramasinghe"
+];
+
+const getMentorDisplayName = (mentor) => {
+  if (!mentor) return 'Mentor';
+  const rawName = mentor.name || '';
+  if (rawName && !rawName.toLowerCase().startsWith('mentor_') && !rawName.toLowerCase().startsWith('mentor ')) {
+    return rawName;
+  }
+  const digits = String(mentor.mentor_id || '' + rawName).replace(/\D/g, '');
+  const num = digits ? parseInt(digits, 10) : (rawName.split('').reduce((a, c) => a + c.charCodeAt(0), 0));
+  return MENTOR_NAMES[num % MENTOR_NAMES.length];
+};
+
 const stagger = {
   hidden: {},
   show: { transition: { staggerChildren: 0.07, delayChildren: 0.05 } },
@@ -283,11 +312,15 @@ const MentorshipMatching = ({ externalStudents = [], showRawData = false }) => {
                   className="mm-select"
                 >
                   <option value="">Choose a mentor…</option>
-                  {mentors.slice(0, 20).map((mentor) => (
-                    <option key={mentor.mentor_id} value={mentor.mentor_id}>
-                      {MEDAL[mentor.verification_level] || ''} {mentor.name} — {mentor.domain}
-                    </option>
-                  ))}
+                  {mentors.slice(0, 30).map((mentor) => {
+                    const mentorName = getMentorDisplayName(mentor);
+                    const subInfo = mentor.industry_role || mentor.university || `${mentor.experience_years} yrs`;
+                    return (
+                      <option key={mentor.mentor_id} value={mentor.mentor_id}>
+                        {MEDAL[mentor.verification_level] || ''} {mentorName} — {mentor.domain} ({subInfo})
+                      </option>
+                    );
+                  })}
                 </select>
               </div>
             </div>
@@ -301,7 +334,7 @@ const MentorshipMatching = ({ externalStudents = [], showRawData = false }) => {
                   className="mm-select"
                 >
                   <option value="">Choose a mentee…</option>
-                  {mentees.slice(0, 20).map((mentee) => {
+                  {mentees.slice(0, 30).map((mentee) => {
                     let interests = mentee.interests || [];
                     if (typeof interests === 'object' && !Array.isArray(interests)) interests = Object.values(interests);
                     const display = Array.isArray(interests) && interests.length > 0
@@ -427,48 +460,112 @@ const MentorshipMatching = ({ externalStudents = [], showRawData = false }) => {
                 </h4>
 
                 <motion.div variants={stagger} initial="hidden" animate="show" className="mm-matches-list">
-                  {matches.map((match, index) => (
-                    <motion.div
-                      key={match.mentor_id}
-                      variants={fadeUp}
-                      className="mm-match-card"
-                    >
-                      <div className="mm-match-left">
-                        {/* Rank badge */}
-                        <div className={`mm-rank-badge rank-${index < 3 ? index + 1 : 'other'}`}>
-                          #{index + 1}
-                        </div>
-                        {/* Info */}
-                        <div className="mm-match-info">
-                          <div className="mm-match-name">{match.name}</div>
-                          <div className="mm-match-meta">
-                            <span>{match.domain}</span>
-                            <span className="mm-meta-dot">•</span>
-                            <span>{match.experience_years} yrs</span>
-                            <span className="mm-meta-dot">•</span>
-                            <span className="mm-verification-tag">
-                              {MEDAL_IMG[match.verification_level] ? (
-                                <img src={MEDAL_IMG[match.verification_level]} alt="" className="mm-medal-img" />
-                              ) : MEDAL[match.verification_level] || '🥉'}
-                              {match.verification_level}
-                            </span>
+                  {matches.map((match, index) => {
+                    const mentorName = getMentorDisplayName(match);
+                    const skillsList = typeof match.skills === 'string'
+                      ? match.skills.split(',').map(s => s.trim()).filter(Boolean)
+                      : Array.isArray(match.skills) ? match.skills : [];
+
+                    return (
+                      <motion.div
+                        key={match.mentor_id || index}
+                        variants={fadeUp}
+                        className="mm-match-card"
+                      >
+                        <div className="mm-match-left" style={{ flex: 1 }}>
+                          {/* Rank badge */}
+                          <div className={`mm-rank-badge rank-${index < 3 ? index + 1 : 'other'}`}>
+                            #{index + 1}
+                          </div>
+
+                          {/* Info */}
+                          <div className="mm-match-info" style={{ flex: 1 }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                              <div className="mm-match-name" style={{ fontSize: '15px', fontWeight: 700, color: '#0F172A' }}>
+                                {mentorName}
+                              </div>
+                              {match.industry_role && (
+                                <span style={{
+                                  fontSize: '11px', fontWeight: 700, padding: '2px 8px', borderRadius: '6px',
+                                  background: '#EFF6FF', color: '#1D4ED8', border: '1px solid #DBEAFE'
+                                }}>
+                                  {match.industry_role}
+                                </span>
+                              )}
+                            </div>
+
+                            {/* Specific Details */}
+                            <div className="mm-match-meta" style={{ flexWrap: 'wrap', marginTop: '4px', gap: '6px', color: '#64748B', fontSize: '12px' }}>
+                              <span style={{ fontWeight: 600, color: '#4338CA' }}>{match.domain}</span>
+                              <span className="mm-meta-dot">•</span>
+                              {match.university && (
+                                <>
+                                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
+                                    <GraduationCap size={12} strokeWidth={2} />
+                                    {match.university}
+                                  </span>
+                                  <span className="mm-meta-dot">•</span>
+                                </>
+                              )}
+                              {match.location && (
+                                <>
+                                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
+                                    <MapPin size={12} strokeWidth={2} />
+                                    {match.location}
+                                  </span>
+                                  <span className="mm-meta-dot">•</span>
+                                </>
+                              )}
+                              <span>{match.experience_years} yrs exp</span>
+                              {match.availability_hours && (
+                                <>
+                                  <span className="mm-meta-dot">•</span>
+                                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
+                                    <Clock size={12} strokeWidth={2} />
+                                    {match.availability_hours}h/wk
+                                  </span>
+                                </>
+                              )}
+                              <span className="mm-meta-dot">•</span>
+                              <span className="mm-verification-tag">
+                                {MEDAL_IMG[match.verification_level] ? (
+                                  <img src={MEDAL_IMG[match.verification_level]} alt="" className="mm-medal-img" />
+                                ) : MEDAL[match.verification_level] || '🥉'}
+                                {match.verification_level} Mentor
+                              </span>
+                            </div>
+
+                            {/* Skills Badges */}
+                            {skillsList.length > 0 && (
+                              <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap', marginTop: '6px' }}>
+                                {skillsList.slice(0, 3).map((skill, si) => (
+                                  <span key={si} style={{
+                                    fontSize: '10px', fontWeight: 600, padding: '1px 8px',
+                                    borderRadius: '5px', background: '#F8FAFC', color: '#64748B',
+                                    border: '1px solid #E2E8F0'
+                                  }}>
+                                    {skill}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
                           </div>
                         </div>
-                      </div>
 
-                      {/* Score */}
-                      <div className="mm-match-score-wrap">
-                        <div className={`mm-match-score ${
-                          match.compatibility_score >= 80 ? 'score-high'
-                          : match.compatibility_score >= 60 ? 'score-mid'
-                          : 'score-low'
-                        }`}>
-                          {Math.round(match.compatibility_score)}%
+                        {/* Score */}
+                        <div className="mm-match-score-wrap" style={{ marginLeft: '16px' }}>
+                          <div className={`mm-match-score ${
+                            match.compatibility_score >= 80 ? 'score-high'
+                            : match.compatibility_score >= 60 ? 'score-mid'
+                            : 'score-low'
+                          }`}>
+                            {Math.round(match.compatibility_score)}%
+                          </div>
+                          <div className="mm-match-score-label">match</div>
                         </div>
-                        <div className="mm-match-score-label">match</div>
-                      </div>
-                    </motion.div>
-                  ))}
+                      </motion.div>
+                    );
+                  })}
                 </motion.div>
               </motion.div>
             )}

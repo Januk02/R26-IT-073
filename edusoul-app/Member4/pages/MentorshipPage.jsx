@@ -89,7 +89,26 @@ const StudentCard = ({ student, index }) => {
 
       {/* Body */}
       <div className="card-content">
-        <span className="tag-line">{student.field_of_study || 'General'}</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap', marginBottom: '6px' }}>
+          <span className="tag-line">{student.stream || student.field_of_study || 'General'}</span>
+          {student.major && student.stream && student.major.toLowerCase() !== student.stream.toLowerCase() && (
+            <span
+              style={{
+                fontSize: '10px',
+                fontWeight: 600,
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
+                padding: '2px 8px',
+                borderRadius: '6px',
+                background: '#F3E8FF',
+                color: '#7E22CE',
+                border: '1px solid #E9D5FF'
+              }}
+            >
+              {student.major}
+            </span>
+          )}
+        </div>
         <div className="card-main-title">{student.name}</div>
 
         <div className="student-meta">
@@ -125,18 +144,20 @@ const StudentCard = ({ student, index }) => {
         )}
 
         {/* AL results */}
-        {student.al_results?.physics && (
-          <div className="meta-row al-row">
-            <Award size={13} strokeWidth={1.8} />
-            <span className="meta-text">
-              AL: {Object.entries(student.al_results)
-                .filter(([_, v]) => v && typeof v === 'string' && v.length <= 2)
-                .slice(0, 3)
-                .map(([s, g]) => `${s} ${g}`)
-                .join(', ')}
-            </span>
-          </div>
-        )}
+        {student.al_results && Object.keys(student.al_results).length > 0 && (() => {
+          const subjects = Object.entries(student.al_results)
+            .filter(([k, v]) => v && typeof v === 'string' && v.length <= 2 && k !== 'stream' && k !== 'zScore')
+            .slice(0, 3);
+          if (subjects.length === 0) return null;
+          return (
+            <div className="meta-row al-row">
+              <Award size={13} strokeWidth={1.8} />
+              <span className="meta-text">
+                AL: {subjects.map(([s, g]) => `${s} ${g}`).join(', ')}
+              </span>
+            </div>
+          );
+        })()}
       </div>
     </motion.div>
   );
@@ -170,61 +191,241 @@ const MentorshipPage = ({ onBack }) => {
     const fetchStudents = async () => {
       try {
         setLoading(true);
-        const collectionsToTry = ['assessmentResults', 'assessments', 'students', 'mentees'];
-        let querySnapshot = null;
 
-        for (const collName of collectionsToTry) {
+        const unifiedMap = new Map();
+        const cleanStr = (s) => (s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+
+        const addOrMergeDoc = (docId, rawData, source) => {
+          if (!rawData) return;
+          // Skip mentors from users collection
+          if (source === 'users' && rawData.role === 'mentor') return;
+
+          const emailKey = (rawData.email || '').toLowerCase().trim();
+          const uidKey = rawData.uid || rawData.userId;
+          const rawName = rawData.name || rawData.fullName || rawData.studentName || rawData.profile?.name || rawData.profile?.fullName || '';
+          const nameKey = cleanStr(rawName);
+          const docIdName = cleanStr(docId.replace(/_\d{10,}$/, ''));
+          const emailPrefix = emailKey ? cleanStr(emailKey.split('@')[0]) : '';
+
+          // Find if we already have this user in the map by UID, Email, Name, or DocID
+          let target = null;
+          if (uidKey && unifiedMap.has(uidKey)) {
+            target = unifiedMap.get(uidKey);
+          } else if (emailKey && unifiedMap.has(emailKey)) {
+            target = unifiedMap.get(emailKey);
+          } else if (nameKey && unifiedMap.has(`name_${nameKey}`)) {
+            target = unifiedMap.get(`name_${nameKey}`);
+          } else if (docIdName && docIdName.length > 2 && unifiedMap.has(`name_${docIdName}`)) {
+            target = unifiedMap.get(`name_${docIdName}`);
+          } else if (emailPrefix && emailPrefix.length > 2 && unifiedMap.has(`name_${emailPrefix}`)) {
+            target = unifiedMap.get(`name_${emailPrefix}`);
+          }
+
+          const targetObj = target || { id: docId };
+
+          // Deep merge all properties
+          Object.assign(targetObj, {
+            ...rawData,
+            id: targetObj.id || docId,
+            name: targetObj.name || rawName || rawData.name,
+            email: targetObj.email || rawData.email,
+            locationPreference: targetObj.locationPreference || rawData.locationPreference || rawData.location,
+            stream: targetObj.stream || rawData.stream || rawData.Stream || rawData.alStream || rawData.alResults?.stream || rawData.academicResults?.stream,
+            profile: { ...(targetObj.profile || {}), ...(rawData.profile || {}) },
+            alResults: { ...(targetObj.alResults || {}), ...(rawData.alResults || {}) },
+            academicResults: { ...(targetObj.academicResults || {}), ...(rawData.academicResults || {}) },
+            interests: (rawData.interests && rawData.interests.length > 0) ? rawData.interests : (targetObj.interests || []),
+            careerAspirations: (rawData.careerAspirations && rawData.careerAspirations.length > 0) ? rawData.careerAspirations : (targetObj.careerAspirations || []),
+          });
+
+          // Index by multiple keys for cross-collection matching
+          if (uidKey) unifiedMap.set(uidKey, targetObj);
+          if (emailKey) unifiedMap.set(emailKey, targetObj);
+          if (nameKey) unifiedMap.set(`name_${nameKey}`, targetObj);
+          if (docIdName && docIdName.length > 2) unifiedMap.set(`name_${docIdName}`, targetObj);
+          if (emailPrefix && emailPrefix.length > 2) unifiedMap.set(`name_${emailPrefix}`, targetObj);
+          unifiedMap.set(docId, targetObj);
+        };
+
+        const collectionsToFetch = [
+          'students',
+          'assessmentResults',
+          'assessments',
+          'users',
+          'mentees',
+          'recommendations',
+          'student_recommendations',
+          'career_assessments',
+        ];
+
+        for (const collName of collectionsToFetch) {
           try {
-            console.log(`Trying collection: ${collName}`);
-            let q = query(collection(db, collName));
-            const snapshot = await getDocs(q);
-            if (!snapshot.empty) {
-              querySnapshot = snapshot;
-              console.log(`✅ Found data in collection: ${collName} (${snapshot.size} docs)`);
-              break;
+            const snap = await getDocs(query(collection(db, collName)));
+            if (!snap.empty) {
+              snap.forEach((d) => addOrMergeDoc(d.id, d.data(), collName));
+              console.log(`✅ Loaded ${snap.size} docs from '${collName}'`);
             }
           } catch (e) {
-            console.log(`Collection ${collName} not accessible:`, e.message);
+            // collection might not exist or be restricted
           }
         }
 
-        if (!querySnapshot) {
-          setStudents([]);
-          setLoading(false);
-          return;
-        }
+        // Extract distinct student objects
+        const uniqueDocs = Array.from(new Set(unifiedMap.values()));
 
-        const studentsData = [];
-        querySnapshot.forEach((doc) => {
-          const data = doc.data();
-          const parseArrayField = (field) => {
-            if (!field) return [];
-            if (Array.isArray(field)) return field;
-            if (typeof field === 'object') return Object.values(field);
-            return [];
+        const formatNameFromEmail = (email) => {
+          if (!email) return 'Student';
+          const prefix = email.split('@')[0];
+          const words = prefix.replace(/\d+$/, '').split(/[._-]+/).filter(Boolean);
+          if (words.length > 0) {
+            return words.map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+          }
+          return prefix.charAt(0).toUpperCase() + prefix.slice(1);
+        };
+
+        const parseArrayField = (field) => {
+          if (!field) return [];
+          if (Array.isArray(field)) return field;
+          if (typeof field === 'object') return Object.values(field);
+          return [];
+        };
+
+        const studentsData = uniqueDocs.map((data, idx) => {
+          // Robust Name Resolution
+          const resolvedName =
+            data.name ||
+            data.fullName ||
+            data.displayName ||
+            data.studentName ||
+            data.profile?.name ||
+            data.profile?.fullName ||
+            data.profile?.displayName ||
+            (data.firstName ? `${data.firstName} ${data.lastName || ''}`.trim() : null) ||
+            (data.profile?.firstName ? `${data.profile.firstName} ${data.profile.lastName || ''}`.trim() : null) ||
+            formatNameFromEmail(data.email);
+
+          // Combined subjects from academicResults.subjects and alResults
+          const combinedSubjects = {
+            ...(data.academicResults?.subjects || {}),
+            ...(data.alResults?.subjects || {}),
+            ...(data.alResults || {}),
+            ...(data.subjects || {}),
           };
 
-          studentsData.push({
-            id: doc.id,
-            mentee_id: doc.id,
-            name: data.name || 'Anonymous',
+          // Subject-based stream inference fallback
+          let inferredStream = null;
+          if (
+            combinedSubjects.biology || combinedSubjects.Biology ||
+            combinedSubjects['Agricultural Science'] || combinedSubjects.agriculture ||
+            combinedSubjects.botany || combinedSubjects.zoology
+          ) {
+            inferredStream = 'Biological Science';
+          } else if (
+            combinedSubjects.combinedMathematics || combinedSubjects.combinedMaths ||
+            combinedSubjects['Combined Mathematics'] || combinedSubjects.higherMaths
+          ) {
+            inferredStream = 'Physical Science';
+          } else if (
+            combinedSubjects.accounting || combinedSubjects.Accounting ||
+            combinedSubjects.businessStudies || combinedSubjects['Business Studies'] ||
+            combinedSubjects.economics || combinedSubjects.Economics
+          ) {
+            inferredStream = 'Commerce';
+          } else if (
+            combinedSubjects.engineeringTechnology || combinedSubjects.biosystemsTechnology ||
+            combinedSubjects.sft || combinedSubjects.ict || combinedSubjects.ICT
+          ) {
+            inferredStream = 'Technology';
+          } else if (
+            combinedSubjects.sinhala || combinedSubjects.tamil ||
+            combinedSubjects.englishLit || combinedSubjects.history || combinedSubjects.geography
+          ) {
+            inferredStream = 'Arts';
+          }
+
+          // Stream & Major Resolution
+          const resolvedStream =
+            data.academicResults?.stream ||
+            data.academicResults?.Stream ||
+            data.alResults?.stream ||
+            data.alResults?.Stream ||
+            data.stream ||
+            data.Stream ||
+            data.alStream ||
+            data.ALStream ||
+            data.profile?.stream ||
+            data.profile?.Stream ||
+            data.streamName ||
+            data.subjectStream ||
+            inferredStream ||
+            null;
+
+          const resolvedMajor =
+            data.profile?.major ||
+            data.profile?.Major ||
+            data.major ||
+            data.Major ||
+            data.field_of_study ||
+            data.fieldOfStudy ||
+            data.degree ||
+            data.degreeName ||
+            data.course ||
+            data.profile?.field ||
+            data.profile?.fieldOfStudy ||
+            data.profile?.grade ||
+            data.grade ||
+            null;
+
+          const resolvedField = resolvedStream || resolvedMajor || 'General';
+
+          // Location Resolution
+          const resolvedLocation =
+            data.locationPreference ||
+            data.location ||
+            data.city ||
+            data.district ||
+            data.address ||
+            data.town ||
+            data.province ||
+            data.profile?.location ||
+            data.profile?.city ||
+            data.profile?.district ||
+            data.profile?.address ||
+            data.alResults?.district ||
+            data.alResults?.location ||
+            data.academicResults?.district ||
+            data.academicResults?.location ||
+            'Not specified';
+
+          const careerGoals = parseArrayField(data.careerAspirations || data.career_goals || data.profile?.careerAspirations);
+          const interests = parseArrayField(data.interests || data.hobbies || data.skills || data.profile?.interests || data.profile?.hobbies);
+          const resolvedZScore = data.academicResults?.zScore || data.zScore || data.z_score || data.profile?.zScore || '0';
+
+          return {
+            id: data.id || `student-${idx}`,
+            mentee_id: data.id || `student-${idx}`,
+            name: resolvedName,
             email: data.email || '',
-            university: data.alResults?.university || data.university || 'Unknown University',
-            field_of_study: data.alResults?.stream || data.stream || 'General',
-            career_goals: parseArrayField(data.careerAspirations),
-            interests: parseArrayField(data.interests),
-            location: data.locationPreference || data.location || 'Not specified',
-            personality_traits: data.personalityTraits || {},
-            work_environment: data.workEnvironment || 'Not specified',
-            social_interaction: data.socialInteraction || 'Not specified',
-            z_score: data.zScore || data.z_score || '0',
-            al_results: data.alResults || {},
-            stress_tolerance: data.stressTolerance || 3,
-            travel_tolerance: data.travelTolerance || 'Not specified',
+            university: data.alResults?.university || data.university || data.profile?.university || 'Unknown University',
+            stream: resolvedStream,
+            major: resolvedMajor,
+            field_of_study: resolvedField,
+            career_goals: careerGoals,
+            interests: interests,
+            location: resolvedLocation,
+            personality_traits: data.personalityTraits || data.profile?.personalityTraits || {},
+            work_environment: data.workEnvironment || data.profile?.workEnvironment || 'Not specified',
+            social_interaction: data.socialInteraction || data.profile?.socialInteraction || 'Not specified',
+            z_score: resolvedZScore,
+            al_results: combinedSubjects,
+            stress_tolerance: data.stressTolerance || data.profile?.stressTolerance || 3,
+            travel_tolerance: data.travelTolerance || data.profile?.travelTolerance || 'Not specified',
             status: data.status,
             raw_data: data,
-          });
+          };
         });
+
+        console.log('✅ Final unified students list:', studentsData);
 
         setStudents(studentsData);
         setFilteredStudents(studentsData);
