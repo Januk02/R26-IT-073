@@ -982,21 +982,41 @@ class BackwardChainingModel:
             # Private universities
             for uni_name, uni_info in UNIVERSITY_DATABASE["private"].items():
                 if degree in uni_info["degrees"]:
-                    # Private universities have more flexible admission
-                    admission_score = min(1.0, student_z_score / 1.0 + 0.2)  # Base score + bonus
-                    
-                    university_recommendations[degree]["private"].append({
-                        "name": uni_name,
-                        "location": uni_info["location"],
-                        "coordinates": uni_info.get("coordinates"),
-                        "admission_probability": admission_score,
-                        "tuition_fee_range": uni_info.get("tuition_fee_range", {}).get(degree, "N/A"),
-                        "rankings": uni_info["rankings"],
-                        "facilities": uni_info["facilities"],
-                        "specialties": uni_info["specialties"],
-                        "accreditation": uni_info.get("accreditation", []),
-                        "explanation": f"Flexible admission with good facilities and industry partnerships"
-                    })
+                    # Private universities use degree-specific minimum Z-score requirements
+                    required_z = uni_info["z_score_requirements"].get(degree, 1.0)
+                    z_diff = student_z_score - required_z
+
+                    if z_diff >= 0.5:
+                        admission_score = 0.95  # Well above minimum
+                    elif z_diff >= 0:
+                        admission_score = 0.85  # Meets minimum requirement
+                    elif z_diff >= -0.3:
+                        admission_score = 0.65  # Slightly below, still possible with foundation
+                    elif z_diff >= -0.5:
+                        admission_score = 0.40  # Below, may need bridging program
+                    else:
+                        admission_score = 0.20  # Significantly below
+
+                    # Higher-cost programs (Medicine, Engineering) are slightly more selective
+                    fee_str = uni_info.get("tuition_fee_range", {}).get(degree, "0")
+                    if isinstance(fee_str, str) and "2,000,000" in fee_str:
+                        admission_score = max(0.1, admission_score - 0.1)
+
+                    if admission_score > 0.15:  # Minimum threshold for private
+                        university_recommendations[degree]["private"].append({
+                            "name": uni_name,
+                            "location": uni_info["location"],
+                            "coordinates": uni_info.get("coordinates"),
+                            "admission_probability": admission_score,
+                            "tuition_fee_range": uni_info.get("tuition_fee_range", {}).get(degree, "N/A"),
+                            "rankings": uni_info["rankings"],
+                            "facilities": uni_info["facilities"],
+                            "specialties": uni_info["specialties"],
+                            "accreditation": uni_info.get("accreditation", []),
+                            "explanation": self._generate_private_uni_explanation(
+                                admission_score, student_z_score, required_z, degree
+                            )
+                        })
             
             # Sort universities by admission probability
             university_recommendations[degree]["government"].sort(
@@ -1047,6 +1067,21 @@ class BackwardChainingModel:
         
         return f"{z_score_text}{district_text}. Admission probability: {admission_prob*100:.1f}%."
 
+    def _generate_private_uni_explanation(self, admission_prob, student_z_score, required_z_score, degree):
+        """Generate explanation for private university admission probability"""
+        z_diff = student_z_score - required_z_score
+
+        if z_diff >= 0.5:
+            text = f"Your Z-score of {student_z_score} is well above the minimum requirement of {required_z_score} for {degree}."
+        elif z_diff >= 0:
+            text = f"Your Z-score of {student_z_score} meets the minimum requirement of {required_z_score} for {degree}."
+        elif z_diff >= -0.3:
+            text = f"Your Z-score of {student_z_score} is slightly below the minimum of {required_z_score} for {degree}. A foundation program may help."
+        else:
+            text = f"Your Z-score of {student_z_score} is below the minimum of {required_z_score} for {degree}. A bridging or foundation program is recommended."
+
+        return f"{text} Admission probability: {admission_prob*100:.1f}%."
+
     def _calculate_degree_probability(self, degree, base_prob, student_profile, career_info):
         """Calculate adjusted probability for degree based on student profile"""
         z_score = float(student_profile.get('z_score', 0))
@@ -1058,18 +1093,61 @@ class BackwardChainingModel:
         else:
             academic_factor = 0.5 + (z_score / threshold) * 0.5
         
-        # Stream compatibility
+        # Stream compatibility — covers all 6 Sri Lankan A/L streams
         stream = student_profile.get('stream', '').lower()
-        if degree == "IT" and ('mathematics' in stream or 'physical science' in stream):
-            stream_factor = 1.2
-        elif degree == "Engineering" and ('physical science' in stream or 'mathematics' in stream):
-            stream_factor = 1.2
-        elif degree == "Medicine" and ('biology' in stream or 'physical science' in stream):
-            stream_factor = 1.2
-        elif degree == "Business":
-            stream_factor = 1.0
-        else:
-            stream_factor = 0.8
+        stream_factor = 0.8  # Default for mismatched stream
+
+        # Physical Science stream
+        if 'physical science' in stream:
+            if degree in ("IT", "Computer Science", "Engineering", "Mathematics", "Quantity Surveying", "Architecture", "Data Science", "Cyber Security", "Software Engineering", "Advanced Technology", "Physical Science"):
+                stream_factor = 1.2
+            elif degree in ("Medicine", "Bio Science"):
+                stream_factor = 1.0
+            elif degree in ("Business", "Management", "Finance", "Accounting"):
+                stream_factor = 0.9
+
+        # Biological Science stream
+        elif 'biological science' in stream or 'bio' in stream:
+            if degree in ("Medicine", "Dental", "Veterinary Science", "Pharmacy", "Nursing", "Bio Science", "Agriculture", "Psychology"):
+                stream_factor = 1.2
+            elif degree in ("IT", "Computer Science"):
+                stream_factor = 0.9
+            elif degree in ("Business", "Management"):
+                stream_factor = 0.9
+
+        # Commerce stream
+        elif 'commerce' in stream:
+            if degree in ("Business", "Management", "Accounting", "Finance", "Marketing", "HR", "Entrepreneurship"):
+                stream_factor = 1.2
+            elif degree in ("IT", "Computer Science"):
+                stream_factor = 0.9
+            elif degree in ("Law"):
+                stream_factor = 1.0
+
+        # Arts stream
+        elif 'arts' in stream:
+            if degree in ("Arts", "Law", "Social Sciences", "Education", "Fine Arts", "Buddhist Studies", "Pali", "Philosophy", "Archaeology"):
+                stream_factor = 1.2
+            elif degree in ("Business", "Management"):
+                stream_factor = 0.9
+            elif degree in ("Psychology"):
+                stream_factor = 1.0
+
+        # Engineering Technology stream
+        elif 'engineering technology' in stream:
+            if degree in ("IT", "Computer Science", "Engineering", "Software Engineering", "Advanced Technology", "Quantity Surveying"):
+                stream_factor = 1.2
+            elif degree in ("Business", "Management"):
+                stream_factor = 0.9
+
+        # Bio Systems Technology stream
+        elif 'bio systems' in stream or 'biosystems' in stream:
+            if degree in ("Agriculture", "Bio Science", "Pharmacy", "Nursing"):
+                stream_factor = 1.2
+            elif degree in ("IT", "Computer Science"):
+                stream_factor = 0.9
+            elif degree in ("Business", "Management"):
+                stream_factor = 0.9
         
         return base_prob * academic_factor * stream_factor
 
@@ -1620,6 +1698,35 @@ def get_backward_analysis_endpoint():
     except Exception as e:
         return jsonify({"error": f"Error in backward analysis: {str(e)}"}), 500
 
+def _build_degree_explanation(student_profile, predicted_degree):
+    """Build a detailed, human-readable XAI explanation for a degree recommendation."""
+    stream = student_profile.get('stream', '')
+    z_score = safe_float(student_profile.get('z_score', 0))
+    dream_job = student_profile.get('dream_job', '')
+    potential_z = safe_float(student_profile.get('predicted_potential_z_score', 0))
+    improvement = student_profile.get('predicted_improvement', '')
+
+    explanation = (
+        f"Based on your {stream} stream and Z-score of {z_score}, "
+        f"{predicted_degree} offers strong alignment with your '{dream_job}' career goal."
+    )
+
+    # Add predicted performance insight
+    if potential_z > z_score and potential_z > 0:
+        explanation += (
+            f" With your predicted improvement level of '{improvement}' "
+            f"and potential Z-score of {potential_z}, your admission chances "
+            f"could improve further."
+        )
+
+    # Add entrepreneurial insight
+    ent = safe_int(student_profile.get('entrepreneurial_mindset', 3))
+    if ent >= 4:
+        explanation += " Your strong entrepreneurial mindset opens additional pathways in startup incubators and business innovation programs."
+
+    return explanation
+
+
 @app.route('/recommend', methods=['POST'])
 def get_recommendations():
     try:
@@ -1690,7 +1797,9 @@ def get_recommendations():
                     "problem_solving": float(student_profile.get('problem_solving', 3) / 5.0),
                     "teamwork": float(student_profile.get('teamwork', 3) / 5.0),
                     "adaptability": float(student_profile.get('adaptability', 3) / 5.0),
-                    "attention_to_detail": float(student_profile.get('attention_to_detail', 3) / 5.0)
+                    "attention_to_detail": float(student_profile.get('attention_to_detail', 3) / 5.0),
+                    "entrepreneurial_mindset": float(safe_int(student_profile.get('entrepreneurial_mindset', 3)) / 5.0),
+                    "risk_taking": float(safe_int(student_profile.get('risk_taking', 3)) / 5.0)
                 },
                 "academic_feasibility": {
                     "z_score_feasibility": min(1.0, float(student_profile.get('z_score', 0)) / 2.0),
@@ -1704,9 +1813,12 @@ def get_recommendations():
                     "career_growth": 1.0 - (safe_int(student_profile.get('career_sustainability_priority', 3)) / 5.0) * 0.3,
                     "social_impact": 1.0 - (safe_int(student_profile.get('social_impact_priority', 3)) / 5.0) * 0.4,
                     "location_match": 0.8,
-                    "family_friendly": 1.0 - (safe_int(student_profile.get('family_attachment_level', 3)) / 5.0) * 0.4
+                    "family_friendly": 1.0 - (safe_int(student_profile.get('family_attachment_level', 3)) / 5.0) * 0.4,
+                    "travel_tolerance": safe_int(student_profile.get('travel_tolerance', 3)) / 5.0,
+                    "work_environment": student_profile.get('work_environment', 'Hybrid'),
+                    "social_interaction": student_profile.get('social_interaction', 'Ambivert')
                 },
-                "explanation": f"Based on your {student_profile.get('stream', '')} stream and {student_profile.get('z_score', 0)} Z-score, {predicted_degree} offers strong alignment with your {student_profile.get('dream_job', '')} career goals.",
+                "explanation": _build_degree_explanation(student_profile, predicted_degree),
                 "roadmap": _generate_roadmap(predicted_degree)
             }]
         

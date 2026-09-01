@@ -24,6 +24,8 @@ function mapFormDataToBackend(formData) {
     return map[val] || 3;
   };
 
+  const predictedPerf = formData.academicResults?.predictedPerformance || {};
+
   return {
     dream_job: formData.dreamJob || '',
     z_score: parseFloat(formData.academicResults?.zScore) || 0,
@@ -31,7 +33,7 @@ function mapFormDataToBackend(formData) {
     district: formData.personalInfo?.district || '',
     personality_description: traitDescriptions.join(', '),
     detected_traits: traitDescriptions,
-    // Personality scores mapped to 1-5 scale for model (all 8 traits)
+    // Personality scores mapped to 1-5 scale for model (all 10 traits)
     analytical_skill: Math.round((personalityScores.analytical_thinking || 5) / 2),
     creativity: Math.round((personalityScores.creativity || 5) / 2),
     leadership: Math.round((personalityScores.leadership || 5) / 2),
@@ -40,7 +42,9 @@ function mapFormDataToBackend(formData) {
     teamwork: Math.round((personalityScores.teamwork || 5) / 2),
     adaptability: Math.round((personalityScores.adaptability || 5) / 2),
     attention_to_detail: Math.round((personalityScores.attention_to_detail || 5) / 2),
-    // Lifestyle features mapped to backend keys (all 7 collected factors)
+    entrepreneurial_mindset: Math.round((personalityScores.entrepreneurial_mindset || 5) / 2),
+    risk_taking: Math.round((personalityScores.risk_taking || 5) / 2),
+    // Lifestyle features mapped to backend keys (all 10 collected factors)
     preferred_location: lifestyle.locationPreference || 'Any',
     stress_tolerance: lifestyleToNumeric(lifestyle.stressTolerance || 'Medium'),
     work_life_balance_priority: lifestyleToNumeric(lifestyle.workLifeBalance || 'Moderate'),
@@ -48,8 +52,13 @@ function mapFormDataToBackend(formData) {
     financial_stability_need: lifestyleToNumeric(lifestyle.salaryExpectation || 'Medium'),
     career_sustainability_priority: lifestyleToNumeric(lifestyle.careerGrowth || 'Moderate'),
     innovation_interest: Math.round((personalityScores.creativity || 5) / 2),
-    risk_taking: Math.round(((personalityScores.adaptability || 5) + (personalityScores.creativity || 5)) / 4),
     social_impact_priority: lifestyleToNumeric(lifestyle.socialImpact || 'Medium'),
+    travel_tolerance: lifestyleToNumeric(lifestyle.travelTolerance || 'Medium'),
+    work_environment: lifestyle.workEnvironment || 'Hybrid',
+    social_interaction: lifestyle.socialInteraction || 'Ambivert',
+    // Predicted academic performance
+    predicted_improvement: predictedPerf.improvement || 'Medium',
+    predicted_potential_z_score: parseFloat(predictedPerf.potentialZScore) || 0,
     // Pass full personality scores for enhanced matching
     personality_scores: personalityScores,
     // Pass lifestyle preferences

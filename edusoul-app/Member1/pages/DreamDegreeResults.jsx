@@ -450,15 +450,15 @@ export default function DreamDegreeResults({ studentData, backendResults, backwa
 
                       {expandedCard === index && (
                         <div className="px-6 pb-6 space-y-5">
-                          {/* {rec.explanation && (
+                          {rec.explanation && (
                             <div className="bg-blue-50/70 border border-blue-200 rounded-xl p-5">
                               <h4 className="text-blue-700 font-semibold mb-2 flex items-center space-x-2">
-                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12 a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                                 <span>AI Explanation (XAI)</span>
                               </h4>
                               <p className="text-gray-700 leading-relaxed">{rec.explanation}</p>
                             </div>
-                          )} */}
+                          )}
 
                           {rec.academic_feasibility && (
                             <div className="bg-gray-50 rounded-xl p-4 border border-gray-100">

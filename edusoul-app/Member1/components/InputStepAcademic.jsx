@@ -91,6 +91,62 @@ export default function InputStepAcademic({ formData, setFormData, handleStreamC
         )}
       </div>
 
+      {/* Predicted Performance */}
+      <div className="p-5 bg-gradient-to-br from-purple-50 to-indigo-50 rounded-2xl border border-purple-100">
+        <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
+          <span>📈</span> Predicted Performance
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Expected Improvement
+            </label>
+            <select
+              value={formData.academicResults.predictedPerformance?.improvement || "Medium"}
+              onChange={(e) => setFormData({
+                ...formData,
+                academicResults: {
+                  ...formData.academicResults,
+                  predictedPerformance: {
+                    ...formData.academicResults.predictedPerformance,
+                    improvement: e.target.value
+                  }
+                }
+              })}
+              className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white"
+            >
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Potential Z-Score
+            </label>
+            <input
+              type="number"
+              step="0.01"
+              min="0"
+              max="3.5"
+              value={formData.academicResults.predictedPerformance?.potentialZScore || ""}
+              onChange={(e) => setFormData({
+                ...formData,
+                academicResults: {
+                  ...formData.academicResults,
+                  predictedPerformance: {
+                    ...formData.academicResults.predictedPerformance,
+                    potentialZScore: parseFloat(e.target.value) || ""
+                  }
+                }
+              })}
+              className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white"
+              placeholder="e.g. 2.5"
+            />
+          </div>
+        </div>
+      </div>
+
       {/* Arts Stream Buckets */}
       {isArtsBucket && streamInfo?.subjectBuckets && (
         <div className="mt-5 space-y-4">

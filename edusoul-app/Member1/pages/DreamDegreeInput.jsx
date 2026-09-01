@@ -144,7 +144,7 @@ export default function DreamDegreeInput({ onAnalyze, onBack, onFinishOnboarding
       return {
         personalInfo: initialData.personalInfo || { name: '', age: '', district: '' },
         dreamJob: initialData.dreamJob || '',
-        academicResults: initialData.academicResults || { stream: '', subjects: {}, zScore: '' },
+        academicResults: initialData.academicResults || { stream: '', subjects: {}, zScore: '', predictedPerformance: { improvement: 'Medium', potentialZScore: '' } },
         personalityScores: initialData.personalityScores || {},
         lifestylePreferences: initialData.lifestylePreferences || {},
       };
@@ -152,7 +152,7 @@ export default function DreamDegreeInput({ onAnalyze, onBack, onFinishOnboarding
     return {
       personalInfo: { name: '', age: '', district: '' },
       dreamJob: '',
-      academicResults: { stream: '', subjects: {}, zScore: '' },
+      academicResults: { stream: '', subjects: {}, zScore: '', predictedPerformance: { improvement: 'Medium', potentialZScore: '' } },
       personalityScores: {},
       lifestylePreferences: {},
     };
