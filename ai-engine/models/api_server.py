@@ -351,7 +351,7 @@ async def get_graph_data(role: str = Query(..., min_length=1), user_skills: str 
 
 if __name__ == "__main__":
     print("\n=======================================================")
-    print("AI MICROSERVICE IS LIVE ON: http://localhost:8000")
+    print("AI MICROSERVICE IS LIVE ON: http://localhost:8008")
     print("Waiting for POST requests from Frontend/Backend...")
     print("=======================================================\n")
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8008)

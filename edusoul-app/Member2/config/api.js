@@ -1,5 +1,5 @@
 // API configuration for Career Pathway AI microservice
-const API_BASE = 'http://localhost:8000/api';
+const API_BASE = 'http://localhost:8008/api';
 
 export const API = {
   BASE_URL: API_BASE,

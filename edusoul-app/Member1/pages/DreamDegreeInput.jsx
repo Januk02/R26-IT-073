@@ -18,25 +18,67 @@ const BG_IMAGE_URL = 'https://i.pinimg.com/1200x/d7/76/5d/d7765d7445ccfecafbd654
 // Real Sri Lankan G.C.E. A/L streams with their compulsory subjects
 const STREAM_SUBJECTS = {
   'Physical Science': {
-    subjects: ['Combined Mathematics', 'Physics', 'Chemistry'],
     icon: '⚛️',
     color: 'from-blue-500 to-indigo-500',
     degrees: 'Engineering, Computer Science, IT, Physical Science, Mathematics, Quantity Surveying, Surveying Science, Town Planning',
-    description: 'Foundation in mathematics, physics, and chemistry for engineering and physical science careers'
+    description: 'Foundation in mathematics, physics, and chemistry for engineering and physical science careers',
+    hasSubjectBuckets: true,
+    subjectBuckets: {
+      'Core Subjects': {
+        icon: '🔬',
+        subjects: ['Combined Mathematics', 'Physics', 'Chemistry'],
+        maxFromBucket: 3,
+        note: 'Core science subjects'
+      },
+      'Optional Subjects': {
+        icon: '📐',
+        subjects: ['Applied Mathematics', 'Statistics', 'Computer Science'],
+        maxFromBucket: 2,
+        note: 'Maximum 2 optional subjects'
+      }
+    }
   },
   'Biological Science': {
-    subjects: ['Biology', 'Chemistry', 'Physics'],
     icon: '🧬',
     color: 'from-green-500 to-emerald-500',
     degrees: 'Medicine (MBBS), Dentistry (BDS), Veterinary Science, Pharmacy, Nursing, Agriculture, Food Science & Technology, Fisheries & Marine Science, Biological Science',
-    description: 'For medicine, healthcare, agriculture, and biological science careers'
+    description: 'For medicine, healthcare, agriculture, and biological science careers',
+    hasSubjectBuckets: true,
+    subjectBuckets: {
+      'Core Subjects': {
+        icon: '🔬',
+        subjects: ['Biology', 'Chemistry', 'Physics'],
+        maxFromBucket: 3,
+        note: 'Core science subjects'
+      },
+      'Optional Subjects': {
+        icon: '🌱',
+        subjects: ['Agricultural Science', 'Health Science', 'Environmental Science'],
+        maxFromBucket: 2,
+        note: 'Maximum 2 optional subjects'
+      }
+    }
   },
   'Commerce': {
-    subjects: ['Accounting', 'Business Studies', 'Economics'],
     icon: '💼',
     color: 'from-amber-500 to-orange-500',
     degrees: 'Business Administration, Accounting, Finance, Management, Marketing, HRM, Banking & Insurance, Estate Management',
-    description: 'For business, finance, management, and accounting careers'
+    description: 'Choose 3 subjects from the groups below',
+    hasSubjectBuckets: true,
+    subjectBuckets: {
+      'Core Subjects': {
+        icon: '📊',
+        subjects: ['Accounting', 'Business Studies', 'Economics'],
+        maxFromBucket: 3,
+        note: 'Core commerce subjects'
+      },
+      'Optional Subjects': {
+        icon: '📚',
+        subjects: ['Statistics', 'Geography', 'Political Science', 'History', 'Logic & Scientific Method'],
+        maxFromBucket: 2,
+        note: 'Maximum 2 optional subjects'
+      }
+    }
   },
   'Arts': {
     icon: '📖',
@@ -72,18 +114,46 @@ const STREAM_SUBJECTS = {
     }
   },
   'Engineering Technology': {
-    subjects: ['Engineering Technology', 'Science for Technology', 'Information & Communication Technology'],
     icon: '🔧',
     color: 'from-violet-500 to-purple-500',
     degrees: 'Engineering Technology, IT, Software Engineering, Quantity Surveying, Town Planning, Surveying Science',
-    description: 'Practical engineering and technology applications'
+    description: 'Practical engineering and technology applications',
+    hasSubjectBuckets: true,
+    subjectBuckets: {
+      'Core Subjects': {
+        icon: '⚙️',
+        subjects: ['Engineering Technology', 'Science for Technology', 'Information & Communication Technology'],
+        maxFromBucket: 3,
+        note: 'Core technology subjects'
+      },
+      'Optional Subjects': {
+        icon: '🔌',
+        subjects: ['Electronics', 'Automotive Technology', 'Civil Technology'],
+        maxFromBucket: 2,
+        note: 'Maximum 2 optional subjects'
+      }
+    }
   },
   'Bio Systems Technology': {
-    subjects: ['Bio Systems Technology', 'Science for Technology', 'Information & Communication Technology'],
     icon: '🌱',
     color: 'from-teal-500 to-cyan-500',
     degrees: 'Bio Systems Technology, Agriculture Technology, Food Science & Technology, Environmental Science, Fisheries',
-    description: 'Biological systems combined with modern technology'
+    description: 'Biological systems combined with modern technology',
+    hasSubjectBuckets: true,
+    subjectBuckets: {
+      'Core Subjects': {
+        icon: '🧪',
+        subjects: ['Bio Systems Technology', 'Science for Technology', 'Information & Communication Technology'],
+        maxFromBucket: 3,
+        note: 'Core bio-technology subjects'
+      },
+      'Optional Subjects': {
+        icon: '🌾',
+        subjects: ['Agricultural Science', 'Food Technology', 'Marine Biology'],
+        maxFromBucket: 2,
+        note: 'Maximum 2 optional subjects'
+      }
+    }
   }
 };
 
@@ -176,8 +246,8 @@ export default function DreamDegreeInput({ onAnalyze, onBack, onFinishOnboarding
 
   // Auto-populate subjects when stream changes
   const streamInfo = STREAM_SUBJECTS[formData.academicResults.stream] || null;
-  const isArtsBucket = streamInfo?.hasSubjectBuckets || false;
-  const streamSubjects = isArtsBucket
+  const hasSubjectBuckets = streamInfo?.hasSubjectBuckets || false;
+  const streamSubjects = hasSubjectBuckets
     ? Object.keys(formData.academicResults.subjects)
     : (streamInfo?.subjects || []);
 
@@ -235,7 +305,14 @@ export default function DreamDegreeInput({ onAnalyze, onBack, onFinishOnboarding
     const info = STREAM_SUBJECTS[stream];
     const subjects = {};
     if (info && !info.hasSubjectBuckets) {
+      // For streams without buckets, auto-select all subjects
       (info.subjects || []).forEach(s => { subjects[s] = ''; });
+    } else if (info && info.hasSubjectBuckets && info.subjectBuckets) {
+      // For streams with buckets, auto-select core subjects
+      const coreBucket = info.subjectBuckets['Core Subjects'];
+      if (coreBucket && coreBucket.subjects) {
+        coreBucket.subjects.forEach(s => { subjects[s] = ''; });
+      }
     }
     setFormData({
       ...formData,
@@ -243,17 +320,24 @@ export default function DreamDegreeInput({ onAnalyze, onBack, onFinishOnboarding
     });
   };
 
-  const handleArtsSubjectToggle = (subject, bucketName) => {
+  const handleSubjectToggle = (subject, bucketName) => {
     const currentSubjects = { ...formData.academicResults.subjects };
     const streamData = STREAM_SUBJECTS[formData.academicResults.stream];
 
     if (currentSubjects.hasOwnProperty(subject)) {
       delete currentSubjects[subject];
     } else {
-      if (Object.keys(currentSubjects).length >= 3) return;
       const bucket = streamData.subjectBuckets[bucketName];
       const countFromBucket = bucket.subjects.filter(s => currentSubjects.hasOwnProperty(s)).length;
-      if (countFromBucket >= bucket.maxFromBucket) return;
+
+      // For Core Subjects bucket, allow all subjects to be selected
+      // For other buckets, check maxFromBucket limit
+      if (bucketName !== 'Core Subjects' && countFromBucket >= bucket.maxFromBucket) return;
+
+      // For Arts stream, limit total to 3 subjects
+      // For other streams with buckets, allow core + optional subjects
+      if (formData.academicResults.stream === 'Arts' && Object.keys(currentSubjects).length >= 3) return;
+
       currentSubjects[subject] = '';
     }
 
@@ -333,7 +417,56 @@ export default function DreamDegreeInput({ onAnalyze, onBack, onFinishOnboarding
       }
       return;
     }
-    onAnalyze(formData);
+
+    // Transform frontend data to backend format
+    const backendData = {
+      district: formData.personalInfo.district,
+      stream: formData.academicResults.stream,
+      z_score: parseFloat(formData.academicResults.zScore) || 0,
+      dream_job: formData.dreamJob,
+      // Personality traits - map frontend names to backend names
+      analytical_skill: formData.personalityScores.analytical_thinking || 0,
+      creativity: formData.personalityScores.creativity || 0,
+      leadership: formData.personalityScores.leadership || 0,
+      risk_taking: formData.personalityScores.risk_taking || 0,
+      communication_skill: formData.personalityScores.communication || 0,
+      problem_solving: formData.personalityScores.problem_solving || 0,
+      teamwork: formData.personalityScores.teamwork || 0,
+      entrepreneural_mindset: formData.personalityScores.entrepreneurial_mindset || 0,
+      business_acumen: formData.personalityScores.business_acumen || 0,
+      // Lifestyle - convert strings to integers
+      preferred_location: formData.lifestylePreferences.locationPreference || 'Urban',
+      travel_tolerance: formData.lifestylePreferences.travelTolerance || 'Medium',
+      stress_tolerance: formData.lifestylePreferences.stressTolerance || 'Medium',
+      social_preference: formData.lifestylePreferences.socialInteraction || 'Ambivert',
+      work_life_balance_priority: convertToPriority(formData.lifestylePreferences.workLifeBalance),
+      family_attachment_level: convertToPriority(formData.lifestylePreferences.familyAttachment),
+      financial_stability_need: convertToPriority(formData.lifestylePreferences.salaryExpectation),
+      // Missing backend fields - provide defaults
+      ol_results: 'Not Provided',
+      al_predicted: formData.academicResults.predictedPerformance?.potentialZScore || parseFloat(formData.academicResults.zScore) || 0,
+      subject_strength: 'Moderate',
+      career_sustainability_priority: convertToPriority(formData.lifestylePreferences.careerGrowth),
+      innovation_interest: formData.personalityScores.creativity || 0,
+      social_impact_priority: convertToPriority(formData.lifestylePreferences.socialImpact)
+    };
+
+    onAnalyze(backendData);
+  };
+
+  // Helper function to convert string priorities to integers
+  const convertToPriority = (value) => {
+    const priorityMap = {
+      'Very Important': 5,
+      'Very High': 5,
+      'Important': 4,
+      'High': 4,
+      'Moderate': 3,
+      'Medium': 3,
+      'Not Important': 1,
+      'Low': 1
+    };
+    return priorityMap[value] || 3;
   };
 
   const getScoreColor = (value) => {
@@ -597,9 +730,9 @@ export default function DreamDegreeInput({ onAnalyze, onBack, onFinishOnboarding
                       formData={formData} setFormData={setFormData}
                       handleStreamChange={handleStreamChange}
                       handleSubjectGradeChange={handleSubjectGradeChange}
-                      handleArtsSubjectToggle={handleArtsSubjectToggle}
+                      handleSubjectToggle={handleSubjectToggle}
                       getSubjectBucket={getSubjectBucket}
-                      streamInfo={streamInfo} isArtsBucket={isArtsBucket}
+                      streamInfo={streamInfo} hasSubjectBuckets={hasSubjectBuckets}
                       streamSubjects={streamSubjects}
                       STREAM_SUBJECTS={STREAM_SUBJECTS}
                     />

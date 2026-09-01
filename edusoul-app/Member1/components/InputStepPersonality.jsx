@@ -3,9 +3,9 @@ import { motion } from 'framer-motion';
 export default function InputStepPersonality({ formData, handlePersonalityChange, personalityTraits, getScoreColor, getScoreBarWidth }) {
   return (
     <div className="space-y-5">
-      <p className="text-sm text-gray-500 mb-2">Rate yourself on each trait from 1 (lowest) to 10 (highest)</p>
+      <p className="text-sm text-gray-500 mb-2">Rate yourself on each trait from 0 (lowest) to 10 (highest)</p>
       {Object.entries(personalityTraits).map(([trait, data]) => {
-        const value = formData.personalityScores[trait] || 5;
+        const value = formData.personalityScores[trait] || 0;
         return (
           <div key={trait} className="p-5 glass-subtle rounded-2xl hover:bg-white/60 transition-all">
             <div className="flex items-center justify-between mb-3">
@@ -30,7 +30,7 @@ export default function InputStepPersonality({ formData, handlePersonalityChange
               />
             </div>
 
-            <input type="range" min="1" max="10" value={value}
+            <input type="range" min="0" max="10" value={value}
               onChange={(e) => handlePersonalityChange(trait, parseInt(e.target.value))}
               className="w-full" />
 

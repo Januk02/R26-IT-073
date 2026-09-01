@@ -4,25 +4,85 @@ export const BG_IMAGE_URL = 'https://i.pinimg.com/1200x/d7/76/5d/d7765d7445ccfec
 // Real Sri Lankan G.C.E. A/L streams with their compulsory subjects
 export const STREAM_SUBJECTS = {
   'Physical Science': {
-    subjects: ['Combined Mathematics', 'Physics', 'Chemistry'],
     icon: '⚛️',
     color: 'from-blue-500 to-indigo-500',
     degrees: 'Engineering, Computer Science, IT, Physical Science, Mathematics, Quantity Surveying, Surveying Science, Town Planning',
-    description: 'Foundation in mathematics, physics, and chemistry for engineering and physical science careers'
+    description: 'Foundation in mathematics, physics, and chemistry for engineering and physical science careers',
+    hasSubjectBuckets: true,
+    subjectBuckets: {
+      'Core Subjects': {
+        icon: '📚',
+        subjects: ['Combined Mathematics', 'Physics', 'Chemistry'],
+        maxFromBucket: 3,
+        note: 'Select all 3 core subjects'
+      },
+      'Advanced Mathematics': {
+        icon: '🔢',
+        subjects: ['Applied Mathematics', 'Further Mathematics', 'Statistics'],
+        maxFromBucket: 1,
+        note: 'Optional advanced math'
+      },
+      'Technology': {
+        icon: '💻',
+        subjects: ['Information & Communication Technology', 'Electronics', 'Computer Science'],
+        maxFromBucket: 1,
+        note: 'Optional technology subject'
+      }
+    }
   },
   'Biological Science': {
-    subjects: ['Biology', 'Chemistry', 'Physics'],
     icon: '🧬',
     color: 'from-green-500 to-emerald-500',
     degrees: 'Medicine (MBBS), Dentistry (BDS), Veterinary Science, Pharmacy, Nursing, Agriculture, Food Science & Technology, Fisheries & Marine Science, Biological Science',
-    description: 'For medicine, healthcare, agriculture, and biological science careers'
+    description: 'For medicine, healthcare, agriculture, and biological science careers',
+    hasSubjectBuckets: true,
+    subjectBuckets: {
+      'Core Subjects': {
+        icon: '📚',
+        subjects: ['Biology', 'Chemistry', 'Physics'],
+        maxFromBucket: 3,
+        note: 'Select all 3 core subjects'
+      },
+      'Agriculture & Environment': {
+        icon: '🌾',
+        subjects: ['Agricultural Science', 'Environmental Science', 'Food Science'],
+        maxFromBucket: 1,
+        note: 'Optional agriculture subject'
+      },
+      'Technology': {
+        icon: '💻',
+        subjects: ['Information & Communication Technology', 'Bio Systems Technology'],
+        maxFromBucket: 1,
+        note: 'Optional technology subject'
+      }
+    }
   },
   'Commerce': {
-    subjects: ['Accounting', 'Business Studies', 'Economics'],
     icon: '💼',
     color: 'from-amber-500 to-orange-500',
     degrees: 'Business Administration, Accounting, Finance, Management, Marketing, HRM, Banking & Insurance, Estate Management',
-    description: 'For business, finance, management, and accounting careers'
+    description: 'For business, finance, management, and accounting careers',
+    hasSubjectBuckets: true,
+    subjectBuckets: {
+      'Core Subjects': {
+        icon: '📚',
+        subjects: ['Accounting', 'Business Studies', 'Economics'],
+        maxFromBucket: 3,
+        note: 'Select all 3 core subjects'
+      },
+      'Technology': {
+        icon: '💻',
+        subjects: ['Information & Communication Technology', 'Computer Science'],
+        maxFromBucket: 1,
+        note: 'Optional IT subject'
+      },
+      'Business Support': {
+        icon: '📊',
+        subjects: ['Statistics', 'Mathematics', 'Logic & Scientific Method'],
+        maxFromBucket: 1,
+        note: 'Optional quantitative subject'
+      }
+    }
   },
   'Arts': {
     icon: '📖',
@@ -58,18 +118,58 @@ export const STREAM_SUBJECTS = {
     }
   },
   'Engineering Technology': {
-    subjects: ['Engineering Technology', 'Science for Technology', 'Information & Communication Technology'],
     icon: '🔧',
     color: 'from-violet-500 to-purple-500',
     degrees: 'Engineering Technology, IT, Software Engineering, Quantity Surveying, Town Planning, Surveying Science',
-    description: 'Practical engineering and technology applications'
+    description: 'Practical engineering and technology applications',
+    hasSubjectBuckets: true,
+    subjectBuckets: {
+      'Core Subjects': {
+        icon: '📚',
+        subjects: ['Engineering Technology', 'Science for Technology', 'Information & Communication Technology'],
+        maxFromBucket: 3,
+        note: 'Select all 3 core subjects'
+      },
+      'Advanced Technology': {
+        icon: '⚡',
+        subjects: ['Electronics', 'Computer Science', 'Robotics'],
+        maxFromBucket: 1,
+        note: 'Optional advanced technology'
+      },
+      'Mathematics': {
+        icon: '🔢',
+        subjects: ['Applied Mathematics', 'Statistics'],
+        maxFromBucket: 1,
+        note: 'Optional mathematics'
+      }
+    }
   },
   'Bio Systems Technology': {
-    subjects: ['Bio Systems Technology', 'Science for Technology', 'Information & Communication Technology'],
     icon: '🌱',
     color: 'from-teal-500 to-cyan-500',
     degrees: 'Bio Systems Technology, Agriculture Technology, Food Science & Technology, Environmental Science, Fisheries',
-    description: 'Biological systems combined with modern technology'
+    description: 'Biological systems combined with modern technology',
+    hasSubjectBuckets: true,
+    subjectBuckets: {
+      'Core Subjects': {
+        icon: '📚',
+        subjects: ['Bio Systems Technology', 'Science for Technology', 'Information & Communication Technology'],
+        maxFromBucket: 3,
+        note: 'Select all 3 core subjects'
+      },
+      'Agriculture & Environment': {
+        icon: '🌾',
+        subjects: ['Agricultural Science', 'Environmental Science', 'Food Science'],
+        maxFromBucket: 1,
+        note: 'Optional agriculture subject'
+      },
+      'Advanced Technology': {
+        icon: '⚡',
+        subjects: ['Electronics', 'Computer Science'],
+        maxFromBucket: 1,
+        note: 'Optional advanced technology'
+      }
+    }
   }
 };
 

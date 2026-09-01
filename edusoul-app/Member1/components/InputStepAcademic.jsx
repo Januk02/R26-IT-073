@@ -1,4 +1,4 @@
-export default function InputStepAcademic({ formData, setFormData, handleStreamChange, handleSubjectGradeChange, handleArtsSubjectToggle, getSubjectBucket, streamInfo, isArtsBucket, streamSubjects, STREAM_SUBJECTS }) {
+export default function InputStepAcademic({ formData, setFormData, handleStreamChange, handleSubjectGradeChange, handleSubjectToggle, getSubjectBucket, streamInfo, hasSubjectBuckets, streamSubjects, STREAM_SUBJECTS }) {
   return (
     <div className="space-y-6">
       {/* Stream Selection */}
@@ -52,7 +52,7 @@ export default function InputStepAcademic({ formData, setFormData, handleStreamC
           <p className="text-xs text-gray-400 mt-1.5">Typical range: 0.00 - 3.00. Medicine requires ~1.90+</p>
         </div>
 
-        {!isArtsBucket && streamSubjects.length > 0 && (
+        {!hasSubjectBuckets && streamSubjects.length > 0 && (
           <div className="p-5 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl border border-blue-100">
             <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
               <span>📝</span> Subject Grades
@@ -147,25 +147,29 @@ export default function InputStepAcademic({ formData, setFormData, handleStreamC
         </div>
       </div>
 
-      {/* Arts Stream Buckets */}
-      {isArtsBucket && streamInfo?.subjectBuckets && (
+      {/* Subject Buckets */}
+      {hasSubjectBuckets && streamInfo?.subjectBuckets && (
         <div className="mt-5 space-y-4">
           <div className="flex items-center justify-between">
             <h3 className="font-bold text-gray-800 flex items-center gap-2">
-              <span>📖</span> Select Your 3 A/L Subjects
+              <span>📖</span> Select Your A/L Subjects
             </h3>
             <span className={`text-sm font-semibold px-3 py-1 rounded-full ${
-              Object.keys(formData.academicResults.subjects).length === 3
+              formData.academicResults.stream === 'Arts' && Object.keys(formData.academicResults.subjects).length === 3
                 ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700'
             }`}>
-              {Object.keys(formData.academicResults.subjects).length}/3 selected
+              {formData.academicResults.stream === 'Arts'
+                ? `${Object.keys(formData.academicResults.subjects).length}/3 selected`
+                : `${Object.keys(formData.academicResults.subjects).length} subjects selected`
+              }
             </span>
           </div>
 
           {Object.entries(streamInfo.subjectBuckets).map(([bucketName, bucket]) => {
             const selectedFromBucket = bucket.subjects.filter(s => formData.academicResults.subjects.hasOwnProperty(s)).length;
             const bucketFull = selectedFromBucket >= bucket.maxFromBucket;
-            const totalFull = Object.keys(formData.academicResults.subjects).length >= 3;
+            // For Arts stream, limit to 3 total subjects. For other streams, allow core + optional
+            const totalFull = formData.academicResults.stream === 'Arts' && Object.keys(formData.academicResults.subjects).length >= 3;
             return (
               <div key={bucketName} className="p-4 glass-subtle rounded-2xl">
                 <div className="flex items-center justify-between mb-3">
@@ -183,7 +187,7 @@ export default function InputStepAcademic({ formData, setFormData, handleStreamC
                     const isDisabled = !isSelected && (totalFull || bucketFull);
                     return (
                       <button key={subject}
-                        onClick={() => !isDisabled && handleArtsSubjectToggle(subject, bucketName)}
+                        onClick={() => !isDisabled && handleSubjectToggle(subject, bucketName)}
                         disabled={isDisabled}
                         className={`px-3 py-2 rounded-xl text-sm font-medium transition-all ${
                           isSelected

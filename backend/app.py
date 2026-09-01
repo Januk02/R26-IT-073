@@ -156,7 +156,9 @@ class BackwardChainingModel:
             self.career_graph.add_node(career, **details)
             for degree, prob in details["degree_paths"].items():
                 self.career_graph.add_edge(career, degree, probability=prob)
-
+        
+        #recommendation process start
+        
     def backward_chain(self, dream_job, student_profile):
         """Main backward chaining algorithm with probabilistic reasoning"""
         if dream_job not in self.career_knowledge:
@@ -238,7 +240,7 @@ class BackwardChainingModel:
         }
 
         for student_skill, mapped_skills in skill_mapping.items():
-            student_value = student_profile.get(student_skill, 3) / 5.0  # Normalize to 0-1
+            student_value = student_profile.get(student_skill, 5) / 10.0  # Normalize 0-10 to 0-1
 
             for required_skill in mapped_skills:
                 if required_skill in required_skills:
@@ -262,7 +264,7 @@ class BackwardChainingModel:
 
         for trait, required_level in required_traits.items():
             if trait in trait_mapping:
-                student_value = student_profile.get(trait_mapping[trait], 3) / 5.0
+                student_value = student_profile.get(trait_mapping[trait], 5) / 10.0  # Normalize 0-10 to 0-1
                 match_score = min(1.0, student_value / required_level)
                 personality_scores[trait] = match_score
 
