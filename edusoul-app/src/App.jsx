@@ -81,8 +81,8 @@ function AppContent({ currentView, setCurrentView }) {
   useEffect(() => {
     if (user && userRole) {
       if (currentView === 'login' || currentView === 'register') {
-        // Fresh login/register → go through onboarding first
-        setCurrentView(userRole === 'mentor' ? 'dashboard' : 'onboarding');
+        // Fresh login/register → go straight to dashboard
+        setCurrentView(userRole === 'mentor' ? 'dashboard' : 'studentHome');
       } else if (currentView === 'home') {
         // Already logged in, landed on home → skip onboarding, go straight to dashboard
         setCurrentView(userRole === 'mentor' ? 'dashboard' : 'studentHome');

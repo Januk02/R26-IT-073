@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+@source "../Member1/**/*.{js,jsx}";
+@source "../Member2/**/*.{js,jsx}";
+@source "../Member3/**/*.{js,jsx}";
+@source "../Member4/**/*.{js,jsx}";

@@ -7,7 +7,7 @@ import { useAuth } from '../contexts/AuthContext';
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
 // ─────────────────────────────────────────────
-//  Styles (injected once)
+//  Styles
 // ─────────────────────────────────────────────
 const styles = `
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -15,18 +15,82 @@ const styles = `
   .lp-root {
     min-height: 100vh;
     font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
-    background: #f0f4ff;
+    background: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Subtle background radials */
+  .lp-root::before {
+    content: '';
+    position: absolute;
+    width: 800px; height: 800px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(59,130,246,0.06) 0%, transparent 70%);
+    top: -200px; right: -200px;
+    pointer-events: none;
+  }
+  .lp-root::after {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(249,115,22,0.04) 0%, transparent 70%);
+    bottom: -150px; left: -150px;
+    pointer-events: none;
+  }
+
+  /* Orbiting ring decoration */
+  .lp-ring {
+    position: absolute; top: 50%; left: 50%;
+    width: 700px; height: 700px;
+    border: 1px solid rgba(59,130,246,0.06);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: lp-ring-spin 80s linear infinite;
+    pointer-events: none;
+  }
+  .lp-ring::after {
+    content: ''; position: absolute; top: -4px; left: 50%;
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #3b82f6; box-shadow: 0 0 12px 4px rgba(59,130,246,0.4);
+  }
+  .lp-ring-2 {
+    position: absolute; top: 50%; left: 50%;
+    width: 850px; height: 850px;
+    border: 1px solid rgba(249,115,22,0.04);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: lp-ring-spin 100s linear infinite reverse;
+    pointer-events: none;
+  }
+  .lp-ring-2::after {
+    content: ''; position: absolute; bottom: -3px; right: 50%;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #f97316; box-shadow: 0 0 10px 3px rgba(249,115,22,0.35);
+  }
+  @keyframes lp-ring-spin {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
   }
 
   /* ── ROLE PICKER ── */
   .rp-wrap {
     width: 100%;
-    max-width: 680px;
+    max-width: 700px;
     text-align: center;
+    position: relative;
+    z-index: 10;
+    animation: lp-fade-up 0.6s cubic-bezier(.16,1,.3,1);
+  }
+
+  @keyframes lp-fade-up {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   .rp-logo {
@@ -34,28 +98,34 @@ const styles = `
     align-items: center;
     justify-content: center;
     gap: 12px;
-    margin-bottom: 40px;
+    margin-bottom: 44px;
   }
 
-  .rp-logo-icon {
-    width: 44px; height: 44px;
-    background: linear-gradient(135deg, #1d4ed8, #0a5cff);
-    border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 20px; font-weight: 900; color: white;
+  .rp-logo-img {
+    height: 48px; width: auto; object-fit: contain;
   }
 
   .rp-logo-name {
-    font-size: 24px; font-weight: 800; color: #0f172a;
+    font-size: 28px; font-weight: 900;
+    background: linear-gradient(135deg, #1e293b 0%, #3b82f6 50%, #f97316 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    animation: lp-brand-shine 4s ease-in-out infinite;
   }
 
-  .rp-logo-name span { color: #1d4ed8; }
+  @keyframes lp-brand-shine {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
 
   .rp-title {
-    font-size: 32px; font-weight: 800;
-    color: #0f172a; letter-spacing: -1px;
+    font-size: 36px; font-weight: 900;
+    color: #1e293b; letter-spacing: -1.5px;
     margin-bottom: 10px;
   }
+
+  .rp-title .blue { color: #3b82f6; }
 
   .rp-sub {
     font-size: 15px; color: #64748b;
@@ -70,189 +140,205 @@ const styles = `
 
   .rp-card {
     background: white;
-    border: 2.5px solid #e2e8f0;
-    border-radius: 20px;
-    padding: 36px 28px;
+    border: 1.5px solid rgba(0,0,0,0.06);
+    border-radius: 24px;
+    padding: 40px 28px;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: all 0.3s ease;
     text-align: center;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
   }
 
   .rp-card::before {
     content: '';
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    transition: opacity 0.25s;
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    transform: scaleX(0); transition: transform 0.3s;
+    transform-origin: left;
   }
 
   .rp-card.student::before {
-    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    background: linear-gradient(90deg, #3b82f6, #60a5fa);
   }
 
   .rp-card.mentor::before {
-    background: linear-gradient(135deg, #f5f3ff, #ede9fe);
+    background: linear-gradient(90deg, #f97316, #fb923c);
   }
 
-  .rp-card:hover { transform: translateY(-4px); }
+  .rp-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+  }
+
+  .rp-card:hover::before { transform: scaleX(1); }
 
   .rp-card.student:hover {
-    border-color: #1d4ed8;
-    box-shadow: 0 16px 40px rgba(29,78,216,0.15);
+    border-color: rgba(59,130,246,0.3);
   }
-
-  .rp-card.student:hover::before { opacity: 1; }
 
   .rp-card.mentor:hover {
-    border-color: #7c3aed;
-    box-shadow: 0 16px 40px rgba(124,58,237,0.15);
+    border-color: rgba(249,115,22,0.3);
   }
 
-  .rp-card.mentor:hover::before { opacity: 1; }
-
   .rp-card-icon {
-    width: 72px; height: 72px;
-    border-radius: 20px;
+    width: 76px; height: 76px;
+    border-radius: 22px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 32px;
-    margin: 0 auto 20px;
+    font-size: 34px;
+    margin: 0 auto 22px;
     position: relative; z-index: 1;
   }
 
   .rp-card.student .rp-card-icon {
-    background: linear-gradient(135deg, #1d4ed8, #0a5cff);
-    box-shadow: 0 8px 24px rgba(29,78,216,0.3);
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    box-shadow: 0 8px 24px rgba(59,130,246,0.25);
   }
 
   .rp-card.mentor .rp-card-icon {
-    background: linear-gradient(135deg, #7c3aed, #6d28d9);
-    box-shadow: 0 8px 24px rgba(124,58,237,0.3);
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    box-shadow: 0 8px 24px rgba(249,115,22,0.25);
   }
 
   .rp-card-title {
     font-size: 20px; font-weight: 800;
-    color: #0f172a; margin-bottom: 8px;
+    color: #1e293b; margin-bottom: 8px;
     position: relative; z-index: 1;
   }
 
   .rp-card-desc {
     font-size: 13px; color: #64748b;
-    line-height: 1.6;
+    line-height: 1.7;
     position: relative; z-index: 1;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
   }
 
   .rp-card-badge {
     display: inline-block;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 12px; font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-size: 12px; font-weight: 700;
     position: relative; z-index: 1;
+    letter-spacing: 0.3px;
+    transition: all 0.2s;
   }
 
   .rp-card.student .rp-card-badge {
-    background: #dbeafe; color: #1d4ed8;
+    background: rgba(59,130,246,0.08); color: #3b82f6;
+    border: 1px solid rgba(59,130,246,0.15);
+  }
+
+  .rp-card.student:hover .rp-card-badge {
+    background: #3b82f6; color: white;
   }
 
   .rp-card.mentor .rp-card-badge {
-    background: #ede9fe; color: #7c3aed;
+    background: rgba(249,115,22,0.08); color: #f97316;
+    border: 1px solid rgba(249,115,22,0.15);
+  }
+
+  .rp-card.mentor:hover .rp-card-badge {
+    background: #f97316; color: white;
   }
 
   .rp-signup {
-    margin-top: 32px;
+    margin-top: 36px;
     font-size: 14px; color: #64748b;
   }
 
   .rp-signup button {
     background: none; border: none;
-    color: #1d4ed8; font-weight: 700;
+    color: #3b82f6; font-weight: 700;
     cursor: pointer; font-size: 14px;
     font-family: inherit; padding: 0;
+    transition: color 0.2s;
   }
 
-  .rp-signup button:hover { text-decoration: underline; }
+  .rp-signup button:hover { color: #2563eb; text-decoration: underline; }
 
   /* ── LOGIN FORM ── */
   .lf-wrap {
     width: 100%;
     max-width: 460px;
+    position: relative;
+    z-index: 10;
+    animation: lp-fade-up 0.6s cubic-bezier(.16,1,.3,1);
   }
 
   .lf-back {
     display: flex; align-items: center; gap: 8px;
     background: none; border: none;
-    color: #64748b; font-size: 14px; font-weight: 500;
-    cursor: pointer; margin-bottom: 32px;
+    color: #94a3b8; font-size: 14px; font-weight: 500;
+    cursor: pointer; margin-bottom: 28px;
     font-family: inherit; padding: 0;
     transition: color 0.2s;
   }
 
-  .lf-back:hover { color: #0f172a; }
+  .lf-back:hover { color: #1e293b; }
 
   .lf-card {
     background: white;
-    border-radius: 24px;
-    padding: 40px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    border-radius: 28px;
+    padding: 44px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.04);
   }
 
   .lf-role-badge {
     display: inline-flex;
     align-items: center; gap: 8px;
-    padding: 8px 16px;
+    padding: 8px 18px;
     border-radius: 30px;
-    font-size: 13px; font-weight: 700;
-    margin-bottom: 20px;
+    font-size: 12px; font-weight: 700;
+    margin-bottom: 22px;
     letter-spacing: 0.5px;
   }
 
   .lf-role-badge.student {
-    background: #dbeafe; color: #1d4ed8;
-    border: 1px solid #bfdbfe;
+    background: rgba(59,130,246,0.08); color: #3b82f6;
+    border: 1px solid rgba(59,130,246,0.15);
   }
 
   .lf-role-badge.mentor {
-    background: #ede9fe; color: #7c3aed;
-    border: 1px solid #ddd6fe;
+    background: rgba(249,115,22,0.08); color: #f97316;
+    border: 1px solid rgba(249,115,22,0.15);
   }
 
   .lf-heading {
-    font-size: 26px; font-weight: 800;
-    color: #0f172a; letter-spacing: -0.5px;
+    font-size: 28px; font-weight: 900;
+    color: #1e293b; letter-spacing: -0.5px;
     margin-bottom: 6px;
   }
 
   .lf-subhead {
     font-size: 14px; color: #64748b;
-    margin-bottom: 28px;
+    margin-bottom: 30px;
   }
 
   .lf-error {
     background: #fef2f2;
     border: 1px solid #fecaca;
     color: #dc2626;
-    padding: 11px 14px;
-    border-radius: 10px;
+    padding: 12px 16px;
+    border-radius: 14px;
     font-size: 13px;
-    margin-bottom: 18px;
+    margin-bottom: 20px;
     display: flex; align-items: flex-start; gap: 8px;
   }
 
-  .lf-group { margin-bottom: 18px; }
+  .lf-group { margin-bottom: 20px; }
 
   .lf-label {
     display: block;
     font-size: 13px; font-weight: 600;
-    color: #374151; margin-bottom: 7px;
+    color: #374151; margin-bottom: 8px;
   }
 
   .lf-input-wrap { position: relative; }
 
   .lf-input-icon {
     position: absolute;
-    left: 13px; top: 50%;
+    left: 14px; top: 50%;
     transform: translateY(-50%);
     color: #94a3b8; font-size: 15px;
     pointer-events: none;
@@ -260,13 +346,13 @@ const styles = `
 
   .lf-input {
     width: 100%;
-    padding: 12px 13px 12px 40px;
+    padding: 13px 14px 13px 42px;
     border: 1.5px solid #e2e8f0;
-    border-radius: 10px;
-    font-size: 14px; color: #0f172a;
-    background: #f8faff;
+    border-radius: 14px;
+    font-size: 14px; color: #1e293b;
+    background: #f8fafc;
     outline: none;
-    transition: all 0.2s ease;
+    transition: all 0.25s ease;
     font-family: inherit;
   }
 
@@ -280,7 +366,7 @@ const styles = `
 
   .lf-eye {
     position: absolute;
-    right: 13px; top: 50%;
+    right: 14px; top: 50%;
     transform: translateY(-50%);
     background: none; border: none;
     cursor: pointer; color: #94a3b8;
@@ -293,32 +379,33 @@ const styles = `
 
   .lf-forgot-row {
     display: flex; justify-content: flex-end;
-    margin-top: -8px; margin-bottom: 18px;
+    margin-top: -10px; margin-bottom: 20px;
   }
 
   .lf-forgot {
     font-size: 12px; color: var(--accent);
     background: none; border: none;
     cursor: pointer; font-family: inherit;
-    font-weight: 500; padding: 0;
+    font-weight: 600; padding: 0;
+    transition: color 0.2s;
   }
 
   .lf-forgot:hover { text-decoration: underline; }
 
   .lf-submit {
     width: 100%;
-    padding: 13px;
+    padding: 14px;
     background: var(--btn-bg);
     color: white;
     font-size: 15px; font-weight: 700;
-    border: none; border-radius: 10px;
+    border: none; border-radius: 14px;
     cursor: pointer;
     transition: all 0.25s ease;
     font-family: inherit;
     box-shadow: var(--btn-shadow);
     display: flex; align-items: center;
     justify-content: center; gap: 8px;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
   }
 
   .lf-submit:hover:not(:disabled) {
@@ -339,8 +426,8 @@ const styles = `
   @keyframes spin { to { transform: rotate(360deg); } }
 
   .lf-divider {
-    display: flex; align-items: center; gap: 12px;
-    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 18px;
   }
 
   .lf-divider-line { flex: 1; height: 1px; background: #e2e8f0; }
@@ -352,22 +439,24 @@ const styles = `
 
   .lf-google {
     width: 100%;
-    padding: 12px;
+    padding: 13px;
     background: white;
     border: 1.5px solid #e2e8f0;
-    border-radius: 10px;
+    border-radius: 14px;
     font-size: 14px; font-weight: 600;
     color: #374151; cursor: pointer;
     display: flex; align-items: center;
     justify-content: center; gap: 10px;
-    transition: all 0.2s ease;
+    transition: all 0.25s ease;
     font-family: inherit;
-    margin-bottom: 24px;
+    margin-bottom: 26px;
   }
 
   .lf-google:hover:not(:disabled) {
     border-color: var(--accent);
-    background: #f8faff;
+    background: #f8fafc;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
   }
 
   .lf-google:disabled { opacity: 0.6; cursor: not-allowed; }
@@ -388,25 +477,26 @@ const styles = `
 
   /* student theme vars */
   .theme-student {
-    --accent: #1d4ed8;
-    --accent-ring: rgba(29,78,216,0.12);
-    --btn-bg: linear-gradient(135deg, #1d4ed8, #0a5cff);
-    --btn-shadow: 0 8px 24px rgba(29,78,216,0.28);
-    --btn-shadow-hover: 0 12px 30px rgba(29,78,216,0.38);
+    --accent: #3b82f6;
+    --accent-ring: rgba(59,130,246,0.12);
+    --btn-bg: linear-gradient(135deg, #3b82f6, #2563eb);
+    --btn-shadow: 0 8px 24px rgba(59,130,246,0.25);
+    --btn-shadow-hover: 0 14px 32px rgba(59,130,246,0.35);
   }
 
   /* mentor theme vars */
   .theme-mentor {
-    --accent: #7c3aed;
-    --accent-ring: rgba(124,58,237,0.12);
-    --btn-bg: linear-gradient(135deg, #7c3aed, #6d28d9);
-    --btn-shadow: 0 8px 24px rgba(124,58,237,0.28);
-    --btn-shadow-hover: 0 12px 30px rgba(124,58,237,0.38);
+    --accent: #f97316;
+    --accent-ring: rgba(249,115,22,0.12);
+    --btn-bg: linear-gradient(135deg, #f97316, #ea580c);
+    --btn-shadow: 0 8px 24px rgba(249,115,22,0.25);
+    --btn-shadow-hover: 0 14px 32px rgba(249,115,22,0.35);
   }
 
   @media (max-width: 600px) {
     .rp-cards { grid-template-columns: 1fr; }
-    .lf-card { padding: 28px 20px; }
+    .lf-card { padding: 28px 22px; }
+    .lp-ring, .lp-ring-2 { display: none; }
   }
 `;
 
@@ -417,16 +507,17 @@ function RolePicker({ onSelect, onNavigateToRegister, onNavigateToHome }) {
   return (
     <div className="rp-wrap">
       {onNavigateToHome && (
-        <button className="lf-back" style={{ marginBottom: '20px' }} onClick={onNavigateToHome}>
+        <button className="lf-back" style={{ marginBottom: '20px', justifyContent: 'center' }} onClick={onNavigateToHome}>
           ← Back to Home
         </button>
       )}
+
       <div className="rp-logo">
-        <div className="rp-logo-icon">E</div>
-        <div className="rp-logo-name">Edu<span>Soul</span></div>
+        <img src="/src/assets/studyfyxlogo.png" alt="StudyFyx" className="rp-logo-img" />
+        {/* <div className="rp-logo-name">StudyFyx</div> */}
       </div>
 
-      <h1 className="rp-title">Who are you?</h1>
+      <h1 className="rp-title">Who are <span className="blue">you</span>?</h1>
       <p className="rp-sub">Choose your role to sign in to the right portal</p>
 
       <div className="rp-cards">
@@ -484,7 +575,6 @@ function LoginForm({ role, onBack, onNavigateToRegister }) {
     const result = await login(email, password, role);
 
     if (!result.success) {
-      // Map Firebase error codes to friendly messages
       const msg = result.error || '';
       if (msg.includes('user-not-found') || msg.includes('wrong-password') || msg.includes('invalid-credential')) {
         setError('Incorrect email or password. Please try again.');
@@ -510,7 +600,6 @@ function LoginForm({ role, onBack, onNavigateToRegister }) {
       setError('Google sign-in failed. Please try again.');
       setLoading(false);
     }
-    // On success App.jsx routing takes over
   };
 
   return (
@@ -611,12 +700,16 @@ function LoginForm({ role, onBack, onNavigateToRegister }) {
 //  Main Login component
 // ─────────────────────────────────────────────
 const Login = ({ onNavigateToRegister, onNavigateToHome }) => {
-  const [selectedRole, setSelectedRole] = useState(null); // null | 'student' | 'mentor'
+  const [selectedRole, setSelectedRole] = useState(null);
 
   return (
     <>
       <style>{styles}</style>
       <div className="lp-root">
+        {/* Decorative rings */}
+        <div className="lp-ring" />
+        <div className="lp-ring-2" />
+
         {selectedRole === null ? (
           <RolePicker
             onSelect={setSelectedRole}
