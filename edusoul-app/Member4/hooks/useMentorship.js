@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { mentorshipApi } from '../services/mentorshipApi';
 
 export function useApiHealth() {
@@ -23,7 +23,9 @@ export function useApiHealth() {
     checkHealth();
   }, []);
 
-  return { health, loading, error };
+  const isConnected = health?.status === 'healthy' || health?.status === 'ok';
+
+  return { health, status: health, isConnected, loading, error };
 }
 
 export function useMentors() {
@@ -76,26 +78,29 @@ export function useMentees() {
   return { mentees, loading, error };
 }
 
-export function useMatchPrediction(mentorId, menteeId) {
+export function useMatchPrediction(initialMentorId, initialMenteeId) {
   const [prediction, setPrediction] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const predict = async () => {
+  const predictMatch = useCallback(async (mentorId = initialMentorId, menteeId = initialMenteeId, menteeData = null) => {
+    if (!mentorId || !menteeId) return;
     setLoading(true);
     try {
-      const result = await mentorshipApi.predictMatch(mentorId, menteeId);
+      const result = await mentorshipApi.predictMatch(mentorId, menteeId, menteeData);
       setPrediction(result);
       setError(null);
+      return result;
     } catch (err) {
       setError(err.message);
       setPrediction(null);
+      throw err;
     } finally {
       setLoading(false);
     }
-  };
+  }, [initialMentorId, initialMenteeId]);
 
-  return { prediction, loading, error, predict };
+  return { prediction, result: prediction, loading, matchLoading: loading, error, predictMatch, predict: predictMatch };
 }
 
 export function useFindMentors() {
@@ -103,21 +108,25 @@ export function useFindMentors() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const findMentors = async (menteeId, topN = 5) => {
+  const findMentors = useCallback(async (menteeId, topN = 5, menteeData = null) => {
+    if (!menteeId) return;
     setLoading(true);
     try {
-      const result = await mentorshipApi.findMentorsForMentee(menteeId, topN);
-      setResults(result.matches || []);
+      const result = await mentorshipApi.findMentorsForMentee(menteeId, topN, menteeData);
+      const matches = result.matches || result.top_matches || [];
+      setResults(matches);
       setError(null);
+      return matches;
     } catch (err) {
       setError(err.message);
       setResults([]);
+      throw err;
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  return { results, loading, error, findMentors };
+  return { results, matches: results, loading, findLoading: loading, error, findMentors };
 }
 
 export function useMentorshipStats() {
@@ -142,5 +151,5 @@ export function useMentorshipStats() {
     fetchStats();
   }, []);
 
-  return { stats, loading, error };
+  return { stats, loading, statsLoading: loading, error };
 }

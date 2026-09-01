@@ -26,7 +26,6 @@ export { LanguageContext, useLanguage };
 const WITH_SIDEBAR = [
   'dashboard', 
   'studentHome', 
-  'analytics', 
   'mentorHub', 
   'messages', 
   'verification', 
@@ -34,7 +33,7 @@ const WITH_SIDEBAR = [
   'history'
 ];
 // Views that are full-screen (no parent sidebar, own layout)
-const FULL_SCREEN  = ['home', 'login', 'register', 'onboarding', 'courses', 'dreamDegreeAdvisor'];
+const FULL_SCREEN  = ['home', 'login', 'register', 'onboarding', 'courses', 'dreamDegreeAdvisor', 'analytics'];
 
 // ── App shell layout ──────────────────────────────────────────
 function Layout({ currentView, setCurrentView, children }) {

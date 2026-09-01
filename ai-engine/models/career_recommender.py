@@ -90,7 +90,38 @@ class AdaptiveCareerRecommender:
         y_pred = self.model.predict(X_test)
         acc = accuracy_score(y_test, y_pred)
         
-        print(f"\n[OK] Model Training Complete. Validation Accuracy: {acc * 100:.2f}%")
+        # Calculate Top-K Pathway Accuracies
+        probs = self.model.predict_proba(X_test)
+        classes = self.model.classes_
+        total_test = len(y_test)
+        
+        top1_hits = 0
+        top3_hits = 0
+        top5_hits = 0
+        
+        for idx, true_label in enumerate(y_test):
+            top_indices = np.argsort(probs[idx])[::-1]
+            top_classes = classes[top_indices]
+            
+            if true_label == top_classes[0]:
+                top1_hits += 1
+            if true_label in top_classes[:3]:
+                top3_hits += 1
+            if true_label in top_classes[:5]:
+                top5_hits += 1
+                
+        top1_acc = (top1_hits / total_test) * 100
+        top3_acc = (top3_hits / total_test) * 100
+        top5_acc = (top5_hits / total_test) * 100
+        
+        print(f"\n[OK] Model Training Complete.")
+        print("=" * 65)
+        print("       RESEARCH BENCHMARK: RECOMMENDATION ACCURACY")
+        print("=" * 65)
+        print(f"  Top-1 Exact Match Accuracy : {top1_acc:.2f}%")
+        print(f"  Top-3 Pathway Match Accuracy: {top3_acc:.2f}%")
+        print(f"  Top-5 Career Match Accuracy : {top5_acc:.2f}%")
+        print("=" * 65)
         print("\n--- Model Classification Report ---")
         print(classification_report(y_test, y_pred))
         

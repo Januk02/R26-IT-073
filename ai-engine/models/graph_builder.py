@@ -1,4 +1,6 @@
 import os
+import sys
+import argparse
 import pandas as pd
 import ast
 from dotenv import load_dotenv
@@ -29,10 +31,22 @@ class KnowledgeGraphBuilder:
     def close(self):
         self.driver.close()
 
-    def build_graph_from_csv(self, csv_path, batch_size=500):
+    def clear_graph(self):
+        """
+        Removes all existing nodes and relationships from Neo4j database.
+        """
+        print("\n[!] Clearing existing Neo4j Knowledge Graph for clean rebuild...")
+        with self.driver.session() as session:
+            session.run("MATCH (n) DETACH DELETE n")
+        print("[OK] Database cleared successfully.")
+
+    def build_graph_from_csv(self, csv_path, batch_size=500, clean_rebuild=False):
         if not os.path.exists(csv_path):
             print(f"[WARNING] Error: Path {csv_path} does not exist.")
             return
+
+        if clean_rebuild:
+            self.clear_graph()
 
         print(f"\nLoading data from {csv_path}...")
         try:
@@ -121,13 +135,23 @@ class KnowledgeGraphBuilder:
 
 # --- Execution Entry Point ---
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Neo4j Knowledge Graph Builder")
+    parser.add_argument("--delta", action="store_true", help="Incrementally inject only delta_new_jobs.csv")
+    parser.add_argument("--clean-rebuild", action="store_true", help="Clear Neo4j and rebuild from master CSV")
+    args = parser.parse_args()
+
     builder = KnowledgeGraphBuilder()
     try:
-        # Swapped to the primary CSV file as requested
-        csv_path = '../data/cleaned_multi_role_jobs.csv'
-        # batch_size=500 is a safe "sweet spot" for Neo4j Aura cloud instances
-        builder.build_graph_from_csv(csv_path, batch_size=500) 
+        if args.delta:
+            delta_path = '../data/delta_new_jobs.csv'
+            print("[MODE] Incremental Delta Update")
+            builder.build_graph_from_csv(delta_path, batch_size=500, clean_rebuild=False)
+        else:
+            master_path = '../data/cleaned_multi_role_jobs.csv'
+            clean = True if args.clean_rebuild else True # Default to clean rebuild for consistency
+            print(f"[MODE] Clean Master Rebuild (Reset Weights: {clean})")
+            builder.build_graph_from_csv(master_path, batch_size=500, clean_rebuild=clean)
     except Exception as e:
         print(f"\n[CRITICAL ERROR] Execution stopped: {e}")
     finally:
-        builder.close()
+        builder.close()
