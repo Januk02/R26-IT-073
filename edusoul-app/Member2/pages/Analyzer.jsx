@@ -399,8 +399,8 @@ export default function Analyzer() {
                           <TrendingUp size={14} />
                         </div>
                         <div className="metric-data">
-                          <span className="metric-value accent">{result.confidence_score.toFixed(0)}%</span>
-                          <span className="metric-label">Confidence</span>
+                          <span className="metric-value accent">High</span>
+                          <span className="metric-label">Market Demand</span>
                         </div>
                       </div>
                     </div>
@@ -466,8 +466,8 @@ export default function Analyzer() {
                           </div>
                           <div className="dbs-divider" />
                           <div className="dbs">
-                            <span className="dbs-value">{result.confidence_score.toFixed(0)}%</span>
-                            <span className="dbs-label">CONFIDENCE</span>
+                            <span className="dbs-value">HIGH</span>
+                            <span className="dbs-label">MARKET DEMAND</span>
                           </div>
                         </div>
                       </motion.div>
