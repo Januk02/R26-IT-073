@@ -1,11 +1,11 @@
-import { 
-  collection, 
+import {
+  collection,
   collectionGroup,
-  query, 
-  onSnapshot, 
-  addDoc, 
-  serverTimestamp, 
-  getDocs 
+  query,
+  onSnapshot,
+  addDoc,
+  serverTimestamp,
+  getDocs
 } from "firebase/firestore";
 import { db } from "../../src/firebase";
 
@@ -23,16 +23,16 @@ import { db } from "../../src/firebase";
 // ── Mood Configurations ──────────────────────────────────────────
 export const MOOD_CONFIG = {
   'Very Happy': { emoji: '😄', color: '#10b981', bg: '#ecfdf5', border: '#a7f3d0', label: 'Very Happy' },
-  'Happy':      { emoji: '😊', color: '#22c55e', bg: '#f0fdf4', border: '#bbf7d0', label: 'Happy' },
-  'Neutral':    { emoji: '😐', color: '#0284c7', bg: '#f0f9ff', border: '#bae6fd', label: 'Neutral' },
-  'Stressed':   { emoji: '😰', color: '#f59e0b', bg: '#fffbeb', border: '#fde68a', label: 'Stressed' },
-  'Sad':        { emoji: '😞', color: '#ef4444', bg: '#fef2f2', border: '#fecaca', label: 'Sad' },
+  'Happy': { emoji: '😊', color: '#22c55e', bg: '#f0fdf4', border: '#bbf7d0', label: 'Happy' },
+  'Neutral': { emoji: '😐', color: '#0284c7', bg: '#f0f9ff', border: '#bae6fd', label: 'Neutral' },
+  'Stressed': { emoji: '😰', color: '#f59e0b', bg: '#fffbeb', border: '#fde68a', label: 'Stressed' },
+  'Sad': { emoji: '😞', color: '#ef4444', bg: '#fef2f2', border: '#fecaca', label: 'Sad' },
 };
 
 export const STRESS_LEVELS = {
-  'Low':      { color: '#10b981', bg: '#ecfdf5', label: 'Low Stress' },
+  'Low': { color: '#10b981', bg: '#ecfdf5', label: 'Low Stress' },
   'Moderate': { color: '#f59e0b', bg: '#fffbeb', label: 'Moderate Stress' },
-  'High':     { color: '#ef4444', bg: '#fef2f2', label: 'High Stress' },
+  'High': { color: '#ef4444', bg: '#fef2f2', label: 'High Stress' },
 };
 
 export const DEFAULT_LATEST_REPORT = {
@@ -152,56 +152,88 @@ export async function predictMoodFromBackend({
  * Handles whatever key casing exists in your Firebase documents
  */
 export function normalizeHealthReport(id, data = {}) {
-  const heartRate = Number(data.heartRate ?? data['Heart Rate'] ?? data.heart_rate ?? data.hr ?? data.pulse ?? 0);
-  const spo2 = Number(data.spo2 ?? data['SpO2 Oxygen'] ?? data.SpO2 ?? data.spo2_oxygen ?? data.oxygen ?? 0);
-  const sleep = Number(data.sleep ?? data.Sleep ?? data.sleep_hours ?? data.sleepHours ?? 0);
-  const steps = Number(data.steps ?? data.Steps ?? data.stepCount ?? data.step_count ?? 0);
-  const calories = Number(data.calories ?? data.Calories ?? data.calories_burned ?? data.cal ?? 0);
-  const temperature = Number(data.temperature ?? data.Temperature ?? data.temp ?? data.skinTemp ?? data.skin_temp ?? 0);
-  
+  // 1. Heart Rate (hr / heartRate / pulse)
+  const hrVal = data.hr ?? data.heartRate ?? data['Heart Rate'] ?? data.heart_rate ?? data.pulse ?? data.HeartRate ?? data.heartrate ?? 0;
+  const heartRate = Number(hrVal) || 72;
+
+  // 2. SpO2 Oxygen (o2 / spo2) - if watch returns 0, fallback to standard normal 98.0%
+  const o2Val = data.o2 ?? data.spo2 ?? data['SpO2 Oxygen'] ?? data.SpO2 ?? data.spo2_oxygen ?? data.oxygen ?? data.Spo2 ?? data.SPO2 ?? 0;
+  const numO2 = Number(o2Val);
+  const spo2 = numO2 > 0 ? numO2 : 98.0;
+
+  // 3. Sleep duration (slp / sleep)
+  const slpVal = data.slp ?? data.sleep ?? data.Sleep ?? data.sleep_hours ?? data.sleepHours ?? data.sleep_time ?? 0;
+  const sleep = +(Number(slpVal) || 7.0).toFixed(1);
+
+  // 4. Steps (st / steps)
+  const stVal = data.st ?? data.steps ?? data.Steps ?? data.stepCount ?? data.step_count ?? data.step ?? 0;
+  const steps = Number(stVal) || 0;
+
+  // 5. Calories (cal / calories)
+  const calVal = data.cal ?? data.calories ?? data.Calories ?? data.calories_burned ?? 0;
+  const calories = Math.round(Number(calVal) || 0);
+
+  // 6. Skin Temperature (tmp / temp / temperature)
+  const tmpVal = data.tmp ?? data.temp ?? data.temperature ?? data.Temperature ?? data.skinTemp ?? data.skin_temp ?? 0;
+  const temperature = +(Number(tmpVal) || 36.5).toFixed(1);
+
+  // 7. Stress Score (str / stress / stressScore)
+  const strVal = data.str ?? data.stress ?? data.stressScore ?? data['stressScore'] ?? data.stress_score ?? data.StressScore ?? data['Stress Score'] ?? 0;
+  const stressScore = Number(strVal) || 45;
+
   let stressLevel = data.stressLevel ?? data['stressLevel'] ?? data.stress_level ?? data.StressLevel ?? '';
-  let stressScore = Number(data.stressScore ?? data['stressScore'] ?? data.stress_score ?? data.StressScore ?? data.stress ?? 0);
-  
   if (!stressLevel && stressScore) {
     stressLevel = stressScore > 65 ? 'High' : stressScore > 35 ? 'Moderate' : 'Low';
   } else if (!stressLevel) {
     stressLevel = 'Moderate';
   }
 
-  let rawTimestamp = data.timestamp ?? data.Timestamp ?? data.createdAt ?? data.created_at ?? data.date ?? data.time;
+  // 8. Timestamp (ts / timestamp / createdAt / createTime / updateTime)
+  let rawTimestamp = data.ts ?? data.timestamp ?? data.Timestamp ?? data.createdAt ?? data.created_at ?? data.createTime ?? data.updateTime ?? data.date ?? data.time ?? data.dateTime ?? data.datetime;
   let timestamp = new Date();
   if (rawTimestamp) {
     if (typeof rawTimestamp.toDate === 'function') {
       timestamp = rawTimestamp.toDate();
     } else if (rawTimestamp instanceof Date) {
       timestamp = rawTimestamp;
+    } else if (typeof rawTimestamp === 'object' && rawTimestamp.seconds) {
+      timestamp = new Date(rawTimestamp.seconds * 1000 + (rawTimestamp.nanoseconds ? rawTimestamp.nanoseconds / 1000000 : 0));
+    } else if (typeof rawTimestamp === 'number') {
+      timestamp = new Date(rawTimestamp);
     } else {
       const parsed = new Date(rawTimestamp);
       if (!isNaN(parsed.getTime())) timestamp = parsed;
     }
   }
 
-  let mood = data.mood ?? data.Mood ?? data.predictedMood ?? data.mood_state;
+  let mood = data.mood ?? data.Mood ?? data.predictedMood ?? data.predicted_mood ?? data.mood_state;
   if (!mood) {
     mood = predictMood({ heartRate, spo2, sleep, steps, calories, temperature, stressScore });
   }
 
+  const isToday = timestamp.toDateString() === new Date().toDateString();
+  const dateFormatted = isToday 
+    ? timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    : `${timestamp.toLocaleDateString([], { month: 'short', day: 'numeric' })}, ${timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+
+  const deviceModel = data.model ? `Samsung Galaxy Watch (${data.model})` : (data.deviceModel || data.deviceName || 'SmartWatch BLE');
+
   return {
     id,
     ...data,
-    heartRate: heartRate || 72,
-    spo2: spo2 || 98.0,
-    sleep: sleep || 7.0,
-    steps: steps || 0,
-    calories: calories || 0,
-    temperature: temperature || 36.5,
-    stressLevel: stressLevel || 'Moderate',
-    stressScore: stressScore || 45,
+    heartRate,
+    spo2,
+    sleep,
+    steps,
+    calories,
+    temperature,
+    stressLevel,
+    stressScore,
     mood: mood || 'Neutral',
     predictedMood: data.predictedMood || mood,
     timestamp,
-    timeLabel: timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-    deviceName: data.deviceName ?? data.device ?? data.device_name ?? 'SmartWatch BLE',
+    timeLabel: dateFormatted,
+    deviceName: deviceModel,
     isFromFirebase: true,
   };
 }
@@ -222,7 +254,7 @@ export function predictMood({ heartRate = 72, spo2 = 98, sleep = 7, steps = 3000
  */
 export function generateAIStudyRecommendation(healthReports = [], latestReport = null) {
   const current = latestReport || (healthReports.length > 0 ? healthReports[0] : null);
-  
+
   if (!current) {
     return {
       modeTitle: '⏳ Waiting for Firebase Health Data',
@@ -356,7 +388,7 @@ export function subscribeToHealthReports(userId, callback) {
   if (!db) {
     console.warn("[healthService] Firestore db is not initialized.");
     callback([]);
-    return () => {};
+    return () => { };
   }
 
   const reportsMap = new Map();
@@ -382,11 +414,11 @@ export function subscribeToHealthReports(userId, callback) {
         if (res && res.fromBackend && res.mood) {
           const current = reportsMap.get(doc.id);
           if (current && (current.mood !== res.mood || !current.predictedByModel)) {
-            reportsMap.set(doc.id, { 
-              ...current, 
-              mood: res.mood, 
-              predictedMood: res.mood, 
-              predictedByModel: true 
+            reportsMap.set(doc.id, {
+              ...current,
+              mood: res.mood,
+              predictedMood: res.mood,
+              predictedByModel: true
             });
             emitSorted();
           }
@@ -459,7 +491,7 @@ export function subscribeToHealthReports(userId, callback) {
  */
 export async function fetchAllFirebaseHealthReports(userId) {
   if (!db) return [];
-  
+
   const allReports = new Map();
 
   // Try user subcollection
@@ -492,7 +524,7 @@ export async function fetchAllFirebaseHealthReports(userId) {
   }
 
   const result = Array.from(allReports.values());
-  
+
   // Pass all fetched reports through the live model backend
   const enriched = await Promise.all(
     result.map(async (report) => {
