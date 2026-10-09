@@ -451,7 +451,10 @@ export default function DreamDegreeInput({ onAnalyze, onBack, onFinishOnboarding
       social_impact_priority: convertToPriority(formData.lifestylePreferences.socialImpact)
     };
 
-    onAnalyze(backendData);
+    onAnalyze({
+      ...formData,
+      ...backendData,
+    });
   };
 
   // Helper function to convert string priorities to integers

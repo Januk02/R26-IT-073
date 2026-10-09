@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Domain | StudyFyX (R26-IT-073) Research Domain</title>
+  <meta name="description" content="Literature survey, research gap, research problem, objectives, methodology and technologies for Project R26-IT-073 at SLIIT.">
+  <link rel="stylesheet" href="css/style.css?v=3.0">
+</head>
+<body>
+
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a href="index.html" class="wordmark" aria-label="StudyFyX home">
+        <span class="mark"><span></span><span></span><span></span><span></span></span>
+        StudyFyX<small>R26-IT-073</small>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+      <ul class="nav-links" id="navMenu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="domain.html" class="active">Domain</a></li>
+        <li><a href="milestones.html">Milestones</a></li>
+        <li><a href="documents.html">Documents</a></li>
+        <li><a href="presentations.html">Presentations</a></li>
+        <li><a href="about-us.html">About us</a></li>
+        <li><a href="contact-us.html" class="nav-btn">Contact us</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="wrap">
+        <p class="eyebrow">Academic Research Domain</p>
+        <h1 class="display">Literature Survey, Research Gap &amp; Methodology</h1>
+        <p class="lead">Formal review of literature, theoretical research gap analysis, problem statements, individual research objectives, and experimental methodology for Project R26-IT-073.</p>
+      </div>
+    </section>
+
+    <nav class="subnav" aria-label="On this page">
+      <div class="wrap">
+        <a href="#literature">Literature survey</a>
+        <a href="#gap">Research gap</a>
+        <a href="#problem">Research problem</a>
+        <a href="#objectives">Objectives</a>
+        <a href="#methodology">Methodology</a>
+        <a href="#technologies">Technologies</a>
+      </div>
+    </nav>
+
+    <!-- Literature survey -->
+    <section class="section" id="literature">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-label">01 — Literature survey</span>
+          <div>
+            <h2 class="sec-title">Review of related literature &amp; prior studies</h2>
+            <p class="sec-intro">A critical evaluation of existing computational methodologies and empirical literature across each research domain.</p>
+          </div>
+        </div>
+
+        <div class="rows">
+          <article class="row reveal" id="component-1">
+            <div class="row-key">
+              <span class="row-num">01</span>
+              <span class="tag c1">Member 1</span>
+            </div>
+            <div>
+              <h3>University degree recommendation</h3>
+              <p>Conventional advisory relies on human counsellors or interest inventories such as Holland's RIASEC. These describe broad vocational types but ignore competitive admission cut-offs, district quotas and stream-specific requirements set by the University Grants Commission (UGC) in Sri Lanka.</p>
+              <p>Recent studies apply Random Forest, SVM and Naive Bayes to map grades to programmes, yet forward classifiers overlook students who already have a target career. This motivates a hybrid design combining backward-chaining rules with a calibrated Random Forest trained on national A/L cut-off data.</p>
+            </div>
+          </article>
+
+          <article class="row reveal" id="component-2">
+            <div class="row-key">
+              <span class="row-num">02</span>
+              <span class="tag c2">J A Wickremathilaka</span>
+            </div>
+            <div>
+              <h3>Skill extraction and labour-market alignment</h3>
+              <p>Job recommendation research largely uses Bag-of-Words or plain cosine similarity, which causes “frequency flattening”: common keywords such as Git, SQL or Agile drown out discriminative skills like PyTorch, FastAPI or Terraform.</p>
+              <p>Single-model classifiers also show high variance on multi-label skill data. A TF-IDF weighted stacking ensemble (Random Forest, Linear SVC and Multinomial Naive Bayes into a Logistic Regression meta-learner), paired with a Neo4j knowledge graph, enables a quantified Skill Gap Index (SGI) and the discovery of non-linear career pivots.</p>
+            </div>
+          </article>
+
+          <article class="row reveal" id="component-3">
+            <div class="row-key">
+              <span class="row-num">03</span>
+              <span class="tag c3">Member 3</span>
+            </div>
+            <div>
+              <h3>Wearable telemetry and student stress</h3>
+              <p>Stress is usually measured through retrospective questionnaires such as PSS-10 and DASS-21, which are subjective, episodic and unable to support real-time intervention.</p>
+              <p>Biomedical IoT research shows autonomic responses can be tracked non-invasively from wearable sensors. Using PPG, heart rate variability (SDNN, RMSSD, LF/HF), accelerometer activity and skin temperature, machine learning models can classify stress into discrete levels and prompt personalised relaxation strategies.</p>
+            </div>
+          </article>
+
+          <article class="row reveal" id="component-4">
+            <div class="row-key">
+              <span class="row-num">04</span>
+              <span class="tag c4">Member 4</span>
+            </div>
+            <div>
+              <h3>Mentorship matching and credential verification</h3>
+              <p>Industry mentorship improves graduate employability, yet university mentoring programmes remain manual and prone to mismatches. Collaborative filtering approaches suffer from the cold-start problem when interaction history is limited.</p>
+              <p>Semantic text embeddings (e.g. Sentence-BERT) over CVs and student goal statements avoid this dependency, while automated document parsing and institutional verification prevent fraudulent mentor profiles.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gap + Problem -->
+    <section class="section paper" id="gap">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-label">02 — Research gap</span>
+          <h2 class="sec-title">Identified research gaps in existing literature</h2>
+        </div>
+        <div class="rows">
+          <div class="row reveal">
+            <div class="row-key"><span class="row-num">A</span></div>
+            <div><h3>Siloed advisory domains</h3><p>Degree choice, skill readiness, wellbeing and mentorship are handled as separate processes rather than one continuous journey.</p></div>
+          </div>
+          <div class="row reveal">
+            <div class="row-key"><span class="row-num">B</span></div>
+            <div><h3>Curriculum–industry mismatch</h3><p>Static curricula lag behind industry stacks, and graduates have no quantified measure of how far they are from a target role.</p></div>
+          </div>
+          <div class="row reveal">
+            <div class="row-key"><span class="row-num">C</span></div>
+            <div><h3>No career pivot modelling</h3><p>Existing tools suggest a single destination and do not show which adjacent skills open alternative pathways.</p></div>
+          </div>
+          <div class="row reveal">
+            <div class="row-key"><span class="row-num">D</span></div>
+            <div><h3>Unmonitored academic stress</h3><p>There is no continuous physiological monitoring to detect exhaustion before it affects performance.</p></div>
+          </div>
+          <div class="row reveal">
+            <div class="row-key"><span class="row-num">E</span></div>
+            <div><h3>Unverified mentorship networks</h3><p>Mentor matching lacks semantic compatibility scoring backed by verified credentials.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="problem">
+      <div class="wrap">
+        <div class="split">
+          <span class="sec-label">03 — Research problem</span>
+          <div class="reveal">
+            <p class="quote">How can a student be guided from examination results to a suitable degree, have their skill gaps measured against real industry demand, have their wellbeing monitored, and be connected with verified mentors — within one unified decision-support system?</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Objectives -->
+    <section class="section paper" id="objectives">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-label">04 — Objectives</span>
+          <div>
+            <h2 class="sec-title">Primary &amp; individual research objectives</h2>
+            <p class="sec-intro">To design, build, evaluate and deploy an integrated AI and knowledge graph ecosystem providing personalised guidance across degree selection, skill gap analysis, stress intervention and verified mentorship.</p>
+          </div>
+        </div>
+        <div class="grid grid-2 reveal">
+          <div class="cell c1">
+            <span class="tag c1">Objective 01 &middot; Member 1</span>
+            <h3>Degree recommendation</h3>
+            <p>Build a dual-tier system combining backward-chaining rules and Random Forest classification to predict degree pathways from A/L Z-scores, district quotas and interests.</p>
+          </div>
+          <div class="cell c2">
+            <span class="tag c2">Objective 02 &middot; J A Wickremathilaka</span>
+            <h3>Career pathway &amp; Skill Gap Index</h3>
+            <p>Develop a TF-IDF weighted multi-label stacking ensemble, an academic affinity resolver and a Neo4j knowledge graph to compute the SGI and map career pivots.</p>
+          </div>
+          <div class="cell c3">
+            <span class="tag c3">Objective 03 &middot; Member 3</span>
+            <h3>Stress &amp; wellbeing detection</h3>
+            <p>Create a monitoring pipeline that processes smartwatch PPG, accelerometer and HRV data to classify stress and recommend relaxation strategies.</p>
+          </div>
+          <div class="cell c4">
+            <span class="tag c4">Objective 04 &middot; Member 4</span>
+            <h3>Mentorship matchmaking</h3>
+            <p>Engineer a mentor–mentee matching engine using semantic profile embeddings, with automated CV extraction and credential verification.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Methodology -->
+    <section class="section ink" id="methodology">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-label">05 — Methodology</span>
+          <div>
+            <h2 class="sec-title">Four phases, applied across every component.</h2>
+          </div>
+        </div>
+        <div class="rows">
+          <div class="row reveal">
+            <div class="row-key"><span class="row-num">Phase 01</span></div>
+            <div>
+              <h3>Data collection &amp; preprocessing</h3>
+              <p>UGC admission cut-offs for 25 districts; 1,000+ Sri Lankan IT vacancies crawled from TopJobs and Rooster with Selenium and BeautifulSoup; wearable PPG / accelerometer datasets cleaned with band-pass filtering; mentor profile datasets.</p>
+            </div>
+          </div>
+          <div class="row reveal">
+            <div class="row-key"><span class="row-num">Phase 02</span></div>
+            <div>
+              <h3>Feature engineering</h3>
+              <p>spaCy (<code>en_core_web_sm</code>) pipelines and a 150+ skill lexicon; TF-IDF with sublinear scaling and n-grams; time- and frequency-domain HRV features; CV text vectorisation; augmentation for rare career classes.</p>
+            </div>
+          </div>
+          <div class="row reveal">
+            <div class="row-key"><span class="row-num">Phase 03</span></div>
+            <div>
+              <h3>Modelling</h3>
+              <p>Rule engine + Random Forest (C1); stacking ensemble, SGI formula and Neo4j pivot graph (C2); multi-class stress classifier (C3); Sentence-BERT cosine matching with CV verification (C4).</p>
+            </div>
+          </div>
+          <div class="row reveal">
+            <div class="row-key"><span class="row-num">Phase 04</span></div>
+            <div>
+              <h3>Integration &amp; evaluation</h3>
+              <p>Four microservices (ports 8006, 8008, 8001, 5000) unified through a React web portal and mobile app. Evaluated with 5-fold cross-validation, confusion matrices, latency tests and System Usability Scale surveys.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technologies -->
+    <section class="section" id="technologies">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-label">06 — Technologies</span>
+          <h2 class="sec-title">Technologies used in each component.</h2>
+        </div>
+        <div class="grid grid-4 reveal">
+          <div class="cell c1">
+            <span class="tag c1">Component 01</span>
+            <h3>Degree Recommender</h3>
+            <ul class="list">
+              <li>Python &amp; scikit-learn</li>
+              <li>Random Forest classifier</li>
+              <li>Backward-chaining rule engine</li>
+              <li>Flask (port 8006)</li>
+              <li>UGC admissions data</li>
+            </ul>
+          </div>
+          <div class="cell c2">
+            <span class="tag c2">Component 02</span>
+            <h3>Career &amp; Skill Gap AI</h3>
+            <ul class="list">
+              <li>Stacking ensemble (RF, SVC, MNB)</li>
+              <li>Neo4j AuraDB &amp; Cypher</li>
+              <li>spaCy NLP</li>
+              <li>FastAPI (port 8008)</li>
+              <li>Skill Gap Index engine</li>
+            </ul>
+          </div>
+          <div class="cell c3">
+            <span class="tag c3">Component 03</span>
+            <h3>Stress Analyser</h3>
+            <ul class="list">
+              <li>Wearable PPG / HRV data</li>
+              <li>SciPy signal filtering</li>
+              <li>Multi-class stress classifier</li>
+              <li>FastAPI (port 8001)</li>
+              <li>Real-time alerts</li>
+            </ul>
+          </div>
+          <div class="cell c4">
+            <span class="tag c4">Component 04</span>
+            <h3>Mentorship Matching</h3>
+            <ul class="list">
+              <li>Sentence-BERT embeddings</li>
+              <li>Cosine similarity matching</li>
+              <li>PDF / OCR CV parsing</li>
+              <li>Flask (port 5000)</li>
+              <li>Alumni verification</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div>
+          <h5>Project</h5>
+          <p>StudyFyX is a final year research project at the Faculty of Computing, SLIIT — an AI-driven ecosystem for academic and career guidance.</p>
+        </div>
+        <div>
+          <h5>Research</h5>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="domain.html">Domain</a></li>
+            <li><a href="milestones.html">Milestones</a></li>
+            <li><a href="documents.html">Documents</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Team</h5>
+          <ul>
+            <li><a href="presentations.html">Presentations</a></li>
+            <li><a href="about-us.html">About us</a></li>
+            <li><a href="contact-us.html">Contact us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Institution</h5>
+          <p>Faculty of Computing<br>Sri Lanka Institute of Information Technology<br>New Kandy Road, Malabe</p>
+        </div>
+      </div>
+      <div class="footer-mark">StudyFyX</div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Research Group R26-IT-073</span>
+        <span>B.Sc. (Hons) in Information Technology &middot; SLIIT</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js?v=3.0"></script>
+</body>
+</html>

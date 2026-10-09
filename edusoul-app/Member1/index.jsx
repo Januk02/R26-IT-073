@@ -50,19 +50,23 @@ export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, o
     try {
       // Save student profile to Firebase if user is logged in
       if (user) {
-        const studentProfile = {
-          uid: user.uid,
-          email: user.email || '',
-          personalInfo: data.personalInfo,
-          dreamJob: data.dreamJob,
-          academicResults: data.academicResults,
-          personalityScores: data.personalityScores,
-          lifestylePreferences: data.lifestylePreferences,
-          role: 'student',
-          updatedAt: new Date().toISOString(),
-        };
-        await setDoc(doc(db, 'students', user.uid), studentProfile, { merge: true });
-        setExistingProfile(studentProfile);
+        try {
+          const studentProfile = {
+            uid: user.uid,
+            email: user.email || '',
+            personalInfo: data.personalInfo || { name: '', age: '', district: data.district || '' },
+            dreamJob: data.dreamJob || data.dream_job || '',
+            academicResults: data.academicResults || { stream: data.stream || '', zScore: data.z_score || 0 },
+            personalityScores: data.personalityScores || {},
+            lifestylePreferences: data.lifestylePreferences || {},
+            role: 'student',
+            updatedAt: new Date().toISOString(),
+          };
+          await setDoc(doc(db, 'students', user.uid), studentProfile, { merge: true });
+          setExistingProfile(studentProfile);
+        } catch (firebaseErr) {
+          console.warn('Could not save profile to Firebase:', firebaseErr);
+        }
       }
 
       // Fetch recommendations and backward analysis in parallel

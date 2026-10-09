@@ -14,6 +14,8 @@ from datetime import datetime
 from dotenv import load_dotenv
 from google import genai
 
+basedir = os.path.abspath(os.path.dirname(__file__))
+load_dotenv(os.path.join(basedir, '.env'))
 load_dotenv()
 
 app = Flask(__name__)
@@ -480,6 +482,9 @@ def analyze_interview():
             return jsonify({'error': 'At least one interview question is required'}), 400
 
         api_key = os.getenv('GEMINI_API_KEY')
+        if not api_key:
+            load_dotenv(os.path.join(basedir, '.env'), override=True)
+            api_key = os.getenv('GEMINI_API_KEY')
         if not api_key:
             return jsonify({'error': 'AI interview scoring is not configured. Set GEMINI_API_KEY on the backend.'}), 503
 

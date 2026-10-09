@@ -1989,8 +1989,8 @@ def simple_prediction():
 if __name__ == "__main__":
     print("🚀 Starting FutureDream Flask Server...")
     print("📊 AI Model: Trained Random Forest + Backward-Chaining")
-    print("🌐 Server: http://localhost:8005")
-    print("🔗 Health Check: http://localhost:8005/health")
-    print("📝 Recommendations: http://localhost:8005/recommend")
+    print("🌐 Server: http://localhost:8006")
+    print("🔗 Health Check: http://localhost:8006/health")
+    print("📝 Recommendations: http://localhost:8006/recommend")
     
     app.run(host='0.0.0.0', port=8006, debug=True)
