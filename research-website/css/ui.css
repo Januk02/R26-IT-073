@@ -206,3 +206,11 @@ a.cell:hover { background: var(--card-bg, #edf4ff); border-color: var(--card-acc
 .member-name { overflow-wrap: anywhere; line-height: 1.25; }
 .member-head { align-items: flex-start; }
 .cell-foot > * { min-width: 0; overflow-wrap: anywhere; }
+
+/* Head-and-shoulders framing without altering the original photographs. */
+.member-head-photo { flex-direction: column; align-items: center; text-align: center; gap: 1rem; }
+.member-portrait { position: relative; width: min(240px,100%); aspect-ratio: 1; overflow: hidden; border-radius: 16px; background: #e7ebf1; border: 3px solid white; box-shadow: 0 5px 18px #001a3312; flex-shrink: 0; }
+.member-portrait img { position: absolute; display: block; width: 100%; height: auto; max-width: none; left: 0; top: 0; }
+.member-portrait.rusiru img { width: 115%; left: -7.5%; top: -5%; }
+.member-portrait.dasith img { width: 160%; left: -30%; top: -36%; }
+.member-portrait.inupa img { top: -4%; }
