@@ -5,21 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Domain | StudyFyX (R26-IT-073) Research Domain</title>
   <meta name="description" content="Literature survey, research gap, research problem, objectives, methodology and technologies for Project R26-IT-073 at SLIIT.">
-  <link rel="stylesheet" href="css/style.css?v=3.0">
+  <link rel="stylesheet" href="css/style.css?v=4.1">
+  <link rel="stylesheet" href="css/ui.css?v=6.5">
+  <link rel="icon" type="image/png" href="studyfyxlogo.png">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
 
   <header class="nav">
     <div class="wrap nav-inner">
       <a href="index.html" class="wordmark" aria-label="StudyFyX home">
-        <span class="mark"><span></span><span></span><span></span><span></span></span>
-        StudyFyX<small>R26-IT-073</small>
+        <img src="studyfyxlogo.png" class="site-logo" alt="StudyFyX">
+        <small>R26-IT-073</small>
       </a>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+      <button class="nav-toggle" id="navToggle" aria-controls="navMenu" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
       <ul class="nav-links" id="navMenu">
         <li><a href="index.html">Home</a></li>
-        <li><a href="domain.html" class="active">Domain</a></li>
-        <li><a href="milestones.html">Milestones</a></li>
+        <li><a href="domain.html" class="active" aria-current="page">Our research</a></li>
+        <li><a href="milestones.html">Timeline</a></li>
         <li><a href="documents.html">Documents</a></li>
         <li><a href="presentations.html">Presentations</a></li>
         <li><a href="about-us.html">About us</a></li>
@@ -28,12 +31,13 @@
     </div>
   </header>
 
-  <main>
+  <main id="main-content">
     <section class="page-hero">
       <div class="wrap">
-        <p class="eyebrow">Academic Research Domain</p>
-        <h1 class="display">Literature Survey, Research Gap &amp; Methodology</h1>
-        <p class="lead">Formal review of literature, theoretical research gap analysis, problem statements, individual research objectives, and experimental methodology for Project R26-IT-073.</p>
+        <a class="breadcrumb" href="index.html">← Back to home</a>
+        <p class="eyebrow">Discover the research</p>
+        <h1 class="display">How our research works</h1>
+        <p class="lead">Explore the problem we are solving, the four features, and the research behind each one.</p>
       </div>
     </section>
 
@@ -65,10 +69,10 @@
               <span class="row-num">01</span>
               <span class="tag c1">Member 1</span>
             </div>
-            <div>
+            <div><img class="research-photo" src="images/degree.jpg" alt="Students discussing university degree options in a campus library" width="1536" height="1024" loading="lazy" decoding="async">
               <h3>University degree recommendation</h3>
-              <p>Conventional advisory relies on human counsellors or interest inventories such as Holland's RIASEC. These describe broad vocational types but ignore competitive admission cut-offs, district quotas and stream-specific requirements set by the University Grants Commission (UGC) in Sri Lanka.</p>
-              <p>Recent studies apply Random Forest, SVM and Naive Bayes to map grades to programmes, yet forward classifiers overlook students who already have a target career. This motivates a hybrid design combining backward-chaining rules with a calibrated Random Forest trained on national A/L cut-off data.</p>
+              <p>This feature helps students choose a university degree that matches their academic results, interests, and dream career. It considers their A/L stream, Z-score, district, personality, and lifestyle preferences to recommend suitable degree pathways.</p>
+                <p>Students also receive guidance and a roadmap to understand the steps toward their chosen career.</p>
             </div>
           </article>
 
@@ -77,7 +81,7 @@
               <span class="row-num">02</span>
               <span class="tag c2">J A Wickremathilaka</span>
             </div>
-            <div>
+            <div><img class="research-photo" src="images/career.jpg" alt="Student planning career skills with a laptop and notebook" width="1536" height="1024" loading="lazy" decoding="async">
               <h3>Skill extraction and labour-market alignment</h3>
               <p>Job recommendation research largely uses Bag-of-Words or plain cosine similarity, which causes “frequency flattening”: common keywords such as Git, SQL or Agile drown out discriminative skills like PyTorch, FastAPI or Terraform.</p>
               <p>Single-model classifiers also show high variance on multi-label skill data. A TF-IDF weighted stacking ensemble (Random Forest, Linear SVC and Multinomial Naive Bayes into a Logistic Regression meta-learner), paired with a Neo4j knowledge graph, enables a quantified Skill Gap Index (SGI) and the discovery of non-linear career pivots.</p>
@@ -89,7 +93,7 @@
               <span class="row-num">03</span>
               <span class="tag c3">Member 3</span>
             </div>
-            <div>
+            <div><img class="research-photo" src="images/wellbeing.jpg" alt="Student taking a peaceful study break outdoors" width="1536" height="1024" loading="lazy" decoding="async">
               <h3>Wearable telemetry and student stress</h3>
               <p>Stress is usually measured through retrospective questionnaires such as PSS-10 and DASS-21, which are subjective, episodic and unable to support real-time intervention.</p>
               <p>Biomedical IoT research shows autonomic responses can be tracked non-invasively from wearable sensors. Using PPG, heart rate variability (SDNN, RMSSD, LF/HF), accelerometer activity and skin temperature, machine learning models can classify stress into discrete levels and prompt personalised relaxation strategies.</p>
@@ -101,7 +105,7 @@
               <span class="row-num">04</span>
               <span class="tag c4">Member 4</span>
             </div>
-            <div>
+            <div><img class="research-photo" src="images/mentorship.jpg" alt="Student discussing future plans with an alumni mentor" width="1536" height="1024" loading="lazy" decoding="async">
               <h3>Mentorship matching and credential verification</h3>
               <p>Industry mentorship improves graduate employability, yet university mentoring programmes remain manual and prone to mismatches. Collaborative filtering approaches suffer from the cold-start problem when interaction history is limited.</p>
               <p>Semantic text embeddings (e.g. Sentence-BERT) over CVs and student goal statements avoid this dependency, while automated document parsing and institutional verification prevent fraudulent mentor profiles.</p>
@@ -237,7 +241,7 @@
         <div class="sec-head">
           <span class="sec-label">06 — Technologies</span>
           <h2 class="sec-title">Technologies used in each component.</h2>
-        </div>
+        </div><div class="research-image-pair"><figure><img src="images/technical.jpg" alt="Illustrative research workspace with data visualizations and wearable technology" width="1536" height="1024" loading="lazy" decoding="async"><figcaption>Technology for smarter student guidance</figcaption></figure><figure><img src="images/hero.jpg" alt="Illustrative university courtyard surrounded by tropical greenery" width="1672" height="941" loading="lazy" decoding="async"><figcaption>Designed around real student life</figcaption></figure></div>
         <div class="grid grid-4 reveal">
           <div class="cell c1">
             <span class="tag c1">Component 01</span>
@@ -299,8 +303,8 @@
           <h5>Research</h5>
           <ul>
             <li><a href="index.html">Home</a></li>
-            <li><a href="domain.html">Domain</a></li>
-            <li><a href="milestones.html">Milestones</a></li>
+            <li><a href="domain.html">Our research</a></li>
+            <li><a href="milestones.html">Timeline</a></li>
             <li><a href="documents.html">Documents</a></li>
           </ul>
         </div>
@@ -325,6 +329,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=3.0"></script>
+  <script src="js/main.js?v=6.1"></script>
 </body>
 </html>

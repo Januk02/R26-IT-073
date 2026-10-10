@@ -3,15 +3,16 @@
  * Lightweight vanilla JavaScript, no external dependencies.
  */
 
-// Paste the shared OneDrive / Google Drive folder link here to enable document buttons.
-const ONEDRIVE_MASTER_URL = ""; // e.g. "https://1drv.ms/f/s!..."
+// Shared Google Drive folder for research documents and presentations.
+const RESEARCH_FOLDER_URL = "https://drive.google.com/drive/folders/1j5qwz5YjAbGDTKUu_reXCLSNUxUxt5uj?usp=drive_link";
 
 document.documentElement.classList.add('js');
+let modalTrigger = null;
 
 function openResearchDocument(title, meta, description) {
   const modal = document.getElementById('academicModal');
   if (!modal) {
-    if (ONEDRIVE_MASTER_URL.trim()) window.open(ONEDRIVE_MASTER_URL, '_blank');
+    if (RESEARCH_FOLDER_URL.trim()) window.open(RESEARCH_FOLDER_URL, '_blank', 'noopener,noreferrer');
     return;
   }
   document.getElementById('modalTitle').textContent = title;
@@ -20,20 +21,25 @@ function openResearchDocument(title, meta, description) {
 
   const cloudBtn = document.getElementById('modalCloudBtn');
   const note = document.getElementById('modalNote');
-  if (ONEDRIVE_MASTER_URL.trim()) {
+  if (RESEARCH_FOLDER_URL.trim()) {
     cloudBtn.style.display = '';
     if (note) note.style.display = 'none';
-    cloudBtn.onclick = () => window.open(ONEDRIVE_MASTER_URL, '_blank');
+    cloudBtn.onclick = () => window.open(RESEARCH_FOLDER_URL, '_blank', 'noopener,noreferrer');
   } else {
     cloudBtn.style.display = 'none';
     if (note) note.style.display = '';
   }
+  modalTrigger = document.activeElement;
   modal.classList.add('open');
+  document.body.classList.add('modal-open');
+  modal.querySelector('.modal-close')?.focus();
 }
 
 function closeAcademicModal() {
   const modal = document.getElementById('academicModal');
   if (modal) modal.classList.remove('open');
+  document.body.classList.remove('modal-open');
+  modalTrigger?.focus();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -43,8 +49,14 @@ document.addEventListener('DOMContentLoaded', () => {
   if (navToggle && navMenu) {
     navToggle.addEventListener('click', () => {
       const isOpen = navMenu.classList.toggle('open');
-      navToggle.setAttribute('aria-expanded', isOpen);
+      navToggle.setAttribute('aria-expanded', String(isOpen));
     });
+  }
+
+  if (navToggle && navMenu) {
+    const closeMenu = () => { navMenu.classList.remove('open'); navToggle.setAttribute('aria-expanded', 'false'); };
+    navMenu.addEventListener('click', (event) => { if (event.target.closest('a')) closeMenu(); });
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && navMenu.classList.contains('open')) { closeMenu(); navToggle.focus(); } });
   }
 
   // 2. Milestone dropdown filter (Slide 11 requirement)
@@ -64,7 +76,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const modal = document.getElementById('academicModal');
   if (modal) {
     modal.addEventListener('click', (e) => { if (e.target === modal) closeAcademicModal(); });
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAcademicModal(); });
+    document.addEventListener('keydown', (e) => {
+      if (!modal.classList.contains('open')) return;
+      if (e.key === 'Escape') closeAcademicModal();
+      if (e.key === 'Tab') {
+        const buttons = [...modal.querySelectorAll('button, a[href], input, select, textarea, [tabindex="0"]')].filter(el => el.getClientRects().length && !el.disabled);
+        const first = buttons[0], last = buttons[buttons.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last?.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first?.focus(); }
+      }
+    });
   }
 
   // 4. Contact form (Slide 15 requirement)
@@ -73,17 +94,18 @@ document.addEventListener('DOMContentLoaded', () => {
   if (contactForm && formStatus) {
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      const btn = contactForm.querySelector('button[type="submit"]');
-      const original = btn.innerHTML;
-      btn.disabled = true;
-      btn.textContent = 'Sending…';
-      setTimeout(() => {
-        contactForm.reset();
-        btn.disabled = false;
-        btn.innerHTML = original;
-        formStatus.innerHTML = '<div class="form-success"><strong>Message sent.</strong> Thank you for contacting the R26-IT-073 research group — we will reply shortly.</div>';
-        setTimeout(() => { formStatus.innerHTML = ''; }, 8000);
-      }, 700);
+      const subject = document.getElementById('subject').value.trim();
+      const body = `Name: ${document.getElementById('fullName').value.trim()}\nEmail: ${document.getElementById('email').value.trim()}\n\n${document.getElementById('message').value.trim()}`;
+      const emailLink = document.createElement('a');
+      emailLink.className = 'arrow-link';
+      emailLink.href = `mailto:studyfyx.research@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      emailLink.textContent = 'Open your email app to send';
+      const message = document.createElement('p');
+      message.className = 'form-success';
+      message.textContent = 'Your email is ready. Send it from your email app. If no app opens, email studyfyx.research@gmail.com using the message above. ';
+      message.appendChild(emailLink);
+      formStatus.replaceChildren(message);
+
     });
   }
 
@@ -99,4 +121,37 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     items.forEach((el) => el.classList.add('in'));
   }
+});
+
+// Track the section currently in view on the scrolling research homepage.
+document.addEventListener('DOMContentLoaded', () => {
+  if (!document.querySelector('.reference-hero')) return;
+  const header = document.querySelector('.nav');
+  const bar = document.createElement('div');
+  bar.className = 'nav-progress';
+  bar.setAttribute('aria-hidden', 'true');
+  header.appendChild(bar);
+  const navLinks = [...document.querySelectorAll('#navMenu a[href^="#"]')];
+  const scopeLinks = [...document.querySelectorAll('.scope-sidebar nav a')];
+  function updateLinks(links) {
+    let current = null;
+    links.forEach(link => {
+      const section = document.getElementById(link.hash.slice(1));
+      if (section && section.getBoundingClientRect().top <= 150) current = link;
+    });
+    links.forEach(link => {
+      link.classList.toggle('active', link === current);
+      if (link === current) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  }
+  let scheduled = false;
+  const update = () => {
+    const available = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.transform = `scaleX(${available > 0 ? Math.min(1, window.scrollY / available) : 0})`;
+    updateLinks(navLinks); updateLinks(scopeLinks); scheduled = false;
+  };
+  window.addEventListener('scroll', () => { if (!scheduled) { scheduled = true; requestAnimationFrame(update); } }, { passive: true });
+  window.addEventListener('resize', update);
+  update();
 });

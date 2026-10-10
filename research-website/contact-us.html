@@ -5,35 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Us | StudyFyX (R26-IT-073) Academic Project Inquiries</title>
   <meta name="description" content="Contact the StudyFyX research team, lead researchers, and academic supervisors at SLIIT Faculty of Computing.">
-  <link rel="stylesheet" href="css/style.css?v=3.0">
+  <link rel="stylesheet" href="css/style.css?v=4.1">
+  <link rel="stylesheet" href="css/ui.css?v=6.5">
+  <link rel="icon" type="image/png" href="studyfyxlogo.png">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
 
   <header class="nav">
     <div class="wrap nav-inner">
       <a href="index.html" class="wordmark" aria-label="StudyFyX home">
-        <span class="mark"><span></span><span></span><span></span><span></span></span>
-        StudyFyX<small>R26-IT-073</small>
+        <img src="studyfyxlogo.png" class="site-logo" alt="StudyFyX">
+        <small>R26-IT-073</small>
       </a>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+      <button class="nav-toggle" id="navToggle" aria-controls="navMenu" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
       <ul class="nav-menu nav-links" id="navMenu">
         <li><a href="index.html">Home</a></li>
-        <li><a href="domain.html">Domain</a></li>
-        <li><a href="milestones.html">Milestones</a></li>
+        <li><a href="domain.html">Our research</a></li>
+        <li><a href="milestones.html">Timeline</a></li>
         <li><a href="documents.html">Documents</a></li>
         <li><a href="presentations.html">Presentations</a></li>
         <li><a href="about-us.html">About us</a></li>
-        <li><a href="contact-us.html" class="nav-btn active">Contact us</a></li>
+        <li><a href="contact-us.html" class="nav-btn active" aria-current="page">Contact us</a></li>
       </ul>
     </div>
   </header>
 
-  <main>
+  <main id="main-content">
     <section class="page-hero">
       <div class="wrap">
+        <a class="breadcrumb" href="index.html">← Back to home</a>
         <p class="eyebrow">Institutional Inquiries &middot; Slide 15</p>
-        <h1 class="display">Academic Inquiries &amp; Institutional Contacts</h1>
-        <p class="lead">Official communication touchpoints for viva evaluation panels, academic reviewers, dataset reproduction inquiries, and technical collaboration regarding Research Project R26-IT-073 at SLIIT.</p>
+        <h1 class="display">Let’s talk</h1>
+        <p class="lead">Have a question about StudyFyX? Find the team’s contact details or prepare an inquiry below.</p>
       </div>
     </section>
 
@@ -107,16 +111,16 @@
             <form id="contactForm">
               <div class="field">
                 <label for="fullName">Full Name &amp; Academic Title *</label>
-                <input type="text" id="fullName" class="input" placeholder="e.g. Prof. / Dr. / Mr. Examiner Name" required>
+                <input type="text" id="fullName" class="input" placeholder="Your name" required>
               </div>
 
               <div class="field">
-                <label for="email">Academic or Institutional Email *</label>
-                <input type="email" id="email" class="input" placeholder="examiner@sliit.lk" required>
+                <label for="email">Email address *</label>
+                <input type="email" id="email" class="input" placeholder="you@example.com" required>
               </div>
 
               <div class="field">
-                <label for="category">Inquirer Classification</label>
+                <label for="category">I am a</label>
                 <select id="category" class="input">
                   <option value="evaluator">Academic Examiner / Viva Evaluation Panel</option>
                   <option value="supervisor">SLIIT Academic Supervisor / Internal Faculty</option>
@@ -127,18 +131,18 @@
               </div>
 
               <div class="field">
-                <label for="subject">Subject of Inquiry *</label>
-                <input type="text" id="subject" class="input" placeholder="e.g. Technical Query on Stacking Ensemble / SGI Metric" required>
+                <label for="subject">Subject *</label>
+                <input type="text" id="subject" class="input" placeholder="What would you like to ask?" required>
               </div>
 
               <div class="field">
-                <label for="message">Message Content *</label>
-                <textarea id="message" class="input" placeholder="Please articulate your research query, evaluation feedback, or dataset reproduction request..." required></textarea>
+                <label for="message">Your message *</label>
+                <textarea id="message" class="input" placeholder="Tell us how we can help..." required></textarea>
               </div>
 
-              <button type="submit" class="btn btn-blue btn-block">Transmit academic inquiry &rarr;</button>
+              <button type="submit" class="btn btn-blue btn-block">Prepare email &rarr;</button>
 
-              <div id="formStatus"></div>
+              <p class="hero-note">This form prepares your message. Use the team contact details to send it through your email app.</p><div id="formStatus" role="status" aria-live="polite"></div>
             </form>
           </div>
 
@@ -158,8 +162,8 @@
           <h5>Research</h5>
           <ul>
             <li><a href="index.html">Home</a></li>
-            <li><a href="domain.html">Domain</a></li>
-            <li><a href="milestones.html">Milestones</a></li>
+            <li><a href="domain.html">Our research</a></li>
+            <li><a href="milestones.html">Timeline</a></li>
             <li><a href="documents.html">Documents</a></li>
           </ul>
         </div>
@@ -184,6 +188,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=3.0"></script>
+  <script src="js/main.js?v=6.1"></script>
 </body>
 </html>

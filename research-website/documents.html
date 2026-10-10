@@ -5,22 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Documents | StudyFyX (R26-IT-073) Academic Deliverables</title>
   <meta name="description" content="Charter, proposal, checklists, individual theses and master dissertation for Research Project R26-IT-073 at SLIIT.">
-  <link rel="stylesheet" href="css/style.css?v=3.0">
+  <link rel="stylesheet" href="css/style.css?v=4.1">
+  <link rel="stylesheet" href="css/ui.css?v=6.5">
+  <link rel="icon" type="image/png" href="studyfyxlogo.png">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
 
   <header class="nav">
     <div class="wrap nav-inner">
       <a href="index.html" class="wordmark" aria-label="StudyFyX home">
-        <span class="mark"><span></span><span></span><span></span><span></span></span>
-        StudyFyX<small>R26-IT-073</small>
+        <img src="studyfyxlogo.png" class="site-logo" alt="StudyFyX">
+        <small>R26-IT-073</small>
       </a>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+      <button class="nav-toggle" id="navToggle" aria-controls="navMenu" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
       <ul class="nav-menu nav-links" id="navMenu">
         <li><a href="index.html">Home</a></li>
-        <li><a href="domain.html">Domain</a></li>
-        <li><a href="milestones.html">Milestones</a></li>
-        <li><a href="documents.html" class="active">Documents</a></li>
+        <li><a href="domain.html">Our research</a></li>
+        <li><a href="milestones.html">Timeline</a></li>
+        <li><a href="documents.html" class="active" aria-current="page">Documents</a></li>
         <li><a href="presentations.html">Presentations</a></li>
         <li><a href="about-us.html">About us</a></li>
         <li><a href="contact-us.html" class="nav-btn">Contact us</a></li>
@@ -28,12 +31,13 @@
     </div>
   </header>
 
-  <main>
+  <main id="main-content">
     <section class="page-hero">
       <div class="wrap">
-        <p class="eyebrow">Academic Deliverables &middot; Slide 12</p>
-        <h1 class="display">Academic Deliverables &amp; Research Dissertations</h1>
-        <p class="lead">Formal academic documentation produced for evaluation: Project Charter, Research Proposal, Quality Checklists, four individual dissertations, and the comprehensive Master Thesis for Project R26-IT-073.</p>
+        <a class="breadcrumb" href="index.html">← Back to home</a>
+        <p class="eyebrow">Research library</p>
+        <h1 class="display">Project documents</h1>
+        <p class="lead">Browse our proposal, reports, checklists, and final research papers. Select a document to see its details and availability.</p>
       </div>
     </section>
 
@@ -229,8 +233,8 @@
           <h5>Research</h5>
           <ul>
             <li><a href="index.html">Home</a></li>
-            <li><a href="domain.html">Domain</a></li>
-            <li><a href="milestones.html">Milestones</a></li>
+            <li><a href="domain.html">Our research</a></li>
+            <li><a href="milestones.html">Timeline</a></li>
             <li><a href="documents.html">Documents</a></li>
           </ul>
         </div>
@@ -265,15 +269,15 @@
       <div class="modal-meta" id="modalMeta">Official Deliverable</div>
       <p id="modalDesc"></p>
       <div id="modalNote" style="margin-top:1rem; padding:0.85rem; background:var(--paper); font-size:0.86rem; color:var(--ink-2); display:none;">
-        <strong>OneDrive access:</strong> Set your shared folder link in <code>js/main.js</code> to open PDFs directly.
+        <strong>Folder unavailable:</strong> Please contact the research team for document access.
       </div>
       <div class="modal-actions">
         <button class="btn btn-ghost btn-sm" onclick="closeAcademicModal()">Close</button>
-        <button class="btn btn-sm" id="modalCloudBtn">Open in OneDrive →</button>
+        <button class="btn btn-sm" id="modalCloudBtn">Open in Google Drive →</button>
       </div>
     </div>
   </div>
 
-  <script src="js/main.js?v=3.0"></script>
+  <script src="js/main.js?v=6.1"></script>
 </body>
 </html>

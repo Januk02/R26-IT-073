@@ -451,6 +451,9 @@ export default function DreamDegreeInput({ onAnalyze, onBack, onFinishOnboarding
       social_impact_priority: convertToPriority(formData.lifestylePreferences.socialImpact)
     };
 
+    // The parent saves the full profile and sends this payload to the API.
+    // Keep both shapes together so profile fields (including personalInfo)
+    // are never lost before the Firestore write.
     onAnalyze({
       ...formData,
       ...backendData,

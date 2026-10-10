@@ -144,7 +144,7 @@ export default function DreamDegreeGuidance({ studentData, backendResults, onBac
   if (backendGuidance.skill_improvement) {
     counterfactuals.unshift({
       category: 'AI Insight',
-      icon: '🤖',
+      
       title: 'AI Skill Improvement Advice',
       current: 'Current skills',
       target: 'Optimal level',
@@ -177,7 +177,7 @@ export default function DreamDegreeGuidance({ studentData, backendResults, onBac
 
       <style>{`
         .guide-card {
-          background: rgba(255,255,255,0.72);
+          background: rgba(255, 255, 255, 0.72);
           backdrop-filter: blur(16px);
           -webkit-backdrop-filter: blur(16px);
           border: 1px solid rgba(226,232,240,0.8);

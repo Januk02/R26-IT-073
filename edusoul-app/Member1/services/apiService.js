@@ -4,6 +4,10 @@ const API_BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8006'
  * Maps frontend form data to the backend /recommend endpoint format
  */
 function mapFormDataToBackend(formData) {
+  const dreamJob = formData.dreamJob ?? formData.dream_job ?? '';
+  const stream = formData.academicResults?.stream ?? formData.stream ?? '';
+  const district = formData.personalInfo?.district ?? formData.district ?? '';
+  const zScore = formData.academicResults?.zScore ?? formData.z_score;
   const personalityScores = formData.personalityScores || {};
 
   // Build personality description from scores
@@ -27,10 +31,10 @@ function mapFormDataToBackend(formData) {
   const predictedPerf = formData.academicResults?.predictedPerformance || {};
 
   return {
-    dream_job: formData.dreamJob || '',
-    z_score: parseFloat(formData.academicResults?.zScore) || 0,
-    stream: formData.academicResults?.stream || '',
-    district: formData.personalInfo?.district || '',
+    dream_job: dreamJob,
+    z_score: parseFloat(zScore) || 0,
+    stream,
+    district,
     personality_description: traitDescriptions.join(', '),
     detected_traits: traitDescriptions,
     // Personality scores mapped to 1-5 scale for model (all 10 traits)
@@ -76,6 +80,20 @@ function mapFormDataToBackend(formData) {
  */
 export async function getRecommendations(formData) {
   const payload = mapFormDataToBackend(formData);
+  const rawZScore = formData.academicResults?.zScore ?? formData.z_score;
+  const parsedZScore = Number(rawZScore);
+
+  // Do not send an invalid profile to the server. This makes validation errors
+  // actionable in the UI and prevents repeated 400 responses while a form is empty.
+  if (!String(payload.dream_job).trim()) {
+    throw new Error('Please select a career goal before requesting recommendations.');
+  }
+  if (!String(payload.stream).trim()) {
+    throw new Error('Please select your A/L stream before requesting recommendations.');
+  }
+  if (rawZScore === undefined || rawZScore === null || String(rawZScore).trim() === '' || !Number.isFinite(parsedZScore) || payload.z_score < 0 || payload.z_score > 4) {
+    throw new Error('Please enter a valid Z-Score between 0 and 4.');
+  }
 
   const response = await fetch(`${API_BASE_URL}/recommend`, {
     method: 'POST',

@@ -366,3 +366,43 @@ select.input { appearance: none; -webkit-appearance: none; cursor: pointer; back
   .select { min-width: 0; width: 100%; }
   .wordmark small { display: none; }
 }
+
+/* Readable, accessible student guidance layout. */
+:root { --ink: #172b46; --ink-2: #354863; --muted: #53647a; --paper: #f3f7fc; --line: #dbe4ef; }
+.skip-link { position: fixed; top: -100px; left: 1rem; z-index: 300; padding: .8rem 1rem; background: var(--ink); color: white; border-radius: 8px; }
+.skip-link:focus { top: .5rem; }
+:focus-visible { outline: 3px solid var(--blue); outline-offset: 5px; }
+.btn, .nav-links a { border-radius: 8px; }
+.nav-links a { min-height: 44px; display: flex; align-items: center; }
+.nav-toggle { min-width: 44px; min-height: 44px; }
+.friendly-hero { padding: clamp(3rem, 6vw, 5rem) 0 2.5rem; background: #eef5ff; }
+.friendly-hero .display { max-width: 20ch; font-size: clamp(2.8rem, 6vw, 5rem); line-height: 1.08; }
+.friendly-hero .display span { color: #0756ce; }
+.friendly-hero .lead { max-width: 65ch; }
+.hero-note { font-size: .9rem; color: var(--muted); margin-top: 1.2rem; }
+.journey { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid #cbdcf2; }
+.journey span { font-weight: 500; color: var(--ink-2); }
+.journey span::before { content: '✓'; margin-right: .6rem; color: #0b7a57; }
+.section { padding: clamp(2.8rem, 5vw, 4.5rem) 0; }
+.feature-grid { background: transparent; gap: 1.5rem; border: 0; }
+.feature-card { position: relative; border: 1px solid var(--line); border-radius: 16px; padding: 2rem; background: white; box-shadow: 0 5px 20px #172b4608; }
+.feature-card h3 { margin-top: 1.25rem; font-size: 1.65rem; max-width: 26ch; }
+.feature-card p { margin-top: .8rem; }
+.feature-number { position: absolute; top: 1.5rem; right: 1.5rem; color: #64748b; font-size: 1.1rem; }
+.feature-summary { margin-top: 1.5rem; border-top: 1px solid var(--line); }
+.feature-summary div { padding-top: 1rem; }
+.feature-summary dt { font-weight: 600; font-size: .9rem; }
+.feature-summary dd { color: var(--ink-2); font-size: .95rem; margin-top: .2rem; }
+.context-note { margin-top: 1.75rem; padding: 1rem 1.25rem; background: var(--paper); border-radius: 10px; color: var(--ink-2); }
+.page-hero .display { max-width: 24ch; font-size: clamp(2.2rem, 4.5vw, 3.6rem); line-height: 1.12; }
+.input, .modal-box { border-radius: 10px; }
+.field label { font-family: var(--body); text-transform: none; letter-spacing: 0; font-size: .95rem; color: var(--ink); }
+.footer h5, .footer-bottom { color: #c3cedd; }
+@media (max-width: 1100px) and (min-width: 861px) { .nav-inner { gap: .5rem; } .nav-links a { font-size: .83rem; padding: .5rem; } .wordmark small { display: none; } }
+@media (max-width: 860px) { .journey { grid-template-columns: 1fr 1fr; } .feature-card { padding: 1.5rem; } }
+@media (max-width: 560px) { .journey { grid-template-columns: 1fr; gap: .7rem; } .hero-actions .btn { width: 100%; } .eyebrow { font-family: var(--body); text-transform: none; letter-spacing: 0; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } .js .reveal { opacity: 1; transform: none; } }
+
+/* Official StudyFyX logo: preserve the complete image and its proportions. */
+.site-logo { display: block; width: auto; height: 50px; object-fit: contain; flex-shrink: 0; }
+@media (max-width: 560px) { .site-logo { height: 44px; } }

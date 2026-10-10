@@ -687,7 +687,7 @@ export default function DreamDegreeResults({ studentData, backendResults, backwa
                     )}
                     {backwardData.career_path && (
                       <div className="bg-purple-50/60 rounded-xl p-4 border border-purple-100 md:col-span-2">
-                        <h3 className="text-purple-600 font-semibold mb-3 text-xs uppercase tracking-wider">Career Path</h3>
+                        <h3 className="text-purple-600 font-semibold mb-3 text-xs uppercase tracking-wider">Future Path</h3>
                         <p className="text-gray-700 text-sm">{backwardData.career_path}</p>
                       </div>
                     )}
@@ -720,7 +720,7 @@ export default function DreamDegreeResults({ studentData, backendResults, backwa
               {counterfactualGuidance && Object.keys(counterfactualGuidance).length > 0 && (
                 <div className="res-card-strong rounded-2xl p-6 border border-amber-200">
                   <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center space-x-2">
-                    <span className="text-2xl">💡</span>
+                    {/* <span className="text-2xl">💡</span> */}
                     <span>AI Improvement Guidance</span>
                   </h2>
                   <div className="space-y-4">

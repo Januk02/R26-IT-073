@@ -10,6 +10,24 @@ import DreamDegreeGuidance from './pages/DreamDegreeGuidance';
 import StudentProfile from './pages/StudentProfile';
 import { getRecommendations, getBackwardAnalysis } from './services/apiService';
 
+// Firestore does not accept `undefined` at any depth in a document. Optional
+// form fields may be absent in older profiles, so omit those values on save.
+const removeUndefined = (value) => {
+  if (Array.isArray(value)) {
+    return value.map((item) => item === undefined ? null : removeUndefined(item));
+  }
+
+  if (value && typeof value === 'object') {
+    return Object.fromEntries(
+      Object.entries(value)
+        .filter(([, item]) => item !== undefined)
+        .map(([key, item]) => [key, removeUndefined(item)])
+    );
+  }
+
+  return value;
+};
+
 export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, onNavigateToDashboard, initialView = 'home', initialStudentData = null }) {
   const { user } = useAuth();
   const [currentView, setCurrentView] = useState(initialView);

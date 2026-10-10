@@ -5,35 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Presentations | StudyFyX (R26-IT-073) Academic Slide Decks</title>
   <meta name="description" content="Slide decks and oral defense presentations delivered across research milestones for Project R26-IT-073 at SLIIT.">
-  <link rel="stylesheet" href="css/style.css?v=3.0">
+  <link rel="stylesheet" href="css/style.css?v=4.1">
+  <link rel="stylesheet" href="css/ui.css?v=6.5">
+  <link rel="icon" type="image/png" href="studyfyxlogo.png">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
 
   <header class="nav">
     <div class="wrap nav-inner">
       <a href="index.html" class="wordmark" aria-label="StudyFyX home">
-        <span class="mark"><span></span><span></span><span></span><span></span></span>
-        StudyFyX<small>R26-IT-073</small>
+        <img src="studyfyxlogo.png" class="site-logo" alt="StudyFyX">
+        <small>R26-IT-073</small>
       </a>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+      <button class="nav-toggle" id="navToggle" aria-controls="navMenu" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
       <ul class="nav-menu nav-links" id="navMenu">
         <li><a href="index.html">Home</a></li>
-        <li><a href="domain.html">Domain</a></li>
-        <li><a href="milestones.html">Milestones</a></li>
+        <li><a href="domain.html">Our research</a></li>
+        <li><a href="milestones.html">Timeline</a></li>
         <li><a href="documents.html">Documents</a></li>
-        <li><a href="presentations.html" class="active">Presentations</a></li>
+        <li><a href="presentations.html" class="active" aria-current="page">Presentations</a></li>
         <li><a href="about-us.html">About us</a></li>
         <li><a href="contact-us.html" class="nav-btn">Contact us</a></li>
       </ul>
     </div>
   </header>
 
-  <main>
+  <main id="main-content">
     <section class="page-hero">
       <div class="wrap">
+        <a class="breadcrumb" href="index.html">← Back to home</a>
         <p class="eyebrow">Academic Defenses &middot; Slide 13</p>
-        <h1 class="display">Oral Examination &amp; Presentation Slide Decks</h1>
-        <p class="lead">Official defense slide decks delivered before the Board of Examiners at SLIIT Faculty of Computing, including proposal defense, progress evaluations, and the capstone Viva Voce examination.</p>
+        <h1 class="display">Project presentations</h1>
+        <p class="lead">Find the slides from our proposal, progress reviews, and final presentation.</p>
       </div>
     </section>
 
@@ -43,9 +47,9 @@
         <div class="strip reveal">
           <div>
             <h3>Central presentations archive</h3>
-            <p>Access high-resolution presentation decks and evaluation records in the research group's OneDrive cloud storage.</p>
+            <p>Access high-resolution presentation decks and evaluation records in the research group's Google Drive folder.</p>
           </div>
-          <button class="btn btn-light btn-sm" onclick="openResearchDocument('Central Presentations Archive', 'Cloud Archive &middot; SLIIT R26-IT-073', 'Access the synchronized cloud folder containing all slide decks (PDF / PPTX) and viva presentation recordings.')">Open OneDrive archive →</button>
+          <button class="btn btn-light btn-sm" onclick="openResearchDocument('Central Presentations Archive', 'Cloud Archive &middot; SLIIT R26-IT-073', 'Access the synchronized cloud folder containing all slide decks (PDF / PPTX) and viva presentation recordings.')">Open Google Drive archive →</button>
         </div>
       </div>
     </section>
@@ -242,8 +246,8 @@
           <h5>Research</h5>
           <ul>
             <li><a href="index.html">Home</a></li>
-            <li><a href="domain.html">Domain</a></li>
-            <li><a href="milestones.html">Milestones</a></li>
+            <li><a href="domain.html">Our research</a></li>
+            <li><a href="milestones.html">Timeline</a></li>
             <li><a href="documents.html">Documents</a></li>
           </ul>
         </div>
@@ -278,15 +282,15 @@
       <div class="modal-meta" id="modalMeta">Official Deliverable</div>
       <p id="modalDesc"></p>
       <div id="modalNote" style="margin-top:1rem; padding:0.85rem; background:var(--paper); font-size:0.86rem; color:var(--ink-2); display:none;">
-        <strong>OneDrive access:</strong> Set your shared folder link in <code>js/main.js</code> to open slide decks directly.
+        <strong>Folder unavailable:</strong> Please contact the research team for presentation access.
       </div>
       <div class="modal-actions">
         <button class="btn btn-ghost btn-sm" onclick="closeAcademicModal()">Close</button>
-        <button class="btn btn-sm" id="modalCloudBtn">Open in OneDrive &rarr;</button>
+        <button class="btn btn-sm" id="modalCloudBtn">Open in Google Drive &rarr;</button>
       </div>
     </div>
   </div>
 
-  <script src="js/main.js?v=3.0"></script>
+  <script src="js/main.js?v=6.1"></script>
 </body>
 </html>
