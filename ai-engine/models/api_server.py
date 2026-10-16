@@ -97,7 +97,32 @@ class UserProfile(BaseModel):
 # ============================================================
 @app.get("/api/health")
 async def health_check():
-    return {"status": "online", "engine_loaded": ai_engine is not None}
+    if ai_engine is None:
+        return {"status": "offline", "engine_loaded": False, "database": "disconnected"}
+    
+    db_connected = False
+    try:
+        with ai_engine.driver.session() as session:
+            result = session.run("RETURN 1 AS ping").single()
+            if result and result["ping"] == 1:
+                db_connected = True
+    except Exception as e:
+        print(f"[HEALTH CHECK] Database connection issue: {e}")
+        db_connected = False
+
+    if not db_connected:
+        return {
+            "status": "degraded",
+            "engine_loaded": True,
+            "database": "disconnected",
+            "message": "AI Engine is active but Knowledge Graph connection is unavailable"
+        }
+        
+    return {
+        "status": "online",
+        "engine_loaded": True,
+        "database": "connected"
+    }
 
 # ============================================================
 # AUTOCOMPLETE ENDPOINTS

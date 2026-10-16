@@ -256,7 +256,7 @@ export default function GraphExplorer() {
       setRaw(data);
     } catch (e) {
       console.error(e);
-      setError('Could not load the transition graph. Verify the AI server is running.');
+      setError('Unable to load the career transition graph at this time. Please retry in a few moments.');
     } finally { setLoading(false); }
   }, [role, userSkills]);
 

@@ -21,7 +21,7 @@ const navItems = [
 export default function Layout({ children, onBackToPortal }) {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [engineOnline, setEngineOnline] = useState(null);
+  const [engineStatus, setEngineStatus] = useState(null); // 'online' | 'degraded' | 'offline' | null
   const location = useLocation();
   const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
@@ -33,9 +33,16 @@ export default function Layout({ children, onBackToPortal }) {
     const checkHealth = async () => {
       try {
         const res = await fetch(API.HEALTH);
-        if (isMounted) setEngineOnline(res.ok);
+        if (!res.ok) {
+          if (isMounted) setEngineStatus('offline');
+          return;
+        }
+        const data = await res.json();
+        if (isMounted) {
+          setEngineStatus(data.status || 'online');
+        }
       } catch (err) {
-        if (isMounted) setEngineOnline(false);
+        if (isMounted) setEngineStatus('offline');
       }
     };
     checkHealth();
@@ -210,9 +217,26 @@ export default function Layout({ children, onBackToPortal }) {
               </AnimatePresence>
             </button>
 
-            <div className={`engine-status ${engineOnline === false ? 'offline' : ''}`}>
-              <div className={`pulse-dot ${engineOnline === false ? 'offline' : ''}`} />
-              <span>{engineOnline === false ? 'AI Engine Offline' : engineOnline === true ? 'AI Engine Online' : 'Connecting...'}</span>
+            <div
+              className={`engine-status ${engineStatus === 'offline' ? 'offline' : engineStatus === 'degraded' ? 'degraded' : ''}`}
+              title={
+                engineStatus === 'degraded'
+                  ? 'AI Engine active, but Knowledge Graph is currently reconnecting'
+                  : engineStatus === 'offline'
+                  ? 'AI Microservice is currently offline'
+                  : 'AI Engine and Knowledge Graph are fully operational'
+              }
+            >
+              <div className={`pulse-dot ${engineStatus === 'offline' ? 'offline' : engineStatus === 'degraded' ? 'degraded' : ''}`} />
+              <span>
+                {engineStatus === 'offline'
+                  ? 'AI Engine Offline'
+                  : engineStatus === 'degraded'
+                  ? 'Database Reconnecting'
+                  : engineStatus === 'online'
+                  ? 'AI Engine Online'
+                  : 'Connecting...'}
+              </span>
             </div>
 
             {/* User Profile Chip */}

@@ -10,14 +10,10 @@ class KnowledgeGraphBuilder:
     def __init__(self):
         print("Initializing Enterprise Neo4j Graph Builder...")
         
-        # Load credentials from the .env file
-        load_dotenv()
-        self.uri = os.getenv("NEO4J_URI")
-        self.user = os.getenv("NEO4J_USERNAME")
-        self.password = os.getenv("NEO4J_PASSWORD")
-        
-        if not self.uri or not self.password:
-            raise ValueError("[WARNING] Missing Neo4j credentials! Please check your .env file.")
+        # Direct Neo4j Cloud instance credentials (unlinked from .env for seamless team sharing)
+        self.uri = "neo4j+ssc://dd75a4af.databases.neo4j.io"
+        self.user = "dd75a4af"
+        self.password = "zXpYWmDnM6m64pjBRsd1NbXN3V9U2mSM0jAOPA0H10I"
             
         # Initialize the Neo4j Driver with aggressive keep-alive settings
         # to prevent AuraDB from dropping the connection during heavy processing

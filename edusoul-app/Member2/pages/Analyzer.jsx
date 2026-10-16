@@ -100,16 +100,20 @@ export default function Analyzer() {
   const [refreshKey, setRefreshKey] = useState(0);
   const [savedIndexes, setSavedIndexes] = useState(new Set());
   const [notification, setNotification] = useState(null);
-  const [engineOnline, setEngineOnline] = useState(null);
+  const [engineStatus, setEngineStatus] = useState(null); // 'online' | 'degraded' | 'offline' | null
 
   useEffect(() => {
     const checkHealth = async () => {
       try {
         const res = await fetch(API.HEALTH);
-        if (res.ok) setEngineOnline(true);
-        else setEngineOnline(false);
+        if (!res.ok) {
+          setEngineStatus('offline');
+          return;
+        }
+        const data = await res.json();
+        setEngineStatus(data.status || 'online');
       } catch (err) {
-        setEngineOnline(false);
+        setEngineStatus('offline');
       }
     };
     checkHealth();
@@ -148,7 +152,15 @@ export default function Analyzer() {
       setTop3Results(response.data.data);
     } catch (error) {
       console.error("Analysis Failed:", error);
-      showNotification('Connection failed — is the Python server running?', 'error');
+      if (error.response?.status === 404) {
+        showNotification('No matching career pathways found. Try adding complementary technical skills.', 'warning');
+      } else if (error.response?.status >= 500) {
+        showNotification('Our AI career intelligence service is momentarily unavailable. Please try again shortly.', 'error');
+      } else if (error.code === 'ECONNABORTED' || !error.response) {
+        showNotification('Unable to reach the recommendation service. Please verify your connection.', 'error');
+      } else {
+        showNotification(error.response?.data?.detail || 'An unexpected error occurred while analyzing your pathway.', 'error');
+      }
     } finally {
       setIsSearching(false);
     }
@@ -269,9 +281,17 @@ export default function Analyzer() {
           )}
         </div>
 
-        <div className={`engine-bar ${engineOnline === false ? 'offline' : ''}`}>
-          <div className={`pulse-dot ${engineOnline === false ? 'offline' : ''}`} />
-          <span>{engineOnline === false ? 'AI Engine Offline' : engineOnline === true ? 'AI Engine Ready for Computation' : 'Connecting...'}</span>
+        <div className={`engine-bar ${engineStatus === 'offline' ? 'offline' : engineStatus === 'degraded' ? 'degraded' : ''}`}>
+          <div className={`pulse-dot ${engineStatus === 'offline' ? 'offline' : engineStatus === 'degraded' ? 'degraded' : ''}`} />
+          <span>
+            {engineStatus === 'offline'
+              ? 'AI Engine Offline'
+              : engineStatus === 'degraded'
+              ? 'AI Engine Active (Graph Reconnecting...)'
+              : engineStatus === 'online'
+              ? 'AI Engine Ready for Computation'
+              : 'Connecting...'}
+          </span>
         </div>
       </div>
 

@@ -162,6 +162,10 @@
   transition: all var(--duration-fast);
 }
 
+.engine-bar.degraded {
+  color: #F59E0B;
+}
+
 .engine-bar.offline {
   color: var(--danger);
 }

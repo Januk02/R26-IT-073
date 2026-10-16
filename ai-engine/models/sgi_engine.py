@@ -7,13 +7,10 @@ class UnifiedAIEngine:
     def __init__(self):
         print("Booting up Unified AI-Engine (Stacking Ensemble + Knowledge Graph)...")
         self.recommender = AdaptiveCareerRecommender()
-        load_dotenv()
-        self.uri = os.getenv("NEO4J_URI")
-        self.user = os.getenv("NEO4J_USERNAME")
-        self.password = os.getenv("NEO4J_PASSWORD")
-        
-        if not self.uri or not self.password:
-            raise ValueError("[WARN] Missing Neo4j credentials! Check your .env file.")
+        # Direct Neo4j Cloud instance credentials (unlinked from .env for seamless team sharing)
+        self.uri = "neo4j+ssc://dd75a4af.databases.neo4j.io"
+        self.user = "dd75a4af"
+        self.password = "zXpYWmDnM6m64pjBRsd1NbXN3V9U2mSM0jAOPA0H10I"
             
         self.driver = GraphDatabase.driver(self.uri, auth=(self.user, self.password))
 

@@ -192,7 +192,7 @@ export default function Landing({ onBackToPortal }) {
               </div>
               <div className="card-info">
                 <h4>Skill Gap Analyzer</h4>
-                <p>Identify in-demand skills you need next</p>
+                <p>Identify high-impact skill gaps</p>
               </div>
             </motion.div>
 
