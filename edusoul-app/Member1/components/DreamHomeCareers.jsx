@@ -1,3 +1,4 @@
+import { useAdvisorTranslation } from '../data/advisorTranslations';
 import React from "react";
 
 export default function DreamHomeCareers({
@@ -12,6 +13,7 @@ export default function DreamHomeCareers({
   onStart,
   t,
 }) {
+  const tr = useAdvisorTranslation();
   return (
     <section
       className="careers-section scroll-reveal"
@@ -20,19 +22,12 @@ export default function DreamHomeCareers({
 
       <div className="section-heading">
 
-        <span className="section-label">
-          EXPLORE YOUR POSSIBILITIES
-        </span>
+        <span className="section-label">{tr("EXPLORE YOUR POSSIBILITIES")}</span>
 
-        <h2>
-          Find a future goal that
-          <span> fits you.</span>
+        <h2>{tr("Find a future goal that")}<span>{tr("fits you.")}</span>
         </h2>
 
-        <p>
-          Explore future goals and discover where your
-          skills, interests and ambitions can take you.
-        </p>
+        <p>{tr("Explore future goals and discover where your skills, interests and ambitions can take you.")}</p>
 
       </div>
 
@@ -48,65 +43,65 @@ export default function DreamHomeCareers({
 
         {/* Category Filter */}
         <div className="filter-buttons">
-          {categories.map((category) => (
+          {tr(categories.map((category) => (
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
               className={`filter-button ${selectedCategory === category ? 'active' : ''}`}
             >
-              {category}
+              {tr(category)}
             </button>
-          ))}
+          )))}
         </div>
       </div>
 
       {/* Job Description Modal */}
-      {selectedJob && (
+      {tr(selectedJob && (
         <div className="job-modal-overlay" onClick={() => setSelectedJob(null)}>
           <div className="job-modal" onClick={(e) => e.stopPropagation()}>
             <div className="job-modal-header">
               <div className="job-modal-title">
-                <span className="job-modal-icon">{selectedJob.icon}</span>
+                <span className="job-modal-icon">{tr(selectedJob.icon)}</span>
                 <div>
-                  <h3 className="job-modal-name">{selectedJob.title}</h3>
-                  <span className="job-modal-category">{selectedJob.category}</span>
+                  <h3 className="job-modal-name">{tr(selectedJob.title)}</h3>
+                  <span className="job-modal-category">{tr(selectedJob.category)}</span>
                 </div>
               </div>
               <button onClick={() => setSelectedJob(null)} className="job-modal-close">×</button>
             </div>
 
-            <p className="job-modal-description">{selectedJob.description}</p>
+            <p className="job-modal-description">{tr(selectedJob.description)}</p>
 
             <div className="job-modal-stats">
               <div className="job-modal-stat job-modal-stat-blue">
-                <p className="job-modal-stat-label">Market Demand</p>
-                <p className="job-modal-stat-value">{selectedJob.marketDemand}%</p>
+                <p className="job-modal-stat-label">{tr("Market Demand")}</p>
+                <p className="job-modal-stat-value">{tr(selectedJob.marketDemand)}%</p>
               </div>
               <div className="job-modal-stat job-modal-stat-green">
-                <p className="job-modal-stat-label">Sustainability Score</p>
-                <p className="job-modal-stat-value">{selectedJob.sustainabilityScore}%</p>
+                <p className="job-modal-stat-label">{tr("Sustainability Score")}</p>
+                <p className="job-modal-stat-value">{tr(selectedJob.sustainabilityScore)}%</p>
               </div>
               <div className="job-modal-stat job-modal-stat-purple">
-                <p className="job-modal-stat-label">Average Salary</p>
-                <p className="job-modal-stat-value">{selectedJob.averageSalary}</p>
+                <p className="job-modal-stat-label">{tr("Average Salary")}</p>
+                <p className="job-modal-stat-value">{tr(selectedJob.averageSalary)}</p>
               </div>
             </div>
 
             <div className="job-modal-section">
-              <h4 className="job-modal-section-title">Required Skills</h4>
+              <h4 className="job-modal-section-title">{tr("Required Skills")}</h4>
               <div className="job-modal-tags">
-                {selectedJob.requiredSkills.map((skill, idx) => (
-                  <span key={idx} className="job-modal-tag job-modal-tag-gray">{skill}</span>
-                ))}
+                {tr(selectedJob.requiredSkills.map((skill, idx) => (
+                  <span key={idx} className="job-modal-tag job-modal-tag-gray">{tr(skill)}</span>
+                )))}
               </div>
             </div>
 
             <div className="job-modal-section">
-              <h4 className="job-modal-section-title">Required Qualifications</h4>
+              <h4 className="job-modal-section-title">{tr("Required Qualifications")}</h4>
               <div className="job-modal-tags">
-                {selectedJob.requiredQualifications.map((qual, idx) => (
-                  <span key={idx} className="job-modal-tag job-modal-tag-blue">{qual}</span>
-                ))}
+                {tr(selectedJob.requiredQualifications.map((qual, idx) => (
+                  <span key={idx} className="job-modal-tag job-modal-tag-blue">{tr(qual)}</span>
+                )))}
               </div>
             </div>
 
@@ -116,16 +111,15 @@ export default function DreamHomeCareers({
                 onStart();
               }}
               className="job-modal-button"
-            >
-              Start Your Journey with {selectedJob.title}
+            >{tr("Start Your Journey with")}{tr(selectedJob.title)}
             </button>
           </div>
         </div>
-      )}
+      ))}
 
       <div className="career-grid scroll-reveal">
 
-        {displayJobs.map((job) => (
+        {tr(displayJobs.map((job) => (
           <div
             className="career-card cursor-pointer"
             key={job.id}
@@ -134,23 +128,21 @@ export default function DreamHomeCareers({
           >
 
             <div className="career-icon">
-              {job.icon}
+              {tr(job.icon)}
             </div>
 
-            <span className="category-badge">{job.category}</span>
+            <span className="category-badge">{tr(job.category)}</span>
 
             <h3>
-              {job.title}
+              {tr(job.title)}
             </h3>
 
-            <p>
-              Explore this future goal →
-            </p>
+            <p>{tr("Explore this future goal →")}</p>
 
             </div>
 
           )
-        )}
+        ))}
 
       </div>
 

@@ -1,12 +1,14 @@
+import { useAdvisorTranslation } from '../data/advisorTranslations';
 import React from "react";
 
 export function StatsSection({ stats }) {
+  const tr = useAdvisorTranslation();
   return (
     <section className="stats-section scroll-reveal">
 
       <div className="stats-container">
 
-        {stats.map(
+        {tr(stats.map(
           ([icon, number, label]) => (
 
             <div
@@ -15,21 +17,21 @@ export function StatsSection({ stats }) {
             >
 
               <div className="stat-icon">
-                {icon}
+                {tr(icon)}
               </div>
 
               <div className="stat-number">
-                {number}
+                {tr(number)}
               </div>
 
               <div className="stat-label">
-                {label}
+                {tr(label)}
               </div>
 
             </div>
 
           )
-        )}
+        ))}
 
       </div>
 
@@ -38,6 +40,7 @@ export function StatsSection({ stats }) {
 }
 
 export function AISection({ onLogin }) {
+  const tr = useAdvisorTranslation();
   return (
     <section
       className="ai-section scroll-reveal from-left"
@@ -64,50 +67,31 @@ export function AISection({ onLogin }) {
 
         <div className="ai-content">
 
-          <span className="section-label">
-            AI-POWERED GUIDANCE
-          </span>
+          <span className="section-label">{tr("AI-POWERED GUIDANCE")}</span>
 
-          <h2>
-            Your future,
-            <span>
-              {" "}intelligently planned.
-            </span>
+          <h2>{tr("Your future,")}<span>
+              {" "}{tr("intelligently planned.")}</span>
           </h2>
 
-          <p>
-            DreamDegree analyzes your academic profile,
-            personality, interests and future goals to
-            provide personalized recommendations.
-          </p>
+          <p>{tr("DreamDegree analyzes your academic profile, personality, interests and future goals to provide personalized recommendations.")}</p>
 
           <div className="ai-list">
 
             <div>
-              <span>✓</span>
-              Personalized future goal recommendations
-            </div>
+              <span>✓</span>{tr("Personalized future goal recommendations")}</div>
 
             <div>
-              <span>✓</span>
-              Degree and university matching
-            </div>
+              <span>✓</span>{tr("Degree and university matching")}</div>
 
             <div>
-              <span>✓</span>
-              Explainable AI recommendations
-            </div>
+              <span>✓</span>{tr("Explainable AI recommendations")}</div>
 
             <div>
-              <span>✓</span>
-              Personalized future goal roadmap
-            </div>
+              <span>✓</span>{tr("Personalized future goal roadmap")}</div>
 
           </div>
 
-          <button className="primary-button" onClick={onLogin}>
-            Discover My Future Goal
-            <span>→</span>
+          <button className="primary-button" onClick={onLogin}>{tr("Discover My Future Goal")}<span>→</span>
           </button>
 
         </div>
@@ -119,6 +103,7 @@ export function AISection({ onLogin }) {
 }
 
 export function RoadmapSection() {
+  const tr = useAdvisorTranslation();
   return (
     <section
       className="roadmap-section scroll-reveal"
@@ -127,13 +112,9 @@ export function RoadmapSection() {
 
       <div className="section-heading">
 
-        <span className="section-label">
-          YOUR FUTURE GOAL JOURNEY
-        </span>
+        <span className="section-label">{tr("YOUR FUTURE GOAL JOURNEY")}</span>
 
-        <h2>
-          From student to
-          <span> success.</span>
+        <h2>{tr("From student to")}<span>{tr("success.")}</span>
         </h2>
 
       </div>
@@ -142,7 +123,7 @@ export function RoadmapSection() {
 
         <div className="roadmap-line" />
 
-        {[
+        {tr([
           [
             "01",
             "Discover Yourself",
@@ -172,21 +153,21 @@ export function RoadmapSection() {
             >
 
               <div className="step-number">
-                {number}
+                {tr(number)}
               </div>
 
               <h3>
-                {title}
+                {tr(title)}
               </h3>
 
               <p>
-                {text}
+                {tr(text)}
               </p>
 
             </div>
 
           )
-        )}
+        ))}
 
       </div>
 
@@ -195,19 +176,18 @@ export function RoadmapSection() {
 }
 
 export function UniversitiesSection({ universities }) {
+  const tr = useAdvisorTranslation();
   return (
     <section
       className="universities-section scroll-reveal from-right"
       id="about"
     >
 
-      <p>
-        TRUSTED BY STUDENTS ACROSS SRI LANKA
-      </p>
+      <p>{tr("TRUSTED BY STUDENTS ACROSS SRI LANKA")}</p>
 
       <div className="university-list">
 
-        {universities.map(
+        {tr(universities.map(
           (university) => (
 
             <div
@@ -219,12 +199,12 @@ export function UniversitiesSection({ universities }) {
                 ◈
               </span>
 
-              {university}
+              {tr(university)}
 
             </div>
 
           )
-        )}
+        ))}
 
       </div>
 
@@ -233,26 +213,20 @@ export function UniversitiesSection({ universities }) {
 }
 
 export function CTASection({ onStart, onLogin, onLogout }) {
+  const tr = useAdvisorTranslation();
   return (
     <section className="cta-section scroll-reveal scale-up">
 
       <div className="cta-content">
 
-        <span className="section-label">
-          START YOUR JOURNEY
-        </span>
+        <span className="section-label">{tr("START YOUR JOURNEY")}</span>
 
-        <h2>
-          Your future is waiting.
-        </h2>
+        <h2>{tr("Your future is waiting.")}</h2>
 
-        <p>
-          Let AI help you discover the degree,
-          future goal and future that fits you.
-        </p>
+        <p>{tr("Let AI help you discover the degree, future goal and future that fits you.")}</p>
 
         <button className="primary-button" onClick={onLogout ? onStart : onLogin}>
-          {onLogout ? 'Start Analysis' : 'Get Started'}
+          {tr(onLogout ? 'Start Analysis' : 'Get Started')}
           <span>→</span>
         </button>
 
@@ -263,20 +237,16 @@ export function CTASection({ onStart, onLogin, onLogout }) {
 }
 
 export function Footer() {
+  const tr = useAdvisorTranslation();
   return (
     <footer>
 
-      <div className="footer-logo">
-        Dream Degree <span>Advisor</span>
+      <div className="footer-logo">{tr("Dream Degree")}<span>{tr("Advisor")}</span>
       </div>
 
-      <p>
-        AI-powered future goal guidance for Sri Lankan students.
-      </p>
+      <p>{tr("AI-powered future goal guidance for Sri Lankan students.")}</p>
 
-      <div className="footer-bottom">
-        © 2026 DreamDegree. All rights reserved.
-      </div>
+      <div className="footer-bottom">{tr("© 2026 DreamDegree. All rights reserved.")}</div>
 
     </footer>
   );

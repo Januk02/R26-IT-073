@@ -1,3 +1,4 @@
+import { useAdvisorTranslation } from '../data/advisorTranslations';
 import React from "react";
 
 export default function DreamHomeNavbar({
@@ -17,6 +18,7 @@ export default function DreamHomeNavbar({
   avatarRef,
   authUser,
 }) {
+  const tr = useAdvisorTranslation();
   return (
     <header className="navbar">
 
@@ -28,13 +30,10 @@ export default function DreamHomeNavbar({
 
         <div>
 
-          <div className="logo-name">
-            Dream Degree<span> Advisor</span>
+          <div className="logo-name">{tr("Dream Degree")}<span>{tr("Advisor")}</span>
           </div>
 
-          <div className="logo-subtitle">
-            AI FUTURE GOAL GUIDE
-          </div>
+          <div className="logo-subtitle">{tr("AI FUTURE GOAL GUIDE")}</div>
 
         </div>
 
@@ -45,17 +44,11 @@ export default function DreamHomeNavbar({
         <a
           href="#home"
           className="active"
-        >
-          Home
-        </a>
+        >{tr("Home")}</a>
 
-        <a href="#careers">
-          Explore Future Goals
-        </a>
+        <a href="#careers">{tr("Explore Future Goals")}</a>
 
-        <a href="#ai">
-          AI Guidance
-        </a>
+        <a href="#ai">{tr("AI Guidance")}</a>
 
         {/* <a href="#roadmap">
           Roadmap
@@ -70,22 +63,22 @@ export default function DreamHomeNavbar({
       {/* Language Switcher */}
       <div className="language-switcher">
         <button
-          onClick={() => changeLanguage('en')}
+          onClick={() => changeLanguage('en')} lang="en" aria-pressed={language === 'en'}
           className={`lang-btn ${language === 'en' ? 'active' : ''}`}
         >
-          EN
+          English
         </button>
         <button
-          onClick={() => changeLanguage('si')}
+          onClick={() => changeLanguage('si')} lang="si" aria-pressed={language === 'si'}
           className={`lang-btn ${language === 'si' ? 'active' : ''}`}
         >
-          සිං
+          සිංහල
         </button>
         <button
-          onClick={() => changeLanguage('ta')}
+          onClick={() => changeLanguage('ta')} lang="ta" aria-pressed={language === 'ta'}
           className={`lang-btn ${language === 'ta' ? 'active' : ''}`}
         >
-          தமி
+          தமிழ்
         </button>
       </div>
 
@@ -94,48 +87,38 @@ export default function DreamHomeNavbar({
         <button className={`portal-btn ${portalOpen ? 'active' : ''}`} onClick={() => setPortalOpen(!portalOpen)}>
           <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z" />
-          </svg>
-          Portal
-        </button>
+          </svg>{tr("Portal")}</button>
 
-        {portalOpen && (
+        {tr(portalOpen && (
           <div className="portal-dropdown">
             {/* Header */}
             <div style={{ padding: '14px 18px 10px', borderBottom: '1px solid #f1f5f9', background: 'linear-gradient(135deg, #eff6ff, #fff7ed)' }}>
               <p style={{ fontSize: 12, fontWeight: 800, color: '#1e293b', margin: 0, letterSpacing: '0.5px', display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ width: 22, height: 22, borderRadius: 7, background: 'linear-gradient(135deg, #3b82f6, #2563eb)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 10, fontWeight: 900 }}>D</span>
-                Navigation
-              </p>
+                <span style={{ width: 22, height: 22, borderRadius: 7, background: 'linear-gradient(135deg, #3b82f6, #2563eb)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 10, fontWeight: 900 }}>D</span>{tr("Navigation")}</p>
             </div>
             <div style={{ padding: '6px 0' }}>
-              {onNavigateToDashboard && (
+              {tr(onNavigateToDashboard && (
                 <button className="portal-dropdown-item" onClick={() => { setPortalOpen(false); onNavigateToDashboard(); }}>
                   <span className="portal-dropdown-icon" style={{ background: '#eff6ff' }}>
                     <svg width="16" height="16" fill="none" stroke="#3b82f6" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
-                  </span>
-                  Dashboard
-                </button>
-              )}
-              {onViewProfile && (
+                  </span>{tr("Dashboard")}</button>
+              ))}
+              {tr(onViewProfile && (
                 <button className="portal-dropdown-item" onClick={() => { setPortalOpen(false); onViewProfile(); }}>
                   <span className="portal-dropdown-icon" style={{ background: '#fff7ed' }}>
                     <svg width="16" height="16" fill="none" stroke="#f97316" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
-                  </span>
-                  My Profile
-                </button>
-              )}
+                  </span>{tr("My Profile")}</button>
+              ))}
               <button className="portal-dropdown-item" onClick={() => { setPortalOpen(false); onStart(); }}>
                 <span className="portal-dropdown-icon" style={{ background: '#f0fdf4' }}>
                   <svg width="16" height="16" fill="none" stroke="#22c55e" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
-                </span>
-                New Analysis
-              </button>
+                </span>{tr("New Analysis")}</button>
             </div>
           </div>
-        )}
+        ))}
       </div>
 
-      {onLogout && authUser ? (
+      {tr(onLogout && authUser ? (
         <div ref={avatarRef} style={{ position: 'relative' }}>
           <button
             onClick={() => setAvatarOpen(!avatarOpen)}
@@ -151,8 +134,8 @@ export default function DreamHomeNavbar({
             onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.1)'; e.currentTarget.style.boxShadow = '0 6px 24px rgba(59,130,246,0.45)'; }}
             onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(59,130,246,0.30)'; }}
           >
-            {authUser.displayName ? authUser.displayName.charAt(0).toUpperCase()
-              : authUser.email ? authUser.email.charAt(0).toUpperCase() : '?'}
+            {tr(authUser.displayName ? authUser.displayName.charAt(0).toUpperCase()
+              : authUser.email ? authUser.email.charAt(0).toUpperCase() : '?')}
             {/* Online dot */}
             <span style={{
               position: 'absolute', bottom: 0, right: 0, width: 12, height: 12,
@@ -161,7 +144,7 @@ export default function DreamHomeNavbar({
           </button>
 
           {/* Avatar Dropdown */}
-          {avatarOpen && (
+          {tr(avatarOpen && (
             <div style={{
               position: 'absolute', top: 56, right: 0, width: 260,
               background: 'rgba(255,255,255,0.97)', backdropFilter: 'blur(20px)',
@@ -180,15 +163,15 @@ export default function DreamHomeNavbar({
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     color: 'white', fontWeight: 700, fontSize: 16,
                   }}>
-                    {authUser.displayName ? authUser.displayName.charAt(0).toUpperCase()
-                      : authUser.email ? authUser.email.charAt(0).toUpperCase() : '?'}
+                    {tr(authUser.displayName ? authUser.displayName.charAt(0).toUpperCase()
+                      : authUser.email ? authUser.email.charAt(0).toUpperCase() : '?')}
                   </div>
                   <div style={{ flex: 1, overflow: 'hidden' }}>
                     <p style={{ fontSize: 14, fontWeight: 700, color: '#1e293b', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                      {authUser.displayName || 'Student'}
+                      {tr(authUser.displayName || 'Student')}
                     </p>
                     <p style={{ fontSize: 11, color: '#94a3b8', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                      {authUser.email || ''}
+                      {tr(authUser.email || '')}
                     </p>
                   </div>
                 </div>
@@ -200,18 +183,17 @@ export default function DreamHomeNavbar({
                   onMouseEnter={e => e.currentTarget.style.background = '#fef2f2'}
                   onMouseLeave={e => e.currentTarget.style.background = 'none'}
                 >
-                  <span style={{ fontSize: 16 }}>🚪</span> Sign Out
-                </button>
+                  <span style={{ fontSize: 16 }}>🚪</span>{tr("Sign Out")}</button>
               </div>
             </div>
-          )}
+          ))}
         </div>
       ) : (
         <button className="nav-button" onClick={onLogin}>
-          {t.getStarted}
+          {tr(t.getStarted)}
           <span>→</span>
         </button>
-      )}
+      ))}
 
     </header>
   );

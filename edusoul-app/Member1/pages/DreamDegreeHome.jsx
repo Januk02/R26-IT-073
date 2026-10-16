@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useAdvisorTranslation } from '../data/advisorTranslations';
 import hom2Image from "../../src/assets/hom2.png";
 import { dreamJobs } from "../data/dreamDegreeData";
-import { useLanguage } from "../../src/App";
+import { useLanguage } from "../../src/contexts/LanguageContext";
 import { translations } from "../data/languageTranslations";
 import { useAuth } from "../../src/contexts/AuthContext";
 import './DreamDegreeHome.css';
@@ -13,6 +14,7 @@ import DreamHomeCareers from "../components/DreamHomeCareers";
 import { StatsSection, AISection, RoadmapSection, UniversitiesSection, CTASection, Footer } from "../components/DreamHomeSections";
 
 export default function App({ onStart, onLogin, onLogout, onNavigateToDashboard, onViewProfile }) {
+  const tr = useAdvisorTranslation();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedJob, setSelectedJob] = useState(null);
@@ -58,7 +60,7 @@ export default function App({ onStart, onLogin, onLogout, onNavigateToDashboard,
 
   // Filter jobs based on search and category
   const filteredJobs = dreamJobs.filter(job => {
-    const matchesSearch = job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    const matchesSearch = (job.title.toLowerCase().includes(searchTerm.toLowerCase()) || tr(job.title).toLowerCase().includes(searchTerm.toLowerCase())) ||
                          job.description.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === "All" || job.category === selectedCategory;
     return matchesSearch && matchesCategory;

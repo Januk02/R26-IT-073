@@ -1,7 +1,8 @@
+import { useAdvisorTranslation } from '../data/advisorTranslations';
 import { useState, useMemo, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { dreamJobs, personalityTraits, lifestyleFactors } from '../data/dreamDegreeData';
-import { useLanguage } from '../../src/App';
+import { useLanguage } from '../../src/contexts/LanguageContext';
 import { translations } from '../data/languageTranslations';
 import './DreamDegreeInput.css';
 
@@ -190,8 +191,9 @@ const CATEGORY_COLORS = {
 const DEFAULT_COLORS = { bg: 'bg-gray-50', border: 'border-gray-200', badge: 'bg-gray-100 text-gray-700', accent: 'from-gray-500 to-slate-500' };
 
 export default function DreamDegreeInput({ onAnalyze, onBack, onFinishOnboarding, onViewProfile, onNavigateToDashboard, initialData }) {
+  const tr = useAdvisorTranslation();
   const { language, changeLanguage } = useLanguage();
-  const t = translations[language];
+  const t = translations[language] || translations.en;
   // Skip onboarding if user already has a profile (they're editing)
   const hasExistingData = !!(initialData && initialData.personalInfo);
   const [onboardingStep, setOnboardingStep] = useState(hasExistingData ? -1 : 0);
@@ -237,7 +239,7 @@ export default function DreamDegreeInput({ onAnalyze, onBack, onFinishOnboarding
   const filteredJobs = useMemo(() => {
     return dreamJobs.filter(job => {
       const matchSearch = !jobSearch ||
-        job.title.toLowerCase().includes(jobSearch.toLowerCase()) ||
+        (job.title.toLowerCase().includes(jobSearch.toLowerCase()) || tr(job.title).toLowerCase().includes(jobSearch.toLowerCase())) ||
         job.category.toLowerCase().includes(jobSearch.toLowerCase());
       const matchCategory = jobCategory === 'All' || job.category === jobCategory;
       return matchSearch && matchCategory;
@@ -504,7 +506,7 @@ export default function DreamDegreeInput({ onAnalyze, onBack, onFinishOnboarding
 
       {/* Animated floating particles */}
       <div className="fixed inset-0 z-[1] pointer-events-none overflow-hidden">
-        {[...Array(25)].map((_, i) => (
+        {tr([...Array(25)].map((_, i) => (
           <div key={i} className="particle-dot" style={{
             '--size': `${Math.random() * 5 + 2}px`,
             '--x-start': `${Math.random() * 100}%`,
@@ -515,7 +517,7 @@ export default function DreamDegreeInput({ onAnalyze, onBack, onFinishOnboarding
             '--delay': `${Math.random() * 8}s`,
             '--duration': `${Math.random() * 6 + 6}s`,
           }} />
-        ))}
+        )))}
       </div>
 
       {/* Aurora streaks */}
@@ -544,13 +546,11 @@ export default function DreamDegreeInput({ onAnalyze, onBack, onFinishOnboarding
         >
           <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z" />
-          </svg>
-          Portal
-        </button>
+          </svg>{tr("Portal")}</button>
 
         {/* Portal Dropdown */}
         <AnimatePresence>
-          {portalOpen && (
+          {tr(portalOpen && (
             <motion.div
               initial={{ opacity: 0, y: -8, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -566,9 +566,7 @@ export default function DreamDegreeInput({ onAnalyze, onBack, onFinishOnboarding
             >
               <div style={{ padding: '14px 18px 10px', borderBottom: '1px solid #f1f5f9', background: 'linear-gradient(135deg, #eff6ff, #fff7ed)' }}>
                 <p style={{ fontSize: 12, fontWeight: 800, color: '#1e293b', margin: 0, letterSpacing: '0.5px', display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <span style={{ width: 22, height: 22, borderRadius: 7, background: 'linear-gradient(135deg, #3b82f6, #2563eb)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 10, fontWeight: 900 }}>D</span>
-                  Navigation
-                </p>
+                  <span style={{ width: 22, height: 22, borderRadius: 7, background: 'linear-gradient(135deg, #3b82f6, #2563eb)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 10, fontWeight: 900 }}>D</span>{tr("Navigation")}</p>
               </div>
               <div style={{ padding: '6px 0' }}>
                 <button onClick={() => { setPortalOpen(false); onBack(); }}
@@ -578,10 +576,8 @@ export default function DreamDegreeInput({ onAnalyze, onBack, onFinishOnboarding
                 >
                   <span style={{ width: 32, height: 32, borderRadius: 10, background: '#eff6ff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <svg width="16" height="16" fill="none" stroke="#3b82f6" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z" /></svg>
-                  </span>
-                  Home
-                </button>
-                {onViewProfile && (
+                  </span>{tr("Home")}</button>
+                {tr(onViewProfile && (
                   <button onClick={() => { setPortalOpen(false); onViewProfile(); }}
                     style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 12, padding: '11px 18px', background: 'none', border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 500, color: '#334155', transition: 'background 0.15s' }}
                     onMouseEnter={e => e.currentTarget.style.background = '#f1f5f9'}
@@ -589,11 +585,9 @@ export default function DreamDegreeInput({ onAnalyze, onBack, onFinishOnboarding
                   >
                     <span style={{ width: 32, height: 32, borderRadius: 10, background: '#fff7ed', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <svg width="16" height="16" fill="none" stroke="#f97316" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
-                    </span>
-                    My Profile
-                  </button>
-                )}
-                {onNavigateToDashboard && (
+                    </span>{tr("My Profile")}</button>
+                ))}
+                {tr(onNavigateToDashboard && (
                   <button onClick={() => { setPortalOpen(false); onNavigateToDashboard(); }}
                     style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 12, padding: '11px 18px', background: 'none', border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 500, color: '#334155', transition: 'background 0.15s' }}
                     onMouseEnter={e => e.currentTarget.style.background = '#f1f5f9'}
@@ -601,13 +595,11 @@ export default function DreamDegreeInput({ onAnalyze, onBack, onFinishOnboarding
                   >
                     <span style={{ width: 32, height: 32, borderRadius: 10, background: '#eef2ff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <svg width="16" height="16" fill="none" stroke="#6366f1" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
-                    </span>
-                    Dashboard
-                  </button>
-                )}
+                    </span>{tr("Dashboard")}</button>
+                ))}
               </div>
             </motion.div>
-          )}
+          ))}
         </AnimatePresence>
       </div>
 
@@ -615,7 +607,7 @@ export default function DreamDegreeInput({ onAnalyze, onBack, onFinishOnboarding
 
         <div className="max-w-5xl mx-auto relative z-10">
           {/* ============ ONBOARDING ============ */}
-          {onboardingStep >= 0 && (
+          {tr(onboardingStep >= 0 && (
             <InputOnboarding
               onboardingStep={onboardingStep}
               setOnboardingStep={setOnboardingStep}
@@ -625,15 +617,12 @@ export default function DreamDegreeInput({ onAnalyze, onBack, onFinishOnboarding
               handlePreviousOnboarding={handlePreviousOnboarding}
               t={t}
             />
-          )}
+          ))}
 
-          {/* ============ MAIN FORM ============ */}
-          {onboardingStep === -1 && (
-            <>
               {/* Language Switcher */}
               <div className="flex justify-end mb-6 space-x-2">
-                {['en', 'si', 'ta'].map((lang) => (
-                  <button key={lang} onClick={() => changeLanguage(lang)}
+                {tr(['en', 'si', 'ta'].map((lang) => (
+                  <button key={lang} onClick={() => changeLanguage(lang)} aria-pressed={language === lang} lang={lang}
                     className={`px-4 py-2 rounded-xl font-medium text-sm transition-all ${
                       language === lang
                         ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/25'
@@ -641,31 +630,35 @@ export default function DreamDegreeInput({ onAnalyze, onBack, onFinishOnboarding
                     }`}>
                     {lang === 'en' ? 'English' : lang === 'si' ? 'සිංහල' : 'தமிழ்'}
                   </button>
-                ))}
+                )))}
               </div>
 
+
+          {/* ============ MAIN FORM ============ */}
+          {tr(onboardingStep === -1 && (
+            <>
               {/* Update banner */}
-              {hasExistingData && (
+              {tr(hasExistingData && (
                 <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
                   className="glass-strong rounded-2xl px-5 py-3 mb-6 flex items-center gap-3">
                   <span className="w-8 h-8 rounded-xl bg-blue-100 flex items-center justify-center text-blue-600 text-sm">✏️</span>
                   <div className="flex-1">
-                    <p className="text-sm font-semibold text-gray-800">Updating Your Profile</p>
-                    <p className="text-xs text-gray-500">Your previous data has been loaded. Edit any section and re-analyze.</p>
+                    <p className="text-sm font-semibold text-gray-800">{tr("Updating Your Profile")}</p>
+                    <p className="text-xs text-gray-500">{tr("Your previous data has been loaded. Edit any section and re-analyze.")}</p>
                   </div>
                 </motion.div>
-              )}
+              ))}
 
               {/* Header */}
               <div className="text-center mb-10">
                 <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
                   <h1 className="text-4xl md:text-5xl font-extrabold mb-3">
                     <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-orange-500 bg-clip-text text-transparent">
-                      {t.title || 'Future Dream Degree Advisor'}
+                      {tr(t.title || 'Future Dream Degree Advisor')}
                     </span>
                   </h1>
                   <p className="text-gray-500 text-lg max-w-2xl mx-auto mb-4">
-                    {t.subtitle || 'Discover your ideal academic pathway based on your future goal'}
+                    {tr(t.subtitle || 'Discover your ideal academic pathway based on your future goal')}
                   </p>
                 </motion.div>
               </div>
@@ -673,7 +666,7 @@ export default function DreamDegreeInput({ onAnalyze, onBack, onFinishOnboarding
               {/* ========== PROGRESS STEPPER ========== */}
               <div className="flex justify-center mb-10">
                 <div className="flex items-center glass rounded-2xl px-6 py-4">
-                  {stepTitles.map((info, index) => (
+                  {tr(stepTitles.map((info, index) => (
                     <div key={index} className="flex items-center">
                       <button onClick={() => setStep(index + 1)}
                         className={`relative flex flex-col items-center justify-center w-14 h-14 rounded-xl transition-all duration-300 cursor-pointer ${
@@ -683,26 +676,26 @@ export default function DreamDegreeInput({ onAnalyze, onBack, onFinishOnboarding
                               ? 'bg-gradient-to-br from-emerald-500 to-green-500 text-white shadow-lg shadow-emerald-500/20'
                               : 'bg-white text-gray-400 border-2 border-gray-200 hover:border-blue-300 hover:text-blue-500'
                         }`}>
-                        <span className="text-lg">{isStepComplete(index + 1) && step !== index + 1 ? '✓' : info.icon}</span>
+                        <span className="text-lg">{tr(isStepComplete(index + 1) && step !== index + 1 ? '✓' : info.icon)}</span>
                       </button>
-                      {index < 3 && (
+                      {tr(index < 3 && (
                         <div className={`w-10 md:w-16 h-1 mx-1.5 rounded-full transition-all duration-500 ${
                           isStepComplete(index + 1) ? 'bg-gradient-to-r from-emerald-400 to-green-400' : 'bg-gray-200'
                         }`} />
-                      )}
+                      ))}
                     </div>
-                  ))}
+                  )))}
                 </div>
               </div>
 
               {/* Current Step Title */}
               <motion.div key={step} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-6">
                 <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-1 flex items-center justify-center gap-3">
-                  <span>{stepTitles[step - 1].icon}</span>
-                  {stepTitles[step - 1].title}
-                  <span className="text-sm font-normal text-orange-400 ml-2 bg-orange-50 px-2 py-0.5 rounded-full">Step {step}/4</span>
+                  <span>{tr(stepTitles[step - 1].icon)}</span>
+                  {tr(stepTitles[step - 1].title)}
+                  <span className="text-sm font-normal text-orange-400 ml-2 bg-orange-50 px-2 py-0.5 rounded-full">{tr("Step")}{tr(step)}/4</span>
                 </h2>
-                <p className="text-gray-500">{stepTitles[step - 1].subtitle}</p>
+                <p className="text-gray-500">{tr(stepTitles[step - 1].subtitle)}</p>
               </motion.div>
 
               {/* ========== STEP CONTENT ========== */}
@@ -716,7 +709,7 @@ export default function DreamDegreeInput({ onAnalyze, onBack, onFinishOnboarding
                   className="glass-strong rounded-3xl p-6 md:p-8 step-card-enter"
                 >
                   {/* ===== STEP 1: Personal Info + Dream Job ===== */}
-                  {step === 1 && (
+                  {tr(step === 1 && (
                     <InputStepPersonal
                       formData={formData} setFormData={setFormData}
                       jobSearch={jobSearch} setJobSearch={setJobSearch}
@@ -728,10 +721,10 @@ export default function DreamDegreeInput({ onAnalyze, onBack, onFinishOnboarding
                       t={t} CATEGORY_COLORS={CATEGORY_COLORS}
                       DEFAULT_COLORS={DEFAULT_COLORS} ALL_DISTRICTS={ALL_DISTRICTS}
                     />
-                  )}
+                  ))}
 
                   {/* ===== STEP 2: Academic Results ===== */}
-                  {step === 2 && (
+                  {tr(step === 2 && (
                     <InputStepAcademic
                       formData={formData} setFormData={setFormData}
                       handleStreamChange={handleStreamChange}
@@ -742,10 +735,10 @@ export default function DreamDegreeInput({ onAnalyze, onBack, onFinishOnboarding
                       streamSubjects={streamSubjects}
                       STREAM_SUBJECTS={STREAM_SUBJECTS}
                     />
-                  )}
+                  ))}
 
                   {/* ===== STEP 3: Personality Traits ===== */}
-                  {step === 3 && (
+                  {tr(step === 3 && (
                     <InputStepPersonality
                       formData={formData}
                       handlePersonalityChange={handlePersonalityChange}
@@ -753,16 +746,16 @@ export default function DreamDegreeInput({ onAnalyze, onBack, onFinishOnboarding
                       getScoreColor={getScoreColor}
                       getScoreBarWidth={getScoreBarWidth}
                     />
-                  )}
+                  ))}
 
                   {/* ===== STEP 4: Lifestyle Preferences ===== */}
-                  {step === 4 && (
+                  {tr(step === 4 && (
                     <InputStepLifestyle
                       formData={formData}
                       handleLifestyleChange={handleLifestyleChange}
                       lifestyleFactors={lifestyleFactors}
                     />
-                  )}
+                  ))}
 
                   {/* ========== NAVIGATION BUTTONS ========== */}
                   <div className="flex justify-between items-center mt-8 pt-6 border-t border-gray-200/60">
@@ -770,25 +763,19 @@ export default function DreamDegreeInput({ onAnalyze, onBack, onFinishOnboarding
                       className="px-6 py-3 bg-white text-gray-500 rounded-xl hover:bg-gray-50 transition-all font-medium flex items-center gap-2 text-sm border border-gray-200 shadow-sm">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                      </svg>
-                      Exit
-                    </button>
+                      </svg>{tr("Exit")}</button>
 
                     <div className="flex gap-3">
-                      {step > 1 && (
+                      {tr(step > 1 && (
                         <button onClick={prevStep}
                           className="px-6 py-3 bg-white text-gray-500 rounded-xl hover:bg-gray-50 transition-all font-medium flex items-center gap-2 text-sm border border-gray-200 shadow-sm">
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                          </svg>
-                          Previous
-                        </button>
-                      )}
-                      {step < 4 ? (
+                          </svg>{tr("Previous")}</button>
+                      ))}
+                      {tr(step < 4 ? (
                         <button onClick={nextStep}
-                          className="px-8 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/25 font-medium flex items-center gap-2 text-sm">
-                          Next
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          className="px-8 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/25 font-medium flex items-center gap-2 text-sm">{tr("Next")}<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                           </svg>
                         </button>
@@ -801,19 +788,19 @@ export default function DreamDegreeInput({ onAnalyze, onBack, onFinishOnboarding
                               ? 'bg-gradient-to-r from-blue-600 to-orange-500 text-white shadow-blue-500/30 shimmer-border'
                               : 'bg-gray-200 text-gray-400 shadow-none cursor-not-allowed'
                           }`}>
-                          <span>{allStepsComplete ? '🚀' : '⚠️'}</span>
-                          {allStepsComplete
+                          <span>{tr(allStepsComplete ? '🚀' : '⚠️')}</span>
+                          {tr(allStepsComplete
                             ? (t.analyze || 'Analyze My Pathway')
-                            : 'Complete all steps first'
+                            : 'Complete all steps first')
                           }
                         </motion.button>
-                      )}
+                      ))}
                     </div>
                   </div>
                 </motion.div>
               </AnimatePresence>
             </>
-          )}
+          ))}
         </div>
       </div>
     </div>

@@ -1,10 +1,13 @@
+import { useLanguage } from '../../src/contexts/LanguageContext';
+import { useAdvisorTranslation } from '../data/advisorTranslations';
 import { useState, useRef, useEffect } from 'react';
 import { dreamJobs } from '../data/dreamDegreeData';
 
 const BG_IMAGE_URL = 'https://i.pinimg.com/1200x/d7/76/5d/d7765d7445ccfecafbd6546e8e36b813.jpg';
 
 export default function DreamDegreeRoadmap({ recommendation, studentData, onBack, onHome, onViewProfile, onNavigateToDashboard }) {
-  const [language, setLanguage] = useState('en');
+  const tr = useAdvisorTranslation();
+  const { language, changeLanguage: setLanguage } = useLanguage();
   const [selectedPath, setSelectedPath] = useState('academic');
   const [portalOpen, setPortalOpen] = useState(false);
   const portalRef = useRef(null);
@@ -206,10 +209,8 @@ export default function DreamDegreeRoadmap({ recommendation, studentData, onBack
         >
           <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z" />
-          </svg>
-          Portal
-        </button>
-        {portalOpen && (
+          </svg>{tr("Portal")}</button>
+        {tr(portalOpen && (
           <div style={{
             position: 'absolute', top: 'calc(100% + 10px)', left: 0, width: 260,
             background: 'rgba(255,255,255,0.97)', backdropFilter: 'blur(24px)',
@@ -220,9 +221,7 @@ export default function DreamDegreeRoadmap({ recommendation, studentData, onBack
             <style>{`@keyframes portalDropIn { from { opacity: 0; transform: translateY(-8px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }`}</style>
             <div style={{ padding: '14px 18px 10px', borderBottom: '1px solid rgba(226,232,240,0.6)', background: 'linear-gradient(135deg, rgba(59,130,246,0.06), rgba(249,115,22,0.04))' }}>
               <p style={{ fontSize: 12, fontWeight: 800, color: '#1e293b', margin: 0, letterSpacing: '0.5px', display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ width: 22, height: 22, borderRadius: 7, background: 'linear-gradient(135deg, #3b82f6, #2563eb)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 10, fontWeight: 900 }}>D</span>
-                Navigation
-              </p>
+                <span style={{ width: 22, height: 22, borderRadius: 7, background: 'linear-gradient(135deg, #3b82f6, #2563eb)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 10, fontWeight: 900 }}>D</span>{tr("Navigation")}</p>
             </div>
             <div style={{ padding: '6px 0' }}>
               <button onClick={() => { setPortalOpen(false); onHome(); }}
@@ -232,10 +231,8 @@ export default function DreamDegreeRoadmap({ recommendation, studentData, onBack
               >
                 <span style={{ width: 32, height: 32, borderRadius: 10, background: 'rgba(59,130,246,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <svg width="16" height="16" fill="none" stroke="#3b82f6" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z" /></svg>
-                </span>
-                Home
-              </button>
-              {onViewProfile && (
+                </span>{tr("Home")}</button>
+              {tr(onViewProfile && (
                 <button onClick={() => { setPortalOpen(false); onViewProfile(); }}
                   style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 12, padding: '11px 18px', background: 'none', border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 500, color: '#475569', transition: 'background 0.15s' }}
                   onMouseEnter={e => e.currentTarget.style.background = 'rgba(249,115,22,0.06)'}
@@ -243,11 +240,9 @@ export default function DreamDegreeRoadmap({ recommendation, studentData, onBack
                 >
                   <span style={{ width: 32, height: 32, borderRadius: 10, background: 'rgba(249,115,22,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <svg width="16" height="16" fill="none" stroke="#f97316" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
-                  </span>
-                  My Profile
-                </button>
-              )}
-              {onNavigateToDashboard && (
+                  </span>{tr("My Profile")}</button>
+              ))}
+              {tr(onNavigateToDashboard && (
                 <button onClick={() => { setPortalOpen(false); onNavigateToDashboard(); }}
                   style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 12, padding: '11px 18px', background: 'none', border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 500, color: '#475569', transition: 'background 0.15s' }}
                   onMouseEnter={e => e.currentTarget.style.background = 'rgba(99,102,241,0.06)'}
@@ -255,13 +250,11 @@ export default function DreamDegreeRoadmap({ recommendation, studentData, onBack
                 >
                   <span style={{ width: 32, height: 32, borderRadius: 10, background: 'rgba(99,102,241,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <svg width="16" height="16" fill="none" stroke="#6366f1" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
-                  </span>
-                  Dashboard
-                </button>
-              )}
+                  </span>{tr("Dashboard")}</button>
+              ))}
             </div>
           </div>
-        )}
+        ))}
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 py-8">
@@ -271,45 +264,44 @@ export default function DreamDegreeRoadmap({ recommendation, studentData, onBack
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
-            <span className="text-sm font-medium">Back to Results</span>
+            <span className="text-sm font-medium">{tr("Back to Results")}</span>
           </button>
           <div className="flex items-center space-x-2">
-            {['en', 'si', 'ta'].map((lang) => (
+            {tr(['en', 'si', 'ta'].map((lang) => (
               <button
                 key={lang}
-                onClick={() => setLanguage(lang)}
+                onClick={() => setLanguage(lang)} aria-pressed={language === lang} lang={lang}
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                   language === lang
                     ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
                     : 'bg-white/60 text-slate-500 hover:bg-white/80 border border-slate-200'
                 }`}
               >
-                {lang === 'en' ? 'EN' : lang === 'si' ? 'SI' : 'TA'}
+                {lang === 'en' ? 'English' : lang === 'si' ? 'සිංහල' : 'தமிழ்'}
               </button>
-            ))}
+            )))}
           </div>
         </div>
 
         {/* Header */}
         <div className="text-center mb-10">
           <h1 className="text-4xl font-normal mb-3">
-            <span className="text-slate-900">Map your dream. </span><span className="text-blue-600">Make it real</span>
+            <span className="text-slate-900">{tr("Map your dream.")}</span><span className="text-blue-600">{tr("Make it real")}</span>
           </h1>
-          <p className="text-slate-500 text-lg">
-            Personalized pathway to become a <span className="text-blue-600 font-semibold">{studentData.dreamJob}</span>
+          <p className="text-slate-500 text-lg">{tr("Personalized pathway to become a")}<span className="text-blue-600 font-semibold">{tr(studentData.dreamJob)}</span>
           </p>
           <div className="flex items-center justify-center space-x-4 mt-4">
             <span className="text-sm bg-blue-50 text-blue-600 px-3 py-1 rounded-full border border-blue-200 font-medium">
-              {degree}
+              {tr(degree)}
             </span>
             <span className="text-sm bg-purple-50 text-purple-600 px-3 py-1 rounded-full border border-purple-200 font-medium">
-              {university}
+              {tr(university)}
             </span>
           </div>
         </div>
 
         {/* Backend AI Roadmap (if available) */}
-        {backendRoadmap.length > 0 && (
+        {tr(backendRoadmap.length > 0 && (
           <div className="road-card-strong rounded-2xl p-6 mb-8">
             <div className="bg-gradient-to-r from-blue-50 to-orange-50 rounded-xl p-5 border border-blue-100">
               <h2 className="text-xl font-bold text-slate-800 mb-4 flex items-center space-x-2">
@@ -318,25 +310,25 @@ export default function DreamDegreeRoadmap({ recommendation, studentData, onBack
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                 </span>
-                <span>Your Future, One Step Ahead</span>
+                <span>{tr("Your Future, One Step Ahead")}</span>
               </h2>
               <div className="space-y-3">
-                {backendRoadmap.map((step, idx) => (
+                {tr(backendRoadmap.map((step, idx) => (
                   <div key={idx} className="flex items-start space-x-4 bg-white/80 rounded-xl p-4 border border-slate-100">
                     <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-orange-500 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
-                      {idx + 1}
+                      {tr(idx + 1)}
                     </div>
-                    <p className="text-slate-700 leading-relaxed">{step}</p>
+                    <p className="text-slate-700 leading-relaxed">{tr(step)}</p>
                   </div>
-                ))}
+                )))}
               </div>
             </div>
           </div>
-        )}
+        ))}
 
         {/* Path Selector */}
         <div className="road-card rounded-2xl p-1.5 mb-8 flex">
-          {[
+          {tr([
             { id: 'academic', icon: '🎓', label: 'Academic Path', sub: 'Research & Teaching' },
             { id: 'entrepreneurial', icon: '🚀', label: 'Entrepreneurial', sub: 'Start Your Own Business' },
             { id: 'industry', icon: '💼', label: 'Industry Professional', sub: 'Corporate Career' }
@@ -350,65 +342,65 @@ export default function DreamDegreeRoadmap({ recommendation, studentData, onBack
                   : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50'
               }`}
             >
-              <div className="text-2xl mb-1">{path.icon}</div>
-              <h3 className="font-bold text-sm">{path.label}</h3>
-              <p className={`text-xs ${selectedPath === path.id ? 'text-white/80' : 'text-slate-400'}`}>{path.sub}</p>
+              <div className="text-2xl mb-1">{tr(path.icon)}</div>
+              <h3 className="font-bold text-sm">{tr(path.label)}</h3>
+              <p className={`text-xs ${selectedPath === path.id ? 'text-white/80' : 'text-slate-400'}`}>{tr(path.sub)}</p>
             </button>
-          ))}
+          )))}
         </div>
 
         {/* Timeline */}
         <div className="road-card-strong rounded-2xl p-6 mb-8">
-          <h2 className="text-2xl font-bold text-slate-800 mb-8">{currentRoadmap.title}</h2>
+          <h2 className="text-2xl font-bold text-slate-800 mb-8">{tr(currentRoadmap.title)}</h2>
 
           <div className="relative">
             <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-400 via-orange-400 to-blue-400 rounded-full" />
 
             <div className="space-y-8">
-              {currentRoadmap.milestones.map((milestone, index) => (
+              {tr(currentRoadmap.milestones.map((milestone, index) => (
                 <div key={index} className="relative flex items-start ml-16">
                   <div className="absolute -left-12 w-8 h-8 bg-gradient-to-br from-blue-500 to-orange-500 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-blue-500/20">
-                    {index + 1}
+                    {tr(index + 1)}
                   </div>
 
                   <div className="flex-1 bg-white/60 rounded-2xl p-6 border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all">
                     <div className="flex justify-between items-start mb-3">
                       <div>
                         <span className="text-xs bg-blue-50 text-blue-600 px-3 py-1 rounded-full border border-blue-200 font-semibold">
-                          {milestone.year}
+                          {tr(milestone.year)}
                         </span>
-                        <h3 className="text-xl font-bold text-slate-800 mt-2">{milestone.title}</h3>
+                        <h3 className="text-xl font-bold text-slate-800 mt-2">{tr(milestone.title)}</h3>
                       </div>
                     </div>
 
-                    <p className="text-slate-500 mb-4">{milestone.description}</p>
+                    <p className="text-slate-500 mb-4">{tr(milestone.description)}</p>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="bg-blue-50/60 rounded-xl p-4 border border-blue-100">
-                        <h4 className="font-semibold text-slate-700 mb-2 text-sm">Key Activities</h4>
+                        <h4 className="font-semibold text-slate-700 mb-2 text-sm">{tr("Key Activities")}</h4>
                         <ul className="space-y-1.5">
-                          {milestone.activities.map((activity, idx) => (
+                          {tr(milestone.activities.map((activity, idx) => (
                             <li key={idx} className="text-sm text-slate-600 flex items-center">
                               <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 flex-shrink-0" />
-                              {activity}
+                              {tr(activity)}
                             </li>
-                          ))}
+                          )))}
                         </ul>
                       </div>
                       <div className="bg-orange-50/60 rounded-xl p-4 border border-orange-100">
-                        <h4 className="font-semibold text-slate-700 mb-2 text-sm">Skills to Develop</h4>
+                        <h4 className="font-semibold text-slate-700 mb-2 text-sm">{tr("Skills to Develop")}</h4>
                         <div className="flex flex-wrap gap-2">
-                          {milestone.skills.map((skill, idx) => (
+                          {tr(milestone.skills.map((skill, idx) => (
                             <span key={idx} className="text-xs bg-white text-orange-600 px-2.5 py-1 rounded-full border border-orange-200 font-medium">
-                              {skill}
+                              {tr(skill)}
                             </span>
-                          ))}
+                          )))}
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              ))}
+              )))}
             </div>
           </div>
         </div>
@@ -419,7 +411,7 @@ export default function DreamDegreeRoadmap({ recommendation, studentData, onBack
           {/* <div className="road-card-strong rounded-2xl p-6">
             <h3 className="text-lg font-bold text-slate-800 mb-4 flex items-center space-x-2">
               <span className="text-xl">📚</span>
-              <span>Recommended Bridging Courses</span>
+              <span>{tr("Recommended Bridging Courses")}</span>
             </h3>
             <div className="space-y-3">
               {bridgingCourses.map((course, index) => (
@@ -444,7 +436,7 @@ export default function DreamDegreeRoadmap({ recommendation, studentData, onBack
           {/* <div className="road-card-strong rounded-2xl p-6">
             <h3 className="text-lg font-bold text-slate-800 mb-4 flex items-center space-x-2">
               <span className="text-xl">🏆</span>
-              <span>Micro-Credentials</span>
+              <span>{tr("Micro-Credentials")}</span>
             </h3>
             <div className="space-y-3">
               {microCredentials.map((credential, index) => (
@@ -472,21 +464,15 @@ export default function DreamDegreeRoadmap({ recommendation, studentData, onBack
             <button
               onClick={onBack}
               className="w-full sm:w-auto px-6 py-3 bg-white/80 text-slate-600 rounded-xl hover:bg-white transition-all border border-slate-200 font-medium"
-            >
-              Back to Results
-            </button>
+            >{tr("Back to Results")}</button>
             <button
               onClick={onHome}
               className="w-full sm:w-auto px-6 py-3 bg-white/80 text-slate-600 rounded-xl hover:bg-white transition-all border border-slate-200 font-medium"
-            >
-              Back to Home
-            </button>
+            >{tr("Back to Home")}</button>
             <button
               onClick={() => window.print()}
               className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-blue-600 to-orange-500 text-white rounded-xl hover:from-blue-700 hover:to-orange-600 transition-all shadow-lg shadow-blue-500/20 font-medium"
-            >
-              Print Roadmap
-            </button>
+            >{tr("Print Roadmap")}</button>
           </div>
         </div>
       </div>

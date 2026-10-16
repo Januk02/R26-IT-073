@@ -1,6 +1,8 @@
+import { useAdvisorTranslation } from '../data/advisorTranslations';
 import React from "react";
 
 export default function DreamHomeHero({ onStart, features, hom2Image }) {
+  const tr = useAdvisorTranslation();
   return (
     <section
       className="hero hero-animate-in"
@@ -17,44 +19,28 @@ export default function DreamHomeHero({ onStart, features, hom2Image }) {
         <div className="hero-content">
 
           <div className="eyebrow">
-            <span>✦</span>
-            AI-POWERED FUTURE GOAL DISCOVERY
-          </div>
+            <span>✦</span>{tr("AI-POWERED FUTURE GOAL DISCOVERY")}</div>
 
-          <h1>
-            Discover.
-            <br />
-            Plan.
-            <br />
-            <span>Succeed.</span>
+          <h1>{tr("Discover.")}<br />{tr("Plan.")}<br />
+            <span>{tr("Succeed.")}</span>
           </h1>
 
-          <p className="hero-description">
-            Personalized future goal guidance powered by AI
-            to help you find the{" "}
-            <strong>perfect degree</strong>{" "}
-            and build your future.
-          </p>
+          <p className="hero-description">{tr("Personalized future goal guidance powered by AI to help you find the")}{" "}
+            <strong>{tr("perfect degree")}</strong>{" "}{tr("and build your future.")}</p>
 
           <div className="hero-actions">
 
             <button
               className="primary-button"
               onClick={onStart}
-            >
-              Start Your Journey
-              <span>→</span>
+            >{tr("Start Your Journey")}<span>→</span>
             </button>
 
             <button className="demo-button">
 
               <span className="play">
                 ▶
-              </span>
-
-              Watch Demo
-
-            </button>
+              </span>{tr("Watch Demo")}</button>
 
           </div>
 
@@ -81,7 +67,7 @@ export default function DreamHomeHero({ onStart, features, hom2Image }) {
 
             <img
               src={hom2Image}
-              alt="DreamDegree student"
+              alt={tr("DreamDegree student")}
               className="student-avatar"
             />
 
@@ -89,7 +75,7 @@ export default function DreamHomeHero({ onStart, features, hom2Image }) {
 
           {/* Floating Cards */}
 
-          {features.map(
+          {tr(features.map(
             (feature) => (
 
               <div
@@ -98,17 +84,17 @@ export default function DreamHomeHero({ onStart, features, hom2Image }) {
               >
 
                 <div className="feature-icon">
-                  {feature.icon}
+                  {tr(feature.icon)}
                 </div>
 
                 <div>
 
                   <h3>
-                    {feature.title}
+                    {tr(feature.title)}
                   </h3>
 
                   <p>
-                    {feature.text}
+                    {tr(feature.text)}
                   </p>
 
                 </div>
@@ -116,7 +102,7 @@ export default function DreamHomeHero({ onStart, features, hom2Image }) {
               </div>
 
             )
-          )}
+          ))}
 
         </div>
 

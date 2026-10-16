@@ -1,3 +1,4 @@
+import { useAdvisorTranslation } from './data/advisorTranslations';
 import { useState, useEffect } from 'react';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { db } from '../src/firebase';
@@ -29,6 +30,7 @@ const removeUndefined = (value) => {
 };
 
 export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, onNavigateToDashboard, initialView = 'home', initialStudentData = null }) {
+  const tr = useAdvisorTranslation();
   const { user } = useAuth();
   const [currentView, setCurrentView] = useState(initialView);
   const [studentData, setStudentData] = useState(initialStudentData);
@@ -155,14 +157,12 @@ export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, o
             </div>
           </div>
 
-          <h2 className="text-3xl font-bold text-white mb-3">AI Model Processing</h2>
-          <p className="text-blue-200/80 text-lg mb-6">
-            Our trained Random Forest model is analyzing your profile across 44 universities...
-          </p>
+          <h2 className="text-3xl font-bold text-white mb-3">{tr("AI Model Processing")}</h2>
+          <p className="text-blue-200/80 text-lg mb-6">{tr("Our trained Random Forest model is analyzing your profile across 44 universities...")}</p>
 
           {/* Progress Steps */}
           <div className="space-y-3 text-left bg-white/5 rounded-2xl p-6 border border-white/10">
-            {[
+            {tr([
               'Analyzing personality traits...',
               'Running career prediction model...',
               'Matching with university programs...',
@@ -171,9 +171,9 @@ export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, o
             ].map((step, i) => (
               <div key={i} className="flex items-center space-x-3" style={{ animationDelay: `${i * 0.5}s` }}>
                 <div className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" style={{ animationDelay: `${i * 0.3}s` }} />
-                <span className="text-blue-100/70 text-sm">{step}</span>
+                <span className="text-blue-100/70 text-sm">{tr(step)}</span>
               </div>
-            ))}
+            )))}
           </div>
         </div>
       </div>
@@ -191,14 +191,14 @@ export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, o
             </svg>
           </div>
 
-          <h2 className="text-2xl font-bold text-white mb-3">Connection Error</h2>
-          <p className="text-red-200/80 mb-2">Could not reach the AI backend server.</p>
+          <h2 className="text-2xl font-bold text-white mb-3">{tr("Connection Error")}</h2>
+          <p className="text-red-200/80 mb-2">{tr("Could not reach the AI backend server.")}</p>
           <p className="text-sm text-red-300/60 mb-8 bg-red-500/10 p-3 rounded-lg border border-red-500/20 font-mono">
-            {error}
+            {tr(error)}
           </p>
 
           <div className="bg-white/5 rounded-xl p-4 mb-8 border border-white/10 text-left">
-            <p className="text-white font-medium mb-2">Make sure the backend is running:</p>
+            <p className="text-white font-medium mb-2">{tr("Make sure the backend is running:")}</p>
             <code className="text-blue-300 text-sm block bg-black/30 p-3 rounded-lg">
               cd backend && python flask_app.py
             </code>
@@ -208,15 +208,11 @@ export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, o
             <button
               onClick={handleRetry}
               className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all font-medium shadow-lg shadow-blue-500/30"
-            >
-              Retry Connection
-            </button>
+            >{tr("Retry Connection")}</button>
             <button
               onClick={handleBackToInput}
               className="px-6 py-3 bg-white/10 text-white rounded-xl hover:bg-white/20 transition-all border border-white/20"
-            >
-              Back to Form
-            </button>
+            >{tr("Back to Form")}</button>
           </div>
         </div>
       </div>
@@ -225,10 +221,10 @@ export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, o
 
   return (
     <div>
-      {currentView === 'home' && (
+      {tr(currentView === 'home' && (
         <DreamDegreeHome onStart={handleStart} onLogin={onLogin} onLogout={onLogout} onNavigateToDashboard={onNavigateToDashboard} onViewProfile={handleViewProfile} />
-      )}
-      {currentView === 'input' && (
+      ))}
+      {tr(currentView === 'input' && (
         <DreamDegreeInput
           onAnalyze={handleAnalyze}
           onBack={handleBackToHome}
@@ -236,14 +232,14 @@ export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, o
           onNavigateToDashboard={onNavigateToDashboard}
           initialData={existingProfile}
         />
-      )}
-      {currentView === 'profile' && (
+      ))}
+      {tr(currentView === 'profile' && (
         <StudentProfile
           onBack={handleBackToHome}
           onEditProfile={handleBackToInput}
         />
-      )}
-      {currentView === 'results' && studentData && backendResults && (
+      ))}
+      {tr(currentView === 'results' && studentData && backendResults && (
         <DreamDegreeResults
           studentData={studentData}
           backendResults={backendResults}
@@ -255,8 +251,8 @@ export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, o
           onViewProfile={handleViewProfile}
           onNavigateToDashboard={onNavigateToDashboard}
         />
-      )}
-      {currentView === 'guidance' && studentData && (
+      ))}
+      {tr(currentView === 'guidance' && studentData && (
         <DreamDegreeGuidance
           studentData={studentData}
           backendResults={backendResults}
@@ -275,8 +271,8 @@ export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, o
             }
           }}
         />
-      )}
-      {currentView === 'roadmap' && studentData && selectedRecommendation && (
+      ))}
+      {tr(currentView === 'roadmap' && studentData && selectedRecommendation && (
         <DreamDegreeRoadmap
           recommendation={selectedRecommendation}
           studentData={studentData}
@@ -285,7 +281,7 @@ export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, o
           onViewProfile={handleViewProfile}
           onNavigateToDashboard={onNavigateToDashboard}
         />
-      )}
+      ))}
     </div>
   );
 }

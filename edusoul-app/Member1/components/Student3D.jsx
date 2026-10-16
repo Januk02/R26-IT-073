@@ -1,8 +1,10 @@
+import { useAdvisorTranslation } from '../data/advisorTranslations';
 import { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Float } from '@react-three/drei';
 
 function StudentCharacter() {
+  const tr = useAdvisorTranslation();
   const groupRef = useRef();
   
   useFrame((state) => {
@@ -72,6 +74,7 @@ function StudentCharacter() {
 }
 
 function FloatingElements() {
+  const tr = useAdvisorTranslation();
   const groupRef = useRef();
   
   useFrame((state) => {
@@ -89,7 +92,7 @@ function FloatingElements() {
   
   return (
     <group ref={groupRef}>
-      {shapes.map((shape, i) => (
+      {tr(shapes.map((shape, i) => (
         <mesh
           key={i}
           position={[
@@ -99,19 +102,20 @@ function FloatingElements() {
           ]}
           castShadow
         >
-          {shape === 'box' && <boxGeometry args={[0.2, 0.2, 0.2]} />}
-          {shape === 'sphere' && <sphereGeometry args={[0.15, 16, 16]} />}
-          {shape === 'octahedron' && <octahedronGeometry args={[0.15]} />}
-          {shape === 'torus' && <torusGeometry args={[0.1, 0.05, 8, 16]} />}
-          {shape === 'cone' && <coneGeometry args={[0.1, 0.2, 8]} />}
+          {tr(shape === 'box' && <boxGeometry args={[0.2, 0.2, 0.2]} />)}
+          {tr(shape === 'sphere' && <sphereGeometry args={[0.15, 16, 16]} />)}
+          {tr(shape === 'octahedron' && <octahedronGeometry args={[0.15]} />)}
+          {tr(shape === 'torus' && <torusGeometry args={[0.1, 0.05, 8, 16]} />)}
+          {tr(shape === 'cone' && <coneGeometry args={[0.1, 0.2, 8]} />)}
           <meshStandardMaterial color={colors[i]} emissive={colors[i]} emissiveIntensity={0.3} />
         </mesh>
-      ))}
+      )))}
     </group>
   );
 }
 
 export default function Student3D() {
+  const tr = useAdvisorTranslation();
   return (
     <div className="w-full h-96">
       <Canvas

@@ -1,7 +1,9 @@
+import { useAdvisorTranslation } from '../data/advisorTranslations';
 import { motion, AnimatePresence } from 'framer-motion';
 import { DiscoverYourselfAnimation, FindDegreePathAnimation, FutureCareerAnimation, StartJourneyAnimation } from './OnboardingAnimations';
 
 export default function InputOnboarding({ onboardingStep, setOnboardingStep, onboardingSlides, handleNextOnboarding, handleSkipOnboarding, handlePreviousOnboarding, t }) {
+  const tr = useAdvisorTranslation();
   return (
     <AnimatePresence mode="wait">
       <motion.div
@@ -19,9 +21,9 @@ export default function InputOnboarding({ onboardingStep, setOnboardingStep, onb
           transition={{ delay: 0.3 }}
           className="absolute top-4 right-4 flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 backdrop-blur-lg border border-white/80 shadow-sm"
         >
-          <span className="text-xs font-bold text-gray-400">STEP</span>
+          <span className="text-xs font-bold text-gray-400">{tr("STEP")}</span>
           <span className="text-sm font-black" style={{ color: onboardingSlides[onboardingStep].accent }}>
-            {onboardingSlides[onboardingStep].badge}
+            {tr(onboardingSlides[onboardingStep].badge)}
           </span>
           <span className="text-xs text-gray-300 font-bold">/04</span>
         </motion.div>
@@ -43,10 +45,10 @@ export default function InputOnboarding({ onboardingStep, setOnboardingStep, onb
             transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
             className="relative z-10 mb-2"
           >
-            {onboardingStep === 0 && <DiscoverYourselfAnimation />}
-            {onboardingStep === 1 && <FindDegreePathAnimation />}
-            {onboardingStep === 2 && <FutureCareerAnimation />}
-            {onboardingStep === 3 && <StartJourneyAnimation />}
+            {tr(onboardingStep === 0 && <DiscoverYourselfAnimation />)}
+            {tr(onboardingStep === 1 && <FindDegreePathAnimation />)}
+            {tr(onboardingStep === 2 && <FutureCareerAnimation />)}
+            {tr(onboardingStep === 3 && <StartJourneyAnimation />)}
           </motion.div>
 
           {/* Title */}
@@ -56,7 +58,7 @@ export default function InputOnboarding({ onboardingStep, setOnboardingStep, onb
             transition={{ delay: 0.35, duration: 0.6 }}
             className="relative z-10 text-3xl md:text-4xl font-extrabold text-gray-900 mb-3"
           >
-            {onboardingSlides[onboardingStep].title}
+            {tr(onboardingSlides[onboardingStep].title)}
           </motion.h2>
 
           {/* Subtitle */}
@@ -67,7 +69,7 @@ export default function InputOnboarding({ onboardingStep, setOnboardingStep, onb
             className="relative z-10 text-lg font-semibold mb-4"
             style={{ color: onboardingSlides[onboardingStep].accent, opacity: 0.75 }}
           >
-            {onboardingSlides[onboardingStep].subtitle}
+            {tr(onboardingSlides[onboardingStep].subtitle)}
           </motion.p>
 
           {/* Description */}
@@ -77,7 +79,7 @@ export default function InputOnboarding({ onboardingStep, setOnboardingStep, onb
             transition={{ delay: 0.55, duration: 0.6 }}
             className="relative z-10 text-base text-gray-500 mb-6 max-w-xl mx-auto leading-relaxed"
           >
-            {onboardingSlides[onboardingStep].message}
+            {tr(onboardingSlides[onboardingStep].message)}
           </motion.p>
 
           {/* Progress Bar — segmented */}
@@ -87,14 +89,14 @@ export default function InputOnboarding({ onboardingStep, setOnboardingStep, onb
             transition={{ delay: 0.6 }}
             className="relative z-10 flex justify-center gap-2.5 mb-5"
           >
-            {onboardingSlides.map((slide, index) => (
+            {tr(onboardingSlides.map((slide, index) => (
               <button
                 key={index}
                 onClick={() => setOnboardingStep(index)}
                 className="relative h-2 rounded-full overflow-hidden transition-all duration-500 cursor-pointer"
                 style={{ width: index === onboardingStep ? 48 : 16, background: '#e2e8f0' }}
               >
-                {index <= onboardingStep && (
+                {tr(index <= onboardingStep && (
                   <motion.div
                     className="absolute inset-0 rounded-full"
                     style={{ background: index === onboardingStep
@@ -105,9 +107,9 @@ export default function InputOnboarding({ onboardingStep, setOnboardingStep, onb
                     transition={{ duration: 0.5, delay: index === onboardingStep ? 0.3 : 0 }}
                     layoutId={`progress-${index}`}
                   />
-                )}
+                ))}
               </button>
-            ))}
+            )))}
           </motion.div>
 
           {/* Navigation Buttons */}
@@ -117,7 +119,7 @@ export default function InputOnboarding({ onboardingStep, setOnboardingStep, onb
             transition={{ delay: 0.65 }}
             className="relative z-10 flex justify-center items-center gap-3 flex-wrap"
           >
-            {onboardingStep > 0 && (
+            {tr(onboardingStep > 0 && (
               <motion.button
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.96 }}
@@ -127,9 +129,9 @@ export default function InputOnboarding({ onboardingStep, setOnboardingStep, onb
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
                 </svg>
-                {t.back}
+                {tr(t.back)}
               </motion.button>
-            )}
+            ))}
 
             <motion.button
               whileHover={{ scale: 1.04 }}
@@ -137,7 +139,7 @@ export default function InputOnboarding({ onboardingStep, setOnboardingStep, onb
               onClick={handleSkipOnboarding}
               className="px-5 py-2.5 rounded-xl font-semibold text-sm bg-white/70 text-gray-400 border border-gray-100 hover:bg-white hover:text-gray-500 transition-all"
             >
-              {t.skip}
+              {tr(t.skip)}
             </motion.button>
 
             <motion.button
@@ -150,21 +152,21 @@ export default function InputOnboarding({ onboardingStep, setOnboardingStep, onb
                 boxShadow: `0 8px 24px ${onboardingSlides[onboardingStep].accent}40`,
               }}
             >
-              {onboardingStep === onboardingSlides.length - 1 ? (
+              {tr(onboardingStep === onboardingSlides.length - 1 ? (
                 <>
-                  {t.getStarted}
+                  {tr(t.getStarted)}
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
                 </>
               ) : (
                 <>
-                  {t.next}
+                  {tr(t.next)}
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
                   </svg>
                 </>
-              )}
+              ))}
             </motion.button>
           </motion.div>
         </div>

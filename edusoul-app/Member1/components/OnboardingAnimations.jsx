@@ -1,3 +1,4 @@
+import { useAdvisorTranslation } from '../data/advisorTranslations';
 import { motion } from 'framer-motion';
 
 /* ─── helpers ─── */
@@ -19,8 +20,8 @@ const floatY = (delay = 0) => ({
    SLIDE 1 — Discover Yourself
    Central student silhouette with orbiting trait icons
    =================================================================== */
-export const DiscoverYourselfAnimation = () => (
-  <svg viewBox="0 0 400 300" className="w-full h-64 mb-4">
+export const DiscoverYourselfAnimation = () => {
+  const tr = useAdvisorTranslation(); return <svg viewBox="0 0 400 300" className="w-full h-64 mb-4">
     <defs>
       <radialGradient id="d1-glow" cx="50%" cy="50%" r="50%">
         <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.15" />
@@ -38,16 +39,16 @@ export const DiscoverYourselfAnimation = () => (
       transition={{ duration: 4, repeat: Infinity }} />
 
     {/* Orbit rings */}
-    {ring(200, 148, 90, '#93c5fd', 0.3)}
-    {ring(200, 148, 115, '#bfdbfe', 0.5, '3,6')}
+    {tr(ring(200, 148, 90, '#93c5fd', 0.3))}
+    {tr(ring(200, 148, 115, '#bfdbfe', 0.5, '3,6'))}
 
     {/* Rotating orbit dots */}
     <motion.g animate={{ rotate: 360 }} transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
       style={{ transformOrigin: '200px 148px' }}>
-      {[0, 60, 120, 180, 240, 300].map((deg, i) => {
+      {tr([0, 60, 120, 180, 240, 300].map((deg, i) => {
         const a = (deg * Math.PI) / 180;
         return <circle key={i} cx={200 + 90 * Math.cos(a)} cy={148 + 90 * Math.sin(a)} r="2.5" fill="#93c5fd" opacity="0.6" />;
-      })}
+      }))}
     </motion.g>
 
     {/* Student silhouette */}
@@ -64,7 +65,7 @@ export const DiscoverYourselfAnimation = () => (
     </motion.g>
 
     {/* Orbiting trait icons */}
-    {[
+    {tr([
       { icon: '🧠', label: 'Mind', deg: 0, color: '#dbeafe' },
       { icon: '💡', label: 'Ideas', deg: 60, color: '#fef3c7' },
       { icon: '🎨', label: 'Create', deg: 120, color: '#fce7f3' },
@@ -81,25 +82,25 @@ export const DiscoverYourselfAnimation = () => (
           animate={{ opacity: 1, scale: 1, ...floatY(i * 0.4) }}
           transition={{ duration: 0.5, delay: 0.6 + i * 0.1 }}>
           <circle cx={x} cy={y} r="22" fill={t.color} stroke="white" strokeWidth="2" />
-          <text x={x} y={y + 5} textAnchor="middle" fontSize="16">{t.icon}</text>
+          <text x={x} y={y + 5} textAnchor="middle" fontSize="16">{tr(t.icon)}</text>
         </motion.g>
       );
-    })}
+    }))}
 
     {/* Pulse ring */}
     <motion.circle cx="200" cy="148" r="48" fill="none" stroke="#3b82f6" strokeWidth="2"
       initial={{ scale: 0.8, opacity: 0 }}
       animate={{ scale: [1, 1.5], opacity: [0.5, 0] }}
       transition={{ duration: 2, repeat: Infinity, delay: 1 }} />
-  </svg>
-);
+  </svg>;
+};
 
 /* ===================================================================
    SLIDE 2 — Find Your Degree Path
    Branching paths with a spotlight on the "right" one
    =================================================================== */
-export const FindDegreePathAnimation = () => (
-  <svg viewBox="0 0 400 300" className="w-full h-64 mb-4">
+export const FindDegreePathAnimation = () => {
+  const tr = useAdvisorTranslation(); return <svg viewBox="0 0 400 300" className="w-full h-64 mb-4">
     <defs>
       <linearGradient id="d2-active" x1="0" y1="0" x2="1" y2="0">
         <stop offset="0%" stopColor="#3b82f6" />
@@ -112,7 +113,7 @@ export const FindDegreePathAnimation = () => (
     </defs>
 
     {/* Inactive paths (dimmed) */}
-    {[
+    {tr([
       'M 200 240 C 120 200 60 160 70 80',
       'M 200 240 C 180 190 140 140 160 65',
       'M 200 240 C 260 200 320 160 340 100',
@@ -120,7 +121,7 @@ export const FindDegreePathAnimation = () => (
       <motion.path key={i} d={d} fill="none" stroke="#e2e8f0" strokeWidth="2.5" strokeLinecap="round"
         initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
         transition={{ duration: 1.2, delay: 0.3 + i * 0.15 }} opacity="0.5" />
-    ))}
+    )))}
 
     {/* Active/highlighted path */}
     <motion.path d="M 200 240 C 230 190 280 130 290 60" fill="none" stroke="url(#d2-active)"
@@ -137,7 +138,7 @@ export const FindDegreePathAnimation = () => (
     </motion.g>
 
     {/* Destination nodes */}
-    {[
+    {tr([
       { x: 70, y: 80, icon: '📐', dim: true },
       { x: 160, y: 65, icon: '⚖️', dim: true },
       { x: 290, y: 55, icon: '🎓', dim: false },
@@ -148,9 +149,9 @@ export const FindDegreePathAnimation = () => (
         animate={{ opacity: n.dim ? 0.45 : 1, scale: n.dim ? 0.9 : 1, ...(!n.dim ? floatY(0.5) : {}) }}
         transition={{ duration: 0.5, delay: 1 + i * 0.12 }}>
         <circle cx={n.x} cy={n.y} r={n.dim ? 20 : 26} fill={n.dim ? '#f1f5f9' : '#dbeafe'} stroke={n.dim ? '#e2e8f0' : '#3b82f6'} strokeWidth={n.dim ? 1 : 2.5} />
-        <text x={n.x} y={n.y + 5} textAnchor="middle" fontSize={n.dim ? 14 : 20}>{n.icon}</text>
+        <text x={n.x} y={n.y + 5} textAnchor="middle" fontSize={n.dim ? 14 : 20}>{tr(n.icon)}</text>
       </motion.g>
-    ))}
+    )))}
 
     {/* Glow ring on active destination */}
     <motion.circle cx="290" cy="55" r="32" fill="none" stroke="#3b82f6" strokeWidth="2"
@@ -167,17 +168,17 @@ export const FindDegreePathAnimation = () => (
     <motion.g initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, delay: 1.8, type: 'spring' }}>
       <rect x="310" y="35" width="60" height="22" rx="11" fill="#2563eb" />
-      <text x="340" y="50" textAnchor="middle" fontSize="9" fill="white" fontWeight="700">BEST FIT</text>
+      <text x="340" y="50" textAnchor="middle" fontSize="9" fill="white" fontWeight="700">{tr("BEST FIT")}</text>
     </motion.g>
-  </svg>
-);
+  </svg>;
+};
 
 /* ===================================================================
    SLIDE 3 — See Your Future Career
    Timeline: Student → Graduate → Professional with floating icons
    =================================================================== */
-export const FutureCareerAnimation = () => (
-  <svg viewBox="0 0 400 300" className="w-full h-64 mb-4">
+export const FutureCareerAnimation = () => {
+  const tr = useAdvisorTranslation(); return <svg viewBox="0 0 400 300" className="w-full h-64 mb-4">
     <defs>
       <linearGradient id="d3-line" x1="0" y1="0" x2="1" y2="0">
         <stop offset="0%" stopColor="#93c5fd" />
@@ -192,18 +193,18 @@ export const FutureCareerAnimation = () => (
       transition={{ duration: 1.2, delay: 0.3 }} style={{ transformOrigin: 'left' }} />
 
     {/* Dots on timeline */}
-    {[60, 200, 340].map((x, i) => (
+    {tr([60, 200, 340].map((x, i) => (
       <motion.circle key={i} cx={x} cy={200} r="6" fill={i === 2 ? '#f97316' : '#3b82f6'}
         initial={{ scale: 0 }} animate={{ scale: 1 }}
         transition={{ delay: 0.6 + i * 0.3, type: 'spring', stiffness: 300 }} />
-    ))}
+    )))}
 
     {/* Stage 1 – Student */}
     <motion.g initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.5 }}>
       <circle cx="60" cy="160" r="24" fill="#dbeafe" />
       <text x="60" y="167" textAnchor="middle" fontSize="22">🧑‍🎓</text>
-      <text x="60" y="228" textAnchor="middle" fontSize="10" fill="#64748b" fontWeight="600">Student</text>
+      <text x="60" y="228" textAnchor="middle" fontSize="10" fill="#64748b" fontWeight="600">{tr("Student")}</text>
     </motion.g>
 
     {/* Stage 2 – Graduate */}
@@ -214,7 +215,7 @@ export const FutureCareerAnimation = () => (
         animate={{ y: [163, 158, 163] }} transition={{ duration: 2, repeat: Infinity, delay: 1.2 }}>
         🎓
       </motion.text>
-      <text x="200" y="228" textAnchor="middle" fontSize="10" fill="#64748b" fontWeight="600">Graduate</text>
+      <text x="200" y="228" textAnchor="middle" fontSize="10" fill="#64748b" fontWeight="600">{tr("Graduate")}</text>
     </motion.g>
 
     {/* Stage 3 – Professional */}
@@ -222,11 +223,11 @@ export const FutureCareerAnimation = () => (
       transition={{ duration: 0.6, delay: 1.1 }}>
       <circle cx="340" cy="150" r="32" fill="#fff7ed" stroke="#f97316" strokeWidth="2" />
       <text x="340" y="158" textAnchor="middle" fontSize="28">💼</text>
-      <text x="340" y="228" textAnchor="middle" fontSize="10" fill="#64748b" fontWeight="600">Professional</text>
+      <text x="340" y="228" textAnchor="middle" fontSize="10" fill="#64748b" fontWeight="600">{tr("Professional")}</text>
     </motion.g>
 
     {/* Floating career aspiration icons */}
-    {[
+    {tr([
       { icon: '🚀', x: 90, y: 90, d: 0 },
       { icon: '💰', x: 160, y: 75, d: 0.6 },
       { icon: '🏆', x: 240, y: 70, d: 1.2 },
@@ -237,30 +238,30 @@ export const FutureCareerAnimation = () => (
         animate={{ opacity: 1, y: f.y, ...floatY(f.d) }}
         transition={{ duration: 0.5, delay: 1.3 + i * 0.15 }}>
         <circle cx={f.x} cy={f.y} r="16" fill="white" stroke="#e2e8f0" strokeWidth="1" />
-        <text x={f.x} y={f.y + 5} textAnchor="middle" fontSize="14">{f.icon}</text>
+        <text x={f.x} y={f.y + 5} textAnchor="middle" fontSize="14">{tr(f.icon)}</text>
       </motion.g>
-    ))}
+    )))}
 
     {/* Arrow connectors */}
-    {[{ x1: 90, x2: 168 }, { x1: 230, x2: 305 }].map((a, i) => (
+    {tr([{ x1: 90, x2: 168 }, { x1: 230, x2: 305 }].map((a, i) => (
       <motion.line key={i} x1={a.x1} y1="200" x2={a.x2} y2="200"
         stroke="#3b82f6" strokeWidth="0" markerEnd=""
         initial={{ opacity: 0 }} animate={{ opacity: 0.3 }}
         transition={{ delay: 0.9 + i * 0.3 }} />
-    ))}
+    )))}
 
     {/* Progress shimmer */}
     <motion.rect x="60" y="198" width="20" height="4" rx="2" fill="white" opacity="0.7"
       animate={{ x: [60, 340] }} transition={{ duration: 2.5, repeat: Infinity, delay: 1.5, ease: 'easeInOut' }} />
-  </svg>
-);
+  </svg>;
+};
 
 /* ===================================================================
    SLIDE 4 — Start Your Journey
    Winding road with checkpoints leading to a glowing star
    =================================================================== */
-export const StartJourneyAnimation = () => (
-  <svg viewBox="0 0 400 300" className="w-full h-64 mb-4">
+export const StartJourneyAnimation = () => {
+  const tr = useAdvisorTranslation(); return <svg viewBox="0 0 400 300" className="w-full h-64 mb-4">
     <defs>
       <linearGradient id="d4-road" x1="0" y1="1" x2="1" y2="0">
         <stop offset="0%" stopColor="#3b82f6" />
@@ -288,7 +289,7 @@ export const StartJourneyAnimation = () => (
       transition={{ duration: 2, delay: 0.3, ease: 'easeOut' }} />
 
     {/* Checkpoints */}
-    {[
+    {tr([
       { x: 40, y: 260, label: 'You', icon: '🧑', delay: 0.5 },
       { x: 130, y: 185, label: 'Profile', icon: '📝', delay: 0.9 },
       { x: 200, y: 150, label: 'Analysis', icon: '🔍', delay: 1.3 },
@@ -300,10 +301,10 @@ export const StartJourneyAnimation = () => (
         transition={{ duration: 0.5, delay: cp.delay, type: 'spring', stiffness: 250 }}>
         <circle cx={cp.x} cy={cp.y} r="18" fill="white" stroke="#3b82f6" strokeWidth="2.5"
           style={{ filter: 'drop-shadow(0 2px 4px rgba(59,130,246,0.2))' }} />
-        <text x={cp.x} y={cp.y + 5} textAnchor="middle" fontSize="14">{cp.icon}</text>
-        <text x={cp.x} y={cp.y + 32} textAnchor="middle" fontSize="9" fill="#64748b" fontWeight="600">{cp.label}</text>
+        <text x={cp.x} y={cp.y + 5} textAnchor="middle" fontSize="14">{tr(cp.icon)}</text>
+        <text x={cp.x} y={cp.y + 32} textAnchor="middle" fontSize="9" fill="#64748b" fontWeight="600">{tr(cp.label)}</text>
       </motion.g>
-    ))}
+    )))}
 
     {/* Destination star glow */}
     <motion.circle cx="360" cy="45" r="40" fill="url(#d4-star-glow)"
@@ -316,7 +317,7 @@ export const StartJourneyAnimation = () => (
       transition={{ duration: 0.8, delay: 2, type: 'spring' }}>
       <circle cx="360" cy="45" r="22" fill="#fef3c7" stroke="#f59e0b" strokeWidth="2.5" />
       <text x="360" y="52" textAnchor="middle" fontSize="20">⭐</text>
-      <text x="360" y="78" textAnchor="middle" fontSize="9" fill="#92400e" fontWeight="700">YOUR GOAL</text>
+      <text x="360" y="78" textAnchor="middle" fontSize="9" fill="#92400e" fontWeight="700">{tr("YOUR GOAL")}</text>
     </motion.g>
 
     {/* Moving traveler dot */}
@@ -328,7 +329,7 @@ export const StartJourneyAnimation = () => (
       transition={{ duration: 3.5, repeat: Infinity, delay: 2.5, ease: 'easeInOut' }} />
 
     {/* Sparkle particles */}
-    {[
+    {tr([
       { x: 100, y: 210, d: 1 },
       { x: 170, y: 155, d: 1.5 },
       { x: 250, y: 110, d: 2 },
@@ -338,11 +339,11 @@ export const StartJourneyAnimation = () => (
         initial={{ opacity: 0 }}
         animate={{ opacity: [0, 1, 0], scale: [0.5, 1.5, 0.5] }}
         transition={{ duration: 1.5, repeat: Infinity, delay: s.d }} />
-    ))}
+    )))}
 
     {/* Decorative connecting arcs */}
     <motion.path d="M 130 185 Q 165 165 200 150" fill="none" stroke="#8b5cf6" strokeWidth="1" strokeDasharray="3,4" opacity="0.3"
       initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
       transition={{ duration: 1, delay: 1.5 }} />
-  </svg>
-);
+  </svg>;
+};

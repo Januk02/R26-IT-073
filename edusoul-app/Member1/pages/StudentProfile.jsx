@@ -1,3 +1,4 @@
+import { useAdvisorTranslation } from '../data/advisorTranslations';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { doc, getDoc } from 'firebase/firestore';
@@ -8,6 +9,7 @@ import { personalityTraits, lifestyleFactors, dreamJobs } from '../data/dreamDeg
 const BG_IMAGE_URL = 'https://i.pinimg.com/1200x/d7/76/5d/d7765d7445ccfecafbd6546e8e36b813.jpg';
 
 export default function StudentProfile({ onBack, onEditProfile }) {
+  const tr = useAdvisorTranslation();
   const { user } = useAuth();
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -34,7 +36,7 @@ export default function StudentProfile({ onBack, onEditProfile }) {
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-orange-50">
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-gray-500 text-sm">Loading your profile...</p>
+          <p className="text-gray-500 text-sm">{tr("Loading your profile...")}</p>
         </div>
       </div>
     );
@@ -44,9 +46,9 @@ export default function StudentProfile({ onBack, onEditProfile }) {
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-orange-50">
         <div className="text-center bg-white/80 backdrop-blur-xl p-12 rounded-3xl border border-gray-200 shadow-xl max-w-md">
           <div className="text-6xl mb-4">🔒</div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Login Required</h2>
-          <p className="text-gray-500 mb-6">Please log in to view your profile.</p>
-          <button onClick={onBack} className="px-6 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/25">Go Back</button>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">{tr("Login Required")}</h2>
+          <p className="text-gray-500 mb-6">{tr("Please log in to view your profile.")}</p>
+          <button onClick={onBack} className="px-6 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/25">{tr("Go Back")}</button>
         </div>
       </div>
     );
@@ -56,11 +58,11 @@ export default function StudentProfile({ onBack, onEditProfile }) {
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-orange-50">
         <div className="text-center bg-white/80 backdrop-blur-xl p-12 rounded-3xl border border-gray-200 shadow-xl max-w-md">
           <div className="text-6xl mb-4">📝</div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">No Profile Yet</h2>
-          <p className="text-gray-500 mb-6">Complete the Dream Degree form to create your student profile.</p>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">{tr("No Profile Yet")}</h2>
+          <p className="text-gray-500 mb-6">{tr("Complete the Dream Degree form to create your student profile.")}</p>
           <div className="flex gap-3 justify-center">
-            <button onClick={onBack} className="px-6 py-3 bg-white text-gray-600 rounded-xl font-semibold border border-gray-200 hover:bg-gray-50 transition-all">Go Back</button>
-            {onEditProfile && <button onClick={onEditProfile} className="px-6 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/25">Fill Out Form</button>}
+            <button onClick={onBack} className="px-6 py-3 bg-white text-gray-600 rounded-xl font-semibold border border-gray-200 hover:bg-gray-50 transition-all">{tr("Go Back")}</button>
+            {tr(onEditProfile && <button onClick={onEditProfile} className="px-6 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/25">{tr("Fill Out Form")}</button>)}
           </div>
         </div>
       </div>
@@ -127,16 +129,12 @@ export default function StudentProfile({ onBack, onEditProfile }) {
         {/* === TOP BAR === */}
         <div className="flex items-center justify-between mb-6">
           <button onClick={onBack} className="flex items-center gap-2 px-4 py-2.5 prof-card rounded-xl text-gray-500 hover:text-gray-800 transition-all text-sm font-medium">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
-            Back
-          </button>
-          <h1 className="text-lg font-bold text-gray-900">Student Profile</h1>
-          {onEditProfile && (
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>{tr("Back")}</button>
+          <h1 className="text-lg font-bold text-gray-900">{tr("Student Profile")}</h1>
+          {tr(onEditProfile && (
             <button onClick={onEditProfile} className="flex items-center gap-2 px-4 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/20">
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
-              Edit
-            </button>
-          )}
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>{tr("Edit")}</button>
+          ))}
         </div>
 
         {/* === PROFILE HERO === */}
@@ -152,7 +150,7 @@ export default function StudentProfile({ onBack, onEditProfile }) {
               {/* Avatar */}
               <div className="relative">
                 <div className="w-28 h-28 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-white text-5xl font-extrabold border-4 border-white shadow-xl shadow-blue-500/25">
-                  {personalInfo?.name ? personalInfo.name.charAt(0).toUpperCase() : '?'}
+                  {tr(personalInfo?.name ? personalInfo.name.charAt(0).toUpperCase() : '?')}
                 </div>
                 <div className="absolute -bottom-1 -right-1 w-7 h-7 bg-green-500 rounded-lg flex items-center justify-center border-[3px] border-white">
                   <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
@@ -161,17 +159,17 @@ export default function StudentProfile({ onBack, onEditProfile }) {
 
               {/* Info */}
               <div className="flex-1 min-w-[200px] pb-1">
-                <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 leading-tight">{personalInfo?.name || 'Student'}</h2>
+                <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 leading-tight">{tr(personalInfo?.name || 'Student')}</h2>
                 <div className="flex flex-wrap gap-2 mt-2">
-                  {personalInfo?.age && (
-                    <span className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-500 bg-gray-100 px-3 py-1.5 rounded-full">🎂 {personalInfo.age} years</span>
-                  )}
-                  {personalInfo?.district && (
-                    <span className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-500 bg-gray-100 px-3 py-1.5 rounded-full">📍 {personalInfo.district}, Sri Lanka</span>
-                  )}
-                  {profile.email && (
-                    <span className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-500 bg-gray-100 px-3 py-1.5 rounded-full">✉️ {profile.email}</span>
-                  )}
+                  {tr(personalInfo?.age && (
+                    <span className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-500 bg-gray-100 px-3 py-1.5 rounded-full">🎂 {tr(personalInfo.age)}{tr("years")}</span>
+                  ))}
+                  {tr(personalInfo?.district && (
+                    <span className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-500 bg-gray-100 px-3 py-1.5 rounded-full">📍 {tr(personalInfo.district)}{tr(", Sri Lanka")}</span>
+                  ))}
+                  {tr(profile.email && (
+                    <span className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-500 bg-gray-100 px-3 py-1.5 rounded-full">✉️ {tr(profile.email)}</span>
+                  ))}
                 </div>
               </div>
 
@@ -184,64 +182,64 @@ export default function StudentProfile({ onBack, onEditProfile }) {
                       strokeDasharray={`${completionPct * 0.9425} 94.25`} strokeLinecap="round" />
                   </svg>
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-lg font-extrabold text-gray-900">{completionPct}%</span>
+                    <span className="text-lg font-extrabold text-gray-900">{tr(completionPct)}%</span>
                   </div>
                 </div>
-                <span className="text-[10px] text-gray-400 mt-1 font-semibold uppercase tracking-wider">Complete</span>
+                <span className="text-[10px] text-gray-400 mt-1 font-semibold uppercase tracking-wider">{tr("Complete")}</span>
               </div>
             </div>
 
             {/* Dream Career */}
-            {dreamJob && (
+            {tr(dreamJob && (
               <div className="mt-5 flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-blue-50 to-orange-50 border border-blue-100 flex-wrap">
                 <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-orange-400 flex items-center justify-center text-2xl shadow-md shadow-blue-500/15">
-                  {dreamJobData?.icon || '🎯'}
+                  {tr(dreamJobData?.icon || '🎯')}
                 </div>
                 <div className="flex-1">
-                  <p className="text-[10px] font-bold text-blue-500 uppercase tracking-widest">Dream Career</p>
-                  <p className="text-lg font-extrabold text-gray-900">{dreamJob}</p>
+                  <p className="text-[10px] font-bold text-blue-500 uppercase tracking-widest">{tr("Dream Career")}</p>
+                  <p className="text-lg font-extrabold text-gray-900">{tr(dreamJob)}</p>
                 </div>
-                {dreamJobData && (
+                {tr(dreamJobData && (
                   <div className="flex gap-5">
                     <div className="text-center">
-                      <p className="text-lg font-extrabold text-blue-600">{dreamJobData.marketDemand}%</p>
-                      <p className="text-[10px] text-gray-400 font-medium">Demand</p>
+                      <p className="text-lg font-extrabold text-blue-600">{tr(dreamJobData.marketDemand)}%</p>
+                      <p className="text-[10px] text-gray-400 font-medium">{tr("Demand")}</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-lg font-extrabold text-green-600">{dreamJobData.sustainabilityScore}%</p>
-                      <p className="text-[10px] text-gray-400 font-medium">Stability</p>
+                      <p className="text-lg font-extrabold text-green-600">{tr(dreamJobData.sustainabilityScore)}%</p>
+                      <p className="text-[10px] text-gray-400 font-medium">{tr("Stability")}</p>
                     </div>
                   </div>
-                )}
+                ))}
               </div>
-            )}
+            ))}
 
             {/* Completion pills */}
             <div className="flex flex-wrap gap-2 mt-4">
-              {completionItems.map(item => (
+              {tr(completionItems.map(item => (
                 <div key={item.label} className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold border ${
                   item.done ? 'bg-green-50 text-green-600 border-green-200' : 'bg-red-50 text-red-400 border-red-200'
                 }`}>
-                  {item.done ? '✓' : '!'} {item.label}
+                  {tr(item.done ? '✓' : '!')} {tr(item.label)}
                 </div>
-              ))}
+              )))}
             </div>
           </div>
         </motion.div>
 
         {/* === NAV TABS === */}
         <div className="flex gap-1.5 mb-6 prof-card rounded-2xl p-1.5">
-          {navItems.map(item => (
+          {tr(navItems.map(item => (
             <button key={item.id} onClick={() => setActiveSection(item.id)}
               className={`flex-1 flex items-center justify-center gap-2 px-3 py-3 rounded-xl text-sm font-semibold transition-all ${
                 activeSection === item.id
                   ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/25'
                   : 'text-gray-400 hover:text-gray-600 hover:bg-white/60'
               }`}>
-              <span className="text-base">{item.icon}</span>
-              <span className="hidden sm:inline">{item.label}</span>
+              <span className="text-base">{tr(item.icon)}</span>
+              <span className="hidden sm:inline">{tr(item.label)}</span>
             </button>
-          ))}
+          )))}
         </div>
 
         {/* === TAB CONTENT === */}
@@ -249,11 +247,11 @@ export default function StudentProfile({ onBack, onEditProfile }) {
           <motion.div key={activeSection} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }}>
 
             {/* ===== OVERVIEW ===== */}
-            {activeSection === 'overview' && (
+            {tr(activeSection === 'overview' && (
               <div className="space-y-5">
                 {/* Stats */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {[
+                  {tr([
                     { label: 'Z-Score', value: academicResults?.zScore || '—', sub: 'Out of ~3.00', gradient: 'from-blue-600 to-blue-500', icon: '📊' },
                     { label: 'A/L Stream', value: academicResults?.stream || '—', sub: 'G.C.E. Advanced Level', gradient: 'from-green-600 to-emerald-500', icon: '📖' },
                     { label: 'Personality', value: `${personalityAvg}%`, sub: `${sortedTraits.length} traits assessed`, gradient: 'from-orange-500 to-amber-500', icon: '🧠' },
@@ -261,31 +259,31 @@ export default function StudentProfile({ onBack, onEditProfile }) {
                   ].map((stat, i) => (
                     <motion.div key={stat.label} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}
                       className="prof-card-strong prof-card-hover rounded-2xl p-5">
-                      <span className="text-2xl">{stat.icon}</span>
-                      <p className={`text-2xl font-extrabold mt-2 bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent`}>{stat.value}</p>
-                      <p className="text-[11px] text-gray-500 font-medium mt-0.5">{stat.label}</p>
-                      <p className="text-[10px] text-gray-300">{stat.sub}</p>
+                      <span className="text-2xl">{tr(stat.icon)}</span>
+                      <p className={`text-2xl font-extrabold mt-2 bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent`}>{tr(stat.value)}</p>
+                      <p className="text-[11px] text-gray-500 font-medium mt-0.5">{tr(stat.label)}</p>
+                      <p className="text-[10px] text-gray-300">{tr(stat.sub)}</p>
                     </motion.div>
-                  ))}
+                  )))}
                 </div>
 
                 {/* Two-col: Strengths + Academic */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   {/* Top Strengths */}
                   <div className="prof-card-strong rounded-2xl p-6">
-                    <h3 className="text-base font-bold text-gray-900 mb-4 flex items-center gap-2"><span className="text-lg">🏆</span> Top Strengths</h3>
-                    {sortedTraits.length > 0 ? (
+                    <h3 className="text-base font-bold text-gray-900 mb-4 flex items-center gap-2"><span className="text-lg">🏆</span>{tr("Top Strengths")}</h3>
+                    {tr(sortedTraits.length > 0 ? (
                       <div className="space-y-3">
-                        {sortedTraits.slice(0, 5).map(([trait, score], idx) => {
+                        {tr(sortedTraits.slice(0, 5).map(([trait, score], idx) => {
                           const data = personalityTraits[trait];
                           const medals = ['🥇', '🥈', '🥉'];
                           return (
                             <div key={trait} className="flex items-center gap-3">
-                              <span className="text-sm w-6 text-center">{idx < 3 ? medals[idx] : <span className="text-gray-300 text-xs font-bold">#{idx + 1}</span>}</span>
+                              <span className="text-sm w-6 text-center">{tr(idx < 3 ? medals[idx] : <span className="text-gray-300 text-xs font-bold">#{tr(idx + 1)}</span>)}</span>
                               <div className="flex-1">
                                 <div className="flex justify-between mb-1">
-                                  <span className="text-xs font-semibold text-gray-700">{data?.label || trait}</span>
-                                  <span className="text-xs font-bold" style={{ color: getScoreColor(score) }}>{score}/10</span>
+                                  <span className="text-xs font-semibold text-gray-700">{tr(data?.label || trait)}</span>
+                                  <span className="text-xs font-bold" style={{ color: getScoreColor(score) }}>{tr(score)}/10</span>
                                 </div>
                                 <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
                                   <motion.div initial={{ width: 0 }} animate={{ width: `${score * 10}%` }} transition={{ duration: 0.8, delay: idx * 0.1 }}
@@ -294,76 +292,76 @@ export default function StudentProfile({ onBack, onEditProfile }) {
                               </div>
                             </div>
                           );
-                        })}
+                        }))}
                       </div>
-                    ) : <p className="text-gray-300 text-sm">No personality data yet.</p>}
+                    ) : <p className="text-gray-300 text-sm">{tr("No personality data yet.")}</p>)}
                   </div>
 
                   {/* Academic Summary */}
                   <div className="prof-card-strong rounded-2xl p-6">
-                    <h3 className="text-base font-bold text-gray-900 mb-4 flex items-center gap-2"><span className="text-lg">📚</span> Academic Summary</h3>
-                    {academicResults?.stream ? (
+                    <h3 className="text-base font-bold text-gray-900 mb-4 flex items-center gap-2"><span className="text-lg">📚</span>{tr("Academic Summary")}</h3>
+                    {tr(academicResults?.stream ? (
                       <div className="space-y-3">
                         <div className="flex justify-between p-3 bg-blue-50 rounded-xl border border-blue-100">
-                          <span className="text-xs text-gray-500">Stream</span>
-                          <span className="text-xs font-bold text-blue-600">{academicResults.stream}</span>
+                          <span className="text-xs text-gray-500">{tr("Stream")}</span>
+                          <span className="text-xs font-bold text-blue-600">{tr(academicResults.stream)}</span>
                         </div>
                         <div className="flex justify-between p-3 bg-green-50 rounded-xl border border-green-100">
-                          <span className="text-xs text-gray-500">Z-Score</span>
-                          <span className="text-xs font-bold text-green-600">{academicResults.zScore || '—'}</span>
+                          <span className="text-xs text-gray-500">{tr("Z-Score")}</span>
+                          <span className="text-xs font-bold text-green-600">{tr(academicResults.zScore || '—')}</span>
                         </div>
-                        {academicResults.subjects && Object.keys(academicResults.subjects).length > 0 && (
+                        {tr(academicResults.subjects && Object.keys(academicResults.subjects).length > 0 && (
                           <div className="pt-1">
-                            <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-2">Subject Grades</p>
+                            <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-2">{tr("Subject Grades")}</p>
                             <div className="flex flex-wrap gap-2">
-                              {Object.entries(academicResults.subjects).map(([sub, grade]) => (
+                              {tr(Object.entries(academicResults.subjects).map(([sub, grade]) => (
                                 <div key={sub} className="flex items-center gap-2 bg-white border border-gray-100 rounded-lg px-2.5 py-1.5 shadow-sm">
-                                  <span className="text-[11px] text-gray-600 truncate max-w-[100px]">{sub}</span>
-                                  {grade && <span className={`${getGradeBg(grade)} text-white text-[10px] font-bold w-5 h-5 rounded flex items-center justify-center`}>{grade}</span>}
+                                  <span className="text-[11px] text-gray-600 truncate max-w-[100px]">{tr(sub)}</span>
+                                  {tr(grade && <span className={`${getGradeBg(grade)} text-white text-[10px] font-bold w-5 h-5 rounded flex items-center justify-center`}>{tr(grade)}</span>)}
                                 </div>
-                              ))}
+                              )))}
                             </div>
                           </div>
-                        )}
+                        ))}
                       </div>
-                    ) : <p className="text-gray-300 text-sm">No academic data yet.</p>}
+                    ) : <p className="text-gray-300 text-sm">{tr("No academic data yet.")}</p>)}
                   </div>
                 </div>
 
                 {/* Lifestyle Quick View */}
-                {lifestylePreferences && Object.keys(lifestylePreferences).length > 0 && (
+                {tr(lifestylePreferences && Object.keys(lifestylePreferences).length > 0 && (
                   <div className="prof-card-strong rounded-2xl p-6">
-                    <h3 className="text-base font-bold text-gray-900 mb-4 flex items-center gap-2"><span className="text-lg">🌟</span> Lifestyle at a Glance</h3>
+                    <h3 className="text-base font-bold text-gray-900 mb-4 flex items-center gap-2"><span className="text-lg">🌟</span>{tr("Lifestyle at a Glance")}</h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                      {Object.entries(lifestylePreferences).map(([key, value]) => {
+                      {tr(Object.entries(lifestylePreferences).map(([key, value]) => {
                         const factor = lifestyleFactors[key];
                         return (
                           <div key={key} className="flex items-center justify-between p-3 rounded-xl bg-gray-50/80 border border-gray-100 hover:bg-white transition-colors">
                             <div className="flex items-center gap-2">
-                              <span className="text-sm">{factor?.icon || '📌'}</span>
-                              <span className="text-xs text-gray-500">{factor?.label || key}</span>
+                              <span className="text-sm">{tr(factor?.icon || '📌')}</span>
+                              <span className="text-xs text-gray-500">{tr(factor?.label || key)}</span>
                             </div>
-                            <span className="text-xs font-bold text-gray-700 bg-white px-2.5 py-1 rounded-lg border border-gray-100 shadow-sm">{value}</span>
+                            <span className="text-xs font-bold text-gray-700 bg-white px-2.5 py-1 rounded-lg border border-gray-100 shadow-sm">{tr(value)}</span>
                           </div>
                         );
-                      })}
+                      }))}
                     </div>
                   </div>
-                )}
+                ))}
               </div>
-            )}
+            ))}
 
             {/* ===== ACADEMIC ===== */}
-            {activeSection === 'academic' && (
+            {tr(activeSection === 'academic' && (
               <div className="space-y-5">
-                {academicResults?.stream ? (<>
+                {tr(academicResults?.stream ? (<>
                   {/* Stream */}
                   <div className="prof-card-strong rounded-2xl p-6">
                     <div className="flex items-center gap-5">
                       <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-3xl shadow-lg shadow-blue-500/20">📖</div>
                       <div>
-                        <p className="text-[10px] font-bold text-blue-500 uppercase tracking-widest">Selected Stream</p>
-                        <p className="text-2xl font-extrabold text-gray-900">{academicResults.stream}</p>
+                        <p className="text-[10px] font-bold text-blue-500 uppercase tracking-widest">{tr("Selected Stream")}</p>
+                        <p className="text-2xl font-extrabold text-gray-900">{tr(academicResults.stream)}</p>
                       </div>
                     </div>
                   </div>
@@ -372,9 +370,9 @@ export default function StudentProfile({ onBack, onEditProfile }) {
                   <div className="prof-card-strong rounded-2xl p-6">
                     <div className="flex items-center justify-between flex-wrap gap-6">
                       <div>
-                        <p className="text-[10px] font-bold text-green-500 uppercase tracking-widest">Z-Score</p>
-                        <p className="text-5xl font-extrabold text-gray-900 mt-1 font-mono">{academicResults.zScore || '—'}</p>
-                        <p className="text-xs text-gray-400 mt-1">Out of maximum ~3.00</p>
+                        <p className="text-[10px] font-bold text-green-500 uppercase tracking-widest">{tr("Z-Score")}</p>
+                        <p className="text-5xl font-extrabold text-gray-900 mt-1 font-mono">{tr(academicResults.zScore || '—')}</p>
+                        <p className="text-xs text-gray-400 mt-1">{tr("Out of maximum ~3.00")}</p>
                       </div>
                       <div className="relative w-24 h-24">
                         <svg className="w-24 h-24 -rotate-90" viewBox="0 0 36 36">
@@ -383,99 +381,99 @@ export default function StudentProfile({ onBack, onEditProfile }) {
                             strokeDasharray={`${Math.min((parseFloat(academicResults.zScore || 0) / 3) * 94.25, 94.25)} 94.25`} strokeLinecap="round" />
                         </svg>
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <span className="text-sm font-extrabold text-green-600">{academicResults.zScore ? `${Math.round((parseFloat(academicResults.zScore) / 3) * 100)}%` : '—'}</span>
+                          <span className="text-sm font-extrabold text-green-600">{tr(academicResults.zScore ? `${Math.round((parseFloat(academicResults.zScore) / 3) * 100)}%` : '—')}</span>
                         </div>
                       </div>
                     </div>
                   </div>
 
                   {/* Subject Grades */}
-                  {academicResults.subjects && Object.keys(academicResults.subjects).length > 0 && (
+                  {tr(academicResults.subjects && Object.keys(academicResults.subjects).length > 0 && (
                     <div className="prof-card-strong rounded-2xl p-6">
-                      <h3 className="text-base font-bold text-gray-900 mb-5 flex items-center gap-2"><span>📝</span> Subject Grades</h3>
+                      <h3 className="text-base font-bold text-gray-900 mb-5 flex items-center gap-2"><span>📝</span>{tr("Subject Grades")}</h3>
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                        {Object.entries(academicResults.subjects).map(([subject, grade]) => (
+                        {tr(Object.entries(academicResults.subjects).map(([subject, grade]) => (
                           <div key={subject} className="flex items-center justify-between p-4 rounded-2xl bg-gray-50/80 border border-gray-100 prof-card-hover">
-                            <span className="text-sm font-semibold text-gray-700 truncate mr-3">{subject}</span>
-                            {grade ? (
-                              <span className={`${getGradeBg(grade)} text-white font-bold text-sm w-10 h-10 rounded-xl flex items-center justify-center shadow-md`}>{grade}</span>
+                            <span className="text-sm font-semibold text-gray-700 truncate mr-3">{tr(subject)}</span>
+                            {tr(grade ? (
+                              <span className={`${getGradeBg(grade)} text-white font-bold text-sm w-10 h-10 rounded-xl flex items-center justify-center shadow-md`}>{tr(grade)}</span>
                             ) : (
-                              <span className="text-xs text-gray-300 bg-gray-50 px-3 py-2 rounded-lg border border-gray-100">Not set</span>
-                            )}
+                              <span className="text-xs text-gray-300 bg-gray-50 px-3 py-2 rounded-lg border border-gray-100">{tr("Not set")}</span>
+                            ))}
                           </div>
-                        ))}
+                        )))}
                       </div>
                     </div>
-                  )}
+                  ))}
                 </>) : (
                   <div className="prof-card-strong rounded-2xl p-12 text-center">
                     <div className="text-5xl mb-4">📭</div>
-                    <p className="text-gray-400">No academic data available.</p>
-                    {onEditProfile && <button onClick={onEditProfile} className="mt-4 px-6 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/20">Fill Out Form</button>}
+                    <p className="text-gray-400">{tr("No academic data available.")}</p>
+                    {tr(onEditProfile && <button onClick={onEditProfile} className="mt-4 px-6 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/20">{tr("Fill Out Form")}</button>)}
                   </div>
-                )}
+                ))}
               </div>
-            )}
+            ))}
 
             {/* ===== PERSONALITY ===== */}
-            {activeSection === 'personality' && (
+            {tr(activeSection === 'personality' && (
               <div className="space-y-5">
-                {sortedTraits.length > 0 ? (<>
+                {tr(sortedTraits.length > 0 ? (<>
                   {/* Overall Score */}
                   <div className="prof-card-strong rounded-2xl p-6 flex items-center justify-between flex-wrap gap-5">
                     <div>
-                      <p className="text-[10px] font-bold text-orange-500 uppercase tracking-widest">Overall Personality Score</p>
-                      <p className="text-5xl font-extrabold text-gray-900 mt-1">{personalityAvg}%</p>
-                      <p className="text-xs text-gray-400 mt-1">Average across {sortedTraits.length} traits</p>
+                      <p className="text-[10px] font-bold text-orange-500 uppercase tracking-widest">{tr("Overall Personality Score")}</p>
+                      <p className="text-5xl font-extrabold text-gray-900 mt-1">{tr(personalityAvg)}%</p>
+                      <p className="text-xs text-gray-400 mt-1">{tr("Average across")}{tr(sortedTraits.length)}{tr("traits")}</p>
                     </div>
-                    <div className="text-6xl">{personalityAvg >= 80 ? '🌟' : personalityAvg >= 60 ? '✨' : personalityAvg >= 40 ? '💡' : '🌱'}</div>
+                    <div className="text-6xl">{tr(personalityAvg >= 80 ? '🌟' : personalityAvg >= 60 ? '✨' : personalityAvg >= 40 ? '💡' : '🌱')}</div>
                   </div>
 
                   {/* Trait Cards */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {sortedTraits.map(([trait, score], idx) => {
+                    {tr(sortedTraits.map(([trait, score], idx) => {
                       const data = personalityTraits[trait];
                       return (
                         <motion.div key={trait} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.05 }}
                           className="prof-card-strong prof-card-hover rounded-2xl p-5">
                           <div className="flex items-center justify-between mb-3">
                             <div className="flex items-center gap-3">
-                              <span className="text-xl">{data?.icon || '📊'}</span>
+                              <span className="text-xl">{tr(data?.icon || '📊')}</span>
                               <div>
-                                <p className="text-sm font-bold text-gray-800">{data?.label || trait}</p>
-                                <p className="text-[11px] text-gray-400">{data?.description || ''}</p>
+                                <p className="text-sm font-bold text-gray-800">{tr(data?.label || trait)}</p>
+                                <p className="text-[11px] text-gray-400">{tr(data?.description || '')}</p>
                               </div>
                             </div>
-                            <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${getScoreGrad(score)} flex items-center justify-center text-white font-bold text-sm shadow-md`}>{score}</div>
+                            <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${getScoreGrad(score)} flex items-center justify-center text-white font-bold text-sm shadow-md`}>{tr(score)}</div>
                           </div>
                           <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
                             <motion.div initial={{ width: 0 }} animate={{ width: `${score * 10}%` }} transition={{ duration: 0.8, delay: idx * 0.06 }}
                               className={`h-full rounded-full bg-gradient-to-r ${getScoreGrad(score)}`} />
                           </div>
                           <div className="flex justify-between mt-1.5">
-                            <span className="text-[10px] text-gray-300">{data?.lowLabel || 'Low'}</span>
-                            <span className="text-[10px] text-gray-300">{data?.highLabel || 'High'}</span>
+                            <span className="text-[10px] text-gray-300">{tr(data?.lowLabel || 'Low')}</span>
+                            <span className="text-[10px] text-gray-300">{tr(data?.highLabel || 'High')}</span>
                           </div>
                         </motion.div>
                       );
-                    })}
+                    }))}
                   </div>
                 </>) : (
                   <div className="prof-card-strong rounded-2xl p-12 text-center">
                     <div className="text-5xl mb-4">🧩</div>
-                    <p className="text-gray-400">No personality data yet.</p>
-                    {onEditProfile && <button onClick={onEditProfile} className="mt-4 px-6 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/20">Take Assessment</button>}
+                    <p className="text-gray-400">{tr("No personality data yet.")}</p>
+                    {tr(onEditProfile && <button onClick={onEditProfile} className="mt-4 px-6 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/20">{tr("Take Assessment")}</button>)}
                   </div>
-                )}
+                ))}
               </div>
-            )}
+            ))}
 
             {/* ===== LIFESTYLE ===== */}
-            {activeSection === 'lifestyle' && (
+            {tr(activeSection === 'lifestyle' && (
               <div>
-                {lifestylePreferences && Object.keys(lifestylePreferences).length > 0 ? (
+                {tr(lifestylePreferences && Object.keys(lifestylePreferences).length > 0 ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {Object.entries(lifestylePreferences).map(([key, value], idx) => {
+                    {tr(Object.entries(lifestylePreferences).map(([key, value], idx) => {
                       const factor = lifestyleFactors[key];
                       const selectedOption = factor?.options?.find(o => (typeof o === 'string' ? o : o.value) === value);
                       const optIcon = selectedOption && typeof selectedOption !== 'string' ? selectedOption.icon : null;
@@ -485,36 +483,35 @@ export default function StudentProfile({ onBack, onEditProfile }) {
                           className="prof-card-strong prof-card-hover rounded-2xl p-5">
                           <div className="flex items-start gap-4">
                             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-50 to-orange-50 border border-blue-100 flex items-center justify-center text-2xl flex-shrink-0">
-                              {optIcon || factor?.icon || '📌'}
+                              {tr(optIcon || factor?.icon || '📌')}
                             </div>
                             <div className="flex-1">
-                              <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">{factor?.label || key}</p>
-                              <p className="text-lg font-extrabold text-gray-900 mt-0.5">{value}</p>
-                              {optDesc && <p className="text-xs text-gray-400 mt-1">{optDesc}</p>}
+                              <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">{tr(factor?.label || key)}</p>
+                              <p className="text-lg font-extrabold text-gray-900 mt-0.5">{tr(value)}</p>
+                              {tr(optDesc && <p className="text-xs text-gray-400 mt-1">{tr(optDesc)}</p>)}
                             </div>
                           </div>
                         </motion.div>
                       );
-                    })}
+                    }))}
                   </div>
                 ) : (
                   <div className="prof-card-strong rounded-2xl p-12 text-center">
                     <div className="text-5xl mb-4">🌿</div>
-                    <p className="text-gray-400">No lifestyle preferences set.</p>
-                    {onEditProfile && <button onClick={onEditProfile} className="mt-4 px-6 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/20">Set Preferences</button>}
+                    <p className="text-gray-400">{tr("No lifestyle preferences set.")}</p>
+                    {tr(onEditProfile && <button onClick={onEditProfile} className="mt-4 px-6 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/20">{tr("Set Preferences")}</button>)}
                   </div>
-                )}
+                ))}
               </div>
-            )}
+            ))}
           </motion.div>
         </AnimatePresence>
 
         {/* Footer */}
-        {profile.updatedAt && (
-          <p className="text-center text-[11px] text-gray-300 mt-8 pb-8">
-            Last updated: {new Date(profile.updatedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+        {tr(profile.updatedAt && (
+          <p className="text-center text-[11px] text-gray-300 mt-8 pb-8">{tr("Last updated:")}{tr(new Date(profile.updatedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }))}
           </p>
-        )}
+        ))}
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+import { useAdvisorTranslation } from '../data/advisorTranslations';
 import { useEffect, useMemo, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
@@ -51,6 +52,7 @@ function FitBounds({ markers }) {
 }
 
 export default function UniversityMap({ universities, preferredUnis = [] }) {
+  const tr = useAdvisorTranslation();
   const mapRef = useRef(null);
 
   // Deduplicate universities by name and filter those with valid coordinates
@@ -77,8 +79,8 @@ export default function UniversityMap({ universities, preferredUnis = [] }) {
         <svg className="w-16 h-16 mx-auto mb-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
         </svg>
-        <p className="text-slate-500 text-lg font-medium">No universities with location data available</p>
-        <p className="text-slate-400 text-sm mt-2">Map coordinates are not available for the recommended universities</p>
+        <p className="text-slate-500 text-lg font-medium">{tr("No universities with location data available")}</p>
+        <p className="text-slate-400 text-sm mt-2">{tr("Map coordinates are not available for the recommended universities")}</p>
       </div>
     );
   }
@@ -97,20 +99,20 @@ export default function UniversityMap({ universities, preferredUnis = [] }) {
     <div className="space-y-4">
       {/* Legend */}
       <div className="flex flex-wrap items-center gap-4 bg-slate-50 rounded-xl p-3 border border-slate-200">
-        <span className="text-slate-500 text-xs font-medium uppercase tracking-wider">Legend:</span>
+        <span className="text-slate-500 text-xs font-medium uppercase tracking-wider">{tr("Legend:")}</span>
         <div className="flex items-center gap-1.5">
           <span className="w-3 h-3 rounded-full bg-emerald-500 inline-block" />
-          <span className="text-slate-700 text-sm">Government</span>
+          <span className="text-slate-700 text-sm">{tr("Government")}</span>
         </div>
         <div className="flex items-center gap-1.5">
           <span className="w-3 h-3 rounded-full bg-purple-500 inline-block" />
-          <span className="text-slate-700 text-sm">Private</span>
+          <span className="text-slate-700 text-sm">{tr("Private")}</span>
         </div>
         <div className="flex items-center gap-1.5">
           <span className="w-3 h-3 rounded-full bg-amber-500 inline-block" />
-          <span className="text-slate-700 text-sm">Preferred</span>
+          <span className="text-slate-700 text-sm">{tr("Preferred")}</span>
         </div>
-        <span className="ml-auto text-slate-400 text-xs">{markers.length} universities shown</span>
+        <span className="ml-auto text-slate-400 text-xs">{tr(markers.length)}{tr("universities shown")}</span>
       </div>
 
       {/* Map */}
@@ -128,7 +130,7 @@ export default function UniversityMap({ universities, preferredUnis = [] }) {
           />
           <FitBounds markers={markers} />
 
-          {markers.map((uni) => {
+          {tr(markers.map((uni) => {
             const icon = uni.isPreferred ? prefIcon : (uni.type === 'Government' ? govIcon : privIcon);
             const badge = getAdmissionBadge(uni.admission_probability);
 
@@ -142,9 +144,9 @@ export default function UniversityMap({ universities, preferredUnis = [] }) {
                       color: '#fff', padding: '10px 14px', margin: '-20px -20px 12px -20px',
                       borderRadius: '12px 12px 0 0',
                     }}>
-                      <div style={{ fontSize: '14px', fontWeight: 700, lineHeight: 1.3 }}>{uni.name}</div>
+                      <div style={{ fontSize: '14px', fontWeight: 700, lineHeight: 1.3 }}>{tr(uni.name)}</div>
                       <div style={{ fontSize: '11px', opacity: 0.85, marginTop: '2px' }}>
-                        {uni.location} &bull; {uni.type}
+                        {tr(uni.location)} &bull; {tr(uni.type)}
                       </div>
                     </div>
 
@@ -154,57 +156,52 @@ export default function UniversityMap({ universities, preferredUnis = [] }) {
                         background: badge.bg, color: '#fff', fontSize: '11px', fontWeight: 600,
                         padding: '2px 8px', borderRadius: '20px',
                       }}>
-                        {badge.text}
+                        {tr(badge.text)}
                       </span>
-                      <span style={{ fontSize: '13px', color: '#374151' }}>
-                        Admission: <strong>{(uni.admission_probability * 100).toFixed(0)}%</strong>
+                      <span style={{ fontSize: '13px', color: '#374151' }}>{tr("Admission:")}<strong>{tr((uni.admission_probability * 100).toFixed(0))}%</strong>
                       </span>
                     </div>
 
                     {/* Z-score */}
-                    {uni.z_score_requirement && (
-                      <div style={{ fontSize: '12px', color: '#6b7280', marginBottom: '6px' }}>
-                        Z-Score Cutoff: <strong style={{ color: '#374151' }}>{uni.z_score_requirement}</strong>
+                    {tr(uni.z_score_requirement && (
+                      <div style={{ fontSize: '12px', color: '#6b7280', marginBottom: '6px' }}>{tr("Z-Score Cutoff:")}<strong style={{ color: '#374151' }}>{tr(uni.z_score_requirement)}</strong>
                       </div>
-                    )}
+                    ))}
 
                     {/* National rank */}
-                    {uni.national_rank && (
-                      <div style={{ fontSize: '12px', color: '#6b7280', marginBottom: '6px' }}>
-                        National Rank: <strong style={{ color: '#374151' }}>#{uni.national_rank}</strong>
+                    {tr(uni.national_rank && (
+                      <div style={{ fontSize: '12px', color: '#6b7280', marginBottom: '6px' }}>{tr("National Rank:")}<strong style={{ color: '#374151' }}>#{tr(uni.national_rank)}</strong>
                       </div>
-                    )}
+                    ))}
 
                     {/* Facilities */}
-                    {uni.facilities && uni.facilities.length > 0 && (
+                    {tr(uni.facilities && uni.facilities.length > 0 && (
                       <div style={{ marginTop: '8px', borderTop: '1px solid #e5e7eb', paddingTop: '8px' }}>
-                        <div style={{ fontSize: '11px', color: '#9ca3af', fontWeight: 600, marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                          Facilities
-                        </div>
+                        <div style={{ fontSize: '11px', color: '#9ca3af', fontWeight: 600, marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{tr("Facilities")}</div>
                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
-                          {uni.facilities.slice(0, 4).map((f, i) => (
+                          {tr(uni.facilities.slice(0, 4).map((f, i) => (
                             <span key={i} style={{
                               fontSize: '10px', background: '#f3f4f6', color: '#4b5563',
                               padding: '2px 6px', borderRadius: '4px',
-                            }}>{f}</span>
+                            }}>{tr(f)}</span>
+                          )))}
+                          {tr(uni.facilities.length > 4 && (
+                            <span style={{ fontSize: '10px', color: '#9ca3af' }}>+{tr(uni.facilities.length - 4)}{tr("more")}</span>
                           ))}
-                          {uni.facilities.length > 4 && (
-                            <span style={{ fontSize: '10px', color: '#9ca3af' }}>+{uni.facilities.length - 4} more</span>
-                          )}
                         </div>
                       </div>
-                    )}
+                    ))}
                   </div>
                 </Popup>
               </Marker>
             );
-          })}
+          }))}
         </MapContainer>
       </div>
 
       {/* University list below map */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-        {markers.map((uni) => {
+        {tr(markers.map((uni) => {
           const badge = getAdmissionBadge(uni.admission_probability);
           const isGov = uni.type === 'Government';
           return (
@@ -214,23 +211,22 @@ export default function UniversityMap({ universities, preferredUnis = [] }) {
               <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold text-white shrink-0 ${
                 uni.isPreferred ? 'bg-amber-500' : isGov ? 'bg-emerald-600' : 'bg-purple-600'
               }`}>
-                {uni.national_rank ? `#${uni.national_rank}` : isGov ? 'G' : 'P'}
+                {tr(uni.national_rank ? `#${uni.national_rank}` : isGov ? 'G' : 'P')}
               </div>
               <div className="min-w-0">
-                <p className="text-slate-800 text-sm font-semibold truncate">{uni.name}</p>
-                <p className="text-slate-400 text-xs">{uni.location}</p>
+                <p className="text-slate-800 text-sm font-semibold truncate">{tr(uni.name)}</p>
+                <p className="text-slate-400 text-xs">{tr(uni.location)}</p>
                 <div className="flex items-center gap-2 mt-1">
                   <span className="text-xs font-medium" style={{ color: badge.bg }}>
-                    {(uni.admission_probability * 100).toFixed(0)}% admission
-                  </span>
-                  {uni.z_score_requirement && (
-                    <span className="text-slate-400 text-xs">Z: {uni.z_score_requirement}</span>
-                  )}
+                    {tr((uni.admission_probability * 100).toFixed(0))}{tr("% admission")}</span>
+                  {tr(uni.z_score_requirement && (
+                    <span className="text-slate-400 text-xs">{tr("Z:")}{tr(uni.z_score_requirement)}</span>
+                  ))}
                 </div>
               </div>
             </div>
           );
-        })}
+        }))}
       </div>
     </div>
   );

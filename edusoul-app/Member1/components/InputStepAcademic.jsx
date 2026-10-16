@@ -1,13 +1,14 @@
+import { useAdvisorTranslation } from '../data/advisorTranslations';
 export default function InputStepAcademic({ formData, setFormData, handleStreamChange, handleSubjectGradeChange, handleSubjectToggle, getSubjectBucket, streamInfo, hasSubjectBuckets, streamSubjects, STREAM_SUBJECTS }) {
+  const tr = useAdvisorTranslation();
   return (
     <div className="space-y-6">
       {/* Stream Selection */}
       <div>
-        <label className="block text-sm font-semibold text-gray-700 mb-3">
-          G.C.E. A/L Stream <span className="text-orange-500">*</span>
+        <label className="block text-sm font-semibold text-gray-700 mb-3">{tr("G.C.E. A/L Stream")}<span className="text-orange-500">*</span>
         </label>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-          {Object.entries(STREAM_SUBJECTS).map(([stream, info]) => {
+          {tr(Object.entries(STREAM_SUBJECTS).map(([stream, info]) => {
             const isSelected = formData.academicResults.stream === stream;
             return (
               <button key={stream} onClick={() => handleStreamChange(stream)}
@@ -16,54 +17,52 @@ export default function InputStepAcademic({ formData, setFormData, handleStreamC
                     ? 'border-blue-500 bg-blue-50 shadow-lg shadow-blue-500/10'
                     : 'border-gray-200 bg-white/60 hover:border-blue-300 hover:shadow-md hover:bg-white/80'
                 }`}>
-                {isSelected && (
+                {tr(isSelected && (
                   <div className={`absolute top-3 right-3 w-6 h-6 bg-gradient-to-br ${info.color} rounded-full flex items-center justify-center`}>
                     <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                )}
-                <span className="text-2xl block mb-2">{info.icon}</span>
-                <h4 className="font-bold text-gray-900 text-sm mb-1">{stream}</h4>
+                ))}
+                <span className="text-2xl block mb-2">{tr(info.icon)}</span>
+                <h4 className="font-bold text-gray-900 text-sm mb-1">{tr(stream)}</h4>
                 <p className="text-xs text-gray-400 leading-snug">
-                  {info.hasSubjectBuckets ? 'Choose 3 from subject groups' : info.subjects.join(', ')}
+                  {tr(info.hasSubjectBuckets ? 'Choose 3 from subject groups' : info.subjects.join(', '))}
                 </p>
                 <div className="mt-2">
-                  <span className="text-[10px] font-medium text-gray-400 uppercase tracking-wider">Leads to:</span>
-                  <p className="text-xs text-blue-600 font-medium">{info.degrees}</p>
+                  <span className="text-[10px] font-medium text-gray-400 uppercase tracking-wider">{tr("Leads to:")}</span>
+                  <p className="text-xs text-blue-600 font-medium">{tr(info.degrees)}</p>
                 </div>
               </button>
             );
-          })}
+          }))}
         </div>
       </div>
 
       {/* Z-Score + Subject Grades */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-2">
-            Z-Score <span className="text-orange-500">*</span>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">{tr("Z-Score")}<span className="text-orange-500">*</span>
           </label>
           <input type="number" step="0.01" min="0" max="3.5"
             value={formData.academicResults.zScore}
             onChange={(e) => setFormData({ ...formData, academicResults: { ...formData.academicResults, zScore: e.target.value } })}
             className="w-full px-4 py-3.5 glass-input rounded-xl text-lg font-mono"
-            placeholder="e.g. 1.85" />
-          <p className="text-xs text-gray-400 mt-1.5">Typical range: 0.00 - 3.00. Medicine requires ~1.90+</p>
+            placeholder={tr("e.g. 1.85")} />
+          <p className="text-xs text-gray-400 mt-1.5">{tr("Typical range: 0.00 - 3.00. Medicine requires ~1.90+")}</p>
         </div>
 
-        {!hasSubjectBuckets && streamSubjects.length > 0 && (
+        {tr(!hasSubjectBuckets && streamSubjects.length > 0 && (
           <div className="p-5 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl border border-blue-100">
             <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
-              <span>📝</span> Subject Grades
-              <span className="text-xs font-normal text-gray-400">(Optional)</span>
+              <span>📝</span>{tr("Subject Grades")}<span className="text-xs font-normal text-gray-400">{tr("(Optional)")}</span>
             </h3>
             <div className="space-y-3">
-              {streamSubjects.map(subject => (
+              {tr(streamSubjects.map(subject => (
                 <div key={subject} className="flex items-center gap-3">
-                  <span className="text-sm font-medium text-gray-700 min-w-[140px] truncate">{subject}</span>
+                  <span className="text-sm font-medium text-gray-700 min-w-[140px] truncate">{tr(subject)}</span>
                   <div className="flex gap-2">
-                    {['A', 'B', 'C', 'S', 'F'].map(grade => {
+                    {tr(['A', 'B', 'C', 'S', 'F'].map(grade => {
                       const isGradeSelected = formData.academicResults.subjects[subject] === grade;
                       const gradeColors = {
                         'A': 'bg-green-500 text-white shadow-green-500/30',
@@ -79,28 +78,25 @@ export default function InputStepAcademic({ formData, setFormData, handleStreamC
                               ? `${gradeColors[grade]} shadow-md selected`
                               : 'bg-white border border-gray-200 text-gray-500 hover:border-blue-300'
                           }`}>
-                          {grade}
+                          {tr(grade)}
                         </button>
                       );
-                    })}
+                    }))}
                   </div>
                 </div>
-              ))}
+              )))}
             </div>
           </div>
-        )}
+        ))}
       </div>
 
       {/* Predicted Performance */}
       <div className="p-5 bg-gradient-to-br from-purple-50 to-indigo-50 rounded-2xl border border-purple-100">
         <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
-          <span>📈</span> Predicted Performance
-        </h3>
+          <span>📈</span>{tr("Predicted Performance")}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Expected Improvement
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">{tr("Expected Improvement")}</label>
             <select
               value={formData.academicResults.predictedPerformance?.improvement || "Medium"}
               onChange={(e) => setFormData({
@@ -115,15 +111,13 @@ export default function InputStepAcademic({ formData, setFormData, handleStreamC
               })}
               className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white"
             >
-              <option value="Low">Low</option>
-              <option value="Medium">Medium</option>
-              <option value="High">High</option>
+              <option value="Low">{tr("Low")}</option>
+              <option value="Medium">{tr("Medium")}</option>
+              <option value="High">{tr("High")}</option>
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Potential Z-Score
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">{tr("Potential Z-Score")}</label>
             <input
               type="number"
               step="0.01"
@@ -141,31 +135,30 @@ export default function InputStepAcademic({ formData, setFormData, handleStreamC
                 }
               })}
               className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white"
-              placeholder="e.g. 2.5"
+              placeholder={tr("e.g. 2.5")}
             />
           </div>
         </div>
       </div>
 
       {/* Subject Buckets */}
-      {hasSubjectBuckets && streamInfo?.subjectBuckets && (
+      {tr(hasSubjectBuckets && streamInfo?.subjectBuckets && (
         <div className="mt-5 space-y-4">
           <div className="flex items-center justify-between">
             <h3 className="font-bold text-gray-800 flex items-center gap-2">
-              <span>📖</span> Select Your A/L Subjects
-            </h3>
+              <span>📖</span>{tr("Select Your A/L Subjects")}</h3>
             <span className={`text-sm font-semibold px-3 py-1 rounded-full ${
               formData.academicResults.stream === 'Arts' && Object.keys(formData.academicResults.subjects).length === 3
                 ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700'
             }`}>
-              {formData.academicResults.stream === 'Arts'
+              {tr(formData.academicResults.stream === 'Arts'
                 ? `${Object.keys(formData.academicResults.subjects).length}/3 selected`
-                : `${Object.keys(formData.academicResults.subjects).length} subjects selected`
+                : `${Object.keys(formData.academicResults.subjects).length} subjects selected`)
               }
             </span>
           </div>
 
-          {Object.entries(streamInfo.subjectBuckets).map(([bucketName, bucket]) => {
+          {tr(Object.entries(streamInfo.subjectBuckets).map(([bucketName, bucket]) => {
             const selectedFromBucket = bucket.subjects.filter(s => formData.academicResults.subjects.hasOwnProperty(s)).length;
             const bucketFull = selectedFromBucket >= bucket.maxFromBucket;
             // For Arts stream, limit to 3 total subjects. For other streams, allow core + optional
@@ -174,15 +167,15 @@ export default function InputStepAcademic({ formData, setFormData, handleStreamC
               <div key={bucketName} className="p-4 glass-subtle rounded-2xl">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
-                    <span className="text-xl">{bucket.icon}</span>
-                    <h4 className="font-semibold text-gray-800">{bucketName}</h4>
+                    <span className="text-xl">{tr(bucket.icon)}</span>
+                    <h4 className="font-semibold text-gray-800">{tr(bucketName)}</h4>
                   </div>
                   <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
                     bucketFull ? 'bg-orange-100 text-orange-700' : 'bg-gray-100 text-gray-500'
-                  }`}>{bucket.note}</span>
+                  }`}>{tr(bucket.note)}</span>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  {bucket.subjects.map(subject => {
+                  {tr(bucket.subjects.map(subject => {
                     const isSelected = formData.academicResults.subjects.hasOwnProperty(subject);
                     const isDisabled = !isSelected && (totalFull || bucketFull);
                     return (
@@ -195,29 +188,28 @@ export default function InputStepAcademic({ formData, setFormData, handleStreamC
                             : isDisabled
                               ? 'bg-gray-50 text-gray-300 cursor-not-allowed'
                               : 'bg-white border border-gray-200 text-gray-700 hover:border-blue-400 hover:text-blue-600 hover:shadow-sm'
-                        }`}>{subject}</button>
+                        }`}>{tr(subject)}</button>
                     );
-                  })}
+                  }))}
                 </div>
               </div>
             );
-          })}
+          }))}
 
-          {streamSubjects.length > 0 && (
+          {tr(streamSubjects.length > 0 && (
             <div className="p-5 bg-gradient-to-br from-rose-50 to-pink-50 rounded-2xl border border-rose-100">
               <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
-                <span>📝</span> Subject Grades
-                <span className="text-xs font-normal text-gray-400">(Optional — Z-score is the primary factor)</span>
+                <span>📝</span>{tr("Subject Grades")}<span className="text-xs font-normal text-gray-400">{tr("(Optional \u2014 Z-score is the primary factor)")}</span>
               </h3>
               <div className="space-y-3">
-                {streamSubjects.map(subject => (
+                {tr(streamSubjects.map(subject => (
                   <div key={subject} className="flex items-center gap-3">
                     <div className="flex items-center gap-2 min-w-[180px]">
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-rose-100 text-rose-600 font-medium">{getSubjectBucket(subject)}</span>
-                      <span className="text-sm font-medium text-gray-700 truncate">{subject}</span>
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-rose-100 text-rose-600 font-medium">{tr(getSubjectBucket(subject))}</span>
+                      <span className="text-sm font-medium text-gray-700 truncate">{tr(subject)}</span>
                     </div>
                     <div className="flex gap-2">
-                      {['A', 'B', 'C', 'S', 'F'].map(grade => {
+                      {tr(['A', 'B', 'C', 'S', 'F'].map(grade => {
                         const isGradeSelected = formData.academicResults.subjects[subject] === grade;
                         const gradeColors = {
                           'A': 'bg-green-500 text-white shadow-green-500/30',
@@ -232,17 +224,17 @@ export default function InputStepAcademic({ formData, setFormData, handleStreamC
                               isGradeSelected
                                 ? `${gradeColors[grade]} shadow-md selected`
                                 : 'bg-white border border-gray-200 text-gray-500 hover:border-blue-300'
-                            }`}>{grade}</button>
+                            }`}>{tr(grade)}</button>
                         );
-                      })}
+                      }))}
                     </div>
                   </div>
-                ))}
+                )))}
               </div>
             </div>
-          )}
+          ))}
         </div>
-      )}
+      ))}
     </div>
   );
 }

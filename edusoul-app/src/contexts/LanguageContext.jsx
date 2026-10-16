@@ -14,17 +14,28 @@ export const useLanguage = () => {
 };
 
 export const LanguageProvider = ({ children }) => {
-  const [language, setLanguage] = useState('en');
+  const [language, setLanguage] = useState(() => {
+    try {
+      const saved = localStorage.getItem('appLanguage');
+      return ['en', 'si', 'ta'].includes(saved) ? saved : 'en';
+    } catch {
+      return 'en';
+    }
+  });
 
   const changeLanguage = (lang) => {
+    if (!['en', 'si', 'ta'].includes(lang)) return;
     setLanguage(lang);
-    localStorage.setItem('appLanguage', lang);
+    try {
+      localStorage.setItem('appLanguage', lang);
+    } catch {
+      // Switching still works when browser storage is unavailable.
+    }
   };
 
   useEffect(() => {
-    const saved = localStorage.getItem('appLanguage');
-    if (saved) setLanguage(saved);
-  }, []);
+    document.documentElement.lang = language;
+  }, [language]);
 
   return (
     <LanguageContext.Provider value={{ language, changeLanguage }}>

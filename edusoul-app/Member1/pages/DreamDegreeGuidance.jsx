@@ -1,10 +1,13 @@
+import { useLanguage } from '../../src/contexts/LanguageContext';
+import { useAdvisorTranslation } from '../data/advisorTranslations';
 import { useState, useRef, useEffect } from 'react';
 import { universities, dreamJobs } from '../data/dreamDegreeData';
 
 const BG_IMAGE_URL = 'https://i.pinimg.com/1200x/d7/76/5d/d7765d7445ccfecafbd6546e8e36b813.jpg';
 
 export default function DreamDegreeGuidance({ studentData, backendResults, onBack, onHome, onComplete, onViewProfile, onNavigateToDashboard }) {
-  const [language, setLanguage] = useState('en');
+  const tr = useAdvisorTranslation();
+  const { language, changeLanguage: setLanguage } = useLanguage();
   const [portalOpen, setPortalOpen] = useState(false);
   const portalRef = useRef(null);
 
@@ -210,10 +213,8 @@ export default function DreamDegreeGuidance({ studentData, backendResults, onBac
         >
           <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z" />
-          </svg>
-          Portal
-        </button>
-        {portalOpen && (
+          </svg>{tr("Portal")}</button>
+        {tr(portalOpen && (
           <div style={{
             position: 'absolute', top: 'calc(100% + 10px)', left: 0, width: 260,
             background: 'rgba(255,255,255,0.97)', backdropFilter: 'blur(24px)',
@@ -224,9 +225,7 @@ export default function DreamDegreeGuidance({ studentData, backendResults, onBac
             <style>{`@keyframes portalDropIn { from { opacity: 0; transform: translateY(-8px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }`}</style>
             <div style={{ padding: '14px 18px 10px', borderBottom: '1px solid rgba(226,232,240,0.6)', background: 'linear-gradient(135deg, rgba(59,130,246,0.06), rgba(249,115,22,0.04))' }}>
               <p style={{ fontSize: 12, fontWeight: 800, color: '#1e293b', margin: 0, letterSpacing: '0.5px', display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ width: 22, height: 22, borderRadius: 7, background: 'linear-gradient(135deg, #3b82f6, #2563eb)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 10, fontWeight: 900 }}>D</span>
-                Navigation
-              </p>
+                <span style={{ width: 22, height: 22, borderRadius: 7, background: 'linear-gradient(135deg, #3b82f6, #2563eb)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 10, fontWeight: 900 }}>D</span>{tr("Navigation")}</p>
             </div>
             <div style={{ padding: '6px 0' }}>
               <button onClick={() => { setPortalOpen(false); onHome(); }}
@@ -236,10 +235,8 @@ export default function DreamDegreeGuidance({ studentData, backendResults, onBac
               >
                 <span style={{ width: 32, height: 32, borderRadius: 10, background: 'rgba(59,130,246,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <svg width="16" height="16" fill="none" stroke="#3b82f6" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z" /></svg>
-                </span>
-                Home
-              </button>
-              {onViewProfile && (
+                </span>{tr("Home")}</button>
+              {tr(onViewProfile && (
                 <button onClick={() => { setPortalOpen(false); onViewProfile(); }}
                   style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 12, padding: '11px 18px', background: 'none', border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 500, color: '#475569', transition: 'background 0.15s' }}
                   onMouseEnter={e => e.currentTarget.style.background = 'rgba(249,115,22,0.06)'}
@@ -247,11 +244,9 @@ export default function DreamDegreeGuidance({ studentData, backendResults, onBac
                 >
                   <span style={{ width: 32, height: 32, borderRadius: 10, background: 'rgba(249,115,22,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <svg width="16" height="16" fill="none" stroke="#f97316" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
-                  </span>
-                  My Profile
-                </button>
-              )}
-              {onNavigateToDashboard && (
+                  </span>{tr("My Profile")}</button>
+              ))}
+              {tr(onNavigateToDashboard && (
                 <button onClick={() => { setPortalOpen(false); onNavigateToDashboard(); }}
                   style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 12, padding: '11px 18px', background: 'none', border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 500, color: '#475569', transition: 'background 0.15s' }}
                   onMouseEnter={e => e.currentTarget.style.background = 'rgba(99,102,241,0.06)'}
@@ -259,10 +254,8 @@ export default function DreamDegreeGuidance({ studentData, backendResults, onBac
                 >
                   <span style={{ width: 32, height: 32, borderRadius: 10, background: 'rgba(99,102,241,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <svg width="16" height="16" fill="none" stroke="#6366f1" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
-                  </span>
-                  Dashboard
-                </button>
-              )}
+                  </span>{tr("Dashboard")}</button>
+              ))}
               <button onClick={() => { setPortalOpen(false); onBack(); }}
                 style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 12, padding: '11px 18px', background: 'none', border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 500, color: '#475569', transition: 'background 0.15s' }}
                 onMouseEnter={e => e.currentTarget.style.background = 'rgba(34,197,94,0.06)'}
@@ -270,12 +263,10 @@ export default function DreamDegreeGuidance({ studentData, backendResults, onBac
               >
                 <span style={{ width: 32, height: 32, borderRadius: 10, background: 'rgba(34,197,94,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <svg width="16" height="16" fill="none" stroke="#22c55e" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-                </span>
-                Back to Results
-              </button>
+                </span>{tr("Back to Results")}</button>
             </div>
           </div>
-        )}
+        ))}
       </div>
 
       {/* Content Section */}
@@ -286,137 +277,136 @@ export default function DreamDegreeGuidance({ studentData, backendResults, onBac
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
-            <span className="text-sm font-medium">Back to Results</span>
+            <span className="text-sm font-medium">{tr("Back to Results")}</span>
           </button>
           <div className="flex items-center space-x-2">
-            {['en', 'si', 'ta'].map((lang) => (
+            {tr(['en', 'si', 'ta'].map((lang) => (
               <button
                 key={lang}
-                onClick={() => setLanguage(lang)}
+                onClick={() => setLanguage(lang)} aria-pressed={language === lang} lang={lang}
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                   language === lang
                     ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/20'
                     : 'bg-white/60 text-slate-500 hover:bg-white/80 border border-slate-200'
                 }`}
               >
-                {lang === 'en' ? 'EN' : lang === 'si' ? 'SI' : 'TA'}
+                {lang === 'en' ? 'English' : lang === 'si' ? 'සිංහල' : 'தமிழ்'}
               </button>
-            ))}
+            )))}
           </div>
         </div>
 
         <div className="text-center mb-8">
           <h1 className="text-4xl font-normal mb-2">
-            <span className="text-slate-900">Improvement </span><span className="text-blue-600">Guidance</span>
+            <span className="text-slate-900">{tr("Improvement")}</span><span className="text-blue-600">{tr("Guidance")}</span>
           </h1>
-          <p className="text-slate-500 text-lg">Personalized improvement recommendations based on your profile</p>
+          <p className="text-slate-500 text-lg">{tr("Personalized improvement recommendations based on your profile")}</p>
         </div>
 
         {/* Current Profile Summary */}
         <div className="guide-card-strong rounded-2xl p-6 mb-8">
-          <h2 className="text-2xl font-bold text-slate-800 mb-4">Current Profile Summary</h2>
+          <h2 className="text-2xl font-bold text-slate-800 mb-4">{tr("Current Profile Summary")}</h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="bg-blue-50 p-4 rounded-xl text-center border border-blue-200">
-              <p className="text-sm text-blue-500 mb-1">Dream Job</p>
-              <p className="font-bold text-slate-800">{studentData.dreamJob || 'Not selected'}</p>
+              <p className="text-sm text-blue-500 mb-1">{tr("Dream Job")}</p>
+              <p className="font-bold text-slate-800">{tr(studentData.dreamJob || 'Not selected')}</p>
             </div>
             <div className="bg-orange-50 p-4 rounded-xl text-center border border-orange-200">
-              <p className="text-sm text-orange-500 mb-1">Z-Score</p>
-              <p className="font-bold text-slate-800">{studentData.academicResults.zScore || 'N/A'}</p>
+              <p className="text-sm text-orange-500 mb-1">{tr("Z-Score")}</p>
+              <p className="font-bold text-slate-800">{tr(studentData.academicResults.zScore || 'N/A')}</p>
             </div>
             <div className="bg-blue-50 p-4 rounded-xl text-center border border-blue-200">
-              <p className="text-sm text-blue-500 mb-1">District</p>
-              <p className="font-bold text-slate-800">{studentData.personalInfo.district || 'Not specified'}</p>
+              <p className="text-sm text-blue-500 mb-1">{tr("District")}</p>
+              <p className="font-bold text-slate-800">{tr(studentData.personalInfo.district || 'Not specified')}</p>
             </div>
             <div className="bg-orange-50 p-4 rounded-xl text-center border border-orange-200">
-              <p className="text-sm text-orange-500 mb-1">Location Preference</p>
-              <p className="font-bold text-slate-800">{studentData.lifestylePreferences.locationPreference || 'Not specified'}</p>
+              <p className="text-sm text-orange-500 mb-1">{tr("Location Preference")}</p>
+              <p className="font-bold text-slate-800">{tr(studentData.lifestylePreferences.locationPreference || 'Not specified')}</p>
             </div>
           </div>
         </div>
 
         {/* Counterfactual Guidance */}
         <div className="space-y-6">
-          <h2 className="text-2xl font-bold text-slate-800 mb-4">If-Then Improvement Scenarios</h2>
+          <h2 className="text-2xl font-bold text-slate-800 mb-4">{tr("If-Then Improvement Scenarios")}</h2>
 
-          {counterfactuals.map((item, index) => (
+          {tr(counterfactuals.map((item, index) => (
             <div
               key={index}
               className="guide-card-strong rounded-2xl p-6"
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center space-x-3">
-                  <span className="text-3xl">{item.icon}</span>
+                  <span className="text-3xl">{tr(item.icon)}</span>
                   <div>
-                    <h3 className="text-xl font-bold text-slate-800">{item.title}</h3>
+                    <h3 className="text-xl font-bold text-slate-800">{tr(item.title)}</h3>
                     <span className={`text-xs px-2.5 py-1 rounded-full font-semibold ${getImpactColor(item.impact)}`}>
-                      {item.impact} Impact
-                    </span>
+                      {tr(item.impact)}{tr("Impact")}</span>
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="text-sm text-slate-500">Current: <span className="font-medium text-slate-700">{item.current}</span></p>
-                  <p className="text-sm font-bold text-orange-500">Target: {item.target}</p>
+                  <p className="text-sm text-slate-500">{tr("Current:")}<span className="font-medium text-slate-700">{tr(item.current)}</span></p>
+                  <p className="text-sm font-bold text-orange-500">{tr("Target:")}{tr(item.target)}</p>
                 </div>
               </div>
 
               <div className="bg-gradient-to-r from-blue-50 to-orange-50 p-4 rounded-xl mb-4 border border-blue-100">
                 <p className="font-medium text-slate-700">
-                  <span className="text-blue-600 font-bold">If-Then Scenario:</span> {item.ifThen}
+                  <span className="text-blue-600 font-bold">{tr("If-Then Scenario:")}</span> {tr(item.ifThen)}
                 </p>
               </div>
 
               <div>
-                <h4 className="font-semibold text-slate-700 mb-2">Actionable Steps:</h4>
+                <h4 className="font-semibold text-slate-700 mb-2">{tr("Actionable Steps:")}</h4>
                 <ul className="space-y-2">
-                  {item.suggestions.map((suggestion, idx) => (
+                  {tr(item.suggestions.map((suggestion, idx) => (
                     <li key={idx} className="flex items-start">
                       <span className="w-6 h-6 bg-gradient-to-br from-blue-600 to-orange-500 text-white rounded-full flex items-center justify-center text-sm mr-3 mt-0.5 flex-shrink-0">
-                        {idx + 1}
+                        {tr(idx + 1)}
                       </span>
-                      <span className="text-slate-600">{suggestion}</span>
+                      <span className="text-slate-600">{tr(suggestion)}</span>
                     </li>
-                  ))}
+                  )))}
                 </ul>
               </div>
             </div>
-          ))}
+          )))}
         </div>
 
         {/* Priority Actions */}
         <div className="guide-card-strong rounded-2xl p-6 mt-8">
-          <h2 className="text-2xl font-bold text-slate-800 mb-4">Priority Actions</h2>
+          <h2 className="text-2xl font-bold text-slate-800 mb-4">{tr("Priority Actions")}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="bg-red-50 p-4 rounded-xl border border-red-200">
-              <h3 className="font-bold text-red-600 mb-2">Immediate (Next 1-3 months)</h3>
+              <h3 className="font-bold text-red-600 mb-2">{tr("Immediate (Next 1-3 months)")}</h3>
               <ul className="space-y-1 text-sm text-slate-600">
-                <li className="flex items-center"><span className="w-1.5 h-1.5 bg-red-400 rounded-full mr-2" />Focus on academic improvements</li>
-                <li className="flex items-center"><span className="w-1.5 h-1.5 bg-red-400 rounded-full mr-2" />Research district quota benefits</li>
-                <li className="flex items-center"><span className="w-1.5 h-1.5 bg-red-400 rounded-full mr-2" />Explore alternative pathways</li>
+                <li className="flex items-center"><span className="w-1.5 h-1.5 bg-red-400 rounded-full mr-2" />{tr("Focus on academic improvements")}</li>
+                <li className="flex items-center"><span className="w-1.5 h-1.5 bg-red-400 rounded-full mr-2" />{tr("Research district quota benefits")}</li>
+                <li className="flex items-center"><span className="w-1.5 h-1.5 bg-red-400 rounded-full mr-2" />{tr("Explore alternative pathways")}</li>
               </ul>
             </div>
             <div className="bg-orange-50 p-4 rounded-xl border border-orange-200">
-              <h3 className="font-bold text-orange-600 mb-2">Short-term (3-6 months)</h3>
+              <h3 className="font-bold text-orange-600 mb-2">{tr("Short-term (3-6 months)")}</h3>
               <ul className="space-y-1 text-sm text-slate-600">
-                <li className="flex items-center"><span className="w-1.5 h-1.5 bg-orange-400 rounded-full mr-2" />Develop key personality traits</li>
-                <li className="flex items-center"><span className="w-1.5 h-1.5 bg-orange-400 rounded-full mr-2" />Complete bridging courses</li>
-                <li className="flex items-center"><span className="w-1.5 h-1.5 bg-orange-400 rounded-full mr-2" />Build professional network</li>
+                <li className="flex items-center"><span className="w-1.5 h-1.5 bg-orange-400 rounded-full mr-2" />{tr("Develop key personality traits")}</li>
+                <li className="flex items-center"><span className="w-1.5 h-1.5 bg-orange-400 rounded-full mr-2" />{tr("Complete bridging courses")}</li>
+                <li className="flex items-center"><span className="w-1.5 h-1.5 bg-orange-400 rounded-full mr-2" />{tr("Build professional network")}</li>
               </ul>
             </div>
             <div className="bg-blue-50 p-4 rounded-xl border border-blue-200">
-              <h3 className="font-bold text-blue-600 mb-2">Medium-term (6-12 months)</h3>
+              <h3 className="font-bold text-blue-600 mb-2">{tr("Medium-term (6-12 months)")}</h3>
               <ul className="space-y-1 text-sm text-slate-600">
-                <li className="flex items-center"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2" />Apply to multiple universities</li>
-                <li className="flex items-center"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2" />Secure internships</li>
-                <li className="flex items-center"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2" />Prepare for interviews</li>
+                <li className="flex items-center"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2" />{tr("Apply to multiple universities")}</li>
+                <li className="flex items-center"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2" />{tr("Secure internships")}</li>
+                <li className="flex items-center"><span className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2" />{tr("Prepare for interviews")}</li>
               </ul>
             </div>
             <div className="bg-purple-50 p-4 rounded-xl border border-purple-200">
-              <h3 className="font-bold text-purple-600 mb-2">Long-term (1+ years)</h3>
+              <h3 className="font-bold text-purple-600 mb-2">{tr("Long-term (1+ years)")}</h3>
               <ul className="space-y-1 text-sm text-slate-600">
-                <li className="flex items-center"><span className="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2" />Excel in chosen program</li>
-                <li className="flex items-center"><span className="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2" />Build specialized skills</li>
-                <li className="flex items-center"><span className="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2" />Plan advanced education</li>
+                <li className="flex items-center"><span className="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2" />{tr("Excel in chosen program")}</li>
+                <li className="flex items-center"><span className="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2" />{tr("Build specialized skills")}</li>
+                <li className="flex items-center"><span className="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2" />{tr("Plan advanced education")}</li>
               </ul>
             </div>
           </div>
@@ -428,23 +418,17 @@ export default function DreamDegreeGuidance({ studentData, backendResults, onBac
             <button
               onClick={onBack}
               className="px-6 py-3 bg-white/80 text-slate-600 rounded-xl hover:bg-white transition-colors border border-slate-200 font-medium"
-            >
-              Back to Results
-            </button>
+            >{tr("Back to Results")}</button>
 
             <button
               onClick={onHome}
               className="px-6 py-3 bg-white/80 text-slate-600 rounded-xl hover:bg-white transition-colors border border-slate-200 font-medium"
-            >
-              Back to Home
-            </button>
+            >{tr("Back to Home")}</button>
 
             <button
               onClick={onComplete}
               className="px-6 py-3 bg-gradient-to-r from-blue-600 to-orange-500 text-white rounded-xl hover:from-blue-700 hover:to-orange-600 transition-colors shadow-lg shadow-blue-500/20 font-medium"
-            >
-              View Roadmap
-            </button>
+            >{tr("View Roadmap")}</button>
           </div>
         </div>
       </div>
