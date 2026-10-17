@@ -7,11 +7,14 @@ import {
   TrendingUp, Award, Zap, ArrowUpRight, Play, Sun, Moon, Home as HomeIcon, Target, Rocket, Briefcase
 } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import { useCareerTranslation } from '../hooks/useCareerTranslation';
+import LanguageSwitcher from '../components/LanguageSwitcher';
 import './Landing.css';
 
 export default function Landing({ onBackToPortal }) {
   const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
+  const { tr } = useCareerTranslation();
 
   const handleStart = () => {
     navigate('/analyzer');
@@ -53,24 +56,27 @@ export default function Landing({ onBackToPortal }) {
             </div>
             <div className="brand-text">
               <span className="brand-title">Career Pathway AI</span>
-              <span className="brand-subtitle">INTELLIGENT CAREER GUIDANCE</span>
+              <span className="brand-subtitle">{tr('INTELLIGENT CAREER GUIDANCE')}</span>
             </div>
           </div>
 
           <nav className="nav-links">
-            <a href="#hero" className="nav-link active">Overview</a>
-            <a href="#features" className="nav-link">Features</a>
-            <a href="#workflow" className="nav-link">How It Works</a>
+            <a href="#hero" className="nav-link active">{tr('Overview')}</a>
+            <a href="#features" className="nav-link">{tr('Features')}</a>
+            <a href="#workflow" className="nav-link">{tr('How It Works')}</a>
           </nav>
 
           <div className="nav-actions">
+            {/* Language Switcher (Trilingual: English, Sinhala, Tamil) */}
+            <LanguageSwitcher />
+
             <button
               className="hub-btn"
               onClick={handleBackToHub}
-              title="Return to Central Portal"
+              title={tr('Return to Central Portal')}
             >
               <HomeIcon size={15} />
-              <span>Portal</span>
+              <span>{tr('Portal')}</span>
             </button>
 
             <button
@@ -82,7 +88,7 @@ export default function Landing({ onBackToPortal }) {
             </button>
 
             <button className="cta-primary-btn" onClick={handleStart}>
-              <span>Launch App</span>
+              <span>{tr('Launch App')}</span>
               <ArrowRight size={15} />
             </button>
           </div>
@@ -101,23 +107,21 @@ export default function Landing({ onBackToPortal }) {
           >
             <div className="hero-badge">
               <Sparkles size={14} className="sparkle-icon" />
-              <span>AI-POWERED CAREER PATHWAY & SKILL INTELLIGENCE</span>
+              <span>{tr('POWERED BY MACHINE LEARNING & GRAPH AI')}</span>
             </div>
 
             <h1 className="hero-title">
-              Discover.<br />
-              Bridge.<br />
-              <span className="gradient-text">Succeed.</span>
+              {tr('Bridge Your Degree to')}<br />
+              <span className="gradient-text">{tr('In-Demand Tech Careers')}</span>
             </h1>
 
             <p className="hero-description">
-              Personalized career pathway intelligence powered by AI to help you
-              identify in-demand tech roles, close critical skill gaps, and build your future.
+              {tr('Dual-Engine AI career recommendation and skill-gap quantification system designed specifically for Sri Lankan undergraduates and tech job seekers.')}
             </p>
 
             <div className="hero-cta-group">
               <button className="hero-btn-primary" onClick={handleStart}>
-                <span>Start Your Journey</span>
+                <span>{tr('Analyze My Skills')}</span>
                 <ArrowRight size={18} />
               </button>
 
@@ -125,7 +129,7 @@ export default function Landing({ onBackToPortal }) {
                 <div className="play-icon-bubble">
                   <Play size={14} fill="currentColor" />
                 </div>
-                <span>Explore Career Web</span>
+                <span>{tr('Explore Knowledge Graph')}</span>
               </button>
             </div>
 
@@ -133,17 +137,17 @@ export default function Landing({ onBackToPortal }) {
             <div className="hero-stats">
               <div className="stat-item">
                 <div className="stat-value">600+</div>
-                <div className="stat-label">In-Demand Skills</div>
+                <div className="stat-label">{tr('Tech Skills Indexed')}</div>
               </div>
               <div className="stat-divider" />
               <div className="stat-item">
                 <div className="stat-value">98%</div>
-                <div className="stat-label">Match Precision</div>
+                <div className="stat-label">{tr('Ensemble Accuracy')}</div>
               </div>
               <div className="stat-divider" />
               <div className="stat-item">
-                <div className="stat-value">Real-Time</div>
-                <div className="stat-label">Market Demands</div>
+                <div className="stat-value">40+</div>
+                <div className="stat-label">{tr('Career Paths Mapped')}</div>
               </div>
             </div>
           </motion.div>
@@ -175,8 +179,8 @@ export default function Landing({ onBackToPortal }) {
                 <Brain size={20} />
               </div>
               <div className="card-info">
-                <h4>AI Career Match</h4>
-                <p>Personalized career pathway insights</p>
+                <h4>{tr('AI Analyzer')}</h4>
+                <p>{tr('Run Career Scan')}</p>
               </div>
             </motion.div>
 
@@ -191,8 +195,8 @@ export default function Landing({ onBackToPortal }) {
                 <TrendingUp size={20} />
               </div>
               <div className="card-info">
-                <h4>Skill Gap Analyzer</h4>
-                <p>Identify high-impact skill gaps</p>
+                <h4>{tr('SGI GAP INDEX')}</h4>
+                <p>{tr('MARKET READINESS')}</p>
               </div>
             </motion.div>
 
@@ -207,8 +211,8 @@ export default function Landing({ onBackToPortal }) {
                 <Share2 size={20} />
               </div>
               <div className="card-info">
-                <h4>Skill Synergy Web</h4>
-                <p>Discover high-growth career pivots</p>
+                <h4>{tr('Skill Web Explorer')}</h4>
+                <p>{tr('Career Synergy Web Explorer')}</p>
               </div>
             </motion.div>
 
@@ -223,8 +227,8 @@ export default function Landing({ onBackToPortal }) {
                 <Compass size={20} />
               </div>
               <div className="card-info">
-                <h4>Adaptive Roadmap</h4>
-                <p>Step-by-step path to your dream role</p>
+                <h4>{tr('Roadmap')}</h4>
+                <p>{tr('Career Journey')}</p>
               </div>
             </motion.div>
           </motion.div>
@@ -234,10 +238,10 @@ export default function Landing({ onBackToPortal }) {
       {/* Core Capabilities Section */}
       <section id="features" className="features-section">
         <div className="section-header">
-          <div className="section-badge">PLATFORM CAPABILITIES</div>
-          <h2 className="section-title">Everything You Need to Accelerate Your Career</h2>
+          <div className="section-badge">{tr('PLATFORM CAPABILITIES')}</div>
+          <h2 className="section-title">{tr('Core Engine Capabilities')}</h2>
           <p className="section-subtitle">
-            Move beyond guesswork. Get clear, data-driven career recommendations tailored specifically to your background and ambitions.
+            {tr('Curriculum & Industry Aligned')}
           </p>
         </div>
 
@@ -252,12 +256,12 @@ export default function Landing({ onBackToPortal }) {
             <div className="feature-icon-wrapper purple">
               <Brain size={26} />
             </div>
-            <h3 className="feature-card-title">Intelligent Career Matching</h3>
+            <h3 className="feature-card-title">{tr('Stacking Ensemble Destination Classifier')}</h3>
             <p className="feature-card-desc">
-              Analyzes your existing skill set and academic background to recommend high-paying, high-growth tech positions.
+              {tr('Trained on 40+ specialized technology roles using Random Forest, Linear SVC, Multinomial Naive Bayes, and Logistic Regression meta-learner.')}
             </p>
             <div className="feature-card-footer">
-              <span>Launch Matcher</span>
+              <span>{tr('Launch AI Scanner')}</span>
               <ArrowUpRight size={16} />
             </div>
           </motion.div>
@@ -272,12 +276,12 @@ export default function Landing({ onBackToPortal }) {
             <div className="feature-icon-wrapper pink">
               <Target size={26} />
             </div>
-            <h3 className="feature-card-title">Precision Skill Gap Scoring</h3>
+            <h3 className="feature-card-title">{tr('Hierarchical Academic Affinity Diagnostics')}</h3>
             <p className="feature-card-desc">
-              Benchmarks your current profile against live job market demands to show exactly what skills you are missing.
+              {tr('4-tier evaluation algorithm resolving the Data Science Degree Trap and matching academic degrees to real industry qualification standards.')}
             </p>
             <div className="feature-card-footer">
-              <span>Check Readiness</span>
+              <span>{tr('View Dashboard')}</span>
               <ArrowUpRight size={16} />
             </div>
           </motion.div>
@@ -292,12 +296,12 @@ export default function Landing({ onBackToPortal }) {
             <div className="feature-icon-wrapper cyan">
               <Share2 size={26} />
             </div>
-            <h3 className="feature-card-title">Interactive Synergy Web</h3>
+            <h3 className="feature-card-title">{tr('Neo4j Dynamic Skill & Career Graph')}</h3>
             <p className="feature-card-desc">
-              Visualizes how your skills unlock adjacent career options and flexible transition opportunities in tech.
+              {tr('Force-directed graph mapping skill co-occurrences, prerequisite dependencies, and cross-career pivot transitions across the IT market.')}
             </p>
             <div className="feature-card-footer">
-              <span>Explore Graph</span>
+              <span>{tr('Explore Knowledge Graph')}</span>
               <ArrowUpRight size={16} />
             </div>
           </motion.div>
@@ -312,31 +316,31 @@ export default function Landing({ onBackToPortal }) {
             <div className="feature-icon-wrapper indigo">
               <Rocket size={26} />
             </div>
-            <h3 className="feature-card-title">Dynamic Action Roadmaps</h3>
+            <h3 className="feature-card-title">{tr('Mathematical SGI Gap Quantification')}</h3>
             <p className="feature-card-desc">
-              Generates customized learning milestones, recommended courses, and degree pathways to reach your target role.
+              {tr('Mathematical Skill & Academic Gap Index computing exact market readiness percentages and weighted skill deficiency priorities.')}
             </p>
             <div className="feature-card-footer">
-              <span>View Roadmaps</span>
+              <span>{tr('View Roadmap')}</span>
               <ArrowUpRight size={16} />
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* How It Works (3-Step Flow) */}
+      {/* How It Works (4-Step Flow) */}
       <section id="workflow" className="workflow-section">
         <div className="section-header">
-          <div className="section-badge">SIMPLE 3-STEP PROCESS</div>
-          <h2 className="section-title">How Career Pathway AI Works</h2>
+          <div className="section-badge">{tr('Step-by-Step Architecture')}</div>
+          <h2 className="section-title">{tr('How The Dual-Engine AI Works')}</h2>
         </div>
 
         <div className="workflow-grid">
           <div className="workflow-step">
             <div className="step-number">01</div>
-            <h4 className="step-title">Add Your Skills</h4>
+            <h4 className="step-title">{tr('Input Academic Background & Skills')}</h4>
             <p className="step-desc">
-              Enter your current technical skills and degree. Our smart autocomplete makes adding your profile fast and effortless.
+              {tr('Select your degree qualification and tag your existing technical proficiencies with auto-complete.')}
             </p>
           </div>
 
@@ -344,9 +348,9 @@ export default function Landing({ onBackToPortal }) {
 
           <div className="workflow-step">
             <div className="step-number">02</div>
-            <h4 className="step-title">Get Instant AI Insights</h4>
+            <h4 className="step-title">{tr('Machine Learning Role Prediction')}</h4>
             <p className="step-desc">
-              The AI engine matches your profile with active industry roles, calculates your readiness, and highlights key missing skills.
+              {tr('Stacking ensemble model analyzes your skill vector with TF-IDF weights to predict top matching roles.')}
             </p>
           </div>
 
@@ -354,9 +358,19 @@ export default function Landing({ onBackToPortal }) {
 
           <div className="workflow-step">
             <div className="step-number">03</div>
-            <h4 className="step-title">Follow Your Roadmap</h4>
+            <h4 className="step-title">{tr('Neo4j Knowledge Graph Traversal')}</h4>
             <p className="step-desc">
-              Access your personalized learning roadmap, master prioritized skills, and land your ideal tech position.
+              {tr('Knowledge graph discovers exact missing requirements, prerequisite chains, and adjacent career pivot synergies.')}
+            </p>
+          </div>
+
+          <div className="workflow-connector" />
+
+          <div className="workflow-step">
+            <div className="step-number">04</div>
+            <h4 className="step-title">{tr('Actionable Progression Roadmap')}</h4>
+            <p className="step-desc">
+              {tr('Follow a customized milestone roadmap, acquire high-demand skills, and monitor your market readiness growth.')}
             </p>
           </div>
         </div>
@@ -367,17 +381,17 @@ export default function Landing({ onBackToPortal }) {
         <div className="bottom-cta-card">
           <div className="bottom-cta-glow" />
           <div className="bottom-cta-content">
-            <h2>Ready to Discover Your Next Tech Career Move?</h2>
+            <h2>{tr('Ready to Accelerate Your Tech Career?')}</h2>
             <p>
-              Join ambitious students and developers finding their ideal career trajectories with data-backed AI insights.
+              {tr('Dual-Engine AI career recommendation and skill-gap quantification system designed specifically for Sri Lankan undergraduates and tech job seekers.')}
             </p>
             <div className="bottom-cta-buttons">
               <button className="cta-large-btn" onClick={handleStart}>
-                <span>Start Free Analysis</span>
+                <span>{tr('Launch AI Scanner')}</span>
                 <ArrowRight size={18} />
               </button>
               <button className="cta-dashboard-btn" onClick={handleDashboard}>
-                <span>View Dashboard</span>
+                <span>{tr('View Dashboard')}</span>
               </button>
             </div>
           </div>
@@ -399,10 +413,10 @@ export default function Landing({ onBackToPortal }) {
           </div>
 
           <div className="footer-links">
-            <button onClick={handleBackToHub} className="footer-link">Portal</button>
-            <button onClick={handleStart} className="footer-link">AI Matcher</button>
-            <button onClick={handleDashboard} className="footer-link">Dashboard</button>
-            <button onClick={handleGraph} className="footer-link">Career Web</button>
+            <button onClick={handleBackToHub} className="footer-link">{tr('Portal')}</button>
+            <button onClick={handleStart} className="footer-link">{tr('AI Analyzer')}</button>
+            <button onClick={handleDashboard} className="footer-link">{tr('Dashboard')}</button>
+            <button onClick={handleGraph} className="footer-link">{tr('Knowledge Graph')}</button>
           </div>
         </div>
       </footer>

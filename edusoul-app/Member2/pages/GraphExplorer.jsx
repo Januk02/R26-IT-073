@@ -8,6 +8,7 @@ import {
 import axios from 'axios';
 import API from '../config/api';
 import { useCareerData } from '../context/CareerContext';
+import { useCareerTranslation } from '../hooks/useCareerTranslation';
 import './GraphExplorer.css';
 
 const PALETTE = {
@@ -186,6 +187,7 @@ function Panel({ node, links, posMap }) {
 
 export default function GraphExplorer() {
   const { recentPathways, selectedPathway, setSelectedPathway } = useCareerData();
+  const { tr } = useCareerTranslation();
   const [loading, setLoading]     = useState(false);
   const [error, setError]         = useState(null);
   const [raw, setRaw]             = useState(null);
@@ -289,20 +291,20 @@ export default function GraphExplorer() {
     <div className="graph-explorer">
       <header className="ge-header-row">
         <div className="ge-header-left">
-          <div className="ge-badge"><Network size={14} /> KNOWLEDGE PATHWAY WEB</div>
-          <h2 className="ge-title">Career Transition & <span className="gradient-text">Skill Synergy</span></h2>
+          <div className="ge-badge"><Network size={14} /> {tr('NEO4J KNOWLEDGE GRAPH')}</div>
+          <h2 className="ge-title">{tr('Career Synergy Web Explorer')}</h2>
           <p className="ge-desc">
-            Visualise your skill portfolio as a left-to-right progression pipeline. See how your existing profile bridges into your target goal, and explore alternate pivot paths unlocked by your skills.
+            {tr('Visualize career transitions, skill co-occurrences, and cross-discipline pivot paths.')}
           </p>
         </div>
 
         {recentPathways.length > 0 && (
           <div className="ge-dropdown">
-            <span className="ge-dropdown-label">SELECT CAREER JOURNEY</span>
+            <span className="ge-dropdown-label">{tr('Target Role')}</span>
             <div className="ge-dd-wrap">
               <button className="ge-dd-btn" onClick={() => setMenuOpen(!menuOpen)}>
                 <Briefcase size={16} />
-                <span>{role || 'Select Pathway...'}</span>
+                <span>{role || tr('Target Role')}</span>
                 <ChevronDown size={14} className={menuOpen ? 'rot' : ''} />
               </button>
               
@@ -340,9 +342,9 @@ export default function GraphExplorer() {
           <motion.div className="ge-stats"
             initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
           >
-            <div className="ge-stat ge-stat--green"><CheckCircle2 size={15}/><b>{stats.owned}</b><span>Mastered Skills</span></div>
-            <div className="ge-stat ge-stat--red"><XCircle size={15}/><b>{stats.missing}</b><span>Core Skill Gaps</span></div>
-            <div className="ge-stat ge-stat--amber"><Compass size={15}/><b>{stats.pivots}</b><span>Pivot Opportunities</span></div>
+            <div className="ge-stat ge-stat--green"><CheckCircle2 size={15}/><b>{stats.owned}</b><span>{tr('Mastered Skills')}</span></div>
+            <div className="ge-stat ge-stat--red"><XCircle size={15}/><b>{stats.missing}</b><span>{tr('Missing Skills')}</span></div>
+            <div className="ge-stat ge-stat--amber"><Compass size={15}/><b>{stats.pivots}</b><span>{tr('Pivot Career Opportunities')}</span></div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -405,10 +407,10 @@ export default function GraphExplorer() {
                   />
                 ))}
 
-                <span className="ge-col-label" style={{ left: '10%' }}>MY SKILLS</span>
-                <span className="ge-col-label" style={{ left: '35%' }}>TARGET CAREER</span>
-                <span className="ge-col-label" style={{ left: '60%' }}>SKILL GAPS</span>
-                <span className="ge-col-label" style={{ left: '80%' }}>PIVOT PATHS</span>
+                <span className="ge-col-label" style={{ left: '10%' }}>{tr('Owned / Mastered Skills')}</span>
+                <span className="ge-col-label" style={{ left: '35%' }}>{tr('TARGET CAREER')}</span>
+                <span className="ge-col-label" style={{ left: '60%' }}>{tr('Missing Skills')}</span>
+                <span className="ge-col-label" style={{ left: '80%' }}>{tr('Pivot Career Opportunities')}</span>
               </motion.div>
 
               <AnimatePresence>
@@ -433,17 +435,17 @@ export default function GraphExplorer() {
                     setScale(1);
                   }
                 }}
-                title="Toggle free-move mode (or double-click empty graph area)"
+                title={tr('Interactive Force-Directed Layout')}
               >
                 {isMovable ? <Zap size={13} /> : <Network size={13} />}
-                <span>{isMovable ? 'Free Move: On' : 'Fixed Layout'}</span>
+                <span>{isMovable ? tr('Interactive Force-Directed Layout') : tr('Reset View')}</span>
               </button>
 
               <div className="ge-legend">
-                <span><i style={{ background: '#10B981' }}/> Mastered</span>
-                <span><i style={{ background: '#6366F1' }}/> Target</span>
-                <span><i style={{ background: '#EF4444' }}/> Gap</span>
-                <span><i style={{ background: '#F59E0B' }}/> Pivot Role</span>
+                <span><i style={{ background: '#10B981' }}/> {tr('Owned Skill')}</span>
+                <span><i style={{ background: '#6366F1' }}/> {tr('Target Role')}</span>
+                <span><i style={{ background: '#EF4444' }}/> {tr('Missing Skill')}</span>
+                <span><i style={{ background: '#F59E0B' }}/> {tr('Pivot Role')}</span>
               </div>
             </>
           )}

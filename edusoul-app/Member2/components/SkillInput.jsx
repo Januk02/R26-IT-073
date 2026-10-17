@@ -3,9 +3,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Zap, Loader2, Search } from 'lucide-react';
 import axios from 'axios';
 import API from '../config/api';
+import { useCareerTranslation } from '../hooks/useCareerTranslation';
 import './SkillInput.css';
 
 export default function SkillInput({ onSkillsChange, resetKey }) {
+  const { tr } = useCareerTranslation();
   const [inputValue, setInputValue] = useState('');
   const [skills, setSkills] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
@@ -139,8 +141,8 @@ export default function SkillInput({ onSkillsChange, resetKey }) {
           onKeyDown={handleKeyDown}
           onFocus={() => setIsFocused(true)}
           placeholder={skills.length === 0 
-            ? "Type a skill (e.g., Python, React, AWS)..." 
-            : "Add another skill..."
+            ? tr('Type a skill and press Enter (e.g. Python, Docker, React)...')
+            : tr('Add Your Current Skills')
           }
           id="skill-input-field"
         />

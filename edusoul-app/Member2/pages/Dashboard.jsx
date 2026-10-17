@@ -7,6 +7,7 @@ import {
   ArrowUpRight, Layers, Compass, CheckCircle2, Award
 } from 'lucide-react';
 import { useCareerData } from '../context/CareerContext';
+import { useCareerTranslation } from '../hooks/useCareerTranslation';
 import './Dashboard.css';
 
 const stagger = {
@@ -28,13 +29,14 @@ export default function Dashboard() {
     userName, latestSGI, readiness, recentPathways, 
     selectedPathway, setSelectedPathway, deletePathway, isLoading 
   } = useCareerData();
+  const { tr } = useCareerTranslation();
 
   const hasData = recentPathways.length > 0;
   const readinessVal = Math.round(readiness || 0);
 
   const handleDelete = async (e, pathwayId) => {
     e.stopPropagation();
-    if (window.confirm('Delete this pathway? This action cannot be undone.')) {
+    if (window.confirm(tr('Delete this pathway? This action cannot be undone.'))) {
       await deletePathway(pathwayId);
     }
   };
@@ -51,13 +53,13 @@ export default function Dashboard() {
         <div className="dash-hero-content">
           <div className="dash-kicker">
             <Compass size={14} />
-            <span>STUDENT CAREER PORTAL</span>
+            <span>{tr('STUDENT CAREER PORTAL')}</span>
           </div>
           <h1 className="dash-hero-title">
-            Welcome back, <span className="gradient-text">{userName}</span>
+            {tr('Welcome back,')} <span className="gradient-text">{userName}</span>
           </h1>
           <p className="dash-hero-desc">
-            Track your skill development, evaluate market readiness, and follow personalized learning roadmaps for your target software engineering roles.
+            {tr('Track your skill development, evaluate market readiness, and follow personalized learning roadmaps for your target software engineering roles.')}
           </p>
 
           <div className="dash-cta-row">
@@ -66,7 +68,7 @@ export default function Dashboard() {
               onClick={() => navigate('/analyzer')}
             >
               <Sparkles size={16} />
-              <span>Analyze Skills</span>
+              <span>{tr('Analyze Skills')}</span>
               <ArrowUpRight size={16} />
             </button>
 
@@ -76,7 +78,7 @@ export default function Dashboard() {
                 onClick={() => navigate('/roadmap')}
               >
                 <Map size={16} />
-                <span>View Roadmap</span>
+                <span>{tr('View Roadmap')}</span>
               </button>
             )}
           </div>
@@ -87,7 +89,7 @@ export default function Dashboard() {
             <Layers size={18} />
             <div className="hero-stat-text">
               <span className="hero-stat-number">{recentPathways.length}</span>
-              <span className="hero-stat-label">Saved Pathways</span>
+              <span className="hero-stat-label">{tr('SAVED PATHWAYS')}</span>
             </div>
           </div>
         </div>
@@ -101,7 +103,7 @@ export default function Dashboard() {
           </div>
           <div className="stat-details">
             <span className="stat-number">{readiness ? `${readinessVal}%` : '--'}</span>
-            <span className="stat-title">Market Readiness</span>
+            <span className="stat-title">{tr('MARKET READINESS')}</span>
           </div>
         </div>
 
@@ -111,7 +113,7 @@ export default function Dashboard() {
           </div>
           <div className="stat-details">
             <span className="stat-number">{latestSGI ? `${latestSGI.toFixed(0)}%` : '--'}</span>
-            <span className="stat-title">Skill Gap Index</span>
+            <span className="stat-title">{tr('SGI GAP INDEX')}</span>
           </div>
         </div>
 
@@ -122,7 +124,7 @@ export default function Dashboard() {
             </div>
             <div className="stat-details">
               <span className="stat-number">{recentPathways.length}</span>
-              <span className="stat-title">Target Roles</span>
+              <span className="stat-title">{tr('TARGET CAREER')}</span>
             </div>
           </div>
         </div>
@@ -135,7 +137,7 @@ export default function Dashboard() {
             <span className="stat-number">
               {selectedPathway?.current_skills?.length || 0}
             </span>
-            <span className="stat-title">Mastered Skills</span>
+            <span className="stat-title">{tr('Mastered Skills')}</span>
           </div>
         </div>
       </motion.div>
@@ -184,14 +186,14 @@ export default function Dashboard() {
 
       {/* ── QUICK ACTIONS GRID ── */}
       <motion.div variants={fadeUp} className="quick-actions-section">
-        <h3 className="dash-section-title">Quick Actions</h3>
+        <h3 className="dash-section-title">{tr('Recommended Next Steps')}</h3>
         <div className="dash-quick-grid">
           <button className="quick-card" onClick={() => navigate('/analyzer')}>
             <div className="q-icon blue">
               <Sparkles size={20} />
             </div>
-            <span className="q-title">Analyze Skills</span>
-            <span className="q-desc">Run new profile evaluation</span>
+            <span className="q-title">{tr('Analyze Skills')}</span>
+            <span className="q-desc">{tr('Run Career Scan')}</span>
           </button>
 
           <button 
@@ -202,8 +204,8 @@ export default function Dashboard() {
             <div className="q-icon purple">
               <Map size={20} />
             </div>
-            <span className="q-title">View Roadmap</span>
-            <span className="q-desc">Step-by-step learning path</span>
+            <span className="q-title">{tr('View Roadmap')}</span>
+            <span className="q-desc">{tr('Career Journey')}</span>
           </button>
 
           <button 
@@ -214,8 +216,8 @@ export default function Dashboard() {
             <div className="q-icon cyan">
               <Layers size={20} />
             </div>
-            <span className="q-title">Skill Graph</span>
-            <span className="q-desc">Explore career pivots</span>
+            <span className="q-title">{tr('Skill Web Explorer')}</span>
+            <span className="q-desc">{tr('Career Synergy Web Explorer')}</span>
           </button>
         </div>
       </motion.div>
@@ -223,10 +225,10 @@ export default function Dashboard() {
       {/* ── RECENT PATHWAYS LIST ── */}
       <motion.div variants={fadeUp} className="recent-pathways-section">
         <div className="dash-section-header">
-          <h3 className="dash-section-title">Saved Career Pathways</h3>
+          <h3 className="dash-section-title">{tr('Recent Career Pathways')}</h3>
           {hasData && (
             <button className="dash-link-btn" onClick={() => navigate('/roadmap')}>
-              View All Pathways <ChevronRight size={14} />
+              {tr('View Roadmap')} <ChevronRight size={14} />
             </button>
           )}
         </div>
@@ -234,7 +236,7 @@ export default function Dashboard() {
         {isLoading ? (
           <div className="dash-loading-box">
             <div className="dash-spinner" />
-            <p>Loading your career pathways...</p>
+            <p>{tr('Connecting...')}</p>
           </div>
         ) : hasData ? (
           <div className="pathway-cards-list">
@@ -261,20 +263,20 @@ export default function Dashboard() {
                   <div className="item-info">
                     <span className="item-role-title">{pathway.role}</span>
                     <span className="item-meta">
-                      <Clock size={12} /> {dateStr} • {pathway.current_skills?.length || 0} mastered • {pathway.missing_requirements?.length || 0} gaps
+                      <Clock size={12} /> {dateStr} • {pathway.current_skills?.length || 0} {tr('Mastered Skills')} • {pathway.missing_requirements?.length || 0} {tr('Missing Skills')}
                     </span>
                   </div>
 
                   <div className="item-score-pill">
                     <span className="score-num">{pReadiness}%</span>
-                    <span className="score-tag">Ready</span>
+                    <span className="score-tag">{tr('Market Readiness')}</span>
                   </div>
 
                   <button 
                     className="item-delete-btn"
                     onClick={(e) => handleDelete(e, pathway.id)}
-                    aria-label="Delete pathway"
-                    title="Delete this pathway"
+                    aria-label={tr('Delete pathway')}
+                    title={tr('Delete pathway')}
                   >
                     <Trash2 size={14} />
                   </button>
@@ -287,11 +289,11 @@ export default function Dashboard() {
             <div className="empty-icon-ring">
               <Target size={36} />
             </div>
-            <h4>No Career Pathways Saved Yet</h4>
-            <p>Analyze your skills in the Career Analyzer to generate and save your target pathways.</p>
+            <h4>{tr('No Career Pathways Analyzed Yet')}</h4>
+            <p>{tr('Run an AI Career Scan to identify your market readiness, uncover skill gaps, and generate personalized learning roadmaps.')}</p>
             <button className="dash-primary-btn" onClick={() => navigate('/analyzer')}>
               <Sparkles size={16} />
-              <span>Start Skill Analysis</span>
+              <span>{tr('Run AI Career Scan')}</span>
             </button>
           </div>
         )}

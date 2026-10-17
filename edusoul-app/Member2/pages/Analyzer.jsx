@@ -11,6 +11,7 @@ import API from '../config/api';
 import SkillInput from '../components/SkillInput';
 import DegreeInput from '../components/DegreeInput';
 import { useCareerData } from '../context/CareerContext';
+import { useCareerTranslation } from '../hooks/useCareerTranslation';
 import './Analyzer.css';
 
 const CARD_THEMES = [
@@ -92,6 +93,7 @@ const roadmapNodeVariants = {
 
 export default function Analyzer() {
   const { saveNewPathway } = useCareerData();
+  const { tr } = useCareerTranslation();
   const [currentSkills, setCurrentSkills] = useState([]);
   const [degreeInput, setDegreeInput] = useState('');
   const [isSearching, setIsSearching] = useState(false);
@@ -215,14 +217,13 @@ export default function Analyzer() {
       <div className="analyzer-header">
         <div className="analyzer-step-badge">
           <Brain size={14} />
-          <span>AI CAREER MATCH</span>
+          <span>{tr('AI CAREER SCANNER')}</span>
         </div>
         <h2 className="analyzer-title">
-          Design Your <span className="gradient-text">Career Identity</span>
+          {tr('Degree Background & Skill Profiling')}
         </h2>
         <p className="analyzer-desc">
-          Map your current skills against industry demands using our predictive AI
-          engine to discover your optimal career trajectories.
+          {tr('Configure your academic background and technical skills to evaluate job readiness across 40+ tech roles.')}
         </p>
       </div>
 
@@ -232,9 +233,9 @@ export default function Analyzer() {
           <Sparkles size={18} />
         </div>
         <div>
-          <h4 className="feature-title">Precision Matching Engine</h4>
+          <h4 className="feature-title">{tr('Core Engine Capabilities')}</h4>
           <p className="feature-desc">
-            Powered by advanced predictive analytics and proprietary machine learning models to identify your optimal career trajectory and personalized skill gaps.
+            {tr('Dual-Engine AI career recommendation and skill-gap quantification system designed specifically for Sri Lankan undergraduates and tech job seekers.')}
           </p>
         </div>
       </div>
@@ -243,16 +244,16 @@ export default function Analyzer() {
       <div className="input-form">
         <div className="form-field">
           <div className="field-header">
-            <label className="field-label">TECHNICAL SKILLS</label>
-            <span className="field-badge required">REQUIRED</span>
+            <label className="field-label">{tr('Add Your Current Skills')}</label>
+            <span className="field-badge required">{tr('Priority')}</span>
           </div>
           <SkillInput onSkillsChange={setCurrentSkills} resetKey={refreshKey} />
         </div>
 
         <div className="form-field">
           <div className="field-header">
-            <label className="field-label">DEGREE PROGRAM</label>
-            <span className="field-badge optional">OPTIONAL</span>
+            <label className="field-label">{tr('Select Your Degree Program')}</label>
+            <span className="field-badge optional">{tr('(Optional)')}</span>
           </div>
           <DegreeInput onDegreeChange={setDegreeInput} resetKey={refreshKey} />
         </div>
@@ -267,17 +268,17 @@ export default function Analyzer() {
             {isSearching ? (
               <>
                 <Loader2 size={18} className="btn-spinner" />
-                <span>Analyzing Profile...</span>
+                <span>{tr('Analyzing Profile & Traversing Knowledge Graph...')}</span>
               </>
             ) : (
               <>
-                <span>{top3Results ? 'Recalculate' : 'Initialize My Journey'}</span>
+                <span>{tr('Run AI Career Scan')}</span>
                 <ArrowRight size={18} />
               </>
             )}
           </button>
           {top3Results && (
-            <button className="reset-btn" onClick={resetForm}>Reset</button>
+            <button className="reset-btn" onClick={resetForm}>{tr('Reset View')}</button>
           )}
         </div>
 
@@ -285,12 +286,12 @@ export default function Analyzer() {
           <div className={`pulse-dot ${engineStatus === 'offline' ? 'offline' : engineStatus === 'degraded' ? 'degraded' : ''}`} />
           <span>
             {engineStatus === 'offline'
-              ? 'AI Engine Offline'
+              ? tr('AI Engine Offline')
               : engineStatus === 'degraded'
-              ? 'AI Engine Active (Graph Reconnecting...)'
+              ? tr('Database Reconnecting')
               : engineStatus === 'online'
-              ? 'AI Engine Ready for Computation'
-              : 'Connecting...'}
+              ? tr('AI Engine Online')
+              : tr('Connecting...')}
           </span>
         </div>
       </div>
@@ -346,12 +347,12 @@ export default function Analyzer() {
           >
             <div className="results-header">
               <div>
-                <h3 className="results-title">Your Career Matches</h3>
-                <p className="results-desc">Expand a career path to see your detailed analysis</p>
+                <h3 className="results-title">{tr('Top Recommended Career Matches')}</h3>
+                <p className="results-desc">{tr('Select a Node to inspect attributes')}</p>
               </div>
               <div className="results-meta">
                 <Shield size={13} />
-                <span>{currentSkills.length} skills analyzed</span>
+                <span>{currentSkills.length} {tr('skills selected')}</span>
               </div>
             </div>
 
@@ -378,7 +379,7 @@ export default function Analyzer() {
                     <div className="career-card-top">
                       <div className="career-rank" style={{ background: theme.gradient }}>
                         <ThemeIcon size={14} />
-                        <span>{theme.label}</span>
+                        <span>{tr(theme.label)}</span>
                       </div>
                       <motion.div
                         className="career-chevron"
@@ -400,7 +401,7 @@ export default function Analyzer() {
                         </div>
                         <div className="metric-data">
                           <span className="metric-value" style={{ color: readinessColor }}>{result.market_readiness.toFixed(0)}%</span>
-                          <span className="metric-label">Readiness</span>
+                          <span className="metric-label">{tr('Market Readiness')}</span>
                         </div>
                       </div>
                       <div className="metric-sep" />
@@ -410,7 +411,7 @@ export default function Analyzer() {
                         </div>
                         <div className="metric-data">
                           <span className="metric-value">{result.sgi_score.toFixed(0)}%</span>
-                          <span className="metric-label">Skill Gap</span>
+                          <span className="metric-label">{tr('SGI Gap Index')}</span>
                         </div>
                       </div>
                       <div className="metric-sep" />
@@ -419,8 +420,8 @@ export default function Analyzer() {
                           <TrendingUp size={14} />
                         </div>
                         <div className="metric-data">
-                          <span className="metric-value accent">High</span>
-                          <span className="metric-label">Market Demand</span>
+                          <span className="metric-value accent">{tr('High')}</span>
+                          <span className="metric-label">{tr('Confidence Score')}</span>
                         </div>
                       </div>
                     </div>
@@ -428,7 +429,7 @@ export default function Analyzer() {
                     {/* Readiness Bar */}
                     <div className="readiness-bar">
                       <div className="readiness-bar-header">
-                        <span>Market Readiness</span>
+                        <span>{tr('Market Readiness')}</span>
                         <span>{result.market_readiness.toFixed(0)}%</span>
                       </div>
                       <div className="readiness-bar-track">
@@ -466,28 +467,28 @@ export default function Analyzer() {
                           onClick={(e) => { e.stopPropagation(); if (!isSaved) handleSavePathway(result, index); }}
                           disabled={isSaved}
                         >
-                          {isSaved ? <><CheckCircle2 size={16} /> Pathway Saved</> : <><Bookmark size={16} /> Save to Profile</>}
+                          {isSaved ? <><CheckCircle2 size={16} /> {tr('Saved')}</> : <><Bookmark size={16} /> {tr('Save to My Pathways')}</>}
                         </button>
                       </motion.div>
 
                       {/* Stats Banner */}
                       <motion.div variants={detailItemVariants} className="detail-banner" style={{ background: theme.gradient }}>
-                        <span className="detail-banner-label">DETAILED ANALYSIS</span>
+                        <span className="detail-banner-label">{tr('Target Career')}</span>
                         <h4 className="detail-banner-role">{result.target_role}</h4>
                         <div className="detail-banner-stats">
                           <div className="dbs">
                             <span className="dbs-value">{result.market_readiness.toFixed(0)}%</span>
-                            <span className="dbs-label">READINESS</span>
+                            <span className="dbs-label">{tr('MARKET READINESS')}</span>
                           </div>
                           <div className="dbs-divider" />
                           <div className="dbs">
                             <span className="dbs-value">{result.sgi_score.toFixed(0)}%</span>
-                            <span className="dbs-label">SGI SCORE</span>
+                            <span className="dbs-label">{tr('SGI GAP INDEX')}</span>
                           </div>
                           <div className="dbs-divider" />
                           <div className="dbs">
-                            <span className="dbs-value">HIGH</span>
-                            <span className="dbs-label">MARKET DEMAND</span>
+                            <span className="dbs-value">{tr('High')}</span>
+                            <span className="dbs-label">{tr('Confidence Score')}</span>
                           </div>
                         </div>
                       </motion.div>
@@ -496,7 +497,7 @@ export default function Analyzer() {
                       <motion.div variants={detailItemVariants} className="detail-degree">
                         <GraduationCap size={20} className="detail-degree-icon" />
                         <div>
-                          <span className="detail-degree-label">Recommended Degree</span>
+                          <span className="detail-degree-label">{tr('Degree Affinity')}</span>
                           <span className="detail-degree-value">{result.recommended_degree}</span>
                         </div>
                       </motion.div>
@@ -506,8 +507,8 @@ export default function Analyzer() {
                         <motion.div variants={detailItemVariants} className="roadmap-section">
                           <h5 className="roadmap-title">
                             <Target size={15} />
-                            <span>Personalized Roadmap</span>
-                            <span className="roadmap-count">{result.missing_requirements.length} phases</span>
+                            <span>{tr('CAREER MILESTONE ROADMAP')}</span>
+                            <span className="roadmap-count">{result.missing_requirements.length} {tr('Missing Skills')}</span>
                           </h5>
 
                           <motion.div 
@@ -537,18 +538,16 @@ export default function Analyzer() {
                                     <div className="roadmap-card-header">
                                       <span className="roadmap-req-name">{req.req}</span>
                                       <span className={`roadmap-badge ${isDegree ? 'degree' : isCritical ? 'critical' : ''}`}>
-                                        {isDegree ? 'DEGREE' : isCritical ? 'CRITICAL GAP' : 'TARGET SKILL'}
+                                        {isDegree ? tr('Degree Affinity') : isCritical ? tr('High Priority Skill') : tr('Missing Skill')}
                                       </span>
                                     </div>
                                     <p className="roadmap-card-desc">
-                                      Market Weight: {Number(req.weight).toFixed(1)} / 10.0 — {isDegree
-                                        ? 'Core academic foundation for this role'
-                                        : 'High-impact skill to close the gap'}
+                                      {tr('Priority')}: {Number(req.weight).toFixed(1)} / 10.0
                                     </p>
                                     {!isDegree && (
                                       <div className="impact-forecast">
                                         <Zap size={12} />
-                                        <span>Learning this reduces SGI by <strong>-{impactValue}%</strong></span>
+                                        <span>{tr('Impact')}: <strong>+{impactValue}% {tr('MARKET READINESS')}</strong></span>
                                       </div>
                                     )}
                                   </div>
@@ -560,8 +559,7 @@ export default function Analyzer() {
                       ) : (
                         <motion.div variants={detailItemVariants} className="perfect-match">
                           <CheckCircle2 size={40} color="var(--success)" />
-                          <h4>Perfect Match!</h4>
-                          <p>Your profile is fully optimized for this role.</p>
+                          <h4>{tr('All core skills mastered! Exceptional profile alignment.')}</h4>
                         </motion.div>
                       )}
                     </motion.div>

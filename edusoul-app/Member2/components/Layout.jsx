@@ -8,6 +8,8 @@ import {
 import { useTheme } from '../context/ThemeContext';
 import { useCareerData } from '../context/CareerContext';
 import { useAuth } from '../../src/contexts/AuthContext';
+import { useCareerTranslation } from '../hooks/useCareerTranslation';
+import LanguageSwitcher from './LanguageSwitcher';
 import { API } from '../config/api';
 import './Layout.css';
 
@@ -27,6 +29,7 @@ export default function Layout({ children, onBackToPortal }) {
   const { theme, toggleTheme } = useTheme();
   const { userName } = useCareerData();
   const { logoutUser } = useAuth();
+  const { tr } = useCareerTranslation();
 
   useEffect(() => {
     let isMounted = true;
@@ -114,8 +117,8 @@ export default function Layout({ children, onBackToPortal }) {
                 </div>
                 {!collapsed && (
                   <div className="nav-text">
-                    <span className="nav-label">{item.label}</span>
-                    <span className="nav-desc">{item.desc}</span>
+                    <span className="nav-label">{tr(item.label)}</span>
+                    <span className="nav-desc">{tr(item.desc)}</span>
                   </div>
                 )}
               </NavLink>
@@ -137,8 +140,8 @@ export default function Layout({ children, onBackToPortal }) {
             </div>
             {!collapsed && (
               <div className="nav-text">
-                <span className="nav-label">Logout</span>
-                <span className="nav-desc">End Session</span>
+                <span className="nav-label">{tr('Logout')}</span>
+                <span className="nav-desc">{tr('End Session')}</span>
               </div>
             )}
           </button>
@@ -148,7 +151,7 @@ export default function Layout({ children, onBackToPortal }) {
           {!collapsed && (
             <div className="sidebar-badge">
               <GraduationCap size={14} />
-              <span>SLIIT Research</span>
+              <span>{tr('SLIIT Research')}</span>
             </div>
           )}
           <button className="collapse-btn" onClick={() => setCollapsed(!collapsed)} aria-label="Toggle sidebar">
@@ -165,30 +168,33 @@ export default function Layout({ children, onBackToPortal }) {
               <Menu size={20} />
             </button>
             <h1 className="page-title">
-              {navItems.find(n =>
+              {tr(navItems.find(n =>
                 location.pathname === n.path ||
                 (n.path !== '/dashboard' && location.pathname.startsWith(n.path))
-              )?.label || 'Dashboard'}
+              )?.label || 'Dashboard')}
             </h1>
           </div>
           <div className="topbar-right">
+            {/* Language Switcher (Trilingual: English, Sinhala, Tamil) */}
+            <LanguageSwitcher />
+
             <button
               className="back-to-portal-btn"
               onClick={() => {
                 if (onBackToPortal) onBackToPortal();
                 else navigate('/');
               }}
-              title="Return to Student Portal"
+              title={tr('Return to Student Portal')}
             >
               <Home size={16} />
-              <span>Portal</span>
+              <span>{tr('Portal')}</span>
             </button>
             {/* Theme Toggle */}
             <button
               className="theme-toggle"
               onClick={toggleTheme}
-              aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-              title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              aria-label={tr(`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`)}
+              title={tr(theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode')}
             >
               <AnimatePresence mode="wait" initial={false}>
                 {theme === 'dark' ? (
@@ -230,12 +236,12 @@ export default function Layout({ children, onBackToPortal }) {
               <div className={`pulse-dot ${engineStatus === 'offline' ? 'offline' : engineStatus === 'degraded' ? 'degraded' : ''}`} />
               <span>
                 {engineStatus === 'offline'
-                  ? 'AI Engine Offline'
+                  ? tr('AI Engine Offline')
                   : engineStatus === 'degraded'
-                  ? 'Database Reconnecting'
+                  ? tr('Database Reconnecting')
                   : engineStatus === 'online'
-                  ? 'AI Engine Online'
-                  : 'Connecting...'}
+                  ? tr('AI Engine Online')
+                  : tr('Connecting...')}
               </span>
             </div>
 
@@ -246,7 +252,7 @@ export default function Layout({ children, onBackToPortal }) {
               </div>
               <div className="user-profile-info">
                 <span className="user-profile-name">{userName || 'Student'}</span>
-                <span className="user-profile-role">Student</span>
+                <span className="user-profile-role">{tr('Student')}</span>
               </div>
             </div>
           </div>

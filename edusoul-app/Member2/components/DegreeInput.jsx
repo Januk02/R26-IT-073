@@ -3,9 +3,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { GraduationCap, X, Loader2, Info } from 'lucide-react';
 import axios from 'axios';
 import API from '../config/api';
+import { useCareerTranslation } from '../hooks/useCareerTranslation';
 import './DegreeInput.css';
 
 export default function DegreeInput({ onDegreeChange, resetKey }) {
+  const { tr } = useCareerTranslation();
   const [inputValue, setInputValue] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -85,7 +87,7 @@ export default function DegreeInput({ onDegreeChange, resetKey }) {
           value={inputValue}
           onChange={handleTextChange}
           onFocus={() => setIsFocused(true)}
-          placeholder="e.g. BSc in IT, Master in CS..."
+          placeholder={tr('Search or select degree...')}
           id="degree-input-field"
         />
         {isLoading && <Loader2 size={18} className="degree-spinner" />}

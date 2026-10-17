@@ -5,6 +5,7 @@ import {
   Compass, Check
 } from 'lucide-react';
 import { useCareerData } from '../context/CareerContext';
+import { useCareerTranslation } from '../hooks/useCareerTranslation';
 import './Roadmap.css';
 
 export default function Roadmap() {
@@ -12,6 +13,7 @@ export default function Roadmap() {
     recentPathways, selectedPathway, setSelectedPathway,
     updatePathwayProgress
   } = useCareerData();
+  const { tr } = useCareerTranslation();
 
   const [activePathwayId, setActivePathwayId] = useState(null);
   const [filterTab, setFilterTab] = useState('all');
@@ -78,12 +80,12 @@ export default function Roadmap() {
           <div className="empty-icon-circle">
             <Compass size={36} />
           </div>
-          <h2>No Career Roadmap Created Yet</h2>
+          <h2>{tr('No Pathways Available')}</h2>
           <p>
-            Scan your profile in the Career Analyzer to discover your target role and generate your personalized step-by-step learning roadmap.
+            {tr('Configure your academic background and technical skills to evaluate job readiness across 40+ tech roles.')}
           </p>
           <a href="/analyzer" className="primary-human-btn">
-            Create My Career Roadmap <ArrowRight size={16} />
+            {tr('Run AI Career Scan')} <ArrowRight size={16} />
           </a>
         </div>
       </div>
@@ -99,7 +101,7 @@ export default function Roadmap() {
     <div className="roadmap-human-container">
       {/* ── PATHWAY SELECTOR HEADER ── */}
       <div className="pathway-switcher-bar">
-        <span className="switcher-label">Select Target Role:</span>
+        <span className="switcher-label">{tr('Target Role')}:</span>
         <div className="role-pill-group">
           {recentPathways.map((pathway) => {
             const isActive = currentPathway?.id === pathway.id;
@@ -126,12 +128,12 @@ export default function Roadmap() {
         <div className="roadmap-hero-card">
           <div className="hero-main-details">
             <div className="role-header-line">
-              <span className="role-kicker">LEARNING ROADMAP</span>
+              <span className="role-kicker">{tr('CAREER MILESTONE ROADMAP')}</span>
               <h1 className="role-main-title">{currentPathway.role}</h1>
               {currentPathway.recommended_degree && (
                 <div className="academic-benchmark-tag">
                   <GraduationCap size={15} />
-                  <span>Benchmark: {currentPathway.recommended_degree}</span>
+                  <span>{tr('Degree Affinity')}: {currentPathway.recommended_degree}</span>
                 </div>
               )}
             </div>
@@ -139,8 +141,8 @@ export default function Roadmap() {
             <div className="readiness-score-box">
               <div className="big-score">{readiness}%</div>
               <div className="score-desc">
-                <span>Job Readiness</span>
-                <span className="sub-count">{masteredSkills.length} of {totalSkillsCount} completed</span>
+                <span>{tr('MARKET READINESS')}</span>
+                <span className="sub-count">{masteredSkills.length} of {totalSkillsCount} {tr('Completed')}</span>
               </div>
             </div>
           </div>
@@ -163,8 +165,8 @@ export default function Roadmap() {
             </div>
             <div className="progress-labels">
               <span>0% Start</span>
-              <span>{missingReqs.length > 0 ? `${missingReqs.length} skills remaining` : 'Target Achieved! 🎉'}</span>
-              <span>100% Ready</span>
+              <span>{missingReqs.length > 0 ? `${missingReqs.length} ${tr('Missing Skills')}` : `${tr('All core skills mastered! Exceptional profile alignment.')} 🎉`}</span>
+              <span>100% {tr('Completed')}</span>
             </div>
           </div>
         </div>
@@ -178,19 +180,19 @@ export default function Roadmap() {
               className={`tab-btn ${filterTab === 'all' ? 'active' : ''}`}
               onClick={() => setFilterTab('all')}
             >
-              All Steps ({totalSkillsCount})
+              {tr('All Requirements')} ({totalSkillsCount})
             </button>
             <button
               className={`tab-btn ${filterTab === 'remaining' ? 'active' : ''}`}
               onClick={() => setFilterTab('remaining')}
             >
-              To Learn ({missingReqs.length})
+              {tr('Missing Skills')} ({missingReqs.length})
             </button>
             <button
               className={`tab-btn ${filterTab === 'completed' ? 'active' : ''}`}
               onClick={() => setFilterTab('completed')}
             >
-              Completed ({masteredSkills.length})
+              {tr('Mastered Skills')} ({masteredSkills.length})
             </button>
           </div>
         </div>
@@ -201,7 +203,7 @@ export default function Roadmap() {
             <>
               {missingReqs.length > 0 && (
                 <div className="flow-section-title">
-                  <span>Up Next in Your Pathway</span>
+                  <span>{tr('Progression Plan for')}</span>
                 </div>
               )}
 
@@ -231,11 +233,11 @@ export default function Roadmap() {
                         <div className="step-title-wrap">
                           <h3 className="step-name">{skillItem.req}</h3>
                           <div className="step-tags">
-                            {isFirst && <span className="tag focus">Recommended Next</span>}
+                            {isFirst && <span className="tag focus">{tr('High Priority Skill')}</span>}
                             {isDegree ? (
-                              <span className="tag academic">Degree Benchmark</span>
+                              <span className="tag academic">{tr('Degree Affinity')}</span>
                             ) : (
-                              <span className="tag skill">Skill</span>
+                              <span className="tag skill">{tr('Missing Skill')}</span>
                             )}
                           </div>
                         </div>
@@ -243,26 +245,26 @@ export default function Roadmap() {
                         <button
                           className="complete-toggle-btn"
                           onClick={() => handleMarkComplete(skillItem)}
-                          title="Click to mark this skill as mastered"
+                          title={tr('Mark as Mastered')}
                         >
                           <Circle size={18} />
-                          <span>Mark Complete</span>
+                          <span>{tr('Mark as Mastered')}</span>
                         </button>
                       </div>
 
                       <p className="step-description">
                         {isDegree
-                          ? 'Academic degree qualification associated with higher hiring preference for this role.'
-                          : `High-value technical competency required for ${currentPathway?.role || 'this role'}.`}
+                          ? tr('Degree Background & Skill Profiling')
+                          : `${tr('Priority')}: ${Number(skillItem.weight).toFixed(1)} / 10.0`}
                       </p>
 
                       <div className="step-footer-bar">
                         <span className="readiness-boost-tag">
-                          +{readinessBoost}% Readiness Boost
+                          +{readinessBoost}% {tr('MARKET READINESS')}
                         </span>
                         {skillItem.weight && (
                           <span className="market-weight-text">
-                            Market Priority: {Number(skillItem.weight).toFixed(1)} / 10
+                            {tr('Priority')}: {Number(skillItem.weight).toFixed(1)} / 10
                           </span>
                         )}
                       </div>
@@ -277,7 +279,7 @@ export default function Roadmap() {
             <>
               {masteredSkills.length > 0 && (
                 <div className="flow-section-title completed-title">
-                  <span>Mastered Skills ({masteredSkills.length})</span>
+                  <span>{tr('Mastered Skills')} ({masteredSkills.length})</span>
                 </div>
               )}
 
@@ -299,16 +301,16 @@ export default function Roadmap() {
                     <div className="step-card-header">
                       <div className="step-title-wrap">
                         <h3 className="step-name completed">{skillName}</h3>
-                        <span className="tag completed-tag">Verified on Profile</span>
+                        <span className="tag completed-tag">{tr('Completed')}</span>
                       </div>
 
                       <button
                         className="undo-toggle-btn"
                         onClick={() => handleUnmarkComplete(skillName)}
-                        title="Click to move back to your learning list"
+                        title={tr('Undo')}
                       >
                         <RotateCcw size={14} />
-                        <span>Move to Learning</span>
+                        <span>{tr('Undo')}</span>
                       </button>
                     </div>
                   </div>
