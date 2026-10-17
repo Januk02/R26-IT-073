@@ -33,9 +33,13 @@ function computePipelineLayout(nodes) {
 
   const out = [];
 
+  const topPad = 14;
+  const botPad = 14;
+  const usableHeight = 100 - topPad - botPad;
+
   owned.forEach((n, i) => {
-    const spacing = 100 / (owned.length + 1);
-    out.push({ ...n, px: 10, py: spacing * (i + 1) });
+    const spacing = usableHeight / (owned.length + 1);
+    out.push({ ...n, px: 11, py: topPad + spacing * (i + 1) });
   });
 
   if (target) {
@@ -43,13 +47,13 @@ function computePipelineLayout(nodes) {
   }
 
   missing.forEach((n, i) => {
-    const spacing = 100 / (missing.length + 1);
-    out.push({ ...n, px: 60, py: spacing * (i + 1) });
+    const spacing = usableHeight / (missing.length + 1);
+    out.push({ ...n, px: 59, py: topPad + spacing * (i + 1) });
   });
 
   pivots.forEach((n, i) => {
-    const spacing = 100 / (pivots.length + 1);
-    out.push({ ...n, px: 80, py: spacing * (i + 1) });
+    const spacing = usableHeight / (pivots.length + 1);
+    out.push({ ...n, px: 81, py: topPad + spacing * (i + 1) });
   });
 
   return out;
@@ -93,9 +97,9 @@ function BezierLines({ posMap, links, hoveredId }) {
             d={getBezierPath(s, t)}
             fill="none"
             stroke={`url(#${gid})`}
-            strokeWidth={lit ? 0.6 : 0.25}
-            strokeDasharray={isDashed ? '1.5 1' : 'none'}
-            opacity={dim ? 0.05 : 0.8}
+            strokeWidth={lit ? 0.75 : 0.35}
+            strokeDasharray={isDashed ? '2 1.2' : 'none'}
+            opacity={dim ? 0.05 : 0.85}
             style={{ transition: 'all 0.25s ease' }}
           />
         );
@@ -121,7 +125,7 @@ function GNode({ n, lit, onEnter, onLeave, onClick, idx }) {
       onClick={() => onClick(n)}
     >
       <div className="gn__card">
-        <div className="gn__icon"><Icon size={isTarget ? 16 : 12} /></div>
+        <div className="gn__icon"><Icon size={isTarget ? 18 : 14} /></div>
         <span className="gn__label">{n.label}</span>
       </div>
     </motion.div>
@@ -407,10 +411,10 @@ export default function GraphExplorer() {
                   />
                 ))}
 
-                <span className="ge-col-label" style={{ left: '10%' }}>{tr('Owned / Mastered Skills')}</span>
+                <span className="ge-col-label" style={{ left: '11%' }}>{tr('Owned / Mastered Skills')}</span>
                 <span className="ge-col-label" style={{ left: '35%' }}>{tr('TARGET CAREER')}</span>
-                <span className="ge-col-label" style={{ left: '60%' }}>{tr('Missing Skills')}</span>
-                <span className="ge-col-label" style={{ left: '80%' }}>{tr('Pivot Career Opportunities')}</span>
+                <span className="ge-col-label" style={{ left: '59%' }}>{tr('Missing Skills')}</span>
+                <span className="ge-col-label" style={{ left: '81%' }}>{tr('Pivot Career Opportunities')}</span>
               </motion.div>
 
               <AnimatePresence>

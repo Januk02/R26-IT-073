@@ -83,8 +83,8 @@ export default function Layout({ children, onBackToPortal }) {
               animate={{ opacity: 1, x: 0 }}
               className="logo-text"
             >
-              <span className="logo-name">CareerAI</span>
-              <span className="logo-sub">Pathway Engine</span>
+              <span className="logo-name">Career AI</span>
+              <span className="logo-sub">{tr('Career Pathway & Skill Gap Analyzer')}</span>
             </motion.div>
           )}
           <button className="mobile-close-btn" onClick={() => setMobileOpen(false)}>

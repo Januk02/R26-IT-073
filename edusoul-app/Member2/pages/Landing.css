@@ -450,6 +450,7 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
+  transform: translateX(36px);
 }
 
 .avatar-3d-image {
@@ -472,7 +473,7 @@ html {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  padding: 0.85rem 1.15rem;
+  padding: 0.75rem 1.05rem;
   border-radius: 16px;
   display: flex;
   align-items: center;
@@ -482,8 +483,8 @@ html {
   transition: all 0.3s ease;
   user-select: none;
   width: max-content;
-  min-width: 220px;
-  max-width: 275px;
+  min-width: 210px;
+  max-width: 265px;
   box-sizing: border-box;
 }
 
@@ -552,23 +553,23 @@ html {
 
 /* Card Positions */
 .card-top-right {
-  top: 20px;
-  right: 0px;
+  top: 15px;
+  right: -10px;
 }
 
 .card-mid-left {
-  top: 160px;
-  left: -20px;
+  top: 145px;
+  left: -35px;
 }
 
 .card-bottom-left {
-  bottom: 45px;
-  left: -15px;
+  bottom: 80px;
+  left: -50px;
 }
 
 .card-bottom-right {
-  bottom: 35px;
-  right: -10px;
+  bottom: 15px;
+  right: -35px;
 }
 
 /* =========================================================
@@ -1024,20 +1025,29 @@ html {
     justify-content: center;
   }
 
+  .avatar-image-wrapper {
+    transform: none;
+    margin: 0 auto;
+  }
+
   .card-top-right {
-    right: 5%;
+    top: 10px;
+    right: 2%;
   }
 
   .card-mid-left {
-    left: 5%;
+    top: 135px;
+    left: 2%;
   }
 
   .card-bottom-left {
-    left: 5%;
+    bottom: 75px;
+    left: 2%;
   }
 
   .card-bottom-right {
-    right: 5%;
+    bottom: 12px;
+    right: 2%;
   }
 }
 

@@ -223,7 +223,7 @@ export default function Analyzer() {
           {tr('Degree Background & Skill Profiling')}
         </h2>
         <p className="analyzer-desc">
-          {tr('Configure your academic background and technical skills to evaluate job readiness across 40+ tech roles.')}
+          {tr('Configure your academic background and technical skills to evaluate job readiness across 100+ tech roles.')}
         </p>
       </div>
 

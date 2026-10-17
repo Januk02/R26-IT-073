@@ -82,7 +82,7 @@ export default function Roadmap() {
           </div>
           <h2>{tr('No Pathways Available')}</h2>
           <p>
-            {tr('Configure your academic background and technical skills to evaluate job readiness across 40+ tech roles.')}
+            {tr('Configure your academic background and technical skills to evaluate job readiness across 100+ tech roles.')}
           </p>
           <a href="/analyzer" className="primary-human-btn">
             {tr('Run AI Career Scan')} <ArrowRight size={16} />

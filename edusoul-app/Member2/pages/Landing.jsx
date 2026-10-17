@@ -55,8 +55,8 @@ export default function Landing({ onBackToPortal }) {
               <Zap size={22} className="brand-icon" />
             </div>
             <div className="brand-text">
-              <span className="brand-title">Career Pathway AI</span>
-              <span className="brand-subtitle">{tr('INTELLIGENT CAREER GUIDANCE')}</span>
+              <span className="brand-title">Career AI</span>
+              <span className="brand-subtitle">{tr('CAREER PATHWAY & SKILL GAP ANALYZER')}</span>
             </div>
           </div>
 
@@ -107,16 +107,16 @@ export default function Landing({ onBackToPortal }) {
           >
             <div className="hero-badge">
               <Sparkles size={14} className="sparkle-icon" />
-              <span>{tr('POWERED BY MACHINE LEARNING & GRAPH AI')}</span>
+              <span>{tr('AI-POWERED CAREER GUIDANCE')}</span>
             </div>
 
             <h1 className="hero-title">
-              {tr('Bridge Your Degree to')}<br />
-              <span className="gradient-text">{tr('In-Demand Tech Careers')}</span>
+              {tr('Bridge Your Skills to')}<br />
+              <span className="gradient-text">{tr('High-Growth Tech Careers')}</span>
             </h1>
 
             <p className="hero-description">
-              {tr('Dual-Engine AI career recommendation and skill-gap quantification system designed specifically for Sri Lankan undergraduates and tech job seekers.')}
+              {tr('Discover your best-fit software engineering roles, measure your real-time job readiness, and follow a personalized step-by-step roadmap to land your dream tech job.')}
             </p>
 
             <div className="hero-cta-group">
@@ -136,17 +136,17 @@ export default function Landing({ onBackToPortal }) {
             {/* Commercial Stats Row */}
             <div className="hero-stats">
               <div className="stat-item">
-                <div className="stat-value">600+</div>
-                <div className="stat-label">{tr('Tech Skills Indexed')}</div>
+                <div className="stat-value">1,200+</div>
+                <div className="stat-label">{tr('Verified Tech Skills')}</div>
               </div>
               <div className="stat-divider" />
               <div className="stat-item">
                 <div className="stat-value">98%</div>
-                <div className="stat-label">{tr('Ensemble Accuracy')}</div>
+                <div className="stat-label">{tr('Matching Precision')}</div>
               </div>
               <div className="stat-divider" />
               <div className="stat-item">
-                <div className="stat-value">40+</div>
+                <div className="stat-value">100+</div>
                 <div className="stat-label">{tr('Career Paths Mapped')}</div>
               </div>
             </div>
@@ -195,8 +195,8 @@ export default function Landing({ onBackToPortal }) {
                 <TrendingUp size={20} />
               </div>
               <div className="card-info">
-                <h4>{tr('SGI GAP INDEX')}</h4>
-                <p>{tr('MARKET READINESS')}</p>
+                <h4>{tr('Skill Gap Analysis')}</h4>
+                <p>{tr('Spot missing skills & boost readiness')}</p>
               </div>
             </motion.div>
 
@@ -211,8 +211,8 @@ export default function Landing({ onBackToPortal }) {
                 <Share2 size={20} />
               </div>
               <div className="card-info">
-                <h4>{tr('Skill Web Explorer')}</h4>
-                <p>{tr('Career Synergy Web Explorer')}</p>
+                <h4>{tr('Career Synergy Web')}</h4>
+                <p>{tr('Explore high-growth transition paths')}</p>
               </div>
             </motion.div>
 
@@ -227,8 +227,8 @@ export default function Landing({ onBackToPortal }) {
                 <Compass size={20} />
               </div>
               <div className="card-info">
-                <h4>{tr('Roadmap')}</h4>
-                <p>{tr('Career Journey')}</p>
+                <h4>{tr('Personalized Roadmap')}</h4>
+                <p>{tr('Step-by-step milestones to your goal')}</p>
               </div>
             </motion.div>
           </motion.div>
@@ -238,10 +238,10 @@ export default function Landing({ onBackToPortal }) {
       {/* Core Capabilities Section */}
       <section id="features" className="features-section">
         <div className="section-header">
-          <div className="section-badge">{tr('PLATFORM CAPABILITIES')}</div>
-          <h2 className="section-title">{tr('Core Engine Capabilities')}</h2>
+          <div className="section-badge">{tr('POWERFUL PRODUCT FEATURES')}</div>
+          <h2 className="section-title">{tr('Everything You Need to Launch Your Tech Career')}</h2>
           <p className="section-subtitle">
-            {tr('Curriculum & Industry Aligned')}
+            {tr('Clear, data-driven career recommendations designed to guide undergraduates and job seekers from classroom to employment.')}
           </p>
         </div>
 
@@ -256,12 +256,12 @@ export default function Landing({ onBackToPortal }) {
             <div className="feature-icon-wrapper purple">
               <Brain size={26} />
             </div>
-            <h3 className="feature-card-title">{tr('Stacking Ensemble Destination Classifier')}</h3>
+            <h3 className="feature-card-title">{tr('Intelligent Career Matching')}</h3>
             <p className="feature-card-desc">
-              {tr('Trained on 40+ specialized technology roles using Random Forest, Linear SVC, Multinomial Naive Bayes, and Logistic Regression meta-learner.')}
+              {tr('Instantly discovers the top technology careers that match your unique degree and current technical skill set.')}
             </p>
             <div className="feature-card-footer">
-              <span>{tr('Launch AI Scanner')}</span>
+              <span>{tr('Analyze My Skills')}</span>
               <ArrowUpRight size={16} />
             </div>
           </motion.div>
@@ -276,9 +276,9 @@ export default function Landing({ onBackToPortal }) {
             <div className="feature-icon-wrapper pink">
               <Target size={26} />
             </div>
-            <h3 className="feature-card-title">{tr('Hierarchical Academic Affinity Diagnostics')}</h3>
+            <h3 className="feature-card-title">{tr('Degree-to-Industry Alignment')}</h3>
             <p className="feature-card-desc">
-              {tr('4-tier evaluation algorithm resolving the Data Science Degree Trap and matching academic degrees to real industry qualification standards.')}
+              {tr('Evaluates your academic background against actual industry hiring requirements to ensure you meet job criteria.')}
             </p>
             <div className="feature-card-footer">
               <span>{tr('View Dashboard')}</span>
@@ -296,9 +296,9 @@ export default function Landing({ onBackToPortal }) {
             <div className="feature-icon-wrapper cyan">
               <Share2 size={26} />
             </div>
-            <h3 className="feature-card-title">{tr('Neo4j Dynamic Skill & Career Graph')}</h3>
+            <h3 className="feature-card-title">{tr('Interactive Career Synergy Web')}</h3>
             <p className="feature-card-desc">
-              {tr('Force-directed graph mapping skill co-occurrences, prerequisite dependencies, and cross-career pivot transitions across the IT market.')}
+              {tr('Visualizes connections between tech roles and shows adjacent career options you can easily pivot into.')}
             </p>
             <div className="feature-card-footer">
               <span>{tr('Explore Knowledge Graph')}</span>
@@ -316,9 +316,9 @@ export default function Landing({ onBackToPortal }) {
             <div className="feature-icon-wrapper indigo">
               <Rocket size={26} />
             </div>
-            <h3 className="feature-card-title">{tr('Mathematical SGI Gap Quantification')}</h3>
+            <h3 className="feature-card-title">{tr('Personalized Skill Gap Roadmap')}</h3>
             <p className="feature-card-desc">
-              {tr('Mathematical Skill & Academic Gap Index computing exact market readiness percentages and weighted skill deficiency priorities.')}
+              {tr('Pinpoints the exact high-priority skills you need to learn, with actionable milestones to reach 100% job readiness.')}
             </p>
             <div className="feature-card-footer">
               <span>{tr('View Roadmap')}</span>
@@ -331,16 +331,16 @@ export default function Landing({ onBackToPortal }) {
       {/* How It Works (4-Step Flow) */}
       <section id="workflow" className="workflow-section">
         <div className="section-header">
-          <div className="section-badge">{tr('Step-by-Step Architecture')}</div>
-          <h2 className="section-title">{tr('How The Dual-Engine AI Works')}</h2>
+          <div className="section-badge">{tr('SIMPLE 4-STEP PROCESS')}</div>
+          <h2 className="section-title">{tr('How Career AI Works for You')}</h2>
         </div>
 
         <div className="workflow-grid">
           <div className="workflow-step">
             <div className="step-number">01</div>
-            <h4 className="step-title">{tr('Input Academic Background & Skills')}</h4>
+            <h4 className="step-title">{tr('Enter Your Background & Skills')}</h4>
             <p className="step-desc">
-              {tr('Select your degree qualification and tag your existing technical proficiencies with auto-complete.')}
+              {tr('Select your degree and choose the technical skills you currently have with quick smart suggestions.')}
             </p>
           </div>
 
@@ -348,9 +348,9 @@ export default function Landing({ onBackToPortal }) {
 
           <div className="workflow-step">
             <div className="step-number">02</div>
-            <h4 className="step-title">{tr('Machine Learning Role Prediction')}</h4>
+            <h4 className="step-title">{tr('Get Instant Best-Fit Role Matches')}</h4>
             <p className="step-desc">
-              {tr('Stacking ensemble model analyzes your skill vector with TF-IDF weights to predict top matching roles.')}
+              {tr('Our AI scans 100+ industry tech roles to recommend your highest probability career destinations.')}
             </p>
           </div>
 
@@ -358,9 +358,9 @@ export default function Landing({ onBackToPortal }) {
 
           <div className="workflow-step">
             <div className="step-number">03</div>
-            <h4 className="step-title">{tr('Neo4j Knowledge Graph Traversal')}</h4>
+            <h4 className="step-title">{tr('Uncover Exact Skill Gaps')}</h4>
             <p className="step-desc">
-              {tr('Knowledge graph discovers exact missing requirements, prerequisite chains, and adjacent career pivot synergies.')}
+              {tr('See which critical skills are missing from your profile and learn which ones offer the highest market value.')}
             </p>
           </div>
 
@@ -368,9 +368,9 @@ export default function Landing({ onBackToPortal }) {
 
           <div className="workflow-step">
             <div className="step-number">04</div>
-            <h4 className="step-title">{tr('Actionable Progression Roadmap')}</h4>
+            <h4 className="step-title">{tr('Follow Your Custom Action Roadmap')}</h4>
             <p className="step-desc">
-              {tr('Follow a customized milestone roadmap, acquire high-demand skills, and monitor your market readiness growth.')}
+              {tr('Track your progress with milestones, master new proficiencies, and watch your job readiness score reach 100%.')}
             </p>
           </div>
         </div>
@@ -383,11 +383,11 @@ export default function Landing({ onBackToPortal }) {
           <div className="bottom-cta-content">
             <h2>{tr('Ready to Accelerate Your Tech Career?')}</h2>
             <p>
-              {tr('Dual-Engine AI career recommendation and skill-gap quantification system designed specifically for Sri Lankan undergraduates and tech job seekers.')}
+              {tr('Discover your strengths, close your skill gaps, and step confidently into the tech industry.')}
             </p>
             <div className="bottom-cta-buttons">
               <button className="cta-large-btn" onClick={handleStart}>
-                <span>{tr('Launch AI Scanner')}</span>
+                <span>{tr('Analyze My Skills')}</span>
                 <ArrowRight size={18} />
               </button>
               <button className="cta-dashboard-btn" onClick={handleDashboard}>
@@ -405,7 +405,7 @@ export default function Landing({ onBackToPortal }) {
             <div className="brand-badge mini">
               <Zap size={18} className="brand-icon" />
             </div>
-            <span className="footer-brand-title">Career Pathway AI · StudyFyX</span>
+            <span className="footer-brand-title">Career AI · StudyFyX</span>
           </div>
 
           <div className="footer-meta">
