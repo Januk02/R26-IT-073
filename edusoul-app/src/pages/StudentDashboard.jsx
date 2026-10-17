@@ -5,7 +5,9 @@ import {
   Brain, 
   Users, 
   MessageSquare, 
-  ArrowUpRight
+  ArrowUpRight,
+  Calendar,
+  Sparkles
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -20,6 +22,7 @@ const StudentDashboard = ({
   const firstName = user?.displayName?.split(' ')[0] || user?.email?.split('@')[0] || 'Student';
   const hour = new Date().getHours();
   const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+  const today = new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' });
 
   const modules = [
     {
@@ -87,87 +90,212 @@ const StudentDashboard = ({
   return (
     <>
       <style>{`
-        /* ── Modern Architectural Editorial UI ── */
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+
+        /* ── Page canvas: soft dot grid + colour washes ── */
         .cominvi-root {
-          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
+          font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
           min-height: 100vh;
-          background: #F8FAFC;
           color: #0F172A;
-          padding-bottom: 80px;
-        }
-
-        /* ── Animated 3D Students Hero Banner ── */
-        .cominvi-hero {
+          padding: 24px 0 80px;
           position: relative;
-          width: 100%;
-          min-height: 290px;
-          background: #0F172A;
-          overflow: hidden;
-          display: flex;
-          align-items: center;
-          border-bottom: 1px solid #E2E8F0;
+          background:
+            radial-gradient(60% 40% at 15% 0%, rgba(99, 102, 241, 0.10) 0%, transparent 70%),
+            radial-gradient(50% 35% at 90% 5%, rgba(56, 189, 248, 0.10) 0%, transparent 70%),
+            #F6F7FB;
         }
 
-        .cominvi-hero-bg {
+        .cominvi-root::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background-image: radial-gradient(rgba(15, 23, 42, 0.07) 1px, transparent 1px);
+          background-size: 22px 22px;
+          mask-image: linear-gradient(180deg, black 0%, transparent 55%);
+          -webkit-mask-image: linear-gradient(180deg, black 0%, transparent 55%);
+          pointer-events: none;
+        }
+
+        .cominvi-root > * { position: relative; }
+
+        /* ── Aurora Hero Card ── */
+        .aurora-wrap {
+          max-width: 1380px;
+          margin: 0 auto;
+          padding: 0 32px;
+        }
+
+        .aurora-hero {
+          position: relative;
+          min-height: 280px;
+          border-radius: 28px;
+          overflow: hidden;
+          background: #0B1020;
+          border: 1px solid rgba(255, 255, 255, 0.06);
+          box-shadow: 0 30px 60px -20px rgba(49, 46, 129, 0.45), 0 0 0 1px rgba(99, 102, 241, 0.08);
+          display: grid;
+          grid-template-columns: 1.15fr 1fr;
+          isolation: isolate;
+        }
+
+        .aurora-blob {
+          position: absolute;
+          border-radius: 50%;
+          filter: blur(70px);
+          opacity: 0.75;
+          z-index: -1;
+          animation: aurora-drift 16s ease-in-out infinite alternate;
+        }
+
+        .aurora-blob.b1 { width: 420px; height: 420px; background: #4F46E5; top: -180px; left: -80px; }
+        .aurora-blob.b2 { width: 360px; height: 360px; background: #7C3AED; bottom: -200px; left: 30%; animation-delay: -5s; opacity: 0.6; }
+        .aurora-blob.b3 { width: 300px; height: 300px; background: #0EA5E9; top: -120px; right: 18%; animation-delay: -9s; opacity: 0.45; }
+
+        @keyframes aurora-drift {
+          0%   { transform: translate(0, 0) scale(1); }
+          50%  { transform: translate(40px, 20px) scale(1.08); }
+          100% { transform: translate(-30px, 30px) scale(0.95); }
+        }
+
+        .aurora-grid {
+          position: absolute;
+          inset: 0;
+          z-index: -1;
+          background-image:
+            linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+          background-size: 40px 40px;
+          mask-image: radial-gradient(ellipse 70% 90% at 30% 50%, black 0%, transparent 75%);
+          -webkit-mask-image: radial-gradient(ellipse 70% 90% at 30% 50%, black 0%, transparent 75%);
+        }
+
+        .aurora-content {
+          padding: 44px 48px 48px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          z-index: 2;
+        }
+
+        .aurora-chip {
+          align-self: flex-start;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 6px 12px 6px 8px;
+          border-radius: 999px;
+          background: rgba(255, 255, 255, 0.07);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          backdrop-filter: blur(10px);
+          color: #CBD5E1;
+          font-size: 12px;
+          font-weight: 600;
+          margin-bottom: 18px;
+        }
+
+        .aurora-chip-icon {
+          width: 20px; height: 20px;
+          border-radius: 50%;
+          background: rgba(129, 140, 248, 0.25);
+          color: #C7D2FE;
+          display: flex; align-items: center; justify-content: center;
+        }
+
+        .aurora-content h1 {
+          font-size: 40px;
+          font-weight: 800;
+          color: #FFFFFF;
+          letter-spacing: -0.035em;
+          line-height: 1.15;
+          margin: 0 0 14px 0;
+        }
+
+        .aurora-name {
+          background: linear-gradient(120deg, #A5B4FC 0%, #C4B5FD 45%, #7DD3FC 100%);
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+          text-transform: capitalize;
+        }
+
+        .aurora-content p {
+          font-size: 15.5px;
+          color: #94A3B8;
+          margin: 0;
+          max-width: 540px;
+          line-height: 1.65;
+        }
+
+        /* Illustration blended into the card */
+        .aurora-visual {
+          position: relative;
+          overflow: hidden;
+        }
+
+        .aurora-visual img {
           position: absolute;
           inset: 0;
           width: 100%;
           height: 100%;
           object-fit: cover;
           object-position: center 30%;
-          opacity: 0.88;
-          transform: scale(1.01);
-          transition: transform 6s ease;
+          mask-image: linear-gradient(90deg, transparent 0%, black 38%);
+          -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 38%);
+          opacity: 0.92;
+          transform: scale(1.02);
+          transition: transform 8s ease;
         }
 
-        .cominvi-hero:hover .cominvi-hero-bg {
-          transform: scale(1.03);
-        }
+        .aurora-hero:hover .aurora-visual img { transform: scale(1.07); }
 
-        .cominvi-hero-overlay {
+        .aurora-visual::after {
+          content: '';
           position: absolute;
           inset: 0;
-          background: linear-gradient(
-            90deg,
-            rgba(15, 23, 42, 0.90) 0%,
-            rgba(15, 23, 42, 0.72) 42%,
-            rgba(15, 23, 42, 0.28) 100%
-          );
+          background: linear-gradient(180deg, rgba(11,16,32,0) 55%, rgba(11,16,32,0.55) 100%);
         }
 
-        .cominvi-hero-container {
-          position: relative;
-          z-index: 2;
-          max-width: 1380px;
-          width: 100%;
-          margin: 0 auto;
-          padding: 40px 48px;
+        /* ── Section heading above cards ── */
+        .section-head {
+          display: flex;
+          align-items: flex-end;
+          justify-content: space-between;
+          margin: 36px 0 18px;
         }
 
-        .hero-title-group h1 {
-          font-size: 38px;
+        .section-head h2 {
+          font-size: 20px;
           font-weight: 800;
-          color: #FFFFFF;
-          letter-spacing: -0.035em;
-          line-height: 1.15;
-          margin: 0 0 10px 0;
-          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+          letter-spacing: -0.025em;
+          color: #0F172A;
+          margin: 0 0 4px;
         }
 
-        .hero-title-group p {
-          font-size: 15.5px;
-          color: rgba(255, 255, 255, 0.82);
+        .section-head p {
+          font-size: 13.5px;
+          color: #64748B;
           margin: 0;
-          max-width: 580px;
-          line-height: 1.6;
-          text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 6px 12px;
+          border-radius: 999px;
+          background: #FFFFFF;
+          border: 1px solid #E2E8F0;
+          font-size: 12px;
+          font-weight: 700;
+          color: #4F46E5;
+          box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
         }
 
         /* ── Main Interactive Section ── */
         .cominvi-body {
           max-width: 1380px;
-          margin: -32px auto 0;
-          padding: 0 48px;
+          margin: 0 auto;
+          padding: 0 32px;
           position: relative;
           z-index: 3;
         }
@@ -342,38 +470,59 @@ const StudentDashboard = ({
           .cards-track { grid-template-columns: repeat(3, 1fr); }
         }
 
+        @media (max-width: 1100px) {
+          .aurora-hero { grid-template-columns: 1fr; }
+          .aurora-visual { position: absolute; inset: 0; z-index: -1; opacity: 0.35; }
+        }
+
         @media (max-width: 900px) {
           .cards-track { grid-template-columns: repeat(2, 1fr); }
-          .cominvi-hero-container { padding: 32px 24px; }
-          .cominvi-body { padding: 0 24px; }
+          .aurora-wrap, .cominvi-body { padding: 0 20px; }
+          .aurora-content { padding: 36px 28px; }
+          .cominvi-root { padding-top: 72px; }
         }
 
         @media (max-width: 600px) {
           .cards-track { grid-template-columns: 1fr; }
-          .hero-title-group h1 { font-size: 28px; }
+          .aurora-content h1 { font-size: 30px; }
+          .section-head { flex-direction: column; align-items: flex-start; gap: 10px; }
         }
       `}</style>
 
       <div className="cominvi-root">
-        {/* ── 3D Animated Students Hero Banner ── */}
-        <div className="cominvi-hero">
-          <img 
-            src="/dashboard_banner.jpg" 
-            alt="Students Collaborating in Study Lounge" 
-            className="cominvi-hero-bg"
-          />
-          <div className="cominvi-hero-overlay" />
-          
-          <div className="cominvi-hero-container">
-            <div className="hero-title-group">
-              <h1>{greeting}, {firstName}</h1>
+        {/* ── Aurora Hero Card (Clean without extra buttons) ── */}
+        <div className="aurora-wrap">
+          <section className="aurora-hero">
+            <div className="aurora-blob b1" />
+            <div className="aurora-blob b2" />
+            <div className="aurora-blob b3" />
+            <div className="aurora-grid" />
+
+            <div className="aurora-content">
+              <span className="aurora-chip">
+                <span className="aurora-chip-icon"><Calendar size={11} strokeWidth={2.5} /></span>
+                {today}
+              </span>
+              <h1>{greeting}, <span className="aurora-name">{firstName}</span></h1>
               <p>Explore your personalized degree recommendations, career pathways, study wellness, and verified mentorship.</p>
             </div>
-          </div>
+
+            <div className="aurora-visual">
+              <img src="/dashboard_banner.jpg" alt="Students collaborating in a study lounge" />
+            </div>
+          </section>
         </div>
 
         {/* ── Core Modules: Cominvi-Style Interactive Architecture ── */}
         <div className="cominvi-body">
+          <div className="section-head">
+            <div>
+              <h2>Your learning workspace</h2>
+              <p>Five AI-powered modules to plan, grow and stay balanced.</p>
+            </div>
+            <span className="section-pill"><Sparkles size={13} /> AI-powered</span>
+          </div>
+          
           <div className="cards-track">
             {modules.map((m) => {
               const Icon = m.icon;

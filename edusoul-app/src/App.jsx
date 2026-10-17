@@ -24,16 +24,16 @@ export { LanguageContext, useLanguage };
 
 // ── Views that get the sidebar + layout shell ─────────────────
 const WITH_SIDEBAR = [
-  'dashboard', 
-  'studentHome', 
-  'mentorHub', 
-  'messages', 
-  'verification', 
-  'cvVerification', 
+  'dashboard',
+  'studentHome',
+  'mentorHub',
+  'messages',
+  'verification',
+  'cvVerification',
   'history'
 ];
 // Views that are full-screen (no parent sidebar, own layout)
-const FULL_SCREEN  = ['home', 'login', 'register', 'onboarding', 'courses', 'dreamDegreeAdvisor', 'analytics'];
+const FULL_SCREEN = ['home', 'login', 'register', 'onboarding', 'courses', 'dreamDegreeAdvisor', 'analytics'];
 
 // ── App shell layout ──────────────────────────────────────────
 function Layout({ currentView, setCurrentView, children }) {
@@ -190,8 +190,8 @@ function AppContent({ currentView, setCurrentView }) {
       case 'mentorHub':
         return (
           <ProtectedRoute>
-            <MentorshipPage 
-              onBack={go(userRole === 'mentor' ? 'dashboard' : 'studentHome')} 
+            <MentorshipPage
+              onBack={go(userRole === 'mentor' ? 'dashboard' : 'studentHome')}
             />
           </ProtectedRoute>
         );
@@ -200,8 +200,8 @@ function AppContent({ currentView, setCurrentView }) {
       case 'messages':
         return (
           <ProtectedRoute>
-            <ChatHub 
-              onBack={go(userRole === 'mentor' ? 'dashboard' : 'studentHome')} 
+            <ChatHub
+              onBack={go(userRole === 'mentor' ? 'dashboard' : 'studentHome')}
               initialMentor={chatInitialMentor}
             />
           </ProtectedRoute>
