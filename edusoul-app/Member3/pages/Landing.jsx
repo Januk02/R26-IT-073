@@ -1,3 +1,4 @@
+import studyfyxLogo from '../../src/assets/studyfyxlogo.png';
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
@@ -64,9 +65,7 @@ export default function Member3Landing({
       <header className="stress-nav">
         <div className="stress-nav-container">
           <div className="stress-nav-brand" onClick={onLaunchHub}>
-            <div className="stress-brand-badge">
-              <Activity size={22} className="stress-brand-icon" />
-            </div>
+            <img src={studyfyxLogo} alt="Studyfyx" className="studyfyx-module-logo" />
             <div className="stress-brand-text">
               <span className="stress-brand-title">Stress & Bio-Analytics AI</span>
               <span className="stress-brand-subtitle">STUDYFYX COGNITIVE WELL-BEING</span>

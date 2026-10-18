@@ -380,7 +380,7 @@ const ThreeDAvatar = ({
       <div ref={mountRef} className="w-full h-full" />
       {loading && (
         <div className="absolute inset-0 bg-slate-950 flex flex-col items-center justify-center z-20">
-          <div className="w-10 h-10 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mb-3" />
+          <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-3" />
           <p className="text-xs font-bold text-white">Loading 3D Avatar...</p>
         </div>
       )}

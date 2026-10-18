@@ -1,0 +1,65 @@
+/* Shared Studyfyx palette. Status and chart colours remain independent. */
+:root {
+  --studyfyx-blue:#2455b3; --studyfyx-blue-hover:#1d438e;
+  --studyfyx-orange:#f79412; --studyfyx-navy:#102445;
+  --studyfyx-canvas:#f5f7fb; --studyfyx-ink:#17243d;
+}
+.studyfyx-module.studyfyx-theme[data-theme] {
+  --accent:#2455b3; --accent-hover:#1d438e;
+  --accent-subtle:rgba(36,85,179,.10); --accent-muted:rgba(36,85,179,.05);
+  --accent-gradient:linear-gradient(135deg,#2455b3,#3b82f6);
+  --accent-gradient-btn:linear-gradient(135deg,#2455b3,#2563eb);
+  --accent2:#b96c10; --accent2-subtle:rgba(247,148,18,.12);
+  --text-on-accent:#fff; --border-active:rgba(36,85,179,.45);
+  --shadow-glow:0 0 22px rgba(36,85,179,.10);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:var(--bg-primary);color:var(--text-primary);min-height:100vh;
+}
+.studyfyx-module.studyfyx-theme[data-theme="light"] {
+  --bg-primary:#f5f7fb; --bg-secondary:#eef3fb; --bg-tertiary:#e1e9f5;
+  --bg-card:#fff; --bg-card-solid:#fff; --bg-card-hover:#f8faff;
+  --bg-input:#fff; --bg-input-focus:#f0f5ff; --sidebar-bg:#fff;
+  --text-primary:#17243d; --text-secondary:#536179; --text-muted:#66758c; --text-accent:#2455b3;
+  --border:#dce5f1; --border-hover:#b8cdef; --divider:#e7edf6;
+  --shadow-card:0 3px 14px #17243d05; --shadow-card-hover:0 8px 24px #2455b312;
+}
+.studyfyx-module.studyfyx-theme[data-theme="dark"] {
+  --bg-primary:#0d1c33; --bg-secondary:#102445; --bg-tertiary:#183452;
+  --bg-card:#142b49; --bg-card-solid:#142b49; --bg-card-hover:#1b365a;
+  --bg-input:#102445; --bg-input-focus:#1b365a; --sidebar-bg:#102445;
+  --text-primary:#f0f5ff; --text-secondary:#bdcce2; --text-muted:#9fb3d1; --text-accent:#a9c8ff;
+  --accent:#82afff; --accent-hover:#a9c8ff;
+  --accent-gradient:linear-gradient(135deg,#3b82f6,#82afff);
+  --accent-gradient-btn:linear-gradient(135deg,#2455b3,#2563eb);
+  --accent2:#f9b351; --border:#2a4569; --border-hover:#52729b; --divider:#29415f;
+}
+.studyfyx-module button:focus-visible,.studyfyx-module a:focus-visible,
+.studyfyx-module input:focus-visible,.studyfyx-module select:focus-visible{outline:3px solid #3b82f6;outline-offset:3px}
+.studyfyx-module .studyfyx-module-logo{width:80px;height:48px;object-fit:contain;background:#fff;border-radius:7px;padding:4px;flex-shrink:0}
+.studyfyx-module .landing-nav,.studyfyx-module .stress-nav{border-top:3px solid #2455b3}
+.studyfyx-module .brand-title,.studyfyx-module .stress-brand-title{color:var(--text-primary)}
+.studyfyx-module .hero-title .gradient-text,.studyfyx-module .stress-hero-title .gradient-text{background-image:linear-gradient(120deg,#2455b3,#3b82f6)}
+.studyfyx-module .btn-primary,.studyfyx-module .hero-btn-primary{background:var(--accent-gradient-btn);color:#fff}
+.studyfyx-module .stress-hero-btn-primary{background:#f79412;color:#17243d;border-color:#f79412}
+.studyfyx-module .stress-feature-card,.studyfyx-module .feature-card{border-color:var(--border);box-shadow:var(--shadow-card)}
+.studyfyx-module .stress-feature-card:nth-child(3n+2),.studyfyx-module .feature-card:nth-child(3n+2){border-top:3px solid #b96c10}
+.studyfyx-module .stress-feature-card:nth-child(3n+1),.studyfyx-module .feature-card:nth-child(3n+1){border-top:3px solid #2455b3}
+.studyfyx-module .stress-inner-nav{border-top:3px solid #f79412}
+@media(max-width:600px){.studyfyx-module .studyfyx-module-logo{width:64px;height:40px}}
+.studyfyx-module.studyfyx-theme[data-theme]{--radius-xs:4px;--radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:20px;--radius-full:9999px;--duration-fast:150ms;--duration-normal:250ms;--duration-slow:350ms;--ease-out:cubic-bezier(.16,1,.3,1);--ease-in-out:cubic-bezier(.4,0,.2,1)}
+.studyfyx-module .stress-gradient-text{background:linear-gradient(120deg,#2455b3,#3b82f6);background-clip:text;-webkit-background-clip:text}
+.studyfyx-module[data-theme="dark"] .stress-gradient-text{background-image:linear-gradient(120deg,#a9c8ff,#f9b351)}
+.studyfyx-module .stress-cta-primary-btn,.studyfyx-module .model-action-btn.primary{background:#2455b3;color:#fff;box-shadow:0 4px 12px #2455b325}
+.studyfyx-module .stress-cta-primary-btn:hover,.studyfyx-module .model-action-btn.primary:hover{background:#1d438e;box-shadow:0 6px 18px #2455b330}
+.studyfyx-module .stress-hero-btn-primary:hover{background:#ffab3e;color:#17243d;box-shadow:0 6px 18px #f7941225}
+.studyfyx-module .glow-cyan-top{background:radial-gradient(circle,#3b82f630,transparent 70%)}
+.studyfyx-module .glow-emerald-right{background:radial-gradient(circle,#f7941225,transparent 70%)}
+.studyfyx-module .glow-violet-bottom{background:radial-gradient(circle,#2455b325,transparent 70%)}
+.studyfyx-module .brand-subtitle,.studyfyx-module .nav-link.active,
+.studyfyx-module .hero-badge,.studyfyx-module .section-badge,
+.studyfyx-module .stress-brand-subtitle,.studyfyx-module .stress-nav-link.active,
+.studyfyx-module .stress-hero-badge,.studyfyx-module .stress-section-badge{color:var(--text-accent)}
+.studyfyx-module .nav-link.active::after,.studyfyx-module .stress-nav-link.active::after{background:var(--accent)}
+.studyfyx-module .hero-badge,.studyfyx-module .section-badge,
+.studyfyx-module .stress-hero-badge,.studyfyx-module .stress-section-badge{background:var(--accent-subtle);border-color:var(--border-active)}
+.studyfyx-module .stress-hero-btn-primary{box-shadow:0 6px 18px #f7941225}

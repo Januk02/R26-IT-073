@@ -94,8 +94,8 @@ const Register = ({ onNavigateToLogin }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 via-white to-purple-50 px-4 py-8">
-      <div className="max-w-2xl w-full bg-white rounded-2xl shadow-xl p-8 space-y-6 border border-purple-100">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-blue-50 px-4 py-8">
+      <div className="max-w-2xl w-full bg-white rounded-2xl shadow-xl p-8 space-y-6 border border-blue-100">
         <div className="text-center">
           <div className="mb-6">
             <BrandHeader 
@@ -126,12 +126,12 @@ const Register = ({ onNavigateToLogin }) => {
                 onClick={() => setFormData({ ...formData, role: 'student' })}
                 className={`p-4 rounded-lg border-2 transition-all duration-200 ${
                   formData.role === 'student'
-                    ? 'border-purple-500 bg-purple-50'
-                    : 'border-gray-200 hover:border-purple-300'
+                    ? 'border-blue-500 bg-blue-50'
+                    : 'border-gray-200 hover:border-blue-300'
                 }`}
               >
                 <div className="flex flex-col items-center">
-                  <svg className="w-8 h-8 mb-2 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-8 h-8 mb-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                   </svg>
                   <span className="font-semibold text-gray-900">Student</span>
@@ -143,12 +143,12 @@ const Register = ({ onNavigateToLogin }) => {
                 onClick={() => setFormData({ ...formData, role: 'mentor' })}
                 className={`p-4 rounded-lg border-2 transition-all duration-200 ${
                   formData.role === 'mentor'
-                    ? 'border-purple-500 bg-purple-50'
-                    : 'border-gray-200 hover:border-purple-300'
+                    ? 'border-blue-500 bg-blue-50'
+                    : 'border-gray-200 hover:border-blue-300'
                 }`}
               >
                 <div className="flex flex-col items-center">
-                  <svg className="w-8 h-8 mb-2 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-8 h-8 mb-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                   </svg>
                   <span className="font-semibold text-gray-900">Mentor</span>
@@ -170,7 +170,7 @@ const Register = ({ onNavigateToLogin }) => {
                 type="text"
                 value={formData.firstName}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 outline-none"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 outline-none"
                 placeholder="John"
                 required
               />
@@ -185,7 +185,7 @@ const Register = ({ onNavigateToLogin }) => {
                 type="text"
                 value={formData.lastName}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 outline-none"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 outline-none"
                 placeholder="Doe"
                 required
               />
@@ -203,7 +203,7 @@ const Register = ({ onNavigateToLogin }) => {
               type="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 outline-none"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 outline-none"
               placeholder="you@example.com"
               required
             />
@@ -220,7 +220,7 @@ const Register = ({ onNavigateToLogin }) => {
               type="tel"
               value={formData.phone}
               onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 outline-none"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 outline-none"
               placeholder="+1 234 567 8900"
               required
             />
@@ -238,7 +238,7 @@ const Register = ({ onNavigateToLogin }) => {
                 type="password"
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 outline-none"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 outline-none"
                 placeholder="••••••••"
                 required
               />
@@ -253,7 +253,7 @@ const Register = ({ onNavigateToLogin }) => {
                 type="password"
                 value={formData.confirmPassword}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 outline-none"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 outline-none"
                 placeholder="••••••••"
                 required
               />
@@ -294,7 +294,7 @@ const Register = ({ onNavigateToLogin }) => {
               value={formData.bio}
               onChange={handleChange}
               rows={3}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 outline-none resize-none"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 outline-none resize-none"
               placeholder="Tell us a bit about yourself..."
             />
           </div>
@@ -304,16 +304,16 @@ const Register = ({ onNavigateToLogin }) => {
             <input
               id="terms"
               type="checkbox"
-              className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded mt-1"
+              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mt-1"
               required
             />
             <label htmlFor="terms" className="ml-2 block text-sm text-gray-700">
               I agree to the{' '}
-              <a href="#" className="text-purple-600 hover:text-purple-800 font-medium">
+              <a href="#" className="text-blue-600 hover:text-blue-800 font-medium">
                 Terms of Service
               </a>{' '}
               and{' '}
-              <a href="#" className="text-purple-600 hover:text-purple-800 font-medium">
+              <a href="#" className="text-blue-600 hover:text-blue-800 font-medium">
                 Privacy Policy
               </a>
             </label>
@@ -322,7 +322,7 @@ const Register = ({ onNavigateToLogin }) => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-gradient-to-r from-purple-600 to-purple-700 text-white py-3 px-4 rounded-lg font-semibold hover:from-purple-700 hover:to-purple-800 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-4 rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? 'Creating account...' : 'Create Account'}
           </button>
@@ -332,7 +332,7 @@ const Register = ({ onNavigateToLogin }) => {
           Already have an account?{' '}
           <button
             onClick={onNavigateToLogin}
-            className="text-purple-600 hover:text-purple-800 font-semibold"
+            className="text-blue-600 hover:text-blue-800 font-semibold"
           >
             Sign in
           </button>

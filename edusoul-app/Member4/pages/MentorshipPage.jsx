@@ -113,7 +113,7 @@ const MentorshipPage = ({ onBack, onOpenChat }) => {
           background: linear-gradient(
             135deg,
             rgba(15, 23, 42, 0.92) 0%,
-            rgba(88, 28, 135, 0.75) 50%,
+            rgba(24, 57, 97, 0.75) 50%,
             rgba(15, 23, 42, 0.85) 100%
           );
         }
@@ -362,7 +362,7 @@ const MentorshipPage = ({ onBack, onOpenChat }) => {
           height: 42px;
           border-radius: 12px;
           background: #F0EDFF;
-          color: #7C3AED;
+          color: #2563eb;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -389,16 +389,16 @@ const MentorshipPage = ({ onBack, onOpenChat }) => {
           border-radius: 8px;
           font-size: 12px;
           font-weight: 700;
-          color: #7C3AED;
+          color: #2563eb;
           background: #F5F3FF;
-          border: 1px solid #DDD6FE;
+          border: 1px solid #dbeafe;
           cursor: pointer;
           transition: all 0.2s;
         }
 
         .clear-filters-btn:hover {
           background: #EDE9FE;
-          color: #6D28D9;
+          color: #1d438e;
         }
 
         .filters-row {
@@ -434,9 +434,9 @@ const MentorshipPage = ({ onBack, onOpenChat }) => {
         }
 
         .filter-input:focus {
-          border-color: #7C3AED;
+          border-color: #2563eb;
           background: #FFFFFF;
-          box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+          box-shadow: 0 0 0 3px rgba(36,85,179, 0.1);
         }
 
         .filter-select {
@@ -459,9 +459,9 @@ const MentorshipPage = ({ onBack, onOpenChat }) => {
         }
 
         .filter-select:focus {
-          border-color: #7C3AED;
+          border-color: #2563eb;
           background-color: #FFFFFF;
-          box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+          box-shadow: 0 0 0 3px rgba(36,85,179, 0.1);
         }
 
         /* ── Student Cards Grid ── */
@@ -539,7 +539,7 @@ const MentorshipPage = ({ onBack, onOpenChat }) => {
           font-size: 10px;
           font-weight: 700;
           letter-spacing: 0.08em;
-          color: #7C3AED;
+          color: #2563eb;
           text-transform: uppercase;
           margin-bottom: 6px;
         }
@@ -643,16 +643,16 @@ const MentorshipPage = ({ onBack, onOpenChat }) => {
         }
 
         .page-btn:hover:not(:disabled):not(.active) {
-          border-color: #7C3AED;
-          color: #7C3AED;
+          border-color: #2563eb;
+          color: #2563eb;
           background: #F5F3FF;
         }
 
         .page-btn.active {
-          background: #7C3AED;
-          border-color: #7C3AED;
+          background: #2563eb;
+          border-color: #2563eb;
           color: #FFFFFF;
-          box-shadow: 0 4px 16px rgba(124, 58, 237, 0.3);
+          box-shadow: 0 4px 16px rgba(36,85,179, 0.3);
         }
 
         .page-btn:disabled {
@@ -675,7 +675,7 @@ const MentorshipPage = ({ onBack, onOpenChat }) => {
           align-items: center;
           justify-content: center;
           margin: 0 auto 20px;
-          color: #C4B5FD;
+          color: #c5dbff;
         }
 
         .empty-title {
@@ -737,12 +737,12 @@ const MentorshipPage = ({ onBack, onOpenChat }) => {
           gap: 8px;
           padding: 8px 20px;
           border-radius: 20px;
-          background: linear-gradient(135deg, #7C3AED, #6366F1);
+          background: linear-gradient(135deg, #2563eb, #2455b3);
           color: white;
           font-size: 12px;
           font-weight: 700;
           letter-spacing: 0.04em;
-          box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3);
+          box-shadow: 0 4px 20px rgba(36,85,179, 0.3);
         }
 
         /* ── Responsive ── */

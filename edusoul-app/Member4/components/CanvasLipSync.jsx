@@ -442,9 +442,9 @@ const CanvasLipSync = ({
     return (
       <div
         ref={wrapperRef}
-        className={`bg-gradient-to-br from-indigo-950 to-purple-950 flex items-center justify-center ${className}`}
+        className={`bg-gradient-to-br from-blue-950 to-blue-950 flex items-center justify-center ${className}`}
       >
-        <span className="text-purple-300 text-sm font-medium">Avatar Unavailable</span>
+        <span className="text-blue-300 text-sm font-medium">Avatar Unavailable</span>
       </div>
     );
   }
@@ -461,7 +461,7 @@ const CanvasLipSync = ({
         />
       ) : (
         <div className="w-full h-full bg-slate-950 animate-pulse flex items-center justify-center">
-          <div className="w-8 h-8 border-3 border-purple-500 border-t-transparent rounded-full animate-spin" />
+          <div className="w-8 h-8 border-3 border-blue-500 border-t-transparent rounded-full animate-spin" />
         </div>
       )}
     </div>

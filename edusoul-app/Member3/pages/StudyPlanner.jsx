@@ -208,7 +208,7 @@ export default function StudyPlanner({ onBack }) {
           flex: 1; padding: 9px 12px; border: 1.5px solid #e2e8f0;
           border-radius: 8px; font-size: 13px; font-family: inherit; outline: none;
         }
-        .sp-add-subject-input:focus { border-color: #7c3aed; }
+        .sp-add-subject-input:focus { border-color: #2563eb; }
         .sp-add-subject-input::placeholder { color: #cbd5e1; }
 
         .sp-icon-btn {
@@ -240,9 +240,9 @@ export default function StudyPlanner({ onBack }) {
           flex: 1; padding: 9px 12px; border: 1.5px solid #e2e8f0;
           border-radius: 8px; font-size: 13px; font-family: inherit; outline: none;
         }
-        .sp-add-input:focus { border-color: #7c3aed; }
+        .sp-add-input:focus { border-color: #2563eb; }
         .sp-add-btn {
-          padding: 9px 14px; background: #7c3aed; color: white;
+          padding: 9px 14px; background: #2563eb; color: white;
           border: none; border-radius: 8px; cursor: pointer; font-family: inherit;
           font-size: 13px; font-weight: 700;
         }

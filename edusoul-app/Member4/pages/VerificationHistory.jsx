@@ -161,9 +161,9 @@ const VerificationHistory = ({ onClose }) => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-50 flex items-center justify-center px-4">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 flex items-center justify-center px-4">
         <div className="text-center">
-          <div className="mx-auto w-16 h-16 border-4 border-purple-600 border-t-transparent rounded-full animate-spin mb-4"></div>
+          <div className="mx-auto w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mb-4"></div>
           <p className="text-gray-600">Loading verification history...</p>
         </div>
       </div>
@@ -171,7 +171,7 @@ const VerificationHistory = ({ onClose }) => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-50 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 flex items-center justify-center px-4">
       <div className="max-w-4xl w-full bg-white rounded-2xl shadow-xl p-8">
         <div className="flex items-center justify-between mb-6">
           <div>
@@ -193,7 +193,7 @@ const VerificationHistory = ({ onClose }) => {
           <button
             onClick={() => setActiveTab('interview')}
             className={`px-4 py-2 font-medium text-sm transition-colors border-b-2 ${activeTab === 'interview'
-                ? 'border-purple-600 text-purple-600'
+                ? 'border-blue-600 text-blue-600'
                 : 'border-transparent text-gray-500 hover:text-gray-700'
               }`}
           >
@@ -224,7 +224,7 @@ const VerificationHistory = ({ onClose }) => {
                 <p className="text-gray-600 mb-4">You haven't completed any verification interviews yet.</p>
                 <button
                   onClick={onClose}
-                  className="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors"
+                  className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   Start Your First Verification
                 </button>
@@ -245,7 +245,7 @@ const VerificationHistory = ({ onClose }) => {
                         <div>
                           <p className="text-sm text-gray-500 mb-1">{formatDate(verification.createdAt)}</p>
                           <h3 className="font-semibold text-gray-900">Interview #{interviewVerifications.length - index}</h3>
-                          <span className="inline-block mt-1 px-2 py-0.5 bg-purple-100 text-purple-700 text-xs rounded-full">AI Interview</span>
+                          <span className="inline-block mt-1 px-2 py-0.5 bg-blue-100 text-blue-700 text-xs rounded-full">AI Interview</span>
                         </div>
                       </div>
                       <div className="text-right">
@@ -284,7 +284,7 @@ const VerificationHistory = ({ onClose }) => {
                           verification.questions.map((question, qIndex) => (
                             <div key={qIndex} className="bg-white rounded-lg p-3 border border-gray-200">
                               <div className="flex justify-between items-start mb-1">
-                                <p className="text-xs text-purple-600 font-medium">{verification.questionDomains[qIndex] || 'General'}</p>
+                                <p className="text-xs text-blue-600 font-medium">{verification.questionDomains[qIndex] || 'General'}</p>
                                 <span className="text-sm font-bold text-gray-900">
                                   {verification.scores?.[qIndex] || 0}/10
                                 </span>

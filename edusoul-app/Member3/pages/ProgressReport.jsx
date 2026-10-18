@@ -74,7 +74,7 @@ export default function ProgressReport({ onBack }) {
         .pr-root { font-family: Inter, -apple-system, sans-serif; min-height: 100vh; background: #f8faff; padding-bottom: 60px; }
 
         .pr-header {
-          background: linear-gradient(135deg, #059669, #0d9488);
+          background: linear-gradient(135deg, #102445, #2455b3);
           padding: 32px 40px; color: white; position: relative; overflow: hidden;
         }
         .pr-header::before {

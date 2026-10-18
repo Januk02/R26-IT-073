@@ -1,3 +1,4 @@
+import studyfyxLogo from '../../src/assets/studyfyxlogo.png';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -51,9 +52,7 @@ export default function Landing({ onBackToPortal }) {
       <header className="landing-nav">
         <div className="nav-container">
           <div className="nav-brand" onClick={() => navigate('/career')}>
-            <div className="brand-badge">
-              <Zap size={22} className="brand-icon" />
-            </div>
+            <img src={studyfyxLogo} alt="Studyfyx" className="studyfyx-module-logo" />
             <div className="brand-text">
               <span className="brand-title">Career AI</span>
               <span className="brand-subtitle">{tr('CAREER PATHWAY & SKILL GAP ANALYZER')}</span>

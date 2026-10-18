@@ -51,7 +51,7 @@
 .career-lang-btn.active {
   background: var(--accent-gradient-btn);
   color: #ffffff;
-  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.35);
+  box-shadow: 0 2px 8px rgba(36,85,179, 0.35);
   font-weight: 700;
 }
 

@@ -204,7 +204,7 @@ const MentorMedals = ({ mentorId, publicView = false }) => {
   if (loading) {
     return (
       <div className="flex items-center justify-center p-12">
-        <div className="w-10 h-10 border-4 border-purple-600 border-t-transparent rounded-full animate-spin" />
+        <div className="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -212,7 +212,7 @@ const MentorMedals = ({ mentorId, publicView = false }) => {
   if (medals.length === 0) {
     return (
       <div className="bg-white rounded-2xl p-10 text-center border border-slate-200 shadow-sm">
-        <div className="w-16 h-16 bg-purple-50 rounded-2xl flex items-center justify-center mx-auto mb-4 text-purple-600">
+        <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-4 text-blue-600">
           <Award size={32} strokeWidth={1.8} />
         </div>
         <h3 className="text-xl font-bold text-slate-800 mb-1">
@@ -255,17 +255,17 @@ const MentorMedals = ({ mentorId, publicView = false }) => {
     <div className="space-y-8">
       {/* ── 4 Executive Telemetry Metrics Cards ── */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-white rounded-2xl p-5 border border-purple-200/80 shadow-sm transition-all hover:shadow-md hover:-translate-y-1">
-          <p className="text-3xl font-black text-purple-700 tracking-tight">
+        <div className="bg-white rounded-2xl p-5 border border-blue-200/80 shadow-sm transition-all hover:shadow-md hover:-translate-y-1">
+          <p className="text-3xl font-black text-blue-700 tracking-tight">
             {stats.totalVerifications}
           </p>
-          <p className="text-xs text-purple-900 font-bold uppercase tracking-wider mt-1">
+          <p className="text-xs text-blue-900 font-bold uppercase tracking-wider mt-1">
             Total Verifications
           </p>
-          <div className="flex items-center gap-2 mt-2.5 text-xs text-purple-600 font-semibold">
-            <span className="bg-purple-50 px-2.5 py-0.5 rounded-md border border-purple-100">{stats.interviewCount} Interview</span>
+          <div className="flex items-center gap-2 mt-2.5 text-xs text-blue-600 font-semibold">
+            <span className="bg-blue-50 px-2.5 py-0.5 rounded-md border border-blue-100">{stats.interviewCount} Interview</span>
             <span>•</span>
-            <span className="bg-purple-50 px-2.5 py-0.5 rounded-md border border-purple-100">{stats.cvCount} CV</span>
+            <span className="bg-blue-50 px-2.5 py-0.5 rounded-md border border-blue-100">{stats.cvCount} CV</span>
           </div>
         </div>
 
@@ -312,7 +312,7 @@ const MentorMedals = ({ mentorId, publicView = false }) => {
       </div>
 
       {/* ── Main Combined Score & Accreditation Status Banner ── */}
-      <div className="bg-gradient-to-r from-slate-900 via-purple-950 to-slate-900 rounded-3xl p-7 text-white shadow-2xl relative overflow-hidden border border-purple-800/40">
+      <div className="bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 rounded-3xl p-7 text-white shadow-2xl relative overflow-hidden border border-blue-800/40">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
           <div className="flex items-center gap-5">
             <div className="w-20 h-20 flex-shrink-0 bg-white/10 rounded-2xl p-2 backdrop-blur-md flex items-center justify-center border border-white/20 shadow-inner">
@@ -325,7 +325,7 @@ const MentorMedals = ({ mentorId, publicView = false }) => {
             </div>
             <div>
               <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-                <span className="text-xs uppercase tracking-wider font-extrabold text-purple-200 bg-purple-500/30 px-3 py-1 rounded-full border border-purple-300/30">
+                <span className="text-xs uppercase tracking-wider font-extrabold text-blue-200 bg-blue-500/30 px-3 py-1 rounded-full border border-blue-300/30">
                   Primary Mentor Status
                 </span>
                 {stats.interviewCount > 0 && stats.cvCount > 0 ? (
@@ -344,12 +344,12 @@ const MentorMedals = ({ mentorId, publicView = false }) => {
                   {getMedalInfo(getMedalTier(stats.combinedScore)).name}
                 </span>
               </h3>
-              <p className="text-purple-100 text-xs sm:text-sm mt-1">
+              <p className="text-blue-100 text-xs sm:text-sm mt-1">
                 Current Combined Score:{" "}
                 <span className="font-extrabold text-white text-base">
                   {stats.combinedScore}%
                 </span>
-                <span className="text-purple-300 text-xs ml-2">
+                <span className="text-blue-300 text-xs ml-2">
                   (Best Oral Interview: {stats.currentInterviewScore || stats.interviewAvg}% × 60% • CV Analysis: {stats.cvAvg}% × 40%)
                 </span>
               </p>
@@ -382,7 +382,7 @@ const MentorMedals = ({ mentorId, publicView = false }) => {
           </div>
         </div>
 
-        <div className="mt-5 pt-4 border-t border-purple-700/40 text-xs text-purple-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+        <div className="mt-5 pt-4 border-t border-blue-700/40 text-xs text-blue-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
           <span>
             {stats.combinedScore >= 70
               ? "Accreditation active. Your profile is automatically prioritized in AI Mentee Matching."
@@ -400,7 +400,7 @@ const MentorMedals = ({ mentorId, publicView = false }) => {
       <div>
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-            <Award size={20} className="text-purple-600" />
+            <Award size={20} className="text-blue-600" />
             Faculty Medal Collection & Honors
           </h3>
           <span className="text-xs font-semibold text-slate-500">
@@ -411,7 +411,7 @@ const MentorMedals = ({ mentorId, publicView = false }) => {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {/* Featured Combined Score Medal Card */}
           <div
-            className="cursor-pointer transform hover:scale-105 transition-all bg-gradient-to-b from-purple-50 via-white to-purple-50/40 p-4 rounded-2xl border-2 border-purple-400 shadow-md text-center relative group"
+            className="cursor-pointer transform hover:scale-105 transition-all bg-gradient-to-b from-blue-50 via-white to-blue-50/40 p-4 rounded-2xl border-2 border-blue-400 shadow-md text-center relative group"
             onClick={() =>
               setSelectedMedal({
                 tier: getMedalTier(stats.combinedScore),
@@ -422,7 +422,7 @@ const MentorMedals = ({ mentorId, publicView = false }) => {
               })
             }
           >
-            <span className="absolute -top-2.5 left-1/2 transform -translate-x-1/2 bg-purple-700 text-white text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow">
+            <span className="absolute -top-2.5 left-1/2 transform -translate-x-1/2 bg-blue-700 text-white text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow">
               Overall Rank
             </span>
             <div className="mt-2">
@@ -433,7 +433,7 @@ const MentorMedals = ({ mentorId, publicView = false }) => {
                 animated={true}
               />
             </div>
-            <p className="text-xs font-black text-purple-900 mt-2">
+            <p className="text-xs font-black text-blue-900 mt-2">
               {stats.combinedScore}% Combined
             </p>
           </div>
@@ -441,7 +441,7 @@ const MentorMedals = ({ mentorId, publicView = false }) => {
           {displayMedals.map((medal, index) => (
             <div
               key={index}
-              className="cursor-pointer transform hover:scale-105 transition-all bg-white p-4 rounded-2xl border border-slate-200 hover:border-purple-300 hover:shadow-lg text-center"
+              className="cursor-pointer transform hover:scale-105 transition-all bg-white p-4 rounded-2xl border border-slate-200 hover:border-blue-300 hover:shadow-lg text-center"
               onClick={() => setSelectedMedal(medal)}
             >
               <MedalBadge
@@ -462,7 +462,7 @@ const MentorMedals = ({ mentorId, publicView = false }) => {
       <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
         <div className="px-6 py-4 bg-slate-50/80 border-b border-slate-200 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <TrendingUp size={16} className="text-purple-600" />
+            <TrendingUp size={16} className="text-blue-600" />
             <h4 className="font-bold text-slate-900 text-sm">Recent Faculty Verifications Stream</h4>
           </div>
           <span className="text-xs font-semibold text-slate-500">
@@ -490,7 +490,7 @@ const MentorMedals = ({ mentorId, publicView = false }) => {
                       className={`inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold ${
                         medal.type === "cv"
                           ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
-                          : "bg-purple-50 text-purple-700 border border-purple-200"
+                          : "bg-blue-50 text-blue-700 border border-blue-200"
                       }`}
                     >
                       {medal.type === "cv" ? "CV & Skill Audit" : "AI Oral Assessment"}
@@ -547,7 +547,7 @@ const MentorMedals = ({ mentorId, publicView = false }) => {
               <h3 className="text-2xl font-black text-slate-900 tracking-tight">
                 {getMedalInfo(selectedMedal.tier).name}
               </h3>
-              <p className="text-purple-700 font-extrabold text-base mt-0.5">
+              <p className="text-blue-700 font-extrabold text-base mt-0.5">
                 Evaluation Score: {Math.round(selectedMedal.score)}%
               </p>
             </div>
@@ -575,7 +575,7 @@ const MentorMedals = ({ mentorId, publicView = false }) => {
               </div>
               <div className="flex justify-between py-1.5">
                 <span className="text-slate-500 font-medium">Pedagogical Standing</span>
-                <span className="font-bold text-purple-700 capitalize">
+                <span className="font-bold text-blue-700 capitalize">
                   {selectedMedal.tier === "platinum"
                     ? "Exceptional Faculty Tier"
                     : selectedMedal.tier === "gold"

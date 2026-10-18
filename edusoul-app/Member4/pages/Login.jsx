@@ -49,8 +49,8 @@ const Login = ({ onNavigateToRegister }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 via-white to-purple-50 px-4">
-      <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 space-y-6 border border-purple-100">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-blue-50 px-4">
+      <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 space-y-6 border border-blue-100">
         <div className="text-center">
           <div className="mb-6">
             <BrandHeader 
@@ -79,7 +79,7 @@ const Login = ({ onNavigateToRegister }) => {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 outline-none"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 outline-none"
               placeholder="you@example.com"
               required
             />
@@ -94,7 +94,7 @@ const Login = ({ onNavigateToRegister }) => {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 outline-none"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 outline-none"
               placeholder="••••••••"
               required
             />
@@ -105,13 +105,13 @@ const Login = ({ onNavigateToRegister }) => {
               <input
                 id="remember"
                 type="checkbox"
-                className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
               />
               <label htmlFor="remember" className="ml-2 block text-sm text-gray-700">
                 Remember me
               </label>
             </div>
-            <a href="#" className="text-sm text-purple-600 hover:text-purple-800 font-medium">
+            <a href="#" className="text-sm text-blue-600 hover:text-blue-800 font-medium">
               Forgot password?
             </a>
           </div>
@@ -119,7 +119,7 @@ const Login = ({ onNavigateToRegister }) => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-gradient-to-r from-purple-600 to-purple-700 text-white py-3 px-4 rounded-lg font-semibold hover:from-purple-700 hover:to-purple-800 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-4 rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? 'Signing in...' : 'Sign In'}
           </button>
@@ -137,7 +137,7 @@ const Login = ({ onNavigateToRegister }) => {
         <button
           onClick={handleGoogleLogin}
           disabled={loading}
-          className="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 text-gray-700 py-3 px-4 rounded-lg font-semibold hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 text-gray-700 py-3 px-4 rounded-lg font-semibold hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <svg className="w-5 h-5" viewBox="0 0 24 24">
             <path
@@ -164,7 +164,7 @@ const Login = ({ onNavigateToRegister }) => {
           Don't have an account?{' '}
           <button
             onClick={onNavigateToRegister}
-            className="text-purple-600 hover:text-purple-800 font-semibold"
+            className="text-blue-600 hover:text-blue-800 font-semibold"
           >
             Sign up
           </button>

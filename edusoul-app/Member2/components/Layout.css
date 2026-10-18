@@ -50,7 +50,7 @@
   align-items: center;
   justify-content: center;
   color: white;
-  box-shadow: 0 2px 10px rgba(99, 102, 241, 0.25);
+  box-shadow: 0 2px 10px rgba(36,85,179, 0.25);
 }
 
 .logo-text { display: flex; flex-direction: column; overflow: hidden; }

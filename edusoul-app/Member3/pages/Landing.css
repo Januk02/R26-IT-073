@@ -52,7 +52,7 @@ html {
   left: 20%;
   width: 600px;
   height: 400px;
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.25), transparent 70%);
+  background: radial-gradient(circle, rgba(59,130,246, 0.25), transparent 70%);
 }
 
 /* =========================================================
@@ -321,7 +321,7 @@ html {
 }
 
 .stress-gradient-text {
-  background: linear-gradient(135deg, #38bdf8 0%, #34d399 50%, #a78bfa 100%);
+  background: linear-gradient(135deg, #38bdf8 0%, #34d399 50%, #a9c8ff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -562,9 +562,9 @@ html {
 }
 
 .card-icon-box.violet {
-  background: rgba(139, 92, 246, 0.15);
-  color: #8b5cf6;
-  border: 1px solid rgba(139, 92, 246, 0.3);
+  background: rgba(59,130,246, 0.15);
+  color: #3b82f6;
+  border: 1px solid rgba(59,130,246, 0.3);
 }
 
 .card-icon-box.amber {
@@ -704,9 +704,9 @@ html {
 }
 
 .stress-feature-icon-wrapper.violet {
-  background: rgba(139, 92, 246, 0.12);
-  color: #8b5cf6;
-  border: 1px solid rgba(139, 92, 246, 0.25);
+  background: rgba(59,130,246, 0.12);
+  color: #3b82f6;
+  border: 1px solid rgba(59,130,246, 0.25);
 }
 
 .stress-feature-icon-wrapper.amber {

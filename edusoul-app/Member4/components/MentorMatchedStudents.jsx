@@ -221,7 +221,7 @@ const MentorMatchedStudents = () => {
       <div className="overflow-hidden rounded-xl border border-slate-200 bg-white">
         <header className="flex flex-wrap items-end justify-between gap-4 border-b border-slate-200 px-5 py-5 md:px-7">
           <div>
-            <p className="mb-1 flex items-center gap-2 text-xs font-bold uppercase text-teal-700">
+            <p className="mb-1 flex items-center gap-2 text-xs font-bold uppercase text-blue-700">
               <UserRound size={15} /> Mentorship roster
             </p>
             <h2 className="text-xl font-extrabold text-slate-900">
@@ -272,7 +272,7 @@ const MentorMatchedStudents = () => {
                   className="flex w-full flex-wrap items-center justify-between gap-4 px-5 py-4 text-left transition hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-teal-700 md:px-7"
                 >
                   <span className="flex min-w-0 items-center gap-3">
-                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-teal-50 font-extrabold text-teal-800">
+                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-blue-50 font-extrabold text-blue-800">
                       {(match.studentName || "S")
                         .trim()
                         .charAt(0)
@@ -299,7 +299,7 @@ const MentorMatchedStudents = () => {
                       </span>
                     </span>
                   </span>
-                  <span className="text-sm font-semibold text-teal-800">
+                  <span className="text-sm font-semibold text-blue-800">
                     View student profile
                   </span>
                 </button>
@@ -323,7 +323,7 @@ const MentorMatchedStudents = () => {
           >
             <header className="flex items-start justify-between gap-4 border-b border-slate-200 px-5 py-5 md:px-7">
               <div>
-                <p className="mb-1 text-xs font-bold uppercase text-teal-700">
+                <p className="mb-1 text-xs font-bold uppercase text-blue-700">
                   Matched student profile
                 </p>
                 <h2

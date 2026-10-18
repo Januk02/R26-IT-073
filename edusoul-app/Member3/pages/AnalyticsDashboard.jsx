@@ -24,7 +24,7 @@ export default function AnalyticsDashboard({ onViewPlanner, onViewReport }) {
         .ad-root { font-family: Inter, sans-serif; min-height: 100vh; background: #f8faff; }
 
         .ad-header {
-          background: linear-gradient(135deg, #7c3aed, #6d28d9);
+          background: linear-gradient(135deg, #2563eb, #1d438e);
           padding: 40px 48px; color: white; position: relative; overflow: hidden;
         }
 
@@ -95,13 +95,13 @@ export default function AnalyticsDashboard({ onViewPlanner, onViewReport }) {
 
         .ad-bar {
           width: 100%; border-radius: 6px 6px 0 0;
-          background: linear-gradient(180deg, #7c3aed, #6d28d9);
+          background: linear-gradient(180deg, #2563eb, #1d438e);
           transition: height 0.5s ease;
           min-height: 4px;
         }
 
         .ad-bar-label { font-size: 10px; color: #94a3b8; font-weight: 600; }
-        .ad-bar-val   { font-size: 11px; color: #7c3aed; font-weight: 700; }
+        .ad-bar-val   { font-size: 11px; color: #2563eb; font-weight: 700; }
 
         /* Subject scores */
         .ad-subject { margin-bottom: 16px; }

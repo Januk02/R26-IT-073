@@ -205,15 +205,15 @@ const SecureChat = ({ mentorId, mentorName, onClose, onBack }) => {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-10 w-10 border-b-3 border-purple-600"></div>
+        <div className="animate-spin rounded-full h-10 w-10 border-b-3 border-blue-600"></div>
       </div>
     );
   }
 
   return (
-    <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl shadow-2xl border border-purple-100 flex flex-col h-[600px]">
+    <div className="bg-gradient-to-br from-blue-50 to-blue-50 rounded-2xl shadow-2xl border border-blue-100 flex flex-col h-[600px]">
       {/* Chat Header */}
-      <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white p-5 rounded-t-2xl shadow-lg">
+      <div className="bg-gradient-to-r from-blue-600 to-blue-600 text-white p-5 rounded-t-2xl shadow-lg">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <button
@@ -225,14 +225,14 @@ const SecureChat = ({ mentorId, mentorName, onClose, onBack }) => {
               </svg>
             </button>
             <div className="relative">
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-300 to-blue-300 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-300 to-blue-300 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
                 {getInitials(mentorName)}
               </div>
               <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-400 rounded-full border-2 border-white"></div>
             </div>
             <div>
               <h3 className="font-bold text-lg">{mentorName}</h3>
-              <p className="text-xs text-purple-200 flex items-center gap-1">
+              <p className="text-xs text-blue-200 flex items-center gap-1">
                 <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
                 Online
               </p>
@@ -250,11 +250,11 @@ const SecureChat = ({ mentorId, mentorName, onClose, onBack }) => {
       </div>
 
       {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-gradient-to-b from-white to-purple-50/30">
+      <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-gradient-to-b from-white to-blue-50/30">
         {messages.length === 0 ? (
           <div className="text-center py-12">
-            <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
             </div>
@@ -274,7 +274,7 @@ const SecureChat = ({ mentorId, mentorName, onClose, onBack }) => {
               >
                 <div className={`flex items-end gap-2 max-w-[75%] ${isOwn ? 'flex-row-reverse' : ''}`}>
                   {showAvatar && !isOwn && (
-                    <div className="w-8 h-8 bg-gradient-to-br from-purple-400 to-blue-400 rounded-full flex items-center justify-center text-white text-xs font-bold shadow-md flex-shrink-0">
+                    <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-400 rounded-full flex items-center justify-center text-white text-xs font-bold shadow-md flex-shrink-0">
                       {getInitials(message.senderName)}
                     </div>
                   )}
@@ -282,18 +282,18 @@ const SecureChat = ({ mentorId, mentorName, onClose, onBack }) => {
                     <div
                       className={`px-4 py-3 rounded-2xl shadow-md ${
                         isOwn
-                          ? 'bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-br-md'
-                          : 'bg-white text-gray-900 border border-purple-100 rounded-bl-md'
+                          ? 'bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-br-md'
+                          : 'bg-white text-gray-900 border border-blue-100 rounded-bl-md'
                       }`}
                     >
                       <p className="text-sm whitespace-pre-wrap">{message.text}</p>
                     </div>
                     <div className={`flex items-center gap-1 mt-1 ${isOwn ? 'justify-end' : 'justify-start'}`}>
-                      <p className={`text-xs ${isOwn ? 'text-purple-300' : 'text-gray-400'}`}>
+                      <p className={`text-xs ${isOwn ? 'text-blue-300' : 'text-gray-400'}`}>
                         {message.timestamp ? formatTime(message.timestamp) : ''}
                       </p>
                       {isOwn && (
-                        <svg className="w-3 h-3 text-purple-300" fill="currentColor" viewBox="0 0 20 20">
+                        <svg className="w-3 h-3 text-blue-300" fill="currentColor" viewBox="0 0 20 20">
                           <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
                         </svg>
                       )}
@@ -308,7 +308,7 @@ const SecureChat = ({ mentorId, mentorName, onClose, onBack }) => {
       </div>
 
       {/* Message Input */}
-      <div className="p-5 border-t border-purple-100 bg-white rounded-b-2xl">
+      <div className="p-5 border-t border-blue-100 bg-white rounded-b-2xl">
         <form onSubmit={handleSendMessage} className="flex gap-3">
           <div className="flex-1 relative">
             <input
@@ -316,11 +316,11 @@ const SecureChat = ({ mentorId, mentorName, onClose, onBack }) => {
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
               placeholder="Type your message..."
-              className="w-full px-5 py-3 bg-purple-50 border border-purple-200 rounded-2xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none pr-12 transition-all"
+              className="w-full px-5 py-3 bg-blue-50 border border-blue-200 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none pr-12 transition-all"
             />
             <button
               type="button"
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-purple-400 hover:text-purple-600 transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-blue-400 hover:text-blue-600 transition-colors"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -330,7 +330,7 @@ const SecureChat = ({ mentorId, mentorName, onClose, onBack }) => {
           <button
             type="submit"
             disabled={!newMessage.trim()}
-            className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-3 rounded-2xl hover:from-purple-700 hover:to-blue-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl flex items-center gap-2"
+            className="bg-gradient-to-r from-blue-600 to-blue-600 text-white px-6 py-3 rounded-2xl hover:from-blue-700 hover:to-blue-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl flex items-center gap-2"
           >
             <span className="hidden sm:inline">Send</span>
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

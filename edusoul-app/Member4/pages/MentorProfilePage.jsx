@@ -102,14 +102,14 @@ const MentorProfilePage = ({ onBack }) => {
         <button
           type="button"
           onClick={onBack}
-          className="mb-5 inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-teal-800"
+          className="mb-5 inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-blue-800"
         >
           <ArrowLeft size={16} /> Back to dashboard
         </button>
 
         <section className="overflow-hidden rounded-xl border border-slate-200 bg-white">
           <header className="border-b border-slate-200 px-5 py-5 md:px-7">
-            <p className="mb-1 flex items-center gap-2 text-xs font-bold uppercase text-teal-700">
+            <p className="mb-1 flex items-center gap-2 text-xs font-bold uppercase text-blue-700">
               <BriefcaseBusiness size={15} /> Mentor profile
             </p>
             <h1 className="text-2xl font-extrabold text-slate-900">
@@ -225,7 +225,7 @@ const MentorProfilePage = ({ onBack }) => {
                   rows="4"
                   value={form.bio}
                   onChange={updateField}
-                  className="mt-1 w-full resize-y rounded-md border border-slate-300 px-3 py-2 font-normal outline-none focus:border-teal-700 focus:ring-2 focus:ring-teal-100"
+                  className="mt-1 w-full resize-y rounded-md border border-slate-300 px-3 py-2 font-normal outline-none focus:border-blue-700 focus:ring-2 focus:ring-blue-100"
                   placeholder="Describe your experience and how you support students."
                 />
               </label>
@@ -251,7 +251,7 @@ const MentorProfilePage = ({ onBack }) => {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="inline-flex min-h-10 items-center gap-2 rounded-md bg-teal-700 px-4 py-2 text-sm font-bold text-white hover:bg-teal-800 disabled:cursor-wait disabled:opacity-60"
+                  className="inline-flex min-h-10 items-center gap-2 rounded-md bg-blue-700 px-4 py-2 text-sm font-bold text-white hover:bg-blue-800 disabled:cursor-wait disabled:opacity-60"
                 >
                   <Save size={16} /> {saving ? "Saving…" : "Save profile"}
                 </button>
@@ -271,7 +271,7 @@ const ProfileInput = ({ label, name, type = "text", ...props }) => (
       name={name}
       type={type}
       {...props}
-      className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 font-normal outline-none focus:border-teal-700 focus:ring-2 focus:ring-teal-100"
+      className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 font-normal outline-none focus:border-blue-700 focus:ring-2 focus:ring-blue-100"
     />
   </label>
 );

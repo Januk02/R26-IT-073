@@ -162,21 +162,21 @@ export default function StressAnalyticsHome({ onViewPlanner, onViewReport }) {
         }
 
         .sa-hero {
-          background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #31104b 100%);
+          background: linear-gradient(135deg, #0f172a 0%, #102445 50%, #183961 100%);
           padding: 36px 40px 48px; color: white; position: relative; overflow: hidden;
           box-shadow: 0 10px 25px -5px rgba(15,23,42,0.15);
         }
         .sa-hero::after {
           content: ''; position: absolute; width: 500px; height: 500px; border-radius: 50%;
-          background: radial-gradient(circle, rgba(139,92,246,0.15) 0%, transparent 70%);
+          background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%);
           top: -150px; right: -100px; pointer-events: none;
         }
         .sa-hero-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px; position: relative; z-index: 2; }
         .sa-tag {
           display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px;
-          background: rgba(139,92,246,0.25); border: 1px solid rgba(167,139,250,0.4);
+          background: rgba(59,130,246,0.25); border: 1px solid rgba(169,200,255,0.4);
           border-radius: 20px; font-size: 11px; font-weight: 700; letter-spacing: 0.6px;
-          text-transform: uppercase; color: #c4b5fd; margin-bottom: 12px;
+          text-transform: uppercase; color: #c5dbff; margin-bottom: 12px;
         }
         .sa-hero-title { font-size: 32px; font-weight: 900; letter-spacing: -0.5px; margin: 0 0 8px; line-height: 1.2; }
         .sa-hero-sub { font-size: 14px; color: #cbd5e1; max-width: 620px; margin: 0; line-height: 1.5; }
@@ -188,10 +188,10 @@ export default function StressAnalyticsHome({ onViewPlanner, onViewReport }) {
           transition: all 0.2s ease; border: none; font-family: inherit;
         }
         .sa-btn-primary {
-          background: linear-gradient(135deg, #7c3aed 0%, #6366f1 100%); color: white;
-          box-shadow: 0 4px 14px rgba(99,102,241,0.35);
+          background: linear-gradient(135deg, #2563eb 0%, #2455b3 100%); color: white;
+          box-shadow: 0 4px 14px rgba(36,85,179,0.35);
         }
-        .sa-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(99,102,241,0.45); }
+        .sa-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(36,85,179,0.45); }
         .sa-btn-glass {
           background: rgba(255,255,255,0.12); color: white;
           border: 1px solid rgba(255,255,255,0.22); backdrop-filter: blur(8px);
@@ -285,7 +285,7 @@ export default function StressAnalyticsHome({ onViewPlanner, onViewReport }) {
         .sa-sched-left { display: flex; align-items: center; gap: 14px; }
         .sa-sched-icon {
           width: 36px; height: 36px; border-radius: 10px; background: white;
-          border: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: center; color: #6366f1;
+          border: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: center; color: #2455b3;
         }
         .sa-sched-subj { font-size: 14px; font-weight: 700; color: #0f172a; }
         .sa-sched-time { font-size: 12px; color: #64748b; margin-top: 2px; }

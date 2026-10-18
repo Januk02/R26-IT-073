@@ -252,7 +252,7 @@
   border-width: 2px;
   border-color: var(--c);
   background: var(--accent-subtle);
-  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.2);
+  box-shadow: 0 4px 16px rgba(36,85,179, 0.2);
 }
 
 .gn__icon {

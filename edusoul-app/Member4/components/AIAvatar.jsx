@@ -196,10 +196,10 @@ const AIAvatar = ({
   const avatarUrl = `https://api.dicebear.com/7.x/${selectedPersona.style}/svg?seed=${selectedPersona.seed}&backgroundColor=${selectedPersona.bgColor}&radius=50`;
 
   return (
-    <div className={`bg-gradient-to-br from-slate-900 via-purple-950 to-slate-900 text-white rounded-2xl p-6 shadow-2xl border border-purple-800/40 relative overflow-hidden ${className}`}>
+    <div className={`bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white rounded-2xl p-6 shadow-2xl border border-blue-800/40 relative overflow-hidden ${className}`}>
       {/* Background Glowing Mesh Effects */}
-      <div className="absolute -top-24 -left-24 w-60 h-60 bg-purple-600/20 rounded-full blur-3xl pointer-events-none"></div>
-      <div className="absolute -bottom-24 -right-24 w-60 h-60 bg-indigo-600/20 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute -top-24 -left-24 w-60 h-60 bg-blue-600/20 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute -bottom-24 -right-24 w-60 h-60 bg-blue-600/20 rounded-full blur-3xl pointer-events-none"></div>
 
       {/* Header Bar */}
       <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-6 relative z-10">
@@ -208,7 +208,7 @@ const AIAvatar = ({
             <img 
               src={avatarUrl} 
               alt={selectedPersona.name} 
-              className="w-12 h-12 rounded-full border-2 border-purple-400/60 shadow-lg bg-white/10 backdrop-blur-md"
+              className="w-12 h-12 rounded-full border-2 border-blue-400/60 shadow-lg bg-white/10 backdrop-blur-md"
               onError={(e) => {
                 // Fallback SVG avatar placeholder
                 e.target.onerror = null;
@@ -222,11 +222,11 @@ const AIAvatar = ({
           <div>
             <div className="flex items-center gap-2">
               <h3 className="font-bold text-white text-lg tracking-wide">{selectedPersona.name}</h3>
-              <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-purple-500/30 text-purple-200 border border-purple-400/30">
+              <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-blue-500/30 text-blue-200 border border-blue-400/30">
                 {selectedPersona.badge}
               </span>
             </div>
-            <p className="text-xs text-purple-200/80">{selectedPersona.role}</p>
+            <p className="text-xs text-blue-200/80">{selectedPersona.role}</p>
           </div>
         </div>
 
@@ -234,10 +234,10 @@ const AIAvatar = ({
         <div className="flex items-center gap-2">
           <button
             onClick={() => setShowPersonaSelector(!showPersonaSelector)}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-white/10 hover:bg-white/20 text-xs font-medium text-purple-100 rounded-lg border border-white/10 backdrop-blur-sm transition-all"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-white/10 hover:bg-white/20 text-xs font-medium text-blue-100 rounded-lg border border-white/10 backdrop-blur-sm transition-all"
             title="Switch AI Avatar Persona"
           >
-            <svg className="w-4 h-4 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
             </svg>
             Switch Avatar
@@ -245,7 +245,7 @@ const AIAvatar = ({
 
           <button
             onClick={() => setShowAskModal(true)}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-xs font-semibold text-white rounded-lg shadow-md transition-all border border-purple-400/30"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-blue-600 to-blue-600 hover:from-blue-500 hover:to-blue-500 text-xs font-semibold text-white rounded-lg shadow-md transition-all border border-blue-400/30"
           >
             <svg className="w-4 h-4 text-amber-300 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
@@ -257,8 +257,8 @@ const AIAvatar = ({
 
       {/* Persona Selection Dropdown Drawer */}
       {showPersonaSelector && (
-        <div className="mb-6 bg-slate-800/90 rounded-xl p-4 border border-purple-500/30 backdrop-blur-md animate-fade-in z-20">
-          <p className="text-xs font-semibold text-purple-300 uppercase tracking-wider mb-3">
+        <div className="mb-6 bg-slate-800/90 rounded-xl p-4 border border-blue-500/30 backdrop-blur-md animate-fade-in z-20">
+          <p className="text-xs font-semibold text-blue-300 uppercase tracking-wider mb-3">
             Choose Your AI Interview Host Avatar:
           </p>
           <div className="grid grid-cols-2 gap-3">
@@ -272,18 +272,18 @@ const AIAvatar = ({
                 }}
                 className={`flex items-center gap-3 p-2.5 rounded-xl border text-left transition-all ${
                   selectedPersona.id === persona.id
-                    ? 'bg-purple-600/40 border-purple-400 text-white shadow-lg'
-                    : 'bg-white/5 border-white/10 text-gray-300 hover:bg-white/10 hover:border-purple-400/50'
+                    ? 'bg-blue-600/40 border-blue-400 text-white shadow-lg'
+                    : 'bg-white/5 border-white/10 text-gray-300 hover:bg-white/10 hover:border-blue-400/50'
                 }`}
               >
                 <img 
                   src={`https://api.dicebear.com/7.x/${persona.style}/svg?seed=${persona.seed}&backgroundColor=${persona.bgColor}&radius=50`}
                   alt={persona.name}
-                  className="w-10 h-10 rounded-full border border-purple-300/40"
+                  className="w-10 h-10 rounded-full border border-blue-300/40"
                 />
                 <div>
                   <p className="text-sm font-semibold text-white">{persona.name}</p>
-                  <p className="text-[11px] text-purple-200/70 truncate">{persona.badge}</p>
+                  <p className="text-[11px] text-blue-200/70 truncate">{persona.badge}</p>
                 </div>
               </button>
             ))}
@@ -297,10 +297,10 @@ const AIAvatar = ({
         <div className="relative group flex-shrink-0">
           {/* Animated Glow Aura when Speaking */}
           <div className={`absolute -inset-3 rounded-full blur-xl transition-all duration-500 ${
-            isSpeaking ? 'bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 opacity-80 animate-pulse' : 'bg-purple-600/20 opacity-40'
+            isSpeaking ? 'bg-gradient-to-r from-blue-500 via-pink-500 to-blue-500 opacity-80 animate-pulse' : 'bg-blue-600/20 opacity-40'
           }`}></div>
 
-          <div className="relative w-36 h-36 md:w-44 md:h-44 rounded-full p-1 bg-gradient-to-tr from-purple-500 via-indigo-400 to-pink-500 shadow-2xl flex items-center justify-center">
+          <div className="relative w-36 h-36 md:w-44 md:h-44 rounded-full p-1 bg-gradient-to-tr from-blue-500 via-blue-400 to-pink-500 shadow-2xl flex items-center justify-center">
             <div className="w-full h-full rounded-full bg-slate-900/90 overflow-hidden flex items-center justify-center relative">
               <img 
                 src={avatarUrl} 
@@ -313,11 +313,11 @@ const AIAvatar = ({
               {/* Dynamic Lip Sync Sound Wave Overlay */}
               {isSpeaking && (
                 <div className="absolute bottom-2 inset-x-0 flex items-end justify-center gap-1 h-8 bg-gradient-to-t from-slate-950/80 to-transparent pb-1">
-                  <div className="w-1 bg-purple-400 rounded-full animate-bounce h-4" style={{ animationDelay: '0ms' }}></div>
+                  <div className="w-1 bg-blue-400 rounded-full animate-bounce h-4" style={{ animationDelay: '0ms' }}></div>
                   <div className="w-1 bg-pink-400 rounded-full animate-bounce h-6" style={{ animationDelay: '150ms' }}></div>
-                  <div className="w-1 bg-indigo-400 rounded-full animate-bounce h-7" style={{ animationDelay: '300ms' }}></div>
-                  <div className="w-1 bg-cyan-400 rounded-full animate-bounce h-5" style={{ animationDelay: '100ms' }}></div>
-                  <div className="w-1 bg-purple-400 rounded-full animate-bounce h-3" style={{ animationDelay: '200ms' }}></div>
+                  <div className="w-1 bg-blue-400 rounded-full animate-bounce h-7" style={{ animationDelay: '300ms' }}></div>
+                  <div className="w-1 bg-blue-400 rounded-full animate-bounce h-5" style={{ animationDelay: '100ms' }}></div>
+                  <div className="w-1 bg-blue-400 rounded-full animate-bounce h-3" style={{ animationDelay: '200ms' }}></div>
                 </div>
               )}
             </div>
@@ -327,10 +327,10 @@ const AIAvatar = ({
           <div className="absolute -bottom-2 inset-x-0 flex justify-center">
             <span className={`px-3 py-0.5 rounded-full text-[11px] font-semibold shadow-md flex items-center gap-1.5 ${
               isSpeaking
-                ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white animate-pulse'
-                : 'bg-slate-800 text-purple-200 border border-purple-500/30'
+                ? 'bg-gradient-to-r from-emerald-500 to-blue-500 text-white animate-pulse'
+                : 'bg-slate-800 text-blue-200 border border-blue-500/30'
             }`}>
-              <span className={`w-2 h-2 rounded-full ${isSpeaking ? 'bg-white' : 'bg-purple-400'}`}></span>
+              <span className={`w-2 h-2 rounded-full ${isSpeaking ? 'bg-white' : 'bg-blue-400'}`}></span>
               {isSpeaking ? 'Asking Question...' : 'Ready & Listening'}
             </span>
           </div>
@@ -342,8 +342,8 @@ const AIAvatar = ({
           <div className="hidden md:block absolute -left-2.5 top-1/2 -translate-y-1/2 w-0 h-0 border-y-8 border-y-transparent border-r-8 border-r-white/10"></div>
 
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs uppercase tracking-wider text-purple-300 font-bold flex items-center gap-1.5">
-              <svg className="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <span className="text-xs uppercase tracking-wider text-blue-300 font-bold flex items-center gap-1.5">
+              <svg className="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
               </svg>
               AI Host Audio Guide
@@ -364,9 +364,9 @@ const AIAvatar = ({
               ) : (
                 <button
                   onClick={() => speakText(currentQuestionIndexQuestion(currentQuestion))}
-                  className="px-3 py-1 bg-purple-500/20 hover:bg-purple-500/30 text-purple-200 border border-purple-400/30 rounded-lg text-xs font-semibold flex items-center gap-1 transition-all"
+                  className="px-3 py-1 bg-blue-500/20 hover:bg-blue-500/30 text-blue-200 border border-blue-400/30 rounded-lg text-xs font-semibold flex items-center gap-1 transition-all"
                 >
-                  <svg className="w-3.5 h-3.5 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-3.5 h-3.5 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
@@ -383,12 +383,12 @@ const AIAvatar = ({
           {/* Equalizer Soundbar Visualization */}
           <div className="flex items-center gap-2 pt-3 border-t border-white/10">
             <div className="flex items-end gap-1 h-4">
-              <div className={`w-1 bg-purple-400 rounded-full transition-all duration-200 ${isSpeaking ? 'h-4 animate-bounce' : 'h-1.5'}`}></div>
-              <div className={`w-1 bg-indigo-400 rounded-full transition-all duration-200 ${isSpeaking ? 'h-3 animate-bounce' : 'h-1'}`}></div>
+              <div className={`w-1 bg-blue-400 rounded-full transition-all duration-200 ${isSpeaking ? 'h-4 animate-bounce' : 'h-1.5'}`}></div>
+              <div className={`w-1 bg-blue-400 rounded-full transition-all duration-200 ${isSpeaking ? 'h-3 animate-bounce' : 'h-1'}`}></div>
               <div className={`w-1 bg-pink-400 rounded-full transition-all duration-200 ${isSpeaking ? 'h-4 animate-bounce' : 'h-2'}`}></div>
-              <div className={`w-1 bg-cyan-400 rounded-full transition-all duration-200 ${isSpeaking ? 'h-2 animate-bounce' : 'h-1'}`}></div>
+              <div className={`w-1 bg-blue-400 rounded-full transition-all duration-200 ${isSpeaking ? 'h-2 animate-bounce' : 'h-1'}`}></div>
             </div>
-            <span className="text-xs text-purple-200/70">
+            <span className="text-xs text-blue-200/70">
               {isSpeaking ? 'Avatar is speaking question aloud...' : 'Click Replay or Ask Avatar for guidance'}
             </span>
           </div>
@@ -398,18 +398,18 @@ const AIAvatar = ({
       {/* Interactive "Ask Avatar" Modal Overlay */}
       {showAskModal && (
         <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 z-50 animate-fade-in">
-          <div className="bg-slate-900 border border-purple-500/40 rounded-2xl max-w-lg w-full p-6 shadow-2xl relative text-white">
+          <div className="bg-slate-900 border border-blue-500/40 rounded-2xl max-w-lg w-full p-6 shadow-2xl relative text-white">
             {/* Modal Header */}
             <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
               <div className="flex items-center gap-3">
                 <img 
                   src={avatarUrl} 
                   alt={selectedPersona.name}
-                  className="w-10 h-10 rounded-full border border-purple-400"
+                  className="w-10 h-10 rounded-full border border-blue-400"
                 />
                 <div>
                   <h4 className="font-bold text-white">Ask {selectedPersona.name}</h4>
-                  <p className="text-xs text-purple-300">AI Assistant for Interview Clarifications & Hints</p>
+                  <p className="text-xs text-blue-300">AI Assistant for Interview Clarifications & Hints</p>
                 </div>
               </div>
               <button 
@@ -424,7 +424,7 @@ const AIAvatar = ({
             <div className="bg-slate-950/60 rounded-xl p-4 h-60 overflow-y-auto mb-4 border border-white/5 space-y-3">
               <div className="flex items-start gap-2">
                 <img src={avatarUrl} alt="Avatar" className="w-7 h-7 rounded-full flex-shrink-0 mt-1" />
-                <div className="bg-purple-900/40 border border-purple-500/30 rounded-2xl rounded-tl-none p-3 text-xs text-purple-100 max-w-[85%]">
+                <div className="bg-blue-900/40 border border-blue-500/30 rounded-2xl rounded-tl-none p-3 text-xs text-blue-100 max-w-[85%]">
                   {selectedPersona.greeting} Feel free to ask me for hints, clarification, or tips on answering this question!
                 </div>
               </div>
@@ -436,8 +436,8 @@ const AIAvatar = ({
                   )}
                   <div className={`rounded-2xl p-3 text-xs max-w-[85%] ${
                     msg.sender === 'user'
-                      ? 'bg-purple-600 text-white rounded-tr-none'
-                      : 'bg-purple-900/40 border border-purple-500/30 text-purple-100 rounded-tl-none'
+                      ? 'bg-blue-600 text-white rounded-tr-none'
+                      : 'bg-blue-900/40 border border-blue-500/30 text-blue-100 rounded-tl-none'
                   }`}>
                     {msg.text}
                   </div>
@@ -445,8 +445,8 @@ const AIAvatar = ({
               ))}
 
               {isThinking && (
-                <div className="flex items-center gap-2 text-purple-300 text-xs py-2">
-                  <div className="w-2 h-2 bg-purple-400 rounded-full animate-ping"></div>
+                <div className="flex items-center gap-2 text-blue-300 text-xs py-2">
+                  <div className="w-2 h-2 bg-blue-400 rounded-full animate-ping"></div>
                   <span>{selectedPersona.name} is thinking...</span>
                 </div>
               )}
@@ -457,21 +457,21 @@ const AIAvatar = ({
               <button
                 type="button"
                 onClick={() => setUserQuery("Can you give me a hint for this question?")}
-                className="text-xs bg-white/5 hover:bg-white/10 text-purple-200 border border-white/10 px-3 py-1.5 rounded-full transition-all"
+                className="text-xs bg-white/5 hover:bg-white/10 text-blue-200 border border-white/10 px-3 py-1.5 rounded-full transition-all"
               >
                 💡 Give me a hint
               </button>
               <button
                 type="button"
                 onClick={() => setUserQuery("What are key points to cover in my answer?")}
-                className="text-xs bg-white/5 hover:bg-white/10 text-purple-200 border border-white/10 px-3 py-1.5 rounded-full transition-all"
+                className="text-xs bg-white/5 hover:bg-white/10 text-blue-200 border border-white/10 px-3 py-1.5 rounded-full transition-all"
               >
                 📝 Key points to cover
               </button>
               <button
                 type="button"
                 onClick={() => setUserQuery("How will this question be evaluated?")}
-                className="text-xs bg-white/5 hover:bg-white/10 text-purple-200 border border-white/10 px-3 py-1.5 rounded-full transition-all"
+                className="text-xs bg-white/5 hover:bg-white/10 text-blue-200 border border-white/10 px-3 py-1.5 rounded-full transition-all"
               >
                 🎯 How is this evaluated?
               </button>
@@ -484,12 +484,12 @@ const AIAvatar = ({
                 value={userQuery}
                 onChange={(e) => setUserQuery(e.target.value)}
                 placeholder="Ask the AI avatar a question..."
-                className="flex-1 bg-slate-800 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-purple-500"
+                className="flex-1 bg-slate-800 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
               />
               <button
                 type="submit"
                 disabled={!userQuery.trim() || isThinking}
-                className="bg-purple-600 hover:bg-purple-500 disabled:opacity-50 text-white font-semibold px-4 py-2.5 rounded-xl text-sm transition-all flex items-center gap-1"
+                className="bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-semibold px-4 py-2.5 rounded-xl text-sm transition-all flex items-center gap-1"
               >
                 Send
               </button>

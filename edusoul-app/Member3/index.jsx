@@ -79,12 +79,12 @@ export default function Member3Analytics({ onBack }) {
 
 function InnerTopNav({ title, onBackToLanding, onBackToPortal }) {
   return (
-    <div style={{
+    <div className="stress-inner-nav" style={{
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
       padding: '0.75rem 1.5rem',
-      background: 'rgba(15, 23, 42, 0.95)',
+      background: '#102445',
       color: '#fff',
       borderBottom: '1px solid rgba(255,255,255,0.1)',
       position: 'sticky',
@@ -113,7 +113,7 @@ function InnerTopNav({ title, onBackToLanding, onBackToPortal }) {
           <ArrowLeft size={14} />
           <span>Landing Overview</span>
         </button>
-        <span style={{ fontSize: '0.9rem', fontWeight: 700, color: '#38bdf8' }}>{title}</span>
+        <span style={{ fontSize: '0.9rem', fontWeight: 700, color: '#f9b351' }}>{title}</span>
       </div>
 
       <button
@@ -124,7 +124,7 @@ function InnerTopNav({ title, onBackToLanding, onBackToPortal }) {
           gap: '0.4rem',
           background: 'rgba(56, 189, 248, 0.15)',
           border: '1px solid rgba(56, 189, 248, 0.35)',
-          color: '#38bdf8',
+          color: '#f9b351',
           padding: '0.4rem 0.85rem',
           borderRadius: '8px',
           cursor: 'pointer',

@@ -1,4 +1,4 @@
-import React from 'react';
+import studyfyxLogo from '../../src/assets/studyfyxlogo.png';
 
 const StudiFyxLogo = ({ 
   className = "", 
@@ -31,11 +31,11 @@ const StudiFyxLogo = ({
   const getLogoVariant = () => {
     switch (variant) {
       case "white":
-        return "/src/assets/main name colour logo .png"; // Assuming same logo works for white variant
+        return studyfyxLogo; // Assuming same logo works for white variant
       case "large":
-        return "/src/assets/main name colour logo .png";
+        return studyfyxLogo;
       default:
-        return "/src/assets/main name colour logo .png";
+        return studyfyxLogo;
     }
   };
 
@@ -56,7 +56,7 @@ const StudiFyxLogo = ({
       />
       {/* Fallback text logo */}
       <div 
-        className="w-full h-full items-center justify-center bg-gradient-to-br from-purple-600 to-purple-800 rounded-lg font-bold text-white flex"
+        className="w-full h-full items-center justify-center bg-gradient-to-br from-blue-600 to-blue-800 rounded-lg font-bold text-white flex"
         style={{ display: 'none' }}
       >
         <span className="text-sm sm:text-base">SF</span>

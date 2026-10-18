@@ -1,3 +1,4 @@
+import { dashboardMessages } from './advisorDashboardTranslations.js';
 import { careerExpansionMessages } from './advisorCareerExpansionTranslations.js';
 import { stateUniversityMessages } from './stateUniversityTranslations.js';
 import careerCatalog from './careerCatalog.json' with { type: 'json' };
@@ -187,7 +188,7 @@ export const advisorMessages = {
   'All': ['සියලු', 'அனைத்தும்'],
 };
 
-Object.assign(advisorMessages, extraMessages, pathMessages, careerMessages, academicMessages, evidenceMessages, workspaceMessages, subjectMessages, careerExpansionMessages, stateUniversityMessages);
+Object.assign(advisorMessages, dashboardMessages, extraMessages, pathMessages, careerMessages, academicMessages, evidenceMessages, workspaceMessages, subjectMessages, careerExpansionMessages, stateUniversityMessages);
 for (const career of dreamJobs) {
   if (careerDescriptions[career.id]) advisorMessages[career.description] = careerDescriptions[career.id];
 }

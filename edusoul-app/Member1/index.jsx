@@ -1,3 +1,5 @@
+import AdvisorModuleLayout from './components/AdvisorModuleLayout';
+import AdvisorDashboard from './pages/AdvisorDashboard';
 import { useAdvisorTranslation } from './data/advisorTranslations';
 import { useState, useEffect } from 'react';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
@@ -29,7 +31,7 @@ const removeUndefined = (value) => {
   return value;
 };
 
-export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, onNavigateToDashboard, initialView = 'home', initialStudentData = null }) {
+export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, onNavigateToDashboard, initialView = 'dashboard', initialStudentData = null }) {
   const tr = useAdvisorTranslation();
   const { user } = useAuth();
   const [currentView, setCurrentView] = useState(initialView);
@@ -129,7 +131,7 @@ export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, o
   };
 
   const handleBackToHome = () => {
-    setCurrentView('home');
+    setCurrentView('dashboard');
   };
 
   const handleBackToInput = () => {
@@ -180,8 +182,15 @@ export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, o
     );
   }
 
+  const latestRoadmap = backendResults?.recommendations?.[0] || (backendResults?.career_plan ? { career_plan: backendResults.career_plan, roadmap_stages: backendResults.career_plan.roadmap_stages } : null);
+  const navigateAdvisor = view => {
+    if (view === 'roadmap') { if (latestRoadmap) handleViewRoadmap(latestRoadmap); return; }
+    if (['results', 'guidance'].includes(view) && !backendResults) return;
+    setCurrentView(view);
+  };
   return (
-    <div>
+    <AdvisorModuleLayout view={currentView} onNavigate={navigateAdvisor} onPortal={onNavigateToDashboard || onBack} hasResults={!!backendResults} hasRoadmap={!!latestRoadmap}>
+      {currentView === 'dashboard' && <AdvisorDashboard profile={studentData || existingProfile} results={backendResults} userName={user?.displayName?.split(' ')[0] || user?.email?.split('@')[0]} onNavigate={navigateAdvisor} />}
       {tr(currentView === 'home' && (
         <DreamDegreeHome onStart={handleStart} onLogin={onLogin} onLogout={onLogout} onNavigateToDashboard={onNavigateToDashboard} onViewProfile={handleViewProfile} />
       ))}
@@ -196,6 +205,7 @@ export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, o
       ))}
       {tr(currentView === 'profile' && (
         <StudentProfile
+          initialProfile={studentData || existingProfile}
           onBack={handleBackToHome}
           onEditProfile={handleBackToInput}
         />
@@ -243,6 +253,6 @@ export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, o
           onNavigateToDashboard={onNavigateToDashboard}
         />
       ))}
-    </div>
+    </AdvisorModuleLayout>
   );
 }

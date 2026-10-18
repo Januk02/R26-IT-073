@@ -862,11 +862,11 @@ const MentorVerification = ({ onComplete, onCancel }) => {
 
   if (showResults) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-50 flex items-center justify-center px-4">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 flex items-center justify-center px-4">
         <div className="max-w-2xl w-full bg-white rounded-2xl shadow-xl p-8">
           {isAnalyzing ? (
             <div className="text-center py-12">
-              <div className="mx-auto w-16 h-16 border-4 border-purple-600 border-t-transparent rounded-full animate-spin mb-4"></div>
+              <div className="mx-auto w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mb-4"></div>
               <h2 className="text-2xl font-bold text-gray-900 mb-2">
                 Analyzing Your Answers...
               </h2>
@@ -892,18 +892,18 @@ const MentorVerification = ({ onComplete, onCancel }) => {
                   Your mentorship interview has been analyzed
                 </p>
                 <div className="mt-3">
-                  <span className="inline-block px-4 py-1.5 bg-gradient-to-r from-purple-100 to-purple-200 text-purple-800 rounded-full text-sm font-semibold">
+                  <span className="inline-block px-4 py-1.5 bg-gradient-to-r from-blue-100 to-blue-200 text-blue-800 rounded-full text-sm font-semibold">
                     🏆 {getMedalInfo(getMedalTier(finalScore)).name} Earned!
                   </span>
                 </div>
               </div>
 
-              <div className="bg-purple-50 rounded-xl p-6 mb-6 border border-purple-200">
+              <div className="bg-blue-50 rounded-xl p-6 mb-6 border border-blue-200">
                 <div className="text-center">
                   <p className="text-sm font-medium text-gray-600 mb-2">
                     Overall Performance Score
                   </p>
-                  <p className="text-5xl font-bold text-purple-600 mb-2">
+                  <p className="text-5xl font-bold text-blue-600 mb-2">
                     {Math.round(finalScore)}%
                   </p>
                   <p className="text-sm text-gray-500">
@@ -932,7 +932,7 @@ const MentorVerification = ({ onComplete, onCancel }) => {
                   >
                     <div className="flex justify-between items-start mb-2">
                       <div className="flex-1">
-                        <p className="text-sm text-purple-600 font-medium mb-1">
+                        <p className="text-sm text-blue-600 font-medium mb-1">
                           {q.domain}
                         </p>
                         <p className="text-sm text-gray-700">{q.question}</p>
@@ -956,7 +956,7 @@ const MentorVerification = ({ onComplete, onCancel }) => {
                 </button>
                 <button
                   onClick={onComplete}
-                  className="flex-1 bg-purple-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-purple-700 transition-colors"
+                  className="flex-1 bg-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
                 >
                   Continue to Dashboard
                 </button>
@@ -969,7 +969,7 @@ const MentorVerification = ({ onComplete, onCancel }) => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-50 flex items-center justify-center px-3 py-4 sm:px-6">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 flex items-center justify-center px-3 py-4 sm:px-6">
       <div className="max-w-6xl w-full bg-white rounded-2xl shadow-xl p-4 sm:p-6 lg:p-8 pb-24">
         {/* Header */}
         <div className="mb-6">
@@ -985,16 +985,16 @@ const MentorVerification = ({ onComplete, onCancel }) => {
           {/* Progress Bar */}
           <div className="w-full bg-gray-200 rounded-full h-2">
             <div
-              className="bg-gradient-to-r from-purple-600 to-purple-800 h-2 rounded-full transition-all duration-300"
+              className="bg-gradient-to-r from-blue-600 to-blue-800 h-2 rounded-full transition-all duration-300"
               style={{ width: `${progress}%` }}
             ></div>
           </div>
         </div>
 
         {/* Mode Toggles: AI Avatar & Voice Mode */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 mb-6 p-4 bg-gradient-to-r from-purple-900/10 via-purple-50 to-indigo-900/10 rounded-xl border border-purple-200">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 mb-6 p-4 bg-gradient-to-r from-blue-900/10 via-blue-50 to-blue-900/10 rounded-xl border border-blue-200">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-purple-600 text-white rounded-lg shadow-sm">
+            <div className="p-2 bg-blue-600 text-white rounded-lg shadow-sm">
               <svg
                 className="w-5 h-5"
                 fill="none"
@@ -1028,7 +1028,7 @@ const MentorVerification = ({ onComplete, onCancel }) => {
               <button
                 onClick={() => setAvatarMode(!avatarMode)}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                  avatarMode ? "bg-purple-600" : "bg-gray-300"
+                  avatarMode ? "bg-blue-600" : "bg-gray-300"
                 }`}
               >
                 <span
@@ -1047,7 +1047,7 @@ const MentorVerification = ({ onComplete, onCancel }) => {
               <button
                 onClick={() => setVoiceMode(!voiceMode)}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                  voiceMode ? "bg-purple-600" : "bg-gray-300"
+                  voiceMode ? "bg-blue-600" : "bg-gray-300"
                 }`}
               >
                 <span
@@ -1066,7 +1066,7 @@ const MentorVerification = ({ onComplete, onCancel }) => {
             {avatarMode ? (
               <div className="mb-6">
                 {currentQuestion.videoUrl ? (
-                  <div className="relative overflow-hidden rounded-xl border border-purple-200 bg-black shadow-lg">
+                  <div className="relative overflow-hidden rounded-xl border border-blue-200 bg-black shadow-lg">
                     <div className="pointer-events-none absolute left-120 top-70 z-10 rounded-full bg-black/70 px-3 py-1.5 text-xs font-semibold text-white shadow-md backdrop-blur-sm">
                       Question {currentQuestionIndex + 1} of{" "}
                       {allQuestions.length}
@@ -1085,8 +1085,8 @@ const MentorVerification = ({ onComplete, onCancel }) => {
                     >
                       Your browser does not support video playback.
                     </video>
-                    <div className="bg-purple-950 px-4 py-3 text-white">
-                      <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-purple-200">
+                    <div className="bg-blue-950 px-4 py-3 text-white">
+                      <span className="mb-1 block text-xs font-semibold uppercase tracking-wide text-blue-200">
                         {currentQuestion.domain}
                       </span>
                       <p className="text-base font-semibold leading-relaxed">
@@ -1103,9 +1103,9 @@ const MentorVerification = ({ onComplete, onCancel }) => {
                 )}
               </div>
             ) : (
-              <div className="bg-purple-50 rounded-xl p-6 border border-purple-200 mb-6">
+              <div className="bg-blue-50 rounded-xl p-6 border border-blue-200 mb-6">
                 <div className="flex items-center gap-2 mb-3">
-                  <span className="bg-purple-600 text-white text-xs px-3 py-1 rounded-full font-medium">
+                  <span className="bg-blue-600 text-white text-xs px-3 py-1 rounded-full font-medium">
                     {currentQuestion.domain}
                   </span>
                   {voiceMode && (
@@ -1124,7 +1124,7 @@ const MentorVerification = ({ onComplete, onCancel }) => {
                   <button
                     onClick={() => speakQuestion(currentQuestion.question)}
                     disabled={isPlaying}
-                    className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg text-purple-600 hover:text-purple-800 font-medium text-sm shadow-sm transition-all"
+                    className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg text-blue-600 hover:text-blue-800 font-medium text-sm shadow-sm transition-all"
                   >
                     <svg
                       className={`w-5 h-5 ${isPlaying ? "animate-pulse" : ""}`}
@@ -1157,7 +1157,7 @@ const MentorVerification = ({ onComplete, onCancel }) => {
               <div className="flex items-center justify-between mb-4">
                 <h3 className="font-semibold text-gray-900 flex items-center gap-2">
                   <svg
-                    className="w-5 h-5 text-purple-600"
+                    className="w-5 h-5 text-blue-600"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -1186,7 +1186,7 @@ const MentorVerification = ({ onComplete, onCancel }) => {
                   className={`flex items-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all transform hover:scale-105 ${
                     isRecording
                       ? "bg-red-600 text-white hover:bg-red-700 shadow-lg animate-pulse"
-                      : "bg-purple-600 text-white hover:bg-purple-700 shadow-md"
+                      : "bg-blue-600 text-white hover:bg-blue-700 shadow-md"
                   }`}
                 >
                   {isRecording ? (
@@ -1364,7 +1364,7 @@ const MentorVerification = ({ onComplete, onCancel }) => {
                 value={answers[currentQuestionIndex] || ""}
                 onChange={(e) => handleAnswerChange(e.target.value)}
                 rows={4}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 outline-none resize-none"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 outline-none resize-none"
                 placeholder="Type your answer here..."
                 required
               />
@@ -1377,13 +1377,13 @@ const MentorVerification = ({ onComplete, onCancel }) => {
 
         {(isSubmitting || isAnalyzing) && (
           <div className="mb-5">
-            <div className="flex items-center justify-between text-sm text-purple-700 font-medium mb-2">
+            <div className="flex items-center justify-between text-sm text-blue-700 font-medium mb-2">
               <span>Submitting your interview…</span>
               <span>{isSubmitting ? "Processing" : "Analyzing"}</span>
             </div>
-            <div className="w-full bg-purple-100 rounded-full h-2.5 overflow-hidden">
+            <div className="w-full bg-blue-100 rounded-full h-2.5 overflow-hidden">
               <div
-                className="h-full rounded-full bg-gradient-to-r from-purple-600 to-purple-400 animate-pulse"
+                className="h-full rounded-full bg-gradient-to-r from-blue-600 to-blue-400 animate-pulse"
                 style={{ width: "72%" }}
               />
             </div>
@@ -1406,7 +1406,7 @@ const MentorVerification = ({ onComplete, onCancel }) => {
             <button
               onClick={handleNext}
               disabled={isSubmitting || isAnalyzing}
-              className="px-6 py-3 rounded-lg font-semibold bg-purple-600 text-white hover:bg-purple-700 transition-colors disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 min-w-[220px]"
+              className="px-6 py-3 rounded-lg font-semibold bg-blue-600 text-white hover:bg-blue-700 transition-colors disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 min-w-[220px]"
             >
               {isSubmitting || isAnalyzing ? (
                 <>

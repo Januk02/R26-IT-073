@@ -138,7 +138,7 @@ const MentorMatchCenter = ({ onOpenChat }) => {
       <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm md:p-7">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <p className="mb-1 flex items-center gap-2 text-xs font-bold uppercase text-teal-700"><Sparkles size={15} /> Mentor matching</p>
+            <p className="mb-1 flex items-center gap-2 text-xs font-bold uppercase text-blue-700"><Sparkles size={15} /> Mentor matching</p>
             <h2 className="text-xl font-extrabold text-slate-900">Student recommendations</h2>
             <p className="mt-1 max-w-2xl text-sm text-slate-600">AI ranks student profiles against your qualifications, expertise, skills and availability.</p>
           </div>
@@ -157,7 +157,7 @@ const MentorMatchCenter = ({ onOpenChat }) => {
               return (
                 <article key={studentId} className="flex flex-wrap items-center justify-between gap-4 py-4 first:pt-0 last:pb-0">
                   <div className="flex min-w-0 flex-1 items-start gap-3">
-                    <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-teal-50 text-sm font-extrabold text-teal-800">{index + 1}</span>
+                    <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-blue-50 text-sm font-extrabold text-blue-800">{index + 1}</span>
                     <div className="min-w-0">
                       <h3 className="truncate font-bold text-slate-900">{match.student_name || 'Student'}</h3>
                       <div className="mt-1 flex flex-wrap gap-x-3 gap-y-1 text-xs text-slate-600">
@@ -170,11 +170,11 @@ const MentorMatchCenter = ({ onOpenChat }) => {
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className="text-lg font-extrabold text-teal-700">{Math.round(match.compatibility_score || 0)}%</span>
+                    <span className="text-lg font-extrabold text-blue-700">{Math.round(match.compatibility_score || 0)}%</span>
                     {matchedStudentIds.includes(studentId) ? (
                       <button type="button" onClick={() => onOpenChat?.()} className="inline-flex items-center gap-2 rounded-md bg-slate-900 px-3 py-2 text-sm font-semibold text-white hover:bg-slate-700"><MessageSquare size={15} /> Open chat</button>
                     ) : (
-                      <button type="button" disabled={!!assigningId} onClick={() => handleAssign(match)} className="inline-flex items-center gap-2 rounded-md bg-teal-700 px-3 py-2 text-sm font-semibold text-white hover:bg-teal-800 disabled:opacity-60"><Users size={15} /> {assigningId === studentId ? 'Connecting…' : 'Match student'}</button>
+                      <button type="button" disabled={!!assigningId} onClick={() => handleAssign(match)} className="inline-flex items-center gap-2 rounded-md bg-blue-700 px-3 py-2 text-sm font-semibold text-white hover:bg-blue-800 disabled:opacity-60"><Users size={15} /> {assigningId === studentId ? 'Connecting…' : 'Match student'}</button>
                     )}
                   </div>
                 </article>
@@ -189,7 +189,7 @@ const MentorMatchCenter = ({ onOpenChat }) => {
         <div className="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto bg-slate-950/60 p-4" role="presentation">
           <div role="dialog" aria-modal="true" aria-labelledby="mentor-profile-title" className="my-auto w-full max-w-2xl rounded-xl bg-white p-5 shadow-2xl md:p-7">
             <div className="mb-5">
-              <p className="mb-1 flex items-center gap-2 text-xs font-bold uppercase text-teal-700"><BriefcaseBusiness size={15} /> Matching profile</p>
+              <p className="mb-1 flex items-center gap-2 text-xs font-bold uppercase text-blue-700"><BriefcaseBusiness size={15} /> Matching profile</p>
               <h2 id="mentor-profile-title" className="text-2xl font-extrabold text-slate-900">Help us find your students</h2>
               <p className="mt-1 text-sm text-slate-600">Your degree, credentials and expertise are used to rank students whose goals fit your experience.</p>
             </div>
@@ -206,7 +206,7 @@ const MentorMatchCenter = ({ onOpenChat }) => {
               <label className="text-sm font-semibold text-slate-700">Available hours per week<input name="availabilityHours" type="number" min="1" max="80" required value={form.availabilityHours} onChange={updateField} className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 font-normal" /></label>
               <div className="flex justify-end gap-3 pt-2 sm:col-span-2">
                 {profile && <button type="button" onClick={() => setShowForm(false)} className="rounded-md border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700">Cancel</button>}
-                <button type="submit" disabled={saving} className="rounded-md bg-teal-700 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-800 disabled:opacity-60">{saving ? 'Saving profile…' : 'Save and find students'}</button>
+                <button type="submit" disabled={saving} className="rounded-md bg-blue-700 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-800 disabled:opacity-60">{saving ? 'Saving profile…' : 'Save and find students'}</button>
               </div>
             </form>
           </div>

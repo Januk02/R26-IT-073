@@ -1484,7 +1484,7 @@ const CVVerification = ({ onComplete, onCancel }) => {
 
   if (analysisResult) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-50 flex items-center justify-center px-4 py-8">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 flex items-center justify-center px-4 py-8">
         <div className="max-w-3xl w-full bg-white rounded-2xl shadow-xl p-8">
           <div className="text-center mb-8">
             <div className="mx-auto w-32 h-32 mb-4">
@@ -1511,7 +1511,7 @@ const CVVerification = ({ onComplete, onCancel }) => {
           </div>
 
           {/* Overall Score */}
-          <div className="bg-gradient-to-r from-purple-50 to-purple-100 rounded-xl p-6 mb-6 border border-purple-200">
+          <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl p-6 mb-6 border border-blue-200">
             <div className="text-center">
               <p className="text-sm font-medium text-gray-600 mb-2">
                 Overall CV Score
@@ -1633,7 +1633,7 @@ const CVVerification = ({ onComplete, onCancel }) => {
             </button>
             <button
               onClick={onComplete}
-              className="flex-1 bg-purple-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-purple-700 transition-colors"
+              className="flex-1 bg-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
             >
               Continue to Dashboard
             </button>
@@ -1644,7 +1644,7 @@ const CVVerification = ({ onComplete, onCancel }) => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-50 flex items-center justify-center px-4 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 flex items-center justify-center px-4 py-8">
       <div className="max-w-2xl w-full bg-white rounded-2xl shadow-xl p-8">
         {/* Header */}
         <div className="mb-6">
@@ -1710,12 +1710,12 @@ const CVVerification = ({ onComplete, onCancel }) => {
           }
           className={`border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all mb-6 ${
             dragActive
-              ? "border-purple-500 bg-purple-50"
+              ? "border-blue-500 bg-blue-50"
               : file
                 ? "border-green-500 bg-green-50"
                 : existingCV && !isResubmitting
                   ? "border-gray-200 bg-gray-50 cursor-not-allowed opacity-75"
-                  : "border-gray-300 hover:border-purple-400 hover:bg-gray-50"
+                  : "border-gray-300 hover:border-blue-400 hover:bg-gray-50"
           }`}
         >
           <input
@@ -1786,9 +1786,9 @@ const CVVerification = ({ onComplete, onCancel }) => {
             </div>
           ) : (
             <div className="flex flex-col items-center">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-3">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-3">
                 <svg
-                  className="w-8 h-8 text-purple-600"
+                  className="w-8 h-8 text-blue-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -1874,7 +1874,7 @@ const CVVerification = ({ onComplete, onCancel }) => {
             className={`flex-1 py-3 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2 ${
               !file || isAnalyzing
                 ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                : "bg-purple-600 text-white hover:bg-purple-700"
+                : "bg-blue-600 text-white hover:bg-blue-700"
             }`}
           >
             {isAnalyzing ? (

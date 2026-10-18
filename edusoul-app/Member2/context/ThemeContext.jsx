@@ -1,17 +1,17 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 
 const ThemeContext = createContext({
-  theme: 'dark',
+  theme: 'light',
   toggleTheme: () => {},
 });
 
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(() => {
-    return localStorage.getItem('career_theme') || 'dark';
+    const saved = localStorage.getItem('career_theme');
+    return saved === 'dark' ? 'dark' : 'light';
   });
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('career_theme', theme);
   }, [theme]);
 
@@ -21,7 +21,7 @@ export const ThemeProvider = ({ children }) => {
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      {children}
+      <div className="studyfyx-module studyfyx-theme" data-theme={theme}>{children}</div>
     </ThemeContext.Provider>
   );
 };

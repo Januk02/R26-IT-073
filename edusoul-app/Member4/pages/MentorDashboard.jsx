@@ -77,7 +77,7 @@ const MentorDashboard = ({
           position: relative;
           width: 100%;
           min-height: 300px;
-          background: #0B0F19;
+          background: #102445;
           overflow: hidden;
           display: flex;
           align-items: center;
@@ -107,7 +107,7 @@ const MentorDashboard = ({
             90deg,
             rgba(11, 15, 25, 0.96) 0%,
             rgba(15, 23, 42, 0.88) 45%,
-            rgba(67, 24, 114, 0.42) 100%
+            rgba(36, 85, 179, 0.42) 100%
           );
         }
 
@@ -128,11 +128,11 @@ const MentorDashboard = ({
           display: inline-flex;
           align-items: center;
           gap: 8px;
-          background: rgba(124, 58, 237, 0.25);
-          border: 1px solid rgba(167, 139, 250, 0.4);
+          background: rgba(36,85,179, 0.25);
+          border: 1px solid rgba(169,200,255, 0.4);
           padding: 5px 14px;
           border-radius: 100px;
-          color: #DDD6FE;
+          color: #dbeafe;
           font-size: 11px;
           font-weight: 800;
           letter-spacing: 0.08em;
@@ -414,8 +414,8 @@ const MentorDashboard = ({
                   {user?.email}
                 </p>
                 <div className="flex items-center justify-end gap-1.5 mt-0.5">
-                  <span className="w-2 h-2 rounded-full bg-purple-600 animate-pulse"></span>
-                  <p className="text-xs text-purple-700 font-extrabold uppercase tracking-wider">
+                  <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
+                  <p className="text-xs text-blue-700 font-extrabold uppercase tracking-wider">
                     Faculty Mentor
                   </p>
                 </div>
@@ -443,7 +443,7 @@ const MentorDashboard = ({
           <div className="mentor-exec-hero-content">
             <div>
               <div className="hero-mentor-eyebrow">
-                <BadgeCheck size={14} className="text-purple-300" />
+                <BadgeCheck size={14} className="text-blue-300" />
                 <span>Faculty Mentor Command Portal</span>
               </div>
 
@@ -484,7 +484,7 @@ const MentorDashboard = ({
                 </div>
 
                 <div className="hero-telemetry-chip">
-                  <Users size={14} className="text-purple-300" />
+                  <Users size={14} className="text-blue-300" />
                   <span>
                     {stats?.total_mentors
                       ? `${stats.total_mentors} Active Mentors`
@@ -493,7 +493,7 @@ const MentorDashboard = ({
                 </div>
 
                 <div className="hero-telemetry-chip">
-                  <BrainCircuit size={14} className="text-cyan-300" />
+                  <BrainCircuit size={14} className="text-blue-300" />
                   <span>AI Rubric Active</span>
                 </div>
               </motion.div>
@@ -509,7 +509,7 @@ const MentorDashboard = ({
               <img src="/executive_mentor_hero.jpg" alt="Faculty Mentor AI" />
 
               <div className="hero-tag-bubble tag-bubble-top">
-                <div className="w-5 h-5 rounded-md bg-purple-600 flex items-center justify-center text-white text-[10px]">
+                <div className="w-5 h-5 rounded-md bg-blue-600 flex items-center justify-center text-white text-[10px]">
                   <Sparkles size={11} />
                 </div>
                 <span>Pedagogy AI</span>
@@ -536,7 +536,7 @@ const MentorDashboard = ({
           <div className="exec-actions-container">
             <div className="exec-actions-header">
               <h3 className="exec-actions-title">
-                <Zap size={20} className="text-purple-600" />
+                <Zap size={20} className="text-blue-600" />
                 <span>Faculty Actions & Capabilities</span>
               </h3>
               <span className="text-xs font-bold text-slate-500">
@@ -560,7 +560,7 @@ const MentorDashboard = ({
                     <div className="action-icon-box">
                       <ShieldCheck size={24} strokeWidth={2} />
                     </div>
-                    <span className="text-[11px] font-mono font-black text-purple-600 bg-purple-50 px-2 py-0.5 rounded-md border border-purple-200">
+                    <span className="text-[11px] font-mono font-black text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200">
                       60% WT
                     </span>
                   </div>
@@ -656,7 +656,7 @@ const MentorDashboard = ({
                     <div className="action-icon-box">
                       <MessageSquare size={24} strokeWidth={2} />
                     </div>
-                    <span className="text-[11px] font-mono font-black text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-md border border-indigo-200">
+                    <span className="text-[11px] font-mono font-black text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200">
                       SYNC HUB
                     </span>
                   </div>
@@ -710,7 +710,7 @@ const MentorDashboard = ({
         {/* Floating Chat Hub Button */}
         <button
           onClick={onNavigateToMessages}
-          className="fixed bottom-6 right-6 bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-4 rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-all duration-300 z-40 flex items-center justify-center cursor-pointer border border-purple-300/40"
+          className="fixed bottom-6 right-6 bg-gradient-to-r from-blue-600 to-blue-600 text-white p-4 rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-all duration-300 z-40 flex items-center justify-center cursor-pointer border border-blue-300/40"
           title="Open Mentee Chat Hub"
         >
           <MessageSquare size={22} />
