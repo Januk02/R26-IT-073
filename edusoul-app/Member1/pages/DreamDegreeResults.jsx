@@ -1,39 +1,42 @@
-import { useLanguage } from '../../src/contexts/LanguageContext';
+import RecommendationEvidence, { ScoreEvidence } from '../components/RecommendationEvidence';
 import { useAdvisorTranslation } from '../data/advisorTranslations';
-import { useState, useMemo, useRef, useEffect, lazy, Suspense } from 'react';
+import { useState, useMemo, lazy, Suspense } from 'react';
 
 const UniversityMap = lazy(() => import('../components/UniversityMap'));
 
-const BG_IMAGE_URL = 'https://i.pinimg.com/1200x/d7/76/5d/d7765d7445ccfecafbd6546e8e36b813.jpg';
+import AdvisorHeader from '../components/AdvisorHeader';
+import UniversityDistance from '../components/UniversityDistance';
+import DegreeUniversityOptions from '../components/DegreeUniversityOptions';
+import TrainedModelRecommendation from '../components/TrainedModelRecommendation';
+import FutureCareerPath from '../components/FutureCareerPath';
+import { resolveUniversityCoordinates } from '../data/universityDistances';
+import { degreeUniversitySummary, partitionUniversities, universityStatus, universityStatusLabels, recommendationMapTarget } from '../data/universityPresentation';
+import './AdvisorWorkspace.css';
 
 export default function DreamDegreeResults({ studentData, backendResults, backwardAnalysis, onBack, onHome, onViewRoadmap, onViewGuidance, onViewProfile, onNavigateToDashboard }) {
   const tr = useAdvisorTranslation();
-  const { language, changeLanguage: setLanguage } = useLanguage();
   const [expandedCard, setExpandedCard] = useState(0);
   const [activeTab, setActiveTab] = useState('degrees');
   const [preferredUnis, setPreferredUnis] = useState([]);
   const [showModelPanel, setShowModelPanel] = useState(false);
-  const [portalOpen, setPortalOpen] = useState(false);
-  const portalRef = useRef(null);
-
-  useEffect(() => {
-    const handleClick = (e) => { if (portalRef.current && !portalRef.current.contains(e.target)) setPortalOpen(false); };
-    document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
-  }, []);
-
+  const [universityDegree, setUniversityDegree] = useState(null);
+  const [mapUniversity, setMapUniversity] = useState(null);
   const recommendations = backendResults?.recommendations || [];
-  const universityRecs = backendResults?.university_recommendations || {};
+  const selectedDegreeRecommendation = recommendations.find(rec => rec.degree === universityDegree) || recommendations[0];
+  const universityRecs = selectedDegreeRecommendation?.university_options || { government: [], private: [] };
   const bestDegree = backendResults?.best_degree || 'N/A';
   const method = backendResults?.method || 'unknown';
   const modelInfo = backendResults?.model_info || {};
   const counterfactualGuidance = backendResults?.counterfactual_guidance || {};
   const backwardData = backwardAnalysis?.backward_analysis || {};
   const studentZScore = parseFloat(studentData.academicResults?.zScore) || 0;
+  const selectedDistrict = studentData.personalInfo?.district || studentData.district || backendResults?.validation?.district;
 
   const governmentUnis = universityRecs.government || [];
   const privateUnis = universityRecs.private || [];
-  const allUnis = [...governmentUnis.map(u => ({ ...u, type: 'Government' })), ...privateUnis.map(u => ({ ...u, type: 'Private' }))];
+  const governmentGroups = partitionUniversities(governmentUnis);
+  const mapTarget = recommendationMapTarget(recommendations, backendResults?.trained_model_recommendation, universityDegree, mapUniversity);
+  const allRecommendedUnis = [...(backendResults?.university_recommendations?.government || []).map(uni => ({ ...uni, type: 'Government' })), ...(backendResults?.university_recommendations?.private || []).map(uni => ({ ...uni, type: 'Private' }))];
 
   const togglePreferred = (uniName) => {
     setPreferredUnis(prev => prev.includes(uniName) ? prev.filter(n => n !== uniName) : [...prev, uniName]);
@@ -41,8 +44,8 @@ export default function DreamDegreeResults({ studentData, backendResults, backwa
 
   const preferredResults = useMemo(() => {
     if (preferredUnis.length === 0) return null;
-    return allUnis.filter(u => preferredUnis.includes(u.name));
-  }, [preferredUnis, allUnis]);
+    return allRecommendedUnis.filter(u => preferredUnis.includes(u.name));
+  }, [preferredUnis, allRecommendedUnis]);
 
   const getScoreColor = (score) => {
     if (score >= 0.8) return 'text-emerald-600';
@@ -67,19 +70,21 @@ export default function DreamDegreeResults({ studentData, backendResults, backwa
 
   const getCutoffStatus = (cutoff) => {
     const diff = studentZScore - cutoff;
-    if (diff >= 0.3) return { label: 'Safe', color: 'text-emerald-700 bg-emerald-50 border-emerald-200', icon: '✓' };
-    if (diff >= 0) return { label: 'Borderline', color: 'text-amber-700 bg-amber-50 border-amber-200', icon: '~' };
-    if (diff >= -0.3) return { label: 'Competitive', color: 'text-orange-700 bg-orange-50 border-orange-200', icon: '!' };
-    return { label: 'Below Cutoff', color: 'text-red-700 bg-red-50 border-red-200', icon: '✗' };
+    if (diff >= 0.3) return { label: 'Above reference', color: 'text-emerald-700 bg-emerald-50 border-emerald-200', icon: '✓' };
+    if (diff >= 0) return { label: 'Meets reference', color: 'text-amber-700 bg-amber-50 border-amber-200', icon: '~' };
+    if (diff >= -0.3) return { label: 'Near reference', color: 'text-orange-700 bg-orange-50 border-orange-200', icon: '!' };
+    return { label: 'Below reference', color: 'text-red-700 bg-red-50 border-red-200', icon: '✗' };
   };
 
   /* ── University Card ── */
   const renderUniCard = (uni, isGov, showPreferToggle = true) => {
     const isPref = preferredUnis.includes(uni.name);
     const accent = isGov ? 'emerald' : 'purple';
+    const status = universityStatus(uni);
+    const statusColor = status === 'meets_reference' ? 'bg-emerald-50 text-emerald-800' : status === 'verification_required' ? 'bg-slate-100 text-slate-700' : 'bg-amber-50 text-amber-900';
 
     return (
-      <div key={uni.name} className={`res-card rounded-2xl p-5 transition-all hover:shadow-lg relative ${isPref ? 'ring-2 ring-amber-400/60' : ''}`}>
+      <div key={uni.name} data-testid="university-recommendation-card" data-university={uni.name} className={`res-card rounded-2xl p-5 transition-all hover:shadow-lg relative ${isPref ? 'ring-2 ring-amber-400/60' : ''}`}>
         {tr(showPreferToggle && (
           <button onClick={() => togglePreferred(uni.name)}
             className={`absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center transition-all ${isPref ? 'bg-amber-500 text-white shadow-lg shadow-amber-500/30' : 'bg-gray-100 text-gray-400 hover:bg-gray-200 hover:text-gray-600'}`}
@@ -98,17 +103,16 @@ export default function DreamDegreeResults({ studentData, backendResults, backwa
               {tr(uni.national_rank && <span className="text-xs bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded font-medium">#{tr(uni.national_rank)}</span>)}
             </div>
           </div>
-          <div className="text-right">
-            <div className={`text-xl font-bold text-${accent}-600`}>
-              {tr(uni.admission_probability ? `${(uni.admission_probability * 100).toFixed(0)}%` : 'N/A')}
-            </div>
-            <p className="text-gray-400 text-xs">{tr("Admission")}</p>
-          </div>
         </div>
 
-        {tr(uni.z_score_requirements && (
+        <p className={`rounded-lg px-3 py-2 text-xs font-semibold mb-3 ${statusColor}`}>{tr(universityStatusLabels[status])}{uni.degree && <> · {tr(uni.degree)}</>}</p>
+
+        <UniversityDistance university={uni} studentDistrict={selectedDistrict} />
+
+        {tr(uni.z_score_requirements && Object.keys(uni.z_score_requirements).length > 0 && (
           <div className="mb-3">
             <p className="text-gray-400 text-xs mb-2 font-semibold uppercase tracking-wider">{tr("Cutoff vs Your Z-Score (")}{tr(studentZScore)})</p>
+            <p className="text-xs text-slate-600 mb-2">{tr('Stored cutoffs are not district-specific. Check current requirements with the institution.')}</p>
             <div className="space-y-1.5">
               {tr(Object.entries(uni.z_score_requirements).map(([deg, cutoff]) => {
                 const status = getCutoffStatus(cutoff);
@@ -128,7 +132,7 @@ export default function DreamDegreeResults({ studentData, backendResults, backwa
 
         {tr(uni.available_degrees && (
           <div className="mb-3">
-            <p className="text-gray-400 text-xs mb-1.5 font-semibold">{tr("Available Programs")}</p>
+            <p className="text-gray-400 text-xs mb-1.5 font-semibold">{tr('Matched degree pathways')}</p>
             <div className="flex flex-wrap gap-1.5">
               {tr(uni.available_degrees.map((deg, i) => (
                 <span key={i} className={`text-xs bg-${accent}-50 text-${accent}-700 px-2 py-0.5 rounded-full border border-${accent}-200`}>{tr(deg)}</span>
@@ -160,74 +164,15 @@ export default function DreamDegreeResults({ studentData, backendResults, backwa
         </div>
 
         {tr(uni.explanation && <p className="text-gray-400 text-xs mt-3 italic">{tr(uni.explanation)}</p>)}
+        {uni.website?.startsWith('https://') && <a className="inline-block text-sm underline text-teal-800 mt-3" href={uni.website} target="_blank" rel="noopener noreferrer">{tr('Official website')} ↗</a>}
+        {resolveUniversityCoordinates(uni) && <button className="block text-sm font-semibold underline text-teal-800 mt-3" onClick={() => { setUniversityDegree(uni.degree || selectedDegreeRecommendation?.degree); setMapUniversity(uni.name); setActiveTab('map'); }}>{tr('View on map')} →</button>}
       </div>
     );
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      {/* ===== BACKGROUND ===== */}
-      <div className="fixed inset-0 z-0">
-        <img src={BG_IMAGE_URL} alt="" className="absolute inset-0 w-full h-full object-cover scale-105" style={{ animation: 'bgZoom 30s ease-in-out infinite alternate' }} />
-        <div className="absolute inset-0 bg-gradient-to-b from-white/[0.92] via-blue-50/[0.88] to-white/[0.93]" />
-        <div className="absolute inset-0 pointer-events-none">
-          <div style={{ position: 'absolute', width: 500, height: 500, top: '-10%', right: '-5%', borderRadius: '50%', background: 'radial-gradient(circle, rgba(59,130,246,0.12), transparent 70%)', filter: 'blur(80px)', animation: 'orbFloat 14s ease-in-out infinite' }} />
-          <div style={{ position: 'absolute', width: 400, height: 400, bottom: '-5%', left: '-5%', borderRadius: '50%', background: 'radial-gradient(circle, rgba(249,115,22,0.10), transparent 70%)', filter: 'blur(80px)', animation: 'orbFloat 18s ease-in-out infinite' }} />
-        </div>
-        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle, #3b82f6 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
-      </div>
-
-      <style>{`
-        @keyframes bgZoom { 0% { transform: scale(1.05); } 100% { transform: scale(1.12); } }
-        @keyframes orbFloat { 0%, 100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-20px,20px) scale(0.95); } }
-        .res-card {
-          background: rgba(255,255,255,0.72); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-          border: 1px solid rgba(255,255,255,0.8);
-          box-shadow: 0 2px 16px rgba(0,0,0,0.04);
-        }
-        .res-card-strong {
-          background: rgba(255,255,255,0.82); backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
-          border: 1px solid rgba(255,255,255,0.85);
-          box-shadow: 0 8px 32px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.9);
-        }
-      `}</style>
-
-      {/* ===== PORTAL BUTTON ===== */}
-      <div ref={portalRef} style={{ position: 'fixed', top: 20, left: 20, zIndex: 50 }}>
-        <button onClick={() => setPortalOpen(!portalOpen)}
-          style={{
-            display: 'flex', alignItems: 'center', gap: 8, padding: '10px 20px', borderRadius: 14,
-            border: `2px solid ${portalOpen ? '#3b82f6' : '#e2e8f0'}`,
-            background: portalOpen ? '#eff6ff' : 'rgba(255,255,255,0.85)', backdropFilter: 'blur(12px)',
-            color: portalOpen ? '#3b82f6' : '#475467', fontSize: 14, fontWeight: 700, cursor: 'pointer', transition: 'all 0.3s ease', boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
-          }}>
-          <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z" /></svg>{tr("Portal")}</button>
-        {tr(portalOpen && (
-          <div style={{ position: 'absolute', top: 'calc(100% + 10px)', left: 0, width: 260, background: 'rgba(255,255,255,0.97)', backdropFilter: 'blur(24px)', borderRadius: 16, border: '1px solid #e5e7eb', boxShadow: '0 20px 60px rgba(0,0,0,0.12)', overflow: 'hidden', animation: 'portalDropIn 0.2s ease-out' }}>
-            <style>{`@keyframes portalDropIn { from { opacity: 0; transform: translateY(-8px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }`}</style>
-            <div style={{ padding: '14px 18px 10px', borderBottom: '1px solid #f1f5f9', background: 'linear-gradient(135deg, #eff6ff, #fff7ed)' }}>
-              <p style={{ fontSize: 12, fontWeight: 800, color: '#1e293b', margin: 0, display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ width: 22, height: 22, borderRadius: 7, background: 'linear-gradient(135deg, #3b82f6, #2563eb)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 10, fontWeight: 900 }}>D</span>{tr("Navigation")}</p>
-            </div>
-            <div style={{ padding: '6px 0' }}>
-              {tr([
-                { label: 'Home', onClick: onHome, icon: <svg width="16" height="16" fill="none" stroke="#3b82f6" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z" /></svg>, bg: '#eff6ff' },
-                onViewProfile && { label: 'My Profile', onClick: onViewProfile, icon: <svg width="16" height="16" fill="none" stroke="#f97316" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>, bg: '#fff7ed' },
-                onNavigateToDashboard && { label: 'Dashboard', onClick: onNavigateToDashboard, icon: <svg width="16" height="16" fill="none" stroke="#6366f1" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>, bg: '#eef2ff' },
-                { label: 'Edit Form', onClick: onBack, icon: <svg width="16" height="16" fill="none" stroke="#22c55e" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>, bg: '#f0fdf4' },
-              ].filter(Boolean).map((item, i) => (
-                <button key={i} onClick={() => { setPortalOpen(false); item.onClick(); }}
-                  style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 12, padding: '11px 18px', background: 'none', border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 500, color: '#334155', transition: 'background 0.15s' }}
-                  onMouseEnter={e => e.currentTarget.style.background = '#f1f5f9'}
-                  onMouseLeave={e => e.currentTarget.style.background = 'none'}>
-                  <span style={{ width: 32, height: 32, borderRadius: 10, background: item.bg, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{tr(item.icon)}</span>
-                  {tr(item.label)}
-                </button>
-              )))}
-            </div>
-          </div>
-        ))}
-      </div>
+    <div className="advisor-workspace advisor-results">
+      <AdvisorHeader onHome={onHome} onViewProfile={onViewProfile} onNavigateToDashboard={onNavigateToDashboard} />
 
       {/* ===== CONTENT ===== */}
       <div className="relative z-10 py-8 px-4">
@@ -244,14 +189,7 @@ export default function DreamDegreeResults({ studentData, backendResults, backwa
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
                 <span>{tr("How AI Works")}</span>
               </button>
-              <div className="flex items-center space-x-1">
-                {tr(['en', 'si', 'ta'].map((lang) => (
-                  <button key={lang} onClick={() => setLanguage(lang)} aria-pressed={language === lang} lang={lang}
-                    className={`px-3 py-2 rounded-xl text-xs font-semibold transition-all ${language === lang ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/25' : 'bg-white/60 text-gray-500 hover:bg-white/80 border border-gray-200'}`}>
-                    {tr(lang.toUpperCase())}
-                  </button>
-                )))}
-              </div>
+
             </div>
           </div>
 
@@ -277,14 +215,14 @@ export default function DreamDegreeResults({ studentData, backendResults, backwa
                     <p className="text-gray-500 text-sm leading-relaxed">{tr(modelInfo.description)}</p>
                   </div>
                   <div className="bg-emerald-50/60 rounded-xl p-4 border border-emerald-100">
-                    <h3 className="text-emerald-600 font-semibold text-xs uppercase tracking-wider mb-2">{tr("Confidence Score")}</h3>
+                    <h3 className="text-emerald-600 font-semibold text-xs uppercase tracking-wider mb-2">{tr("Model probability")}</h3>
                     <div className="flex items-center space-x-4 mb-2">
-                      <div className={`text-4xl font-bold ${getScoreColor(modelInfo.confidence_score || 0)}`}>
-                        {tr(modelInfo.confidence_score ? `${(modelInfo.confidence_score * 100).toFixed(1)}%` : 'N/A')}
+                      <div className={`text-4xl font-bold ${getScoreColor(modelInfo.top_probability || 0)}`}>
+                        {tr(modelInfo.top_probability ? `${(modelInfo.top_probability * 100).toFixed(1)}%` : 'N/A')}
                       </div>
                       <div className="flex-1">
                         <div className="h-3 bg-gray-100 rounded-full overflow-hidden">
-                          <div className={`h-full rounded-full bg-gradient-to-r ${getBarGradient(modelInfo.confidence_score || 0)}`} style={{ width: `${(modelInfo.confidence_score || 0) * 100}%` }} />
+                          <div className={`h-full rounded-full bg-gradient-to-r ${getBarGradient(modelInfo.top_probability || 0)}`} style={{ width: `${(modelInfo.top_probability || 0) * 100}%` }} />
                         </div>
                       </div>
                     </div>
@@ -308,7 +246,7 @@ export default function DreamDegreeResults({ studentData, backendResults, backwa
                     <div className="flex items-center space-x-6">
                       <div><p className="text-3xl font-bold text-gray-900">{tr(modelInfo.universities_analyzed || 0)}</p><p className="text-gray-400 text-xs">{tr("Matched")}</p></div>
                       <div className="text-gray-300 text-2xl font-light">/</div>
-                      <div><p className="text-3xl font-bold text-gray-900">{tr(modelInfo.total_university_database || 44)}</p><p className="text-gray-400 text-xs">{tr("Total Universities")}</p></div>
+                      <div><p className="text-3xl font-bold text-gray-900">{tr(modelInfo.total_university_database ?? 'N/A')}</p><p className="text-gray-400 text-xs">{tr("Total Universities")}</p></div>
                     </div>
                   </div>
                 </div>
@@ -317,25 +255,23 @@ export default function DreamDegreeResults({ studentData, backendResults, backwa
           ))}
 
           {/* Hero Header */}
-          <div className="text-center mb-10">
+          <div className="mb-8">
             {/* <div className="inline-flex items-center space-x-2 bg-blue-50 text-blue-600 px-4 py-1.5 rounded-full text-sm font-medium mb-4 border border-blue-200">
               <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
               <span>AI Model: {modelInfo.method_label || method}</span>
             </div> */}
-            <h1 className="text-4xl md:text-5xl font-normal mb-3">
-              <span className="text-slate-900">{tr("Smart insights,")}</span>
-              <span className="text-blue-600">{tr("made for")}</span><span className="text-orange-500">{tr("you")}</span>
-            </h1>
-            <p className="text-slate-900 text-lg max-w-2xl mx-auto font-normal">{tr("Personalized degree and university recommendations for")}<span className="text-blue-600">{tr(studentData.dreamJob)}</span>
+            <p className="advisor-eyebrow">{tr('YOUR DEGREE & CAREER PLAN')}</p>
+            <h1 className="text-3xl md:text-4xl font-semibold tracking-tight mb-3">{tr('Your options, explained.')}</h1>
+            <p className="text-slate-600 text-sm max-w-2xl font-normal">{tr("Personalized degree and university recommendations for")} <span className="text-blue-600">{tr(studentData.dreamJob)}</span>
             </p>
           </div>
 
           {/* Key Metrics */}
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-10">
             {tr([
-              { label: 'Best Degree', value: bestDegree, gradient: 'from-blue-500 to-blue-600', bg: 'bg-blue-50', border: 'border-blue-200', text: 'text-blue-600' },
-              { label: 'Confidence', value: recommendations[0]?.probability ? `${(recommendations[0].probability * 100).toFixed(0)}%` : 'N/A', gradient: 'from-emerald-500 to-emerald-600', bg: 'bg-emerald-50', border: 'border-emerald-200', text: 'text-emerald-600' },
-              { label: 'Your Z-Score', value: studentZScore || 'N/A', gradient: 'from-purple-500 to-purple-600', bg: 'bg-purple-50', border: 'border-purple-200', text: 'text-purple-600' },
+              { label: backendResults?.best_direct_degree ? 'Goal-aligned degree' : 'Exploratory degree', value: bestDegree, gradient: 'from-blue-500 to-blue-600', bg: 'bg-blue-50', border: 'border-blue-200', text: 'text-blue-600' },
+              { label: 'Suitability', value: recommendations[0]?.probability ? `${(recommendations[0].probability * 100).toFixed(0)}%` : 'N/A', gradient: 'from-emerald-500 to-emerald-600', bg: 'bg-emerald-50', border: 'border-emerald-200', text: 'text-emerald-600' },
+              { label: 'Your Z-Score', value: studentZScore, gradient: 'from-purple-500 to-purple-600', bg: 'bg-purple-50', border: 'border-purple-200', text: 'text-purple-600' },
               { label: 'Universities', value: governmentUnis.length + privateUnis.length, gradient: 'from-amber-500 to-orange-500', bg: 'bg-orange-50', border: 'border-orange-200', text: 'text-orange-600' },
               { label: 'Preferred', value: preferredUnis.length, gradient: 'from-blue-500 to-orange-500', bg: 'bg-amber-50', border: 'border-amber-200', text: 'text-amber-600' },
             ].map((m, i) => (
@@ -346,8 +282,10 @@ export default function DreamDegreeResults({ studentData, backendResults, backwa
             )))}
           </div>
 
+          <RecommendationEvidence result={backendResults} onViewRoadmap={onViewRoadmap} />
+
           {/* Tab Navigation */}
-          <div className="flex space-x-1 res-card rounded-2xl p-1.5 mb-8">
+          <div className="res-tabs flex space-x-1 res-card rounded-2xl p-1.5 mb-8">
             {tr([
               { id: 'degrees', label: 'Degree Predictions', icon: '🎓' },
               { id: 'universities', label: 'Universities & Cutoffs', icon: '🏛️' },
@@ -359,18 +297,30 @@ export default function DreamDegreeResults({ studentData, backendResults, backwa
                 className={`flex-1 py-3 px-3 rounded-xl text-sm font-semibold transition-all ${
                   activeTab === tab.id ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/25' : 'text-gray-500 hover:text-gray-700 hover:bg-white/60'
                 }`}>
-                <span className="mr-1.5">{tr(tab.icon)}</span>{tr(tab.label)}
+                {tr(tab.label)}
               </button>
             )))}
           </div>
 
+          {activeTab === 'universities' && <div className="res-card rounded-xl p-4 mb-5">
+            <label className="block text-sm font-semibold text-slate-700">{tr('Filter universities by degree')}
+              <select value={selectedDegreeRecommendation?.degree || ''} onChange={event => { setUniversityDegree(event.target.value); setMapUniversity(null); }} className="block w-full mt-2 rounded-lg border border-slate-300 bg-white px-3 py-2">
+                {recommendations.map(rec => <option key={rec.degree} value={rec.degree}>{tr(rec.degree)}</option>)}
+              </select>
+            </label>
+            <p className="text-xs text-slate-600 mt-2">{tr('University matches depend on the selected degree pathway. Admission requirements must be checked separately.')}</p>
+          </div>}
+
           {/* ===== DEGREE PREDICTIONS ===== */}
           {tr(activeTab === 'degrees' && (
             <div className="space-y-6">
+              <TrainedModelRecommendation prediction={backendResults?.trained_model_recommendation}
+                onViewUniversities={degree => { setUniversityDegree(degree); setActiveTab('universities'); }}
+                onViewMap={(degree, name) => { setUniversityDegree(degree); setMapUniversity(name); setActiveTab('map'); }} />
               {tr(recommendations.length === 0 ? (
                 <div className="res-card-strong rounded-2xl p-8 text-center border border-amber-200 bg-amber-50/50">
-                  <p className="text-amber-700 font-semibold text-lg">{tr("No degree predictions returned from the model.")}</p>
-                  <p className="text-amber-600/60 mt-2">{tr("Try adjusting your profile or Z-Score.")}</p>
+                  <p className="text-amber-700 font-semibold text-lg">{tr(backendResults.goal_status === 'vocational_route' ? 'A vocational qualification route is recommended.' : 'No supported degree route is available for this profile.')}</p>
+                  <p className="text-amber-600/60 mt-2">{tr(backendResults.goal_status === 'vocational_route' ? 'Review the qualification route and action plan above.' : 'Try adjusting your profile or Z-Score.')}</p>
                 </div>
               ) : (
                 recommendations.map((rec, index) => (
@@ -378,13 +328,14 @@ export default function DreamDegreeResults({ studentData, backendResults, backwa
                     {/* Card Header */}
                     <div className="p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
                       <div className="flex items-center space-x-4">
-                        <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-orange-500 rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-blue-500/20">
+                        <div className="w-11 h-11 bg-slate-100 border border-slate-200 rounded-lg flex items-center justify-center text-slate-600 font-semibold text-sm">
                           #{tr(index + 1)}
                         </div>
                         <div>
                           <h3 className="text-2xl font-bold text-gray-900">{tr(rec.degree)}</h3>
+                          {rec.goal_relation && <span className="inline-block mt-1 text-xs font-semibold rounded-lg bg-slate-100 text-slate-700 px-2 py-1">{tr({ direct: 'Direct career pathway', related: 'Related career pathway', alternative: 'Alternative study pathway' }[rec.goal_relation] || rec.goal_relation)}</span>}
                           <div className="flex items-center space-x-3 mt-1">
-                            <span className="text-gray-500 text-sm">{tr(rec.university || 'Best match university')}</span>
+                            <span className="text-gray-600 text-sm">{tr(degreeUniversitySummary(rec))}</span>
                             {tr(rec.universityType && (
                               <span className={`text-xs px-2 py-0.5 rounded-full font-medium border ${rec.universityType === 'Government' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-purple-50 text-purple-700 border-purple-200'}`}>{tr(rec.universityType)}</span>
                             ))}
@@ -396,14 +347,8 @@ export default function DreamDegreeResults({ studentData, backendResults, backwa
                           <div className={`text-3xl font-bold ${getScoreColor(rec.probability || rec.overall_score)}`}>
                             {tr(((rec.probability || rec.overall_score || 0) * 100).toFixed(0))}%
                           </div>
-                          <p className="text-gray-400 text-xs uppercase tracking-wider font-semibold">{tr("Confidence")}</p>
+                          <p className="text-gray-400 text-xs uppercase tracking-wider font-semibold">{tr("Suitability")}</p>
                         </div>
-                        {tr(rec.admissionProbability && (
-                          <div className="text-center px-4 py-2 rounded-xl bg-blue-50 border border-blue-200">
-                            <div className="text-xl font-bold text-blue-600">{tr(rec.admissionProbability)}</div>
-                            <p className="text-xs text-blue-400">{tr("Admission")}</p>
-                          </div>
-                        ))}
                       </div>
                     </div>
 
@@ -418,23 +363,30 @@ export default function DreamDegreeResults({ studentData, backendResults, backwa
                         ].map(({ key, label, colors, single }) => {
                           const data = rec[key];
                           if (!data) return null;
-                          const pct = single
-                            ? data[single] * 100
-                            : Object.values(data).reduce((a, b) => a + b, 0) / Object.values(data).length * 100;
+                          const values = Object.values(data).filter(Number.isFinite);
+                          const value = single ? data[single] : values.length ? values.reduce((a, b) => a + b, 0) / values.length : null;
+                          const pct = Number.isFinite(value) ? value * 100 : null;
                           return (
                             <div key={key}>
                               <div className="flex justify-between mb-1">
                                 <span className="text-gray-400 text-xs font-medium">{tr(label)}</span>
-                                <span className="text-gray-700 text-xs font-bold">{tr(pct.toFixed(0))}%</span>
+                                <span className="text-gray-700 text-xs font-bold">{pct == null ? tr('Not assessed') : `${pct.toFixed(0)}%`}</span>
                               </div>
                               <div className="h-2.5 bg-gray-100 rounded-full overflow-hidden">
-                                <div className={`h-full bg-gradient-to-r ${colors} rounded-full transition-all duration-1000`} style={{ width: `${pct}%` }} />
+                                <div className={`h-full bg-gradient-to-r ${colors} rounded-full transition-all duration-1000`} style={{ width: `${pct ?? 0}%` }} />
                               </div>
                             </div>
                           );
                         }))}
                       </div>
                     </div>
+
+                    <DegreeUniversityOptions
+                      recommendation={rec}
+                      studentDistrict={selectedDistrict}
+                      onViewUniversities={() => { setUniversityDegree(rec.degree); setActiveTab('universities'); }}
+                      onViewMap={universityName => { setUniversityDegree(rec.degree); setMapUniversity(universityName); setActiveTab('map'); }}
+                    />
 
                     {/* Expandable Details */}
                     <div className="border-t border-gray-100">
@@ -448,6 +400,7 @@ export default function DreamDegreeResults({ studentData, backendResults, backwa
 
                       {tr(expandedCard === index && (
                         <div className="px-6 pb-6 space-y-5">
+                          <ScoreEvidence recommendation={rec} />
                           {tr(rec.explanation && (
                             <div className="bg-blue-50/70 border border-blue-200 rounded-xl p-5">
                               <h4 className="text-blue-700 font-semibold mb-2 flex items-center space-x-2">
@@ -464,16 +417,16 @@ export default function DreamDegreeResults({ studentData, backendResults, backwa
                               <div className="grid grid-cols-3 gap-4">
                                 <div className="text-center">
                                   <p className="text-gray-400 text-xs mb-1">{tr("Z-Score Fit")}</p>
-                                  <p className={`text-xl font-bold ${getScoreColor(rec.academic_feasibility.z_score_feasibility)}`}>{tr((rec.academic_feasibility.z_score_feasibility * 100).toFixed(0))}%</p>
+                                  <p className={`text-xl font-bold ${getScoreColor(rec.academic_feasibility.z_score_feasibility)}`}>{Number.isFinite(rec.academic_feasibility.z_score_feasibility) ? `${Math.round(rec.academic_feasibility.z_score_feasibility * 100)}%` : tr('Not assessed')}</p>
                                 </div>
                                 <div className="text-center">
                                   <p className="text-gray-400 text-xs mb-1">{tr("District Adj.")}</p>
-                                  <p className="text-xl font-bold text-blue-600">{tr((rec.academic_feasibility.district_adjustment * 100).toFixed(0))}%</p>
+                                  <p className="text-xl font-bold text-blue-600">{Number.isFinite(rec.academic_feasibility.district_adjustment) ? `${Math.round(rec.academic_feasibility.district_adjustment * 100)}%` : tr('Not assessed')}</p>
                                 </div>
                                 <div className="text-center">
                                   <p className="text-gray-400 text-xs mb-1">{tr("Z-Score Gap")}</p>
                                   <p className={`text-xl font-bold ${rec.academic_feasibility.threshold_gap <= 0 ? 'text-emerald-600' : 'text-amber-600'}`}>
-                                    {tr(rec.academic_feasibility.threshold_gap <= 0 ? '+' : '-')}{tr(Math.abs(rec.academic_feasibility.threshold_gap).toFixed(2))}
+                                    {Number.isFinite(rec.academic_feasibility.threshold_gap) ? rec.academic_feasibility.threshold_gap.toFixed(2) : tr('Not assessed')}
                                   </p>
                                 </div>
                               </div>
@@ -532,7 +485,8 @@ export default function DreamDegreeResults({ studentData, backendResults, backwa
           {tr(activeTab === 'universities' && (
             <div className="space-y-8">
               <div className="res-card rounded-xl p-4 border border-blue-100">
-                <p className="text-gray-600 text-sm">{tr("Click the")}<span className="text-amber-500 font-semibold">{tr("star")}</span>{tr("icon on any university to add it to your")}<span className="text-amber-600 font-semibold">{tr("Preferred")}</span>{tr("list. Your Z-Score (")}<span className="text-gray-900 font-bold">{tr(studentZScore)}</span>{tr(") is compared against each program's cutoff mark.")}</p>
+                {selectedDegreeRecommendation && <><h2 className="text-lg font-semibold text-slate-900">{tr('University options')} · {tr(selectedDegreeRecommendation.degree)}</h2><p className="text-sm text-slate-700 mt-2 mb-3">{tr(degreeUniversitySummary(selectedDegreeRecommendation))}</p></>}
+                <p className="text-gray-600 text-sm">{tr('Save universities using the star. Stored cutoff comparisons apply only to central admission references; private and independent entry requirements need institution verification.')}</p>
               </div>
 
               {tr(governmentUnis.length > 0 && (
@@ -540,11 +494,16 @@ export default function DreamDegreeResults({ studentData, backendResults, backwa
                   <div className="flex items-center space-x-3 mb-4">
                     <div className="w-3 h-3 bg-emerald-500 rounded-full" />
                     <h2 className="text-xl font-bold text-gray-900">{tr("Government Universities")}</h2>
-                    <span className="text-emerald-600 text-sm font-medium">({tr(governmentUnis.length)}{tr("matches)")}</span>
+                    <span className="text-slate-600 text-sm font-medium">({governmentUnis.length} {tr('institutions listed')})</span>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {tr(governmentUnis.map((uni) => renderUniCard(uni, true)))}
+                    {governmentGroups.options.map(uni => renderUniCard(uni, true))}
                   </div>
+                  {governmentGroups.gaps.length > 0 && <details className="mt-4 rounded-xl border border-amber-200 p-4">
+                    <summary className="cursor-pointer text-sm font-semibold text-amber-900">{tr('Universities with entry gaps')} ({governmentGroups.gaps.length})</summary>
+                    <p className="text-xs text-slate-600 mt-2">{tr('These options are below a stored cutoff or have unmet subject requirements. Review the gaps before applying.')}</p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">{governmentGroups.gaps.map(uni => renderUniCard(uni, true))}</div>
+                  </details>}
                 </div>
               ))}
 
@@ -553,10 +512,10 @@ export default function DreamDegreeResults({ studentData, backendResults, backwa
                   <div className="flex items-center space-x-3 mb-4">
                     <div className="w-3 h-3 bg-purple-500 rounded-full" />
                     <h2 className="text-xl font-bold text-gray-900">{tr("Private Universities")}</h2>
-                    <span className="text-purple-600 text-sm font-medium">({tr(privateUnis.length)}{tr("matches)")}</span>
+                    <span className="text-slate-600 text-sm font-medium">({privateUnis.length} {tr('institutions listed')})</span>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {tr(privateUnis.map((uni) => renderUniCard(uni, false)))}
+                    {privateUnis.map(uni => renderUniCard(uni, false))}
                   </div>
                 </div>
               ))}
@@ -567,20 +526,17 @@ export default function DreamDegreeResults({ studentData, backendResults, backwa
             </div>
           ))}
 
+
           {/* ===== MAP VIEW ===== */}
           {tr(activeTab === 'map' && (
             <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-                  <span className="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center"><svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" /></svg></span>{tr("University Locations")}</h2>
-                <span className="text-gray-400 text-sm">{tr(allUnis.length)}{tr("universities recommended")}</span>
-              </div>
+              <h2 className="text-xl font-semibold text-slate-900">{tr('Recommended university route')}{mapTarget.degree && <> · {tr(mapTarget.degree)}</>}</h2>
               <Suspense fallback={
                 <div className="flex items-center justify-center h-96 res-card-strong rounded-2xl">
                   <div className="text-center"><div className="w-10 h-10 border-2 border-blue-400 border-t-transparent rounded-full animate-spin mx-auto mb-3" /><p className="text-gray-400 text-sm">{tr("Loading map...")}</p></div>
                 </div>
               }>
-                <UniversityMap universities={allUnis} preferredUnis={preferredUnis} />
+                {mapTarget.university ? <UniversityMap key={`${mapTarget.degree}:${mapTarget.university.name}`} universities={[mapTarget.university]} preferredUnis={preferredUnis} studentDistrict={selectedDistrict} recommendedUniversity={mapTarget.university.name} recommendationOnly /> : <p className="res-card rounded-xl p-5 text-sm text-slate-600">{tr('Choose View on map from a university in your recommendation results.')}</p>}
               </Suspense>
             </div>
           ))}
@@ -611,7 +567,7 @@ export default function DreamDegreeResults({ studentData, backendResults, backwa
                         <tr className="border-b border-gray-200">
                           <th className="text-left text-gray-400 pb-3 font-semibold">{tr("University")}</th>
                           <th className="text-center text-gray-400 pb-3 font-semibold">{tr("Type")}</th>
-                          <th className="text-center text-gray-400 pb-3 font-semibold">{tr("Admission %")}</th>
+                          <th className="text-center text-gray-400 pb-3 font-semibold">{tr("Readiness %")}</th>
                           <th className="text-center text-gray-400 pb-3 font-semibold">{tr("Cutoff (")}{tr(bestDegree)})</th>
                           <th className="text-center text-gray-400 pb-3 font-semibold">{tr("Your Z-Score")}</th>
                           <th className="text-center text-gray-400 pb-3 font-semibold">{tr("Status")}</th>
@@ -627,7 +583,7 @@ export default function DreamDegreeResults({ studentData, backendResults, backwa
                               <td className="py-3 text-center">
                                 <span className={`text-xs px-2 py-0.5 rounded-full font-medium border ${uni.type === 'Government' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-purple-50 text-purple-700 border-purple-200'}`}>{tr(uni.type)}</span>
                               </td>
-                              <td className="py-3 text-center text-gray-900 font-bold">{tr(uni.admission_probability ? `${(uni.admission_probability * 100).toFixed(0)}%` : 'N/A')}</td>
+                              <td className="py-3 text-center text-gray-900 font-bold">{tr(Number.isFinite(uni.readiness_score) ? `${(uni.readiness_score * 100).toFixed(0)}%` : 'N/A')}</td>
                               <td className="py-3 text-center font-mono text-gray-500">{tr(cutoff)}</td>
                               <td className="py-3 text-center font-mono text-gray-900 font-bold">{tr(studentZScore)}</td>
                               <td className="py-3 text-center"><span className={`text-xs px-2 py-1 rounded-full font-medium border ${status.color}`}>{tr(status.icon)} {tr(status.label)}</span></td>
@@ -674,12 +630,7 @@ export default function DreamDegreeResults({ studentData, backendResults, backwa
                         <p className="text-gray-700 text-sm">{tr(typeof backwardData.required_education === 'string' ? backwardData.required_education : JSON.stringify(backwardData.required_education))}</p>
                       </div>
                     ))}
-                    {tr(backwardData.career_path && (
-                      <div className="bg-purple-50/60 rounded-xl p-4 border border-purple-100 md:col-span-2">
-                        <h3 className="text-purple-600 font-semibold mb-3 text-xs uppercase tracking-wider">{tr("Future Path")}</h3>
-                        <p className="text-gray-700 text-sm">{tr(backwardData.career_path)}</p>
-                      </div>
-                    ))}
+                    <FutureCareerPath analysis={backwardData} career={studentData.dreamJob} />
                     {tr(backwardData.industries && (
                       <div className="bg-orange-50/60 rounded-xl p-4 border border-orange-100">
                         <h3 className="text-orange-600 font-semibold mb-3 text-xs uppercase tracking-wider">{tr("Industries")}</h3>

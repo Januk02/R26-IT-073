@@ -1,0 +1,305 @@
+{
+  "version": "state-universities-2026-10-campus-v2",
+  "checked_on": "2026-10-18",
+  "sources": [
+    "https://www.mohe.gov.lk/index.php?Itemid=222&govern_body_id=2&institute_type_id=1&lang=en&option=com_udm&view=university_details",
+    "https://www.ugc.ac.lk/downloads/admissions/Handbook_2025_26/student_handbook_english.pdf"
+  ],
+  "universities": [
+    {
+      "name": "University of Colombo",
+      "website": "https://cmb.ac.lk/",
+      "location": "Colombo",
+      "category": "ugc",
+      "aliases": []
+    },
+    {
+      "name": "University of Peradeniya",
+      "website": "https://pdn.ac.lk/",
+      "location": "Peradeniya",
+      "category": "ugc",
+      "aliases": []
+    },
+    {
+      "name": "University of Sri Jayewardenepura",
+      "website": "https://sjp.ac.lk/",
+      "location": "Nugegoda",
+      "category": "ugc",
+      "aliases": []
+    },
+    {
+      "name": "University of Kelaniya",
+      "website": "https://kln.ac.lk/",
+      "location": "Kelaniya",
+      "category": "ugc",
+      "aliases": []
+    },
+    {
+      "name": "University of Moratuwa",
+      "website": "https://uom.lk/",
+      "location": "Moratuwa",
+      "category": "ugc",
+      "aliases": []
+    },
+    {
+      "name": "University of Jaffna",
+      "website": "https://jfn.ac.lk/",
+      "location": "Jaffna",
+      "category": "ugc",
+      "aliases": []
+    },
+    {
+      "name": "University of Ruhuna",
+      "website": "https://ruh.ac.lk/",
+      "location": "Matara",
+      "category": "ugc",
+      "aliases": [
+        "Ruhuna University"
+      ]
+    },
+    {
+      "name": "Open University of Sri Lanka",
+      "website": "https://ou.ac.lk/",
+      "location": "Nawala",
+      "category": "ugc",
+      "aliases": [],
+      "admission_route": "institution_specific",
+      "coordinates": {
+        "lat": 6.888908,
+        "lon": 79.8810125
+      },
+      "study_areas": [
+        "IT",
+        "Computer Science",
+        "Engineering",
+        "Education",
+        "Nursing",
+        "Pharmacy",
+        "Law",
+        "Management",
+        "Bio Science",
+        "Mathematics",
+        "Social Sciences"
+      ],
+      "programme_source": "https://ou.ac.lk/quick-links/",
+      "coordinate_source": "https://www.openstreetmap.org/node/1144959788",
+      "coordinate_basis": "named_main_gate",
+      "coordinates_checked_on": "2026-10-18"
+    },
+    {
+      "name": "Eastern University, Sri Lanka",
+      "website": "https://esn.ac.lk/",
+      "location": "Vantharumoolai",
+      "category": "ugc",
+      "aliases": [
+        "Eastern University"
+      ],
+      "coordinates": {
+        "lat": 7.794436594383006,
+        "lon": 81.57682841477816
+      },
+      "coordinate_source": "https://www.esn.ac.lk/contact",
+      "coordinate_basis": "official_contact_map",
+      "coordinates_checked_on": "2026-10-18"
+    },
+    {
+      "name": "South Eastern University of Sri Lanka",
+      "website": "https://seu.ac.lk/",
+      "location": "Oluvil",
+      "category": "ugc",
+      "aliases": [
+        "South Eastern University"
+      ]
+    },
+    {
+      "name": "Rajarata University of Sri Lanka",
+      "website": "https://rjt.ac.lk/",
+      "location": "Mihintale",
+      "category": "ugc",
+      "aliases": [
+        "Rajarata University"
+      ],
+      "coordinates": {
+        "lat": 8.3585569,
+        "lon": 80.5058168
+      },
+      "coordinate_source": "https://www.openstreetmap.org/node/5519614221",
+      "coordinate_basis": "Mihintale campus; cross-checked with https://www.rjt.ac.lk/site-map-of-the-university/",
+      "coordinates_checked_on": "2026-10-18"
+    },
+    {
+      "name": "Sabaragamuwa University of Sri Lanka",
+      "website": "https://sab.ac.lk/",
+      "location": "Belihuloya",
+      "category": "ugc",
+      "aliases": [
+        "Sabaragamuwa University"
+      ]
+    },
+    {
+      "name": "Wayamba University of Sri Lanka",
+      "website": "https://wyb.ac.lk/",
+      "location": "Kuliyapitiya",
+      "category": "ugc",
+      "aliases": [
+        "Wayamba University"
+      ]
+    },
+    {
+      "name": "Uva Wellassa University",
+      "website": "https://uwu.ac.lk/",
+      "location": "Badulla",
+      "category": "ugc",
+      "aliases": []
+    },
+    {
+      "name": "University of the Visual and Performing Arts",
+      "website": "https://vpa.ac.lk/",
+      "location": "Colombo",
+      "category": "ugc",
+      "aliases": [
+        "University of Visual and Performing Arts"
+      ]
+    },
+    {
+      "name": "Gampaha Wickramarachchi University of Indigenous Medicine",
+      "website": "https://gwu.ac.lk/",
+      "location": "Yakkala",
+      "category": "ugc",
+      "aliases": [],
+      "coordinates": {
+        "lat": 7.0903,
+        "lon": 80.0368
+      },
+      "study_areas": [
+        "Indigenous Medicine",
+        "Management",
+        "Social Sciences",
+        "IT"
+      ],
+      "programme_source": "https://gwu.ac.lk/index.php/undergraduate",
+      "coordinate_source": "https://www.wikidata.org/wiki/Q24952196",
+      "coordinate_basis": "campus_reference",
+      "coordinates_checked_on": "2026-10-18"
+    },
+    {
+      "name": "University of Vavuniya",
+      "website": "https://vau.ac.lk/",
+      "location": "Pampaimadu, Vavuniya",
+      "category": "ugc",
+      "aliases": [],
+      "coordinates": {
+        "lat": 8.7586625,
+        "lon": 80.410703125
+      },
+      "study_areas": [
+        "IT",
+        "Computer Science",
+        "Business",
+        "Management",
+        "Applied Science"
+      ],
+      "programme_source": "https://www.vau.ac.lk/deans-of-the-faculties/",
+      "coordinate_source": "https://www.vau.ac.lk/contact-us/",
+      "coordinate_basis": "official_contact_plus_code_6MW2QC56+F78",
+      "coordinates_checked_on": "2026-10-18"
+    },
+    {
+      "name": "General Sir John Kotelawala Defence University",
+      "website": "https://kdu.ac.lk/",
+      "location": "Ratmalana",
+      "category": "other_state",
+      "aliases": [],
+      "coordinates": {
+        "lat": 6.8183363757793485,
+        "lon": 79.89054718209303
+      },
+      "coordinate_source": "https://kdu.ac.lk/international-relations/maps-and-travel/",
+      "coordinate_basis": "official_campus_map",
+      "coordinates_checked_on": "2026-10-18"
+    },
+    {
+      "name": "Buddhist and Pali University of Sri Lanka",
+      "website": "https://bpu.ac.lk/",
+      "location": "Homagama",
+      "category": "other_state",
+      "aliases": [
+        "University of Buddhist and Pali"
+      ],
+      "coordinates": {
+        "lat": 6.8451942,
+        "lon": 80.0245233
+      },
+      "study_areas": [
+        "Buddhist Studies",
+        "Pali",
+        "Philosophy",
+        "Arts"
+      ],
+      "coordinate_source": "https://bpu.ac.lk/contacts/",
+      "coordinate_basis": "official_contact_map",
+      "coordinates_checked_on": "2026-10-18"
+    },
+    {
+      "name": "Bhiksu University of Sri Lanka",
+      "website": "https://busl.ac.lk/",
+      "location": "Anuradhapura",
+      "category": "other_state",
+      "aliases": [],
+      "coordinates": {
+        "lat": 8.322107964428975,
+        "lon": 80.38993262162813
+      },
+      "study_areas": [
+        "Buddhist Studies",
+        "Pali",
+        "Arts"
+      ],
+      "coordinate_source": "https://busl.ac.lk/contact/",
+      "coordinate_basis": "official_contact_map",
+      "coordinates_checked_on": "2026-10-18"
+    },
+    {
+      "name": "University of Vocational Technology",
+      "website": "https://uovt.ac.lk/",
+      "location": "Ratmalana",
+      "category": "other_state",
+      "aliases": [],
+      "coordinates": {
+        "lat": 6.8202585,
+        "lon": 79.8934473
+      },
+      "study_areas": [
+        "IT",
+        "Engineering Technology",
+        "Education"
+      ],
+      "programme_source": "https://univotec.ac.lk/wp-content/uploads/2015/12/Hand-Book-2019-1.pdf",
+      "coordinate_source": "https://uovt.ac.lk/en/contact",
+      "coordinate_basis": "official_contact_map",
+      "coordinates_checked_on": "2026-10-18"
+    },
+    {
+      "name": "Ocean University of Sri Lanka",
+      "website": "https://ocu.ac.lk/",
+      "location": "Mattakkuliya, Colombo",
+      "category": "other_state",
+      "aliases": [],
+      "coordinates": {
+        "lat": 6.9750796,
+        "lon": 79.8719043
+      },
+      "study_areas": [
+        "Marine Engineering",
+        "Marine Science",
+        "Oceanography",
+        "Logistics",
+        "Marine Biotechnology"
+      ],
+      "programme_source": "https://ocu.ac.lk/internal-bachelors-degree-programs/",
+      "coordinate_source": "https://www.openstreetmap.org/node/10650976347",
+      "coordinate_basis": "campus_map_point",
+      "coordinates_checked_on": "2026-10-18"
+    }
+  ]
+}

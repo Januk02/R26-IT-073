@@ -1,0 +1,3015 @@
+{
+  "version": "career-pathways-2026-10-v1",
+  "reviewedOn": "2026-10-17",
+  "scope": "Curated career-planning pathways. Not live vacancies, labour-market predictions, professional eligibility, or guaranteed international recognition.",
+  "sources": [
+    {
+      "title": "UGC admission subject guidance",
+      "url": "https://www.ugc.ac.lk/downloads/admissions/Handbook_2025_26/student_handbook_english.pdf",
+      "scope": "Sri Lankan state-university prerequisites; only the implemented checks apply."
+    },
+    {
+      "title": "TVEC training provider and course information",
+      "url": "https://www.tvec.gov.lk/",
+      "scope": "Verify the actual vocational provider, course accreditation and award."
+    },
+    {
+      "title": "CareerOneStop occupation profiles",
+      "url": "https://www.careeronestop.org/ExploreCareers/Learn/career-profiles.aspx",
+      "scope": "United States occupation information; not Sri Lankan demand or worldwide licensing rules."
+    }
+  ],
+  "copy": {
+    "entry": {
+      "en": "Check entry requirements",
+      "si": "ඇතුළත් වීමේ අවශ්‍යතා පරීක්ෂා කරන්න",
+      "ta": "சேர்க்கைத் தேவைகளைச் சரிபார்க்கவும்"
+    },
+    "qualification": {
+      "en": "Choose a recognised qualification or training route",
+      "si": "පිළිගත් සුදුසුකම් හෝ පුහුණු මාර්ගයක් තෝරන්න",
+      "ta": "அங்கீகரிக்கப்பட்ட தகுதி அல்லது பயிற்சிப் பாதையைத் தேர்ந்தெடுக்கவும்"
+    },
+    "foundation": {
+      "en": "Build the core skills",
+      "si": "මූලික කුසලතා ගොඩනඟන්න",
+      "ta": "அடிப்படைத் திறன்களை வளர்த்துக்கொள்ளுங்கள்"
+    },
+    "practice": {
+      "en": "Demonstrate practical ability",
+      "si": "ප්‍රායෝගික හැකියාව පෙන්වන්න",
+      "ta": "நடைமுறைத் திறனை வெளிப்படுத்துங்கள்"
+    },
+    "experience": {
+      "en": "Gain supervised experience",
+      "si": "අධීක්ෂිත අත්දැකීම් ලබා ගන්න",
+      "ta": "மேற்பார்வையிட்ட அனுபவத்தைப் பெறுங்கள்"
+    },
+    "market": {
+      "en": "Prepare for local or international applications",
+      "si": "දේශීය හෝ ජාත්‍යන්තර අයදුම් සඳහා සූදානම් වන්න",
+      "ta": "உள்ளூர் அல்லது சர்வதேச விண்ணப்பங்களுக்குத் தயாராகுங்கள்"
+    },
+    "entryDetail": {
+      "en": "Review your subjects, grades and the actual entry criteria of the chosen provider.",
+      "si": "ඔබේ විෂයයන්, සාමාර්ථ සහ තෝරාගත් ආයතනයේ සැබෑ ඇතුළත් වීමේ නිර්ණායක පරීක්ෂා කරන්න.",
+      "ta": "உங்கள் பாடங்கள், சித்திகள் மற்றும் தேர்ந்தெடுத்த நிறுவனத்தின் உண்மையான சேர்க்கைத் தகுதிகளைப் பரிசீலியுங்கள்."
+    },
+    "experienceDetail": {
+      "en": "Use internships, apprenticeships or supervised projects to obtain assessed feedback and references. Senior roles usually require relevant work experience.",
+      "si": "ඇගයූ ප්‍රතිචාර සහ නිර්දේශ ලබා ගැනීමට සීමාවාසික පුහුණුව, ආධුනික පුහුණුව හෝ අධීක්ෂිත ව්‍යාපෘති භාවිත කරන්න. ජ්‍යෙෂ්ඨ භූමිකා සඳහා සාමාන්‍යයෙන් අදාළ සේවා අත්දැකීම් අවශ්‍යයි.",
+      "ta": "மதிப்பீட்டுப் பின்னூட்டமும் பரிந்துரைகளும் பெறப் பணிப்பயிற்சி, தொழிற்பயிற்சி அல்லது மேற்பார்வையிட்ட திட்டங்களைப் பயன்படுத்துங்கள். மூத்த பதவிகளுக்கு பொதுவாகத் தொடர்புடைய பணி அனுபவம் தேவை."
+    },
+    "localAcademic": {
+      "en": "In Sri Lanka, check the awarding institution, qualification recognition and current course-specific admission requirements.",
+      "si": "ශ්‍රී ලංකාවේදී ප්‍රදානය කරන ආයතනය, සුදුසුකම පිළිගැනීම සහ වත්මන් පාඨමාලා ඇතුළත් වීමේ අවශ්‍යතා පරීක්ෂා කරන්න.",
+      "ta": "இலங்கையில் வழங்கும் நிறுவனம், தகுதி அங்கீகாரம் மற்றும் தற்போதைய பாடநெறிச் சேர்க்கைத் தேவைகளைச் சரிபார்க்கவும்."
+    },
+    "localVocational": {
+      "en": "In Sri Lanka, verify the training provider and the particular course with TVEC. Check the actual NVQ award and supervised training requirements.",
+      "si": "ශ්‍රී ලංකාවේදී පුහුණු ආයතනය සහ අදාළ පාඨමාලාව TVEC සමඟ තහවුරු කරන්න. සැබෑ NVQ ප්‍රදානය සහ අධීක්ෂිත පුහුණු අවශ්‍යතා පරීක්ෂා කරන්න.",
+      "ta": "இலங்கையில் பயிற்சி நிறுவனத்தையும் குறிப்பிட்ட பாடநெறியையும் TVEC மூலம் சரிபார்க்கவும். உண்மையான NVQ தகுதியையும் மேற்பார்வைப் பயிற்சித் தேவைகளையும் உறுதிப்படுத்துங்கள்."
+    },
+    "global": {
+      "en": "For an international pathway, select a destination and verify qualification recognition, language, registration and work-authorisation requirements. Local recognition does not automatically transfer abroad.",
+      "si": "ජාත්‍යන්තර මාර්ගයක් සඳහා ගමනාන්තයක් තෝරා සුදුසුකම් පිළිගැනීම, භාෂා, ලියාපදිංචි සහ වැඩ අවසර අවශ්‍යතා තහවුරු කරන්න. දේශීය පිළිගැනීම ස්වයංක්‍රීයව විදේශයට අදාළ නොවේ.",
+      "ta": "சர்வதேசப் பாதைக்கு ஒரு நாட்டைத் தேர்ந்தெடுத்து தகுதி அங்கீகாரம், மொழி, பதிவு மற்றும் பணி அனுமதித் தேவைகளைச் சரிபார்க்கவும். உள்ளூர் அங்கீகாரம் தானாக வெளிநாட்டிற்குப் பொருந்தாது."
+    },
+    "qualificationDetail": {
+      "en": "Compare the curriculum and practical assessment with the skills of this role. Verify professional or specialist requirements before enrolling.",
+      "si": "විෂය නිර්දේශය සහ ප්‍රායෝගික ඇගයීම මෙම භූමිකාවේ කුසලතා සමඟ සසඳන්න. ලියාපදිංචි වීමට පෙර වෘත්තීය හෝ විශේෂ අවශ්‍යතා තහවුරු කරන්න.",
+      "ta": "பாடத்திட்டத்தையும் நடைமுறை மதிப்பீட்டையும் இந்தப் பணியின் திறன்களுடன் ஒப்பிடுங்கள். சேர்வதற்கு முன் தொழில்சார் அல்லது சிறப்புத் தேவைகளை உறுதிப்படுத்துங்கள்."
+    },
+    "academicRoute": {
+      "en": "A relevant recognised degree, with role-specific training and practical evidence.",
+      "si": "අදාළ පිළිගත් උපාධියක් සමඟ භූමිකාවට විශේෂිත පුහුණුව සහ ප්‍රායෝගික සාක්ෂි.",
+      "ta": "பணி சார்ந்த பயிற்சியும் நடைமுறை ஆதாரங்களும் கொண்ட தொடர்புடைய அங்கீகரிக்கப்பட்ட பட்டப்படிப்பு."
+    },
+    "vocationalRoute": {
+      "en": "A relevant recognised vocational qualification or apprenticeship, with supervised practical assessment.",
+      "si": "අධීක්ෂිත ප්‍රායෝගික ඇගයීම සහිත අදාළ පිළිගත් වෘත්තීය සුදුසුකමක් හෝ ආධුනික පුහුණුවක්.",
+      "ta": "மேற்பார்வையிட்ட நடைமுறை மதிப்பீட்டுடன் தொடர்புடைய அங்கீகரிக்கப்பட்ட தொழிற்தகுதி அல்லது தொழிற்பயிற்சி."
+    },
+    "specialistRoute": {
+      "en": "A specialist qualification in the target field, with relevant practical training. The listed broad degrees are related foundations, not equivalent specialist qualifications.",
+      "si": "ඉලක්ක ක්ෂේත්‍රයේ විශේෂ සුදුසුකමක් සහ අදාළ ප්‍රායෝගික පුහුණුව. ලැයිස්තුගත පුළුල් උපාධි සම්බන්ධිත පදනම් මිස සමාන විශේෂ සුදුසුකම් නොවේ.",
+      "ta": "இலக்குத் துறையில் சிறப்புத் தகுதியும் தொடர்புடைய நடைமுறைப் பயிற்சியும் தேவை. பட்டியலிட்ட பொதுப் பட்டங்கள் தொடர்புடைய அடிப்படைகள்; சமமான சிறப்புத் தகுதிகள் அல்ல."
+    },
+    "professionalRoute": {
+      "en": "A profession-specific recognised qualification, supervised training and any required registration. A related general degree does not establish professional eligibility.",
+      "si": "වෘත්තියට විශේෂිත පිළිගත් සුදුසුකමක්, අධීක්ෂිත පුහුණුව සහ අවශ්‍ය ලියාපදිංචිය. සම්බන්ධිත සාමාන්‍ය උපාධියක් වෘත්තීය සුදුසුකම තහවුරු නොකරයි.",
+      "ta": "தொழிலுக்குரிய அங்கீகரிக்கப்பட்ட தகுதி, மேற்பார்வைப் பயிற்சி மற்றும் தேவையான பதிவுகள். தொடர்புடைய பொதுப் பட்டம் தொழில்சார் தகுதியை உறுதிப்படுத்தாது."
+    }
+  },
+  "foundations": {
+    "digital": {
+      "en": "Build programming, data and system foundations through practical exercises.",
+      "si": "ප්‍රායෝගික අභ්‍යාස මඟින් ක්‍රමලේඛන, දත්ත සහ පද්ධති පදනම ගොඩනඟන්න.",
+      "ta": "நடைமுறைப் பயிற்சிகளால் நிரலாக்கம், தரவு மற்றும் அமைப்பு அடிப்படைகளை வளர்த்துக்கொள்ளுங்கள்."
+    },
+    "business": {
+      "en": "Build spreadsheet, process analysis and business communication skills.",
+      "si": "පැතුරුම්පත්, ක්‍රියාවලි විශ්ලේෂණ සහ ව්‍යාපාර සන්නිවේදන කුසලතා ගොඩනඟන්න.",
+      "ta": "விரிதாள், செயல்முறைப் பகுப்பாய்வு மற்றும் வணிகத் தகவல்தொடர்புத் திறன்களை வளர்த்துக்கொள்ளுங்கள்."
+    },
+    "hospitality": {
+      "en": "Practise customer communication, service operations and responsible tourism.",
+      "si": "පාරිභෝගික සන්නිවේදනය, සේවා මෙහෙයුම් සහ වගකීම් සහිත සංචාරක ක්‍රම පුහුණු වන්න.",
+      "ta": "வாடிக்கையாளர் தொடர்பு, சேவை நடவடிக்கைகள் மற்றும் பொறுப்பான சுற்றுலாவைப் பயிற்சி செய்யுங்கள்."
+    },
+    "trades": {
+      "en": "Learn workshop safety, technical drawings and supervised practical procedures.",
+      "si": "වැඩමුළු ආරක්ෂාව, තාක්ෂණික ඇඳීම් සහ අධීක්ෂිත ප්‍රායෝගික ක්‍රම ඉගෙන ගන්න.",
+      "ta": "பட்டறைப் பாதுகாப்பு, தொழில்நுட்ப வரைபடங்கள் மற்றும் மேற்பார்வையிட்ட நடைமுறைகளைக் கற்றுக்கொள்ளுங்கள்."
+    },
+    "engineering": {
+      "en": "Build the relevant mathematics, design and safety foundations under qualified supervision.",
+      "si": "සුදුසුකම් ලත් අධීක්ෂණය යටතේ අදාළ ගණිත, සැලසුම් සහ ආරක්ෂක පදනම ගොඩනඟන්න.",
+      "ta": "தகுதியான மேற்பார்வையில் தொடர்புடைய கணிதம், வடிவமைப்பு மற்றும் பாதுகாப்பு அடிப்படைகளை வளர்த்துக்கொள்ளுங்கள்."
+    },
+    "science": {
+      "en": "Practise scientific methods, safe sampling and reliable measurement.",
+      "si": "විද්‍යාත්මක ක්‍රම, ආරක්ෂිත නියැදි ගැනීම සහ විශ්වාසනීය මිනුම් පුහුණු වන්න.",
+      "ta": "விஞ்ஞான முறைகள், பாதுகாப்பான மாதிரி சேகரிப்பு மற்றும் நம்பகமான அளவீடுகளைப் பயிற்சி செய்யுங்கள்."
+    },
+    "design": {
+      "en": "Develop research, visual communication and accessible design through critique.",
+      "si": "සමාලෝචන මඟින් පර්යේෂණ, දෘශ්‍ය සන්නිවේදනය සහ ප්‍රවේශ විය හැකි සැලසුම් දියුණු කරන්න.",
+      "ta": "மதிப்பாய்வின் மூலம் ஆய்வு, காட்சித் தொடர்பு மற்றும் அணுகக்கூடிய வடிவமைப்பை வளர்த்துக்கொள்ளுங்கள்."
+    },
+    "professional": {
+      "en": "Study the discipline and complete only the supervised activities allowed at your training level.",
+      "si": "විෂය ක්ෂේත්‍රය හදාරා ඔබේ පුහුණු මට්ටමට අවසර ඇති අධීක්ෂිත ක්‍රියාකාරකම් පමණක් සම්පූර්ණ කරන්න.",
+      "ta": "துறையைக் கற்று உங்கள் பயிற்சி நிலைக்கு அனுமதிக்கப்பட்ட மேற்பார்வைப் பணிகளை மட்டும் பூர்த்தி செய்யுங்கள்."
+    }
+  },
+  "jobs": [
+    {
+      "id": 1,
+      "title": {
+        "en": "Software Engineer",
+        "si": "මෘදුකාංග ඉංජිනේරු",
+        "ta": "மென்பொருள் பொறியாளர்"
+      },
+      "category": "Technology",
+      "sector": "digital",
+      "description": {
+        "en": "Design, develop, and maintain software applications and systems. Work with programming languages like Python, Java, JavaScript to create solutions for businesses and consumers.",
+        "si": "ව්‍යාපාර සහ පාරිභෝගිකයන් සඳහා විසඳුම් සෑදීමට Python, Java සහ JavaScript වැනි භාෂා භාවිත කර මෘදුකාංග යෙදුම් සහ පද්ධති නිර්මාණය, සංවර්ධනය සහ නඩත්තු කරයි.",
+        "ta": "வணிகங்களுக்கும் பயனர்களுக்கும் தீர்வுகளை உருவாக்க Python, Java, JavaScript போன்ற மொழிகளைப் பயன்படுத்தி மென்பொருள் பயன்பாடுகளையும் அமைப்புகளையும் வடிவமைத்து உருவாக்கிப் பராமரிக்கிறார்."
+      },
+      "summary": {
+        "en": "Design, develop, and maintain software applications and systems.",
+        "si": "ව්‍යාපාර සහ පාරිභෝගිකයන් සඳහා විසඳුම් සෑදීමට Python, Java සහ JavaScript වැනි භාෂා භාවිත කර මෘදුකාංග යෙදුම් සහ පද්ධති නිර්මාණය, සංවර්ධනය සහ නඩත්තු කරයි.",
+        "ta": "வணிகங்களுக்கும் பயனர்களுக்கும் தீர்வுகளை உருவாக்க Python, Java, JavaScript போன்ற மொழிகளைப் பயன்படுத்தி மென்பொருள் பயன்பாடுகளையும் அமைப்புகளையும் வடிவமைத்து உருவாக்கிப் பராமரிக்கிறார்."
+      },
+      "aliases": [],
+      "routeType": "academic",
+      "qualification": {
+        "en": "A relevant recognised degree, with role-specific training and practical evidence.",
+        "si": "අදාළ පිළිගත් උපාධියක් සමඟ භූමිකාවට විශේෂිත පුහුණුව සහ ප්‍රායෝගික සාක්ෂි.",
+        "ta": "பணி சார்ந்த பயிற்சியும் நடைமுறை ஆதாரங்களும் கொண்ட தொடர்புடைய அங்கீகரிக்கப்பட்ட பட்டப்படிப்பு."
+      },
+      "degreePaths": {
+        "IT": 0.85,
+        "Computer Science": 0.9,
+        "Engineering": 0.4
+      },
+      "directDegrees": null,
+      "skillTargets": {
+        "programming": 0.9,
+        "logic": 0.85,
+        "problem_solving": 0.8,
+        "mathematics": 0.7
+      },
+      "project": {
+        "en": "Create assessed work demonstrating the key skills of Software Engineer.",
+        "si": "මෙම වෘත්තියේ ප්‍රධාන කුසලතා පෙන්වන ඇගයූ කාර්ය සාක්ෂි සකසන්න.",
+        "ta": "இந்தத் தொழிலின் முக்கியத் திறன்களை வெளிப்படுத்தும் மதிப்பிடப்பட்ட பணிச் சான்றுகளை உருவாக்குங்கள்."
+      },
+      "futurePathSteps": [
+        {
+          "id": "university",
+          "title": {
+            "en": "Choose a suitable degree and university",
+            "si": "සුදුසු උපාධියක් සහ විශ්වවිද්‍යාලයක් තෝරන්න",
+            "ta": "பொருத்தமான பட்டத்தையும் பல்கலைக்கழகத்தையும் தேர்ந்தெடுங்கள்"
+          },
+          "description": {
+            "en": "Explore Software Engineering, Computer Science or IT programmes. Compare your A/L subjects and results with entry requirements, including Z-score requirements where applicable. Consider course content, cost and location.",
+            "si": "මෘදුකාංග ඉංජිනේරු, පරිගණක විද්‍යා හෝ තොරතුරු තාක්ෂණ පාඨමාලා සලකා බලන්න. ඔබේ උසස් පෙළ විෂය හා ප්‍රතිඵල අදාළ Z අගය ඇතුළු ප්‍රවේශ අවශ්‍යතා සමඟ සසඳන්න. පාඨමාලා අන්තර්ගතය, වියදම සහ ස්ථානයද සලකා බලන්න.",
+            "ta": "மென்பொருள் பொறியியல், கணினி அறிவியல் அல்லது தகவல் தொழில்நுட்பப் பாடநெறிகளை ஆராயுங்கள். உங்கள் உயர்தரப் பாடங்களையும் பெறுபேறுகளையும் பொருந்தும் Z புள்ளி உட்பட சேர்க்கைத் தேவைகளுடன் ஒப்பிடுங்கள். பாட உள்ளடக்கம், செலவு மற்றும் இடத்தையும் கவனியுங்கள்."
+          }
+        },
+        {
+          "id": "skills",
+          "title": {
+            "en": "Build your programming foundation",
+            "si": "ක්‍රමලේඛන පදනම ගොඩනඟන්න",
+            "ta": "நிரலாக்க அடித்தளத்தை உருவாக்குங்கள்"
+          },
+          "description": {
+            "en": "During your studies, learn a programming language, problem-solving, data structures, databases, Git and software testing. Practise regularly by solving small, practical problems.",
+            "si": "අධ්‍යයනය කරන අතර ක්‍රමලේඛන භාෂාවක්, ගැටලු විසඳීම, දත්ත ව්‍යුහ, දත්ත සමුදා, Git සහ මෘදුකාංග පරීක්ෂණ ඉගෙන ගන්න. කුඩා ප්‍රායෝගික ගැටලු විසඳමින් නිතිපතා පුහුණු වන්න.",
+            "ta": "கல்வியுடன் ஒரு நிரலாக்க மொழி, சிக்கல் தீர்த்தல், தரவுக் கட்டமைப்புகள், தரவுத்தளங்கள், Git மற்றும் மென்பொருள் சோதனையைக் கற்றுக்கொள்ளுங்கள். சிறிய நடைமுறைச் சிக்கல்களைத் தீர்த்து தொடர்ந்து பயிற்சி செய்யுங்கள்."
+          }
+        },
+        {
+          "id": "portfolio",
+          "title": {
+            "en": "Create projects and a portfolio",
+            "si": "ව්‍යාපෘති සහ කාර්ය එකතුවක් සකසන්න",
+            "ta": "திட்டங்களையும் பணித்தொகுப்பையும் உருவாக்குங்கள்"
+          },
+          "description": {
+            "en": "Build useful applications and publish suitable code on GitHub. Explain what each project does, your contribution and the decisions you made. Prepare a clear CV and portfolio for internship applications.",
+            "si": "ප්‍රයෝජනවත් යෙදුම් සාදා සුදුසු කේත GitHub හි පළ කරන්න. සෑම ව්‍යාපෘතියකම කාර්යය, ඔබේ දායකත්වය සහ තීරණ පැහැදිලි කරන්න. සීමාවාසික අයදුම් සඳහා පැහැදිලි ජීව දත්ත පත්‍රයක් සහ කාර්ය එකතුවක් සකසන්න.",
+            "ta": "பயனுள்ள செயலிகளை உருவாக்கி பொருத்தமான நிரலை GitHub இல் வெளியிடுங்கள். ஒவ்வொரு திட்டத்தின் பயன், உங்கள் பங்களிப்பு மற்றும் முடிவுகளை விளக்குங்கள். பயிற்சிப் பணிக்கான தெளிவான சுயவிவரத்தையும் பணித்தொகுப்பையும் தயாரியுங்கள்."
+          }
+        },
+        {
+          "id": "internship",
+          "title": {
+            "en": "Apply for a software engineering internship",
+            "si": "මෘදුකාංග ඉංජිනේරු සීමාවාසික පුහුණුවකට අයදුම් කරන්න",
+            "ta": "மென்பொருள் பொறியியல் பயிற்சிப் பணிக்கு விண்ணப்பியுங்கள்"
+          },
+          "description": {
+            "en": "Apply when you meet the employer's requirements, often while studying. Gain practical experience with teamwork, code reviews, testing and delivering real features under guidance.",
+            "si": "බොහෝ විට අධ්‍යයනය කරන අතරතුර සේවායෝජක අවශ්‍යතා සපුරන විට අයදුම් කරන්න. මඟපෙන්වීම යටතේ කණ්ඩායම් වැඩ, කේත සමාලෝචන, පරීක්ෂණ සහ සැබෑ විශේෂාංග නිර්මාණය කිරීමේ අත්දැකීම් ලබාගන්න.",
+            "ta": "பெரும்பாலும் படிக்கும் காலத்திலேயே நிறுவனத் தேவைகளைப் பூர்த்தி செய்யும்போது விண்ணப்பியுங்கள். வழிகாட்டலுடன் குழுப்பணி, நிரல் மீளாய்வு, சோதனை மற்றும் உண்மையான அம்சங்களை வழங்குவதில் அனுபவம் பெறுங்கள்."
+          }
+        },
+        {
+          "id": "junior",
+          "title": {
+            "en": "Start as a Junior Software Engineer",
+            "si": "කනිෂ්ඨ මෘදුකාංග ඉංජිනේරුවකු ලෙස ආරම්භ කරන්න",
+            "ta": "இளநிலை மென்பொருள் பொறியாளராகத் தொடங்குங்கள்"
+          },
+          "description": {
+            "en": "Complete your qualification and apply for entry-level roles that match your skills. Develop features, fix bugs, write tests and learn from experienced engineers through mentoring and code reviews.",
+            "si": "ඔබේ සුදුසුකම සම්පූර්ණ කර කුසලතාවලට ගැළපෙන ආරම්භක රැකියා සඳහා අයදුම් කරන්න. විශේෂාංග නිර්මාණය, දෝෂ නිවැරදි කිරීම සහ පරීක්ෂණ ලිවීම කරමින් උපදේශනය හා කේත සමාලෝචන තුළින් පළපුරුදු ඉංජිනේරුවන්ගෙන් ඉගෙන ගන්න.",
+            "ta": "உங்கள் தகுதியை முடித்து திறன்களுக்குப் பொருந்தும் ஆரம்பநிலைப் பணிகளுக்கு விண்ணப்பியுங்கள். அம்சங்களை உருவாக்கி, பிழைகளைத் திருத்தி, சோதனைகளை எழுதி, வழிகாட்டல் மற்றும் நிரல் மீளாய்வு மூலம் அனுபவமுள்ள பொறியாளர்களிடம் கற்றுக்கொள்ளுங்கள்."
+          }
+        },
+        {
+          "id": "engineer",
+          "title": {
+            "en": "Progress to Software Engineer",
+            "si": "මෘදුකාංග ඉංජිනේරුවකු ලෙස ඉදිරියට යන්න",
+            "ta": "மென்பொருள் பொறியாளராக முன்னேறுங்கள்"
+          },
+          "description": {
+            "en": "Strengthen your technical skills and take ownership of features from requirements to deployment. Work reliably with your team, improve code quality and learn to make sound design decisions.",
+            "si": "තාක්ෂණික කුසලතා වර්ධනය කර අවශ්‍යතා හඳුනාගැනීමේ සිට යෙදවීම දක්වා විශේෂාංගවල වගකීම ගන්න. කණ්ඩායම සමඟ විශ්වාසදායකව කටයුතු කර කේත ගුණාත්මකභාවය සහ සැලසුම් තීරණ වැඩිදියුණු කරන්න.",
+            "ta": "தொழில்நுட்பத் திறன்களை வலுப்படுத்தி தேவைகள் முதல் வெளியீடு வரை அம்சங்களுக்குப் பொறுப்பேற்கவும். குழுவுடன் நம்பகமாகப் பணியாற்றி நிரல் தரத்தை மேம்படுத்தி சிறந்த வடிவமைப்பு முடிவுகளை எடுக்கக் கற்றுக்கொள்ளுங்கள்."
+          }
+        },
+        {
+          "id": "senior",
+          "title": {
+            "en": "Grow into a Senior Software Engineer",
+            "si": "ජ්‍යෙෂ්ඨ මෘදුකාංග ඉංජිනේරුවකු ලෙස වර්ධනය වන්න",
+            "ta": "மூத்த மென்பொருள் பொறியாளராக வளருங்கள்"
+          },
+          "description": {
+            "en": "Develop system-design, security and performance skills. Lead larger technical tasks, mentor colleagues and take responsibility for reliable delivery. Progression depends on demonstrated ability, experience and employer expectations.",
+            "si": "පද්ධති සැලසුම්, ආරක්ෂාව සහ කාර්යසාධන කුසලතා වර්ධනය කරන්න. විශාල තාක්ෂණික කාර්යයන් මෙහෙයවා සගයන්ට මඟපෙන්වා විශ්වාසදායක ප්‍රතිඵල සඳහා වගකීම ගන්න. ප්‍රගතිය පෙන්වන හැකියාව, අත්දැකීම් සහ සේවායෝජක අපේක්ෂා මත රඳා පවතී.",
+            "ta": "கட்டமைப்பு வடிவமைப்பு, பாதுகாப்பு மற்றும் செயல்திறன் திறன்களை வளர்த்துக்கொள்ளுங்கள். பெரிய தொழில்நுட்பப் பணிகளை வழிநடத்தி சக ஊழியர்களுக்கு வழிகாட்டி நம்பகமான வழங்கலுக்குப் பொறுப்பேற்கவும். முன்னேற்றம் நிரூபிக்கப்பட்ட திறன், அனுபவம் மற்றும் நிறுவன எதிர்பார்ப்புகளைச் சாரும்."
+          }
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": {
+        "en": "Doctor",
+        "si": "වෛද්‍යවරයා",
+        "ta": "மருத்துவர்"
+      },
+      "category": "Healthcare",
+      "sector": "professional",
+      "description": {
+        "en": "Diagnose and treat illnesses, provide medical care to patients, and promote health and wellness. Specialize in areas like surgery, pediatrics, or internal medicine.",
+        "si": "රෝග හඳුනාගෙන ප්‍රතිකාර කරයි, රෝගීන්ට වෛද්‍ය සේවා සපයයි සහ සෞඛ්‍යය ප්‍රවර්ධනය කරයි. ශල්‍යකර්ම, ළමා රෝග හෝ අභ්‍යන්තර වෛද්‍ය විද්‍යාව වැනි ක්ෂේත්‍රවල විශේෂීකරණය කළ හැක.",
+        "ta": "நோய்களைக் கண்டறிந்து சிகிச்சை அளிக்கிறார், நோயாளிகளுக்கு மருத்துவப் பராமரிப்பை வழங்கி நலனை மேம்படுத்துகிறார். அறுவைச் சிகிச்சை, குழந்தை மருத்துவம் அல்லது உள்மருத்துவம் போன்ற துறைகளில் சிறப்புத் தேர்ச்சி பெறலாம்."
+      },
+      "summary": {
+        "en": "Diagnose and treat illnesses, provide medical care to patients, and promote health and wellness.",
+        "si": "රෝග හඳුනාගෙන ප්‍රතිකාර කරයි, රෝගීන්ට වෛද්‍ය සේවා සපයයි සහ සෞඛ්‍යය ප්‍රවර්ධනය කරයි.",
+        "ta": "நோய்களைக் கண்டறிந்து சிகிச்சை அளிக்கிறார், நோயாளிகளுக்கு மருத்துவப் பராமரிப்பை வழங்கி நலனை மேம்படுத்துகிறார்."
+      },
+      "aliases": [],
+      "routeType": "professional",
+      "qualification": {
+        "en": "Complete an SLMC-recognised medical degree (MBBS or accepted equivalent), obtain provisional registration, complete the approved internship and obtain full SLMC registration to practise in Sri Lanka.",
+        "si": "SLMC පිළිගත් වෛද්‍ය උපාධියක් (MBBS හෝ පිළිගත් සමාන සුදුසුකමක්) සම්පූර්ණ කර, තාවකාලික ලියාපදිංචිය ලබා, අනුමත සීමාවාසික පුහුණුවෙන් පසු ශ්‍රී ලංකාවේ සේවය සඳහා පූර්ණ SLMC ලියාපදිංචිය ලබාගන්න.",
+        "ta": "SLMC அங்கீகரித்த மருத்துவப் பட்டத்தை (MBBS அல்லது ஏற்கப்பட்ட சமமான தகுதி) முடித்து, தற்காலிகப் பதிவு பெற்று, அங்கீகரிக்கப்பட்ட உள்ளகப் பயிற்சியை முடித்து இலங்கையில் பணியாற்ற முழுமையான SLMC பதிவைப் பெறுங்கள்."
+      },
+      "degreePaths": {
+        "Medicine": 0.95,
+        "Bio Science": 0.3
+      },
+      "directDegrees": null,
+      "skillTargets": {
+        "biology": 0.95,
+        "memory": 0.9,
+        "stress_handling": 0.85,
+        "empathy": 0.8
+      },
+      "project": {
+        "en": "Build science knowledge, communication and ethical judgement through school learning, first-aid training and permitted observation. Clinical examinations and patient care require approved training and supervision.",
+        "si": "පාසල් අධ්‍යයනය, ප්‍රථමාධාර පුහුණුව සහ අවසර ලත් නිරීක්ෂණ මගින් විද්‍යා දැනුම, සන්නිවේදනය සහ ආචාර ධර්ම වර්ධනය කරන්න. රෝගී පරීක්ෂණ සහ සත්කාර සඳහා අනුමත පුහුණුව හා අධීක්ෂණය අවශ්‍යය.",
+        "ta": "பள்ளிக் கல்வி, முதலுதவிப் பயிற்சி மற்றும் அனுமதிக்கப்பட்ட அவதானிப்பின் மூலம் அறிவியல் அறிவு, தொடர்பாடல் மற்றும் நெறிமுறைகளை வளர்த்துக்கொள்ளுங்கள். நோயாளிப் பரிசோதனையும் பராமரிப்பும் அங்கீகரிக்கப்பட்ட பயிற்சியுடனும் மேற்பார்வையுடனும் நடைபெற வேண்டும்."
+      },
+      "registrationNote": {
+        "en": "A Bio Science, Nursing or Pharmacy degree does not qualify you as a medical doctor. Before enrolling overseas, verify SLMC recognition and the applicable foreign-graduate requirements, including ERPM where required.",
+        "si": "ජීව විද්‍යා, හෙද හෝ ඖෂධවේදී උපාධියක් වෛද්‍යවරයකු වීමට සුදුසුකමක් නොවේ. විදේශ අධ්‍යයනයට පෙර SLMC පිළිගැනීම සහ අදාළ විදේශ උපාධිධාරී අවශ්‍යතා, අවශ්‍ය නම් ERPM විභාගයද, තහවුරු කරන්න.",
+        "ta": "உயிரியல் அறிவியல், தாதியியல் அல்லது மருந்தியல் பட்டம் மருத்துவ மருத்துவராகத் தகுதி அளிக்காது. வெளிநாட்டில் சேருமுன் SLMC அங்கீகாரத்தையும், தேவைப்படும் ERPM உட்பட வெளிநாட்டுப் பட்டதாரிகளுக்கான விதிகளையும் சரிபார்க்கவும்."
+      },
+      "roadmapSteps": [
+        {
+          "id": "entry",
+          "title": {
+            "en": "Meet the A/L requirements for Medicine",
+            "si": "වෛද්‍ය උපාධිය සඳහා උසස් පෙළ අවශ්‍යතා සපුරන්න",
+            "ta": "மருத்துவத்திற்கான உயர்தரத் தேவைகளைப் பூர்த்தி செய்யுங்கள்"
+          },
+          "description": {
+            "en": "For the Sri Lankan UGC route, study Biology, Chemistry and Physics and obtain at least two C grades and one S grade. Check the applicable examination sitting, attempts and Common General Test rules. Selection also depends on the current district and course Z-score cutoffs and available places; minimum grades do not guarantee admission.",
+            "si": "ශ්‍රී ලංකා UGC මාර්ගය සඳහා ජීව විද්‍යාව, රසායන විද්‍යාව සහ භෞතික විද්‍යාව හදාරා අවම වශයෙන් C සාමාර්ථ දෙකක් හා S සාමාර්ථයක් ලබාගන්න. විභාග වාරය, උත්සාහ ගණන සහ පොදු සාමාන්‍ය පරීක්ෂණ නීති පරීක්ෂා කරන්න. තේරීම වත්මන් දිස්ත්‍රික් හා පාඨමාලා Z අගය සහ පුරප්පාඩු මතද රඳා පවතී; අවම සාමාර්ථ ඇතුළත් වීම සහතික නොකරයි.",
+            "ta": "இலங்கை UGC பாதைக்கு உயிரியல், இரசாயனவியல் மற்றும் பௌதிகவியல் பாடங்களில் குறைந்தது இரண்டு C சித்திகளும் ஒரு S சித்தியும் பெறுங்கள். பொருந்தும் தேர்வு அமர்வு, முயற்சிகள் மற்றும் பொது அறிவுப் பரீட்சை விதிகளைச் சரிபார்க்கவும். தெரிவு தற்போதைய மாவட்ட, பாடநெறி Z வெட்டுப்புள்ளிகள் மற்றும் இடங்களையும் சாரும்; குறைந்தபட்சச் சித்திகள் சேர்க்கையை உறுதி செய்யாது."
+          },
+          "optional": false
+        },
+        {
+          "id": "qualification",
+          "title": {
+            "en": "Complete a recognised medical degree",
+            "si": "පිළිගත් වෛද්‍ය උපාධිය සම්පූර්ණ කරන්න",
+            "ta": "அங்கீகரிக்கப்பட்ட மருத்துவப் பட்டத்தை முடிக்கவும்"
+          },
+          "description": {
+            "en": "Enter an approved medical programme and complete its science, clinical training and final examinations. Confirm SLMC recognition of the exact programme before enrolling. A related science degree is not a substitute for the medical qualification.",
+            "si": "අනුමත වෛද්‍ය පාඨමාලාවකට ඇතුළත් වී විද්‍යා අධ්‍යයනය, සායනික පුහුණුව හා අවසාන විභාග සම්පූර්ණ කරන්න. ඇතුළත් වීමට පෙර අදාළ පාඨමාලාවේ SLMC පිළිගැනීම තහවුරු කරන්න. සම්බන්ධිත විද්‍යා උපාධියක් වෛද්‍ය සුදුසුකමට ආදේශකයක් නොවේ.",
+            "ta": "அங்கீகரிக்கப்பட்ட மருத்துவப் பாடநெறியில் அறிவியல் கல்வி, மருத்துவப் பயிற்சி மற்றும் இறுதித் தேர்வுகளை முடிக்கவும். சேருமுன் குறிப்பிட்ட பாடநெறியின் SLMC அங்கீகாரத்தை உறுதி செய்யவும். தொடர்புடைய அறிவியல் பட்டம் மருத்துவத் தகுதிக்கு மாற்றாகாது."
+          },
+          "optional": false
+        },
+        {
+          "id": "provisional_registration",
+          "title": {
+            "en": "Obtain provisional SLMC registration",
+            "si": "තාවකාලික SLMC ලියාපදිංචිය ලබාගන්න",
+            "ta": "தற்காலிக SLMC பதிவைப் பெறுங்கள்"
+          },
+          "description": {
+            "en": "After the recognised medical qualification, meet the applicable SLMC requirements and obtain provisional registration before starting internship. Overseas graduates must follow the foreign-graduate route and satisfy any required ERPM examination and other checks.",
+            "si": "පිළිගත් වෛද්‍ය සුදුසුකමෙන් පසු අදාළ SLMC අවශ්‍යතා සපුරා සීමාවාසික පුහුණුවට පෙර තාවකාලික ලියාපදිංචිය ලබාගන්න. විදේශ උපාධිධාරීන් අදාළ මාර්ගය අනුව අවශ්‍ය ERPM විභාගය හා වෙනත් පරීක්ෂණ සපුරාලිය යුතුය.",
+            "ta": "அங்கீகரிக்கப்பட்ட மருத்துவத் தகுதியின் பின்னர் பொருந்தும் SLMC தேவைகளை நிறைவேற்றி உள்ளகப் பயிற்சிக்கு முன் தற்காலிகப் பதிவு பெறுங்கள். வெளிநாட்டுப் பட்டதாரிகள் அதற்குரிய பாதையில் தேவையான ERPM மற்றும் பிற சரிபார்ப்புகளை நிறைவேற்ற வேண்டும்."
+          },
+          "optional": false
+        },
+        {
+          "id": "internship",
+          "title": {
+            "en": "Complete the approved internship",
+            "si": "අනුමත සීමාවාසික පුහුණුව සම්පූර්ණ කරන්න",
+            "ta": "அங்கீகரிக்கப்பட்ட உள்ளகப் பயிற்சியை முடிக்கவும்"
+          },
+          "description": {
+            "en": "Complete the required one-year internship at an approved hospital under supervision, with satisfactory assessments and certified training records. Placement dates depend on the relevant authorities.",
+            "si": "අනුමත රෝහලක අධීක්ෂණය යටතේ අවශ්‍ය වසරක සීමාවාසික පුහුණුව සතුටුදායක ඇගයීම් සහ සහතික කළ පුහුණු වාර්තා සමඟ සම්පූර්ණ කරන්න. පත්වීම් දින අදාළ බලධාරීන් මත රඳා පවතී.",
+            "ta": "அங்கீகரிக்கப்பட்ட மருத்துவமனையில் மேற்பார்வையுடன் தேவையான ஓராண்டு உள்ளகப் பயிற்சியைத் திருப்திகரமான மதிப்பீடுகள் மற்றும் சான்றளிக்கப்பட்ட பதிவுகளுடன் முடிக்கவும். நியமனத் தேதிகள் தொடர்புடைய அதிகாரிகளைச் சாரும்."
+          },
+          "optional": false
+        },
+        {
+          "id": "full_registration",
+          "title": {
+            "en": "Apply for full SLMC registration",
+            "si": "පූර්ණ SLMC ලියාපදිංචිය සඳහා අයදුම් කරන්න",
+            "ta": "முழுமையான SLMC பதிவுக்கு விண்ணப்பிக்கவும்"
+          },
+          "description": {
+            "en": "After satisfactory internship completion, submit the required evidence and obtain full SLMC registration for practice in Sri Lanka. Employment applications and appointments are separate from registration.",
+            "si": "සීමාවාසික පුහුණුව සතුටුදායක ලෙස නිම කළ පසු අවශ්‍ය සාක්ෂි ඉදිරිපත් කර ශ්‍රී ලංකාවේ සේවය සඳහා පූර්ණ SLMC ලියාපදිංචිය ලබාගන්න. රැකියා අයදුම් සහ පත්වීම් ලියාපදිංචියෙන් වෙන් වූ ක්‍රියාවලි වේ.",
+            "ta": "உள்ளகப் பயிற்சியைத் திருப்திகரமாக முடித்த பின்னர் தேவையான சான்றுகளைச் சமர்ப்பித்து இலங்கையில் பணியாற்ற முழுமையான SLMC பதிவைப் பெறுங்கள். வேலை விண்ணப்பங்களும் நியமனங்களும் பதிவிலிருந்து தனியானவை."
+          },
+          "optional": false
+        },
+        {
+          "id": "specialisation",
+          "title": {
+            "en": "Optional: pursue specialist training",
+            "si": "විකල්පයක් ලෙස විශේෂඥ පුහුණුව හදාරන්න",
+            "ta": "விருப்பம்: சிறப்பு மருத்துவப் பயிற்சியைத் தொடருங்கள்"
+          },
+          "description": {
+            "en": "If you want to become a specialist, check the relevant recognised postgraduate training, selection and specialist-registration requirements. To practise abroad, verify that country's licensing, language and immigration requirements separately.",
+            "si": "විශේෂඥ වෛද්‍යවරයකු වීමට අදාළ පිළිගත් පශ්චාත් උපාධි පුහුණුව, තේරීම් සහ විශේෂඥ ලියාපදිංචි අවශ්‍යතා පරීක්ෂා කරන්න. විදේශ සේවය සඳහා එරට බලපත්‍ර, භාෂා හා ආගමන අවශ්‍යතා වෙනම තහවුරු කරන්න.",
+            "ta": "சிறப்பு மருத்துவராக விரும்பினால் அங்கீகரிக்கப்பட்ட பட்டப்பின்படிப்புப் பயிற்சி, தெரிவு மற்றும் சிறப்புப் பதிவு விதிகளைச் சரிபார்க்கவும். வெளிநாட்டில் பணியாற்ற அந்த நாட்டின் உரிமம், மொழி மற்றும் குடியேற்ற விதிகளைத் தனியாகச் சரிபார்க்கவும்."
+          },
+          "optional": true
+        }
+      ],
+      "sources": [
+        {
+          "title": "SLMC registration pathway",
+          "url": "https://slmc.gov.lk/en/registration"
+        },
+        {
+          "title": "SLMC overseas graduate requirements",
+          "url": "https://slmc.gov.lk/en/services/overseas-graduates"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": {
+        "en": "Civil Engineer",
+        "si": "සිවිල් ඉංජිනේරු",
+        "ta": "குடிசார் பொறியாளர்"
+      },
+      "category": "Engineering",
+      "sector": "engineering",
+      "description": {
+        "en": "Design, build, and maintain infrastructure projects like roads, bridges, buildings, and water systems. Ensure structures are safe, sustainable, and meet regulatory standards.",
+        "si": "මාර්ග, පාලම්, ගොඩනැගිලි සහ ජල පද්ධති සැලසුම් කර ඉදිකිරීම සහ නඩත්තු කිරීම සිදු කරයි. ව්‍යුහවල ආරක්ෂාව, තිරසාරත්වය සහ නියාමන ප්‍රමිතීන් තහවුරු කරයි.",
+        "ta": "சாலைகள், பாலங்கள், கட்டடங்கள் மற்றும் நீர் அமைப்புகளை வடிவமைத்து அமைத்துப் பராமரிக்கிறார். கட்டமைப்புகளின் பாதுகாப்பு, நிலைத்தன்மை மற்றும் ஒழுங்குமுறைத் தரங்களை உறுதிப்படுத்துகிறார்."
+      },
+      "summary": {
+        "en": "Design, build, and maintain infrastructure projects like roads, bridges, buildings, and water systems.",
+        "si": "මාර්ග, පාලම්, ගොඩනැගිලි සහ ජල පද්ධති සැලසුම් කර ඉදිකිරීම සහ නඩත්තු කිරීම සිදු කරයි.",
+        "ta": "சாலைகள், பாலங்கள், கட்டடங்கள் மற்றும் நீர் அமைப்புகளை வடிவமைத்து அமைத்துப் பராமரிக்கிறார்."
+      },
+      "aliases": [],
+      "routeType": "professional",
+      "qualification": {
+        "en": "A profession-specific recognised qualification, supervised training and any required registration. A related general degree does not establish professional eligibility.",
+        "si": "වෘත්තියට විශේෂිත පිළිගත් සුදුසුකමක්, අධීක්ෂිත පුහුණුව සහ අවශ්‍ය ලියාපදිංචිය. සම්බන්ධිත සාමාන්‍ය උපාධියක් වෘත්තීය සුදුසුකම තහවුරු නොකරයි.",
+        "ta": "தொழிலுக்குரிய அங்கீகரிக்கப்பட்ட தகுதி, மேற்பார்வைப் பயிற்சி மற்றும் தேவையான பதிவுகள். தொடர்புடைய பொதுப் பட்டம் தொழில்சார் தகுதியை உறுதிப்படுத்தாது."
+      },
+      "degreePaths": {
+        "Engineering": 0.95,
+        "Quantity Surveying": 0.6,
+        "Architecture": 0.4
+      },
+      "directDegrees": null,
+      "skillTargets": {
+        "mathematics": 0.9,
+        "design": 0.85,
+        "physics": 0.8,
+        "project_management": 0.75
+      },
+      "project": {
+        "en": "Create assessed work demonstrating the key skills of Civil Engineer.",
+        "si": "මෙම වෘත්තියේ ප්‍රධාන කුසලතා පෙන්වන ඇගයූ කාර්ය සාක්ෂි සකසන්න.",
+        "ta": "இந்தத் தொழிலின் முக்கியத் திறன்களை வெளிப்படுத்தும் மதிப்பிடப்பட்ட பணிச் சான்றுகளை உருவாக்குங்கள்."
+      }
+    },
+    {
+      "id": 4,
+      "title": {
+        "en": "Data Scientist",
+        "si": "දත්ත විද්‍යාඥ",
+        "ta": "தரவு விஞ்ஞானி"
+      },
+      "category": "Technology",
+      "sector": "digital",
+      "description": {
+        "en": "Analyze large datasets to extract insights, build predictive models, and help organizations make data-driven decisions. Work with machine learning, statistics, and programming.",
+        "si": "විශාල දත්ත කට්ටල විශ්ලේෂණය කර අවබෝධ ලබාගනී, පුරෝකථන ආකෘති සාදයි සහ දත්ත මත තීරණ ගැනීමට ආයතනවලට සහාය දෙයි. යන්ත්‍ර ඉගෙනීම, සංඛ්‍යානය සහ වැඩසටහන්කරණය භාවිත කරයි.",
+        "ta": "பெரிய தரவுத் தொகுப்புகளை ஆராய்ந்து நுண்ணறிவைப் பெறுகிறார், கணிப்பு மாதிரிகளை உருவாக்கி தரவு அடிப்படையிலான முடிவுகளுக்கு நிறுவனங்களுக்கு உதவுகிறார். இயந்திரக் கற்றல், புள்ளிவிவரவியல் மற்றும் நிரலாக்கத்தைப் பயன்படுத்துகிறார்."
+      },
+      "summary": {
+        "en": "Analyze large datasets to extract insights, build predictive models, and help organizations make data-driven decisions.",
+        "si": "විශාල දත්ත කට්ටල විශ්ලේෂණය කර අවබෝධ ලබාගනී, පුරෝකථන ආකෘති සාදයි සහ දත්ත මත තීරණ ගැනීමට ආයතනවලට සහාය දෙයි.",
+        "ta": "பெரிய தரவுத் தொகுப்புகளை ஆராய்ந்து நுண்ணறிவைப் பெறுகிறார், கணிப்பு மாதிரிகளை உருவாக்கி தரவு அடிப்படையிலான முடிவுகளுக்கு நிறுவனங்களுக்கு உதவுகிறார்."
+      },
+      "aliases": [],
+      "routeType": "academic",
+      "qualification": {
+        "en": "A relevant recognised degree, with role-specific training and practical evidence.",
+        "si": "අදාළ පිළිගත් උපාධියක් සමඟ භූමිකාවට විශේෂිත පුහුණුව සහ ප්‍රායෝගික සාක්ෂි.",
+        "ta": "பணி சார்ந்த பயிற்சியும் நடைமுறை ஆதாரங்களும் கொண்ட தொடர்புடைய அங்கீகரிக்கப்பட்ட பட்டப்படிப்பு."
+      },
+      "degreePaths": {
+        "IT": 0.8,
+        "Computer Science": 0.85,
+        "Mathematics": 0.6
+      },
+      "directDegrees": null,
+      "skillTargets": {
+        "statistics": 0.9,
+        "programming": 0.85,
+        "analysis": 0.8,
+        "mathematics": 0.75
+      },
+      "project": {
+        "en": "Create assessed work demonstrating the key skills of Data Scientist.",
+        "si": "මෙම වෘත්තියේ ප්‍රධාන කුසලතා පෙන්වන ඇගයූ කාර්ය සාක්ෂි සකසන්න.",
+        "ta": "இந்தத் தொழிலின் முக்கியத் திறன்களை வெளிப்படுத்தும் மதிப்பிடப்பட்ட பணிச் சான்றுகளை உருவாக்குங்கள்."
+      }
+    },
+    {
+      "id": 5,
+      "title": {
+        "en": "Entrepreneur",
+        "si": "ව්‍යවසායකයා",
+        "ta": "தொழில்முனைவோர்"
+      },
+      "category": "Business",
+      "sector": "business",
+      "description": {
+        "en": "Start and manage your own business venture. Identify market opportunities, develop innovative products or services, and take calculated risks to build successful enterprises.",
+        "si": "නව ව්‍යාපාර ආරම්භ කර කළමනාකරණය කරයි, වෙළඳපොළ අවස්ථා හඳුනාගෙන නව නිෂ්පාදන හෝ සේවා සංවර්ධනය කරයි. ව්‍යාපාර වර්ධනය සඳහා අවදානම් සහ සම්පත් කළමනාකරණය කරයි.",
+        "ta": "புதிய வணிகங்களைத் தொடங்கி நிர்வகிக்கிறார், சந்தை வாய்ப்புகளைக் கண்டறிந்து புதிய தயாரிப்புகள் அல்லது சேவைகளை உருவாக்குகிறார். வளர்ச்சிக்காக ஆபத்துகளையும் வளங்களையும் நிர்வகிக்கிறார்."
+      },
+      "summary": {
+        "en": "Start and manage your own business venture.",
+        "si": "නව ව්‍යාපාර ආරම්භ කර කළමනාකරණය කරයි, වෙළඳපොළ අවස්ථා හඳුනාගෙන නව නිෂ්පාදන හෝ සේවා සංවර්ධනය කරයි.",
+        "ta": "புதிய வணிகங்களைத் தொடங்கி நிர்வகிக்கிறார், சந்தை வாய்ப்புகளைக் கண்டறிந்து புதிய தயாரிப்புகள் அல்லது சேவைகளை உருவாக்குகிறார்."
+      },
+      "aliases": [],
+      "routeType": "academic",
+      "qualification": {
+        "en": "A relevant recognised degree, with role-specific training and practical evidence.",
+        "si": "අදාළ පිළිගත් උපාධියක් සමඟ භූමිකාවට විශේෂිත පුහුණුව සහ ප්‍රායෝගික සාක්ෂි.",
+        "ta": "பணி சார்ந்த பயிற்சியும் நடைமுறை ஆதாரங்களும் கொண்ட தொடர்புடைய அங்கீகரிக்கப்பட்ட பட்டப்படிப்பு."
+      },
+      "degreePaths": {
+        "Business": 0.7,
+        "Management": 0.6,
+        "Finance": 0.5,
+        "IT": 0.4
+      },
+      "directDegrees": null,
+      "skillTargets": {
+        "leadership": 0.9,
+        "creativity": 0.85,
+        "risk_management": 0.8,
+        "communication": 0.75
+      },
+      "project": {
+        "en": "Create assessed work demonstrating the key skills of Entrepreneur.",
+        "si": "මෙම වෘත්තියේ ප්‍රධාන කුසලතා පෙන්වන ඇගයූ කාර්ය සාක්ෂි සකසන්න.",
+        "ta": "இந்தத் தொழிலின் முக்கியத் திறன்களை வெளிப்படுத்தும் மதிப்பிடப்பட்ட பணிச் சான்றுகளை உருவாக்குங்கள்."
+      }
+    },
+    {
+      "id": 6,
+      "title": {
+        "en": "Accountant",
+        "si": "ගණකාධිකාරී",
+        "ta": "கணக்காளர்"
+      },
+      "category": "Finance",
+      "sector": "business",
+      "description": {
+        "en": "Manage financial records, prepare tax returns, and provide financial advice to individuals and organizations. Ensure compliance with financial regulations and optimize financial performance.",
+        "si": "මූල්‍ය වාර්තා පවත්වාගෙන යයි, ප්‍රකාශන සකස් කරයි, බදු සහ විගණන කටයුතු සිදු කරයි. ව්‍යාපාර සහ පුද්ගලයන්ගේ මූල්‍ය නීති අනුකූලතාව සහ නිවැරදිභාවය තහවුරු කරයි.",
+        "ta": "நிதிப் பதிவுகளைப் பேணி அறிக்கைகளைத் தயாரிக்கிறார், வரி மற்றும் தணிக்கைப் பணிகளைச் செய்கிறார். வணிகங்கள் மற்றும் தனிநபர்களின் நிதி இணக்கத்தையும் துல்லியத்தையும் உறுதிப்படுத்துகிறார்."
+      },
+      "summary": {
+        "en": "Manage financial records, prepare tax returns, and provide financial advice to individuals and organizations.",
+        "si": "මූල්‍ය වාර්තා පවත්වාගෙන යයි, ප්‍රකාශන සකස් කරයි, බදු සහ විගණන කටයුතු සිදු කරයි.",
+        "ta": "நிதிப் பதிவுகளைப் பேணி அறிக்கைகளைத் தயாரிக்கிறார், வரி மற்றும் தணிக்கைப் பணிகளைச் செய்கிறார்."
+      },
+      "aliases": [],
+      "routeType": "academic",
+      "qualification": {
+        "en": "A relevant recognised degree, with role-specific training and practical evidence.",
+        "si": "අදාළ පිළිගත් උපාධියක් සමඟ භූමිකාවට විශේෂිත පුහුණුව සහ ප්‍රායෝගික සාක්ෂි.",
+        "ta": "பணி சார்ந்த பயிற்சியும் நடைமுறை ஆதாரங்களும் கொண்ட தொடர்புடைய அங்கீகரிக்கப்பட்ட பட்டப்படிப்பு."
+      },
+      "degreePaths": {
+        "Accounting": 0.95,
+        "Business": 0.8,
+        "Finance": 0.7
+      },
+      "directDegrees": null,
+      "skillTargets": {
+        "numbers": 0.95,
+        "accuracy": 0.9,
+        "analysis": 0.7,
+        "ethics": 0.8
+      },
+      "project": {
+        "en": "Create assessed work demonstrating the key skills of Accountant.",
+        "si": "මෙම වෘත්තියේ ප්‍රධාන කුසලතා පෙන්වන ඇගයූ කාර්ය සාක්ෂි සකසන්න.",
+        "ta": "இந்தத் தொழிலின் முக்கியத் திறன்களை வெளிப்படுத்தும் மதிப்பிடப்பட்ட பணிச் சான்றுகளை உருவாக்குங்கள்."
+      }
+    },
+    {
+      "id": 7,
+      "title": {
+        "en": "Teacher",
+        "si": "ගුරුවරයා",
+        "ta": "ஆசிரியர்"
+      },
+      "category": "Education",
+      "sector": "professional",
+      "description": {
+        "en": "Educate and inspire students in various subjects. Create lesson plans, assess student progress, and foster a positive learning environment to help students achieve their potential.",
+        "si": "සිසුන්ට විෂය දැනුම සහ කුසලතා උගන්වයි. පාඩම් සැලසුම් සකස් කර ඉගෙනීම ඇගයීම සහ සිසුන්ගේ වර්ධනයට සහාය දීම සිදු කරයි.",
+        "ta": "மாணவர்களுக்குப் பாட அறிவையும் திறன்களையும் கற்பிக்கிறார். பாடத்திட்டங்களைத் தயாரித்து கற்றலை மதிப்பிட்டு மாணவர் வளர்ச்சிக்கு உதவுகிறார்."
+      },
+      "summary": {
+        "en": "Educate and inspire students in various subjects.",
+        "si": "සිසුන්ට විෂය දැනුම සහ කුසලතා උගන්වයි.",
+        "ta": "மாணவர்களுக்குப் பாட அறிவையும் திறன்களையும் கற்பிக்கிறார்."
+      },
+      "aliases": [],
+      "routeType": "professional",
+      "qualification": {
+        "en": "A profession-specific recognised qualification, supervised training and any required registration. A related general degree does not establish professional eligibility.",
+        "si": "වෘත්තියට විශේෂිත පිළිගත් සුදුසුකමක්, අධීක්ෂිත පුහුණුව සහ අවශ්‍ය ලියාපදිංචිය. සම්බන්ධිත සාමාන්‍ය උපාධියක් වෘත්තීය සුදුසුකම තහවුරු නොකරයි.",
+        "ta": "தொழிலுக்குரிய அங்கீகரிக்கப்பட்ட தகுதி, மேற்பார்வைப் பயிற்சி மற்றும் தேவையான பதிவுகள். தொடர்புடைய பொதுப் பட்டம் தொழில்சார் தகுதியை உறுதிப்படுத்தாது."
+      },
+      "degreePaths": {
+        "Education": 0.95,
+        "Arts": 0.8,
+        "Social Sciences": 0.6
+      },
+      "directDegrees": null,
+      "skillTargets": {
+        "communication": 0.9,
+        "empathy": 0.85,
+        "patience": 0.8,
+        "knowledge": 0.75
+      },
+      "project": {
+        "en": "Create assessed work demonstrating the key skills of Teacher.",
+        "si": "මෙම වෘත්තියේ ප්‍රධාන කුසලතා පෙන්වන ඇගයූ කාර්ය සාක්ෂි සකසන්න.",
+        "ta": "இந்தத் தொழிலின் முக்கியத் திறன்களை வெளிப்படுத்தும் மதிப்பிடப்பட்ட பணிச் சான்றுகளை உருவாக்குங்கள்."
+      }
+    },
+    {
+      "id": 8,
+      "title": {
+        "en": "Lawyer",
+        "si": "නීතිඥයා",
+        "ta": "சட்டத்தரணி"
+      },
+      "category": "Legal",
+      "sector": "professional",
+      "description": {
+        "en": "Represent clients in legal matters, provide legal advice, and prepare legal documents. Specialize in areas like corporate law, criminal law, or family law to advocate for clients' rights.",
+        "si": "සේවාලාභීන්ට නීති උපදෙස් දෙයි, නීති ලේඛන සකස් කරයි සහ අධිකරණයේ නියෝජනය කරයි. අපරාධ, සිවිල්, ව්‍යාපාරික හෝ පවුල් නීති ක්ෂේත්‍රවල කටයුතු කළ හැක.",
+        "ta": "வாடிக்கையாளர்களுக்குச் சட்ட ஆலோசனை வழங்கி ஆவணங்களைத் தயாரித்து நீதிமன்றத்தில் பிரதிநிதித்துவப்படுத்துகிறார். குற்றவியல், குடியியல், வணிக அல்லது குடும்பச் சட்டத்தில் பணியாற்றலாம்."
+      },
+      "summary": {
+        "en": "Represent clients in legal matters, provide legal advice, and prepare legal documents.",
+        "si": "සේවාලාභීන්ට නීති උපදෙස් දෙයි, නීති ලේඛන සකස් කරයි සහ අධිකරණයේ නියෝජනය කරයි.",
+        "ta": "வாடிக்கையாளர்களுக்குச் சட்ட ஆலோசனை வழங்கி ஆவணங்களைத் தயாரித்து நீதிமன்றத்தில் பிரதிநிதித்துவப்படுத்துகிறார்."
+      },
+      "aliases": [],
+      "routeType": "professional",
+      "qualification": {
+        "en": "A profession-specific recognised qualification, supervised training and any required registration. A related general degree does not establish professional eligibility.",
+        "si": "වෘත්තියට විශේෂිත පිළිගත් සුදුසුකමක්, අධීක්ෂිත පුහුණුව සහ අවශ්‍ය ලියාපදිංචිය. සම්බන්ධිත සාමාන්‍ය උපාධියක් වෘත්තීය සුදුසුකම තහවුරු නොකරයි.",
+        "ta": "தொழிலுக்குரிய அங்கீகரிக்கப்பட்ட தகுதி, மேற்பார்வைப் பயிற்சி மற்றும் தேவையான பதிவுகள். தொடர்புடைய பொதுப் பட்டம் தொழில்சார் தகுதியை உறுதிப்படுத்தாது."
+      },
+      "degreePaths": {
+        "Law": 0.95,
+        "Social Sciences": 0.4,
+        "Arts": 0.3
+      },
+      "directDegrees": null,
+      "skillTargets": {
+        "logic": 0.9,
+        "communication": 0.95,
+        "research": 0.85,
+        "ethics": 0.85
+      },
+      "project": {
+        "en": "Create assessed work demonstrating the key skills of Lawyer.",
+        "si": "මෙම වෘත්තියේ ප්‍රධාන කුසලතා පෙන්වන ඇගයූ කාර්ය සාක්ෂි සකසන්න.",
+        "ta": "இந்தத் தொழிலின் முக்கியத் திறன்களை வெளிப்படுத்தும் மதிப்பிடப்பட்ட பணிச் சான்றுகளை உருவாக்குங்கள்."
+      }
+    },
+    {
+      "id": 9,
+      "title": {
+        "en": "Nurse",
+        "si": "හෙද නිලධාරී",
+        "ta": "தாதியர்"
+      },
+      "category": "Healthcare",
+      "sector": "professional",
+      "description": {
+        "en": "Provide patient care, administer medications, and assist doctors in medical procedures. Monitor patient health, educate patients about health conditions, and provide emotional support.",
+        "si": "රෝගීන්ට සත්කාර සපයයි, ඖෂධ ලබාදෙයි, සෞඛ්‍ය තත්ත්වය නිරීක්ෂණය කරයි සහ සෞඛ්‍ය උපදෙස් දෙයි. රෝහල් සහ ප්‍රජා සෞඛ්‍ය සේවාවල වෛද්‍ය කණ්ඩායම් සමඟ කටයුතු කරයි.",
+        "ta": "நோயாளிகளைப் பராமரித்து மருந்துகளை வழங்கி உடல்நிலையைக் கண்காணித்து சுகாதார ஆலோசனை அளிக்கிறார். மருத்துவமனைகளிலும் சமூக சுகாதாரச் சேவைகளிலும் மருத்துவக் குழுக்களுடன் பணியாற்றுகிறார்."
+      },
+      "summary": {
+        "en": "Provide patient care, administer medications, and assist doctors in medical procedures.",
+        "si": "රෝගීන්ට සත්කාර සපයයි, ඖෂධ ලබාදෙයි, සෞඛ්‍ය තත්ත්වය නිරීක්ෂණය කරයි සහ සෞඛ්‍ය උපදෙස් දෙයි.",
+        "ta": "நோயாளிகளைப் பராமரித்து மருந்துகளை வழங்கி உடல்நிலையைக் கண்காணித்து சுகாதார ஆலோசனை அளிக்கிறார்."
+      },
+      "aliases": [],
+      "routeType": "professional",
+      "qualification": {
+        "en": "A profession-specific recognised qualification, supervised training and any required registration. A related general degree does not establish professional eligibility.",
+        "si": "වෘත්තියට විශේෂිත පිළිගත් සුදුසුකමක්, අධීක්ෂිත පුහුණුව සහ අවශ්‍ය ලියාපදිංචිය. සම්බන්ධිත සාමාන්‍ය උපාධියක් වෘත්තීය සුදුසුකම තහවුරු නොකරයි.",
+        "ta": "தொழிலுக்குரிய அங்கீகரிக்கப்பட்ட தகுதி, மேற்பார்வைப் பயிற்சி மற்றும் தேவையான பதிவுகள். தொடர்புடைய பொதுப் பட்டம் தொழில்சார் தகுதியை உறுதிப்படுத்தாது."
+      },
+      "degreePaths": {
+        "Nursing": 0.95,
+        "Bio Science": 0.4
+      },
+      "directDegrees": null,
+      "skillTargets": {
+        "biology": 0.8,
+        "empathy": 0.9,
+        "stress_handling": 0.85,
+        "communication": 0.8
+      },
+      "project": {
+        "en": "Create assessed work demonstrating the key skills of Nurse.",
+        "si": "මෙම වෘත්තියේ ප්‍රධාන කුසලතා පෙන්වන ඇගයූ කාර්ය සාක්ෂි සකසන්න.",
+        "ta": "இந்தத் தொழிலின் முக்கியத் திறன்களை வெளிப்படுத்தும் மதிப்பிடப்பட்ட பணிச் சான்றுகளை உருவாக்குங்கள்."
+      }
+    },
+    {
+      "id": 10,
+      "title": {
+        "en": "Mechanical Engineer",
+        "si": "යාන්ත්‍රික ඉංජිනේරු",
+        "ta": "இயந்திரப் பொறியாளர்"
+      },
+      "category": "Engineering",
+      "sector": "engineering",
+      "description": {
+        "en": "Design and develop mechanical systems, machines, and devices. Work on projects ranging from automotive engines to HVAC systems, ensuring efficiency and safety.",
+        "si": "යන්ත්‍ර, එන්ජින් සහ යාන්ත්‍රික පද්ධති සැලසුම් කර සංවර්ධනය සහ නඩත්තු කරයි. නිෂ්පාදන කාර්යක්ෂමතාව, ආරක්ෂාව සහ තාක්ෂණික කාර්යසාධනය වැඩිදියුණු කරයි.",
+        "ta": "இயந்திரங்கள், இயந்திரப் பொறிகள் மற்றும் இயந்திர அமைப்புகளை வடிவமைத்து உருவாக்கிப் பராமரிக்கிறார். உற்பத்தித் திறன், பாதுகாப்பு மற்றும் தொழில்நுட்பச் செயல்திறனை மேம்படுத்துகிறார்."
+      },
+      "summary": {
+        "en": "Design and develop mechanical systems, machines, and devices.",
+        "si": "යන්ත්‍ර, එන්ජින් සහ යාන්ත්‍රික පද්ධති සැලසුම් කර සංවර්ධනය සහ නඩත්තු කරයි.",
+        "ta": "இயந்திரங்கள், இயந்திரப் பொறிகள் மற்றும் இயந்திர அமைப்புகளை வடிவமைத்து உருவாக்கிப் பராமரிக்கிறார்."
+      },
+      "aliases": [],
+      "routeType": "professional",
+      "qualification": {
+        "en": "A profession-specific recognised qualification, supervised training and any required registration. A related general degree does not establish professional eligibility.",
+        "si": "වෘත්තියට විශේෂිත පිළිගත් සුදුසුකමක්, අධීක්ෂිත පුහුණුව සහ අවශ්‍ය ලියාපදිංචිය. සම්බන්ධිත සාමාන්‍ය උපාධියක් වෘත්තීය සුදුසුකම තහවුරු නොකරයි.",
+        "ta": "தொழிலுக்குரிய அங்கீகரிக்கப்பட்ட தகுதி, மேற்பார்வைப் பயிற்சி மற்றும் தேவையான பதிவுகள். தொடர்புடைய பொதுப் பட்டம் தொழில்சார் தகுதியை உறுதிப்படுத்தாது."
+      },
+      "degreePaths": {
+        "Engineering": 0.95,
+        "Quantity Surveying": 0.3
+      },
+      "directDegrees": null,
+      "skillTargets": {
+        "mathematics": 0.9,
+        "physics": 0.85,
+        "design": 0.8,
+        "problem_solving": 0.8
+      },
+      "project": {
+        "en": "Create assessed work demonstrating the key skills of Mechanical Engineer.",
+        "si": "මෙම වෘත්තියේ ප්‍රධාන කුසලතා පෙන්වන ඇගයූ කාර්ය සාක්ෂි සකසන්න.",
+        "ta": "இந்தத் தொழிலின் முக்கியத் திறன்களை வெளிப்படுத்தும் மதிப்பிடப்பட்ட பணிச் சான்றுகளை உருவாக்குங்கள்."
+      }
+    },
+    {
+      "id": 11,
+      "title": {
+        "en": "Graphic Designer",
+        "si": "ග්‍රැෆික් නිර්මාණකරු",
+        "ta": "வரைகலை வடிவமைப்பாளர்"
+      },
+      "category": "Arts",
+      "sector": "design",
+      "description": {
+        "en": "Create visual content for brands, websites, and marketing materials. Use design software to produce logos, brochures, and digital graphics that communicate messages effectively.",
+        "si": "වෙළඳ නාම, දැන්වීම් සහ ඩිජිටල් මාධ්‍ය සඳහා දෘශ්‍ය නිර්මාණ සාදයි. වර්ණ, අකුරු සහ රූප භාවිතයෙන් අදහස් ඵලදායීව සන්නිවේදනය කරයි.",
+        "ta": "வணிக அடையாளங்கள், விளம்பரங்கள் மற்றும் மின்னணு ஊடகங்களுக்கான காட்சி வடிவமைப்புகளை உருவாக்குகிறார். நிறங்கள், எழுத்துருக்கள் மற்றும் படங்கள் மூலம் கருத்துக்களைத் திறம்பட வெளிப்படுத்துகிறார்."
+      },
+      "summary": {
+        "en": "Create visual content for brands, websites, and marketing materials.",
+        "si": "වෙළඳ නාම, දැන්වීම් සහ ඩිජිටල් මාධ්‍ය සඳහා දෘශ්‍ය නිර්මාණ සාදයි.",
+        "ta": "வணிக அடையாளங்கள், விளம்பரங்கள் மற்றும் மின்னணு ஊடகங்களுக்கான காட்சி வடிவமைப்புகளை உருவாக்குகிறார்."
+      },
+      "aliases": [],
+      "routeType": "academic",
+      "qualification": {
+        "en": "A relevant recognised degree, with role-specific training and practical evidence.",
+        "si": "අදාළ පිළිගත් උපාධියක් සමඟ භූමිකාවට විශේෂිත පුහුණුව සහ ප්‍රායෝගික සාක්ෂි.",
+        "ta": "பணி சார்ந்த பயிற்சியும் நடைமுறை ஆதாரங்களும் கொண்ட தொடர்புடைய அங்கீகரிக்கப்பட்ட பட்டப்படிப்பு."
+      },
+      "degreePaths": {
+        "Fine Arts": 0.9,
+        "IT": 0.4,
+        "Arts": 0.3
+      },
+      "directDegrees": null,
+      "skillTargets": {
+        "design": 0.95,
+        "creativity": 0.9,
+        "technology": 0.7,
+        "communication": 0.65
+      },
+      "project": {
+        "en": "Create assessed work demonstrating the key skills of Graphic Designer.",
+        "si": "මෙම වෘත්තියේ ප්‍රධාන කුසලතා පෙන්වන ඇගයූ කාර්ය සාක්ෂි සකසන්න.",
+        "ta": "இந்தத் தொழிலின் முக்கியத் திறன்களை வெளிப்படுத்தும் மதிப்பிடப்பட்ட பணிச் சான்றுகளை உருவாக்குங்கள்."
+      }
+    },
+    {
+      "id": 12,
+      "title": {
+        "en": "Marketing Manager",
+        "si": "අලෙවිකරණ කළමනාකරු",
+        "ta": "சந்தைப்படுத்தல் முகாமையாளர்"
+      },
+      "category": "Business",
+      "sector": "business",
+      "description": {
+        "en": "Develop and implement marketing strategies to promote products and services. Manage campaigns, analyze market trends, and work with teams to increase brand awareness and sales.",
+        "si": "අලෙවිකරණ උපායමාර්ග සහ ප්‍රචාරණ සැලසුම් කරයි. වෙළඳපොළ පර්යේෂණ, පාරිභෝගික සබඳතා සහ වෙළඳ නාම වර්ධනය කළමනාකරණය කරයි.",
+        "ta": "சந்தைப்படுத்தல் மூலோபாயங்களையும் விளம்பர நடவடிக்கைகளையும் திட்டமிடுகிறார். சந்தை ஆராய்ச்சி, வாடிக்கையாளர் தொடர்புகள் மற்றும் வணிக அடையாள வளர்ச்சியை நிர்வகிக்கிறார்."
+      },
+      "summary": {
+        "en": "Develop and implement marketing strategies to promote products and services.",
+        "si": "අලෙවිකරණ උපායමාර්ග සහ ප්‍රචාරණ සැලසුම් කරයි.",
+        "ta": "சந்தைப்படுத்தல் மூலோபாயங்களையும் விளம்பர நடவடிக்கைகளையும் திட்டமிடுகிறார்."
+      },
+      "aliases": [],
+      "routeType": "academic",
+      "qualification": {
+        "en": "A relevant recognised degree, with role-specific training and practical evidence.",
+        "si": "අදාළ පිළිගත් උපාධියක් සමඟ භූමිකාවට විශේෂිත පුහුණුව සහ ප්‍රායෝගික සාක්ෂි.",
+        "ta": "பணி சார்ந்த பயிற்சியும் நடைமுறை ஆதாரங்களும் கொண்ட தொடர்புடைய அங்கீகரிக்கப்பட்ட பட்டப்படிப்பு."
+      },
+      "degreePaths": {
+        "Business": 0.85,
+        "Management": 0.9
+      },
+      "directDegrees": null,
+      "skillTargets": {
+        "communication": 0.9,
+        "creativity": 0.85,
+        "analysis": 0.7,
+        "leadership": 0.8
+      },
+      "project": {
+        "en": "Create assessed work demonstrating the key skills of Marketing Manager.",
+        "si": "මෙම වෘත්තියේ ප්‍රධාන කුසලතා පෙන්වන ඇගයූ කාර්ය සාක්ෂි සකසන්න.",
+        "ta": "இந்தத் தொழிலின் முக்கியத் திறன்களை வெளிப்படுத்தும் மதிப்பிடப்பட்ட பணிச் சான்றுகளை உருவாக்குங்கள்."
+      }
+    },
+    {
+      "id": 13,
+      "title": {
+        "en": "Psychologist",
+        "si": "මනෝවිද්‍යාඥ",
+        "ta": "உளவியலாளர்"
+      },
+      "category": "Healthcare",
+      "sector": "professional",
+      "description": {
+        "en": "Study human behavior and mental processes. Provide therapy and counseling to help individuals overcome mental health challenges and improve their well-being.",
+        "si": "මානව හැසිරීම සහ මානසික ක්‍රියාවලි අධ්‍යයනය කරයි. ඇගයීම්, උපදේශනය සහ පර්යේෂණ මඟින් මානසික සෞඛ්‍යයට සහ පුද්ගල වර්ධනයට සහාය දෙයි.",
+        "ta": "மனித நடத்தையையும் மனச் செயல்முறைகளையும் ஆராய்கிறார். மதிப்பீடு, ஆலோசனை மற்றும் ஆராய்ச்சி மூலம் மனநலத்திற்கும் தனிநபர் வளர்ச்சிக்கும் உதவுகிறார்."
+      },
+      "summary": {
+        "en": "Study human behavior and mental processes.",
+        "si": "මානව හැසිරීම සහ මානසික ක්‍රියාවලි අධ්‍යයනය කරයි.",
+        "ta": "மனித நடத்தையையும் மனச் செயல்முறைகளையும் ஆராய்கிறார்."
+      },
+      "aliases": [],
+      "routeType": "professional",
+      "qualification": {
+        "en": "A profession-specific recognised qualification, supervised training and any required registration. A related general degree does not establish professional eligibility.",
+        "si": "වෘත්තියට විශේෂිත පිළිගත් සුදුසුකමක්, අධීක්ෂිත පුහුණුව සහ අවශ්‍ය ලියාපදිංචිය. සම්බන්ධිත සාමාන්‍ය උපාධියක් වෘත්තීය සුදුසුකම තහවුරු නොකරයි.",
+        "ta": "தொழிலுக்குரிய அங்கீகரிக்கப்பட்ட தகுதி, மேற்பார்வைப் பயிற்சி மற்றும் தேவையான பதிவுகள். தொடர்புடைய பொதுப் பட்டம் தொழில்சார் தகுதியை உறுதிப்படுத்தாது."
+      },
+      "degreePaths": {
+        "Social Sciences": 0.8,
+        "Medicine": 0.6,
+        "Arts": 0.4
+      },
+      "directDegrees": null,
+      "skillTargets": {
+        "empathy": 0.9,
+        "communication": 0.9,
+        "analysis": 0.8,
+        "research": 0.75
+      },
+      "project": {
+        "en": "Create assessed work demonstrating the key skills of Psychologist.",
+        "si": "මෙම වෘත්තියේ ප්‍රධාන කුසලතා පෙන්වන ඇගයූ කාර්ය සාක්ෂි සකසන්න.",
+        "ta": "இந்தத் தொழிலின் முக்கியத் திறன்களை வெளிப்படுத்தும் மதிப்பிடப்பட்ட பணிச் சான்றுகளை உருவாக்குங்கள்."
+      }
+    },
+    {
+      "id": 14,
+      "title": {
+        "en": "Electrician",
+        "si": "විදුලි කාර්මිකයා",
+        "ta": "மின்சாரத் தொழிலாளர்"
+      },
+      "category": "Trades",
+      "sector": "trades",
+      "description": {
+        "en": "Install, maintain, and repair electrical systems in buildings and equipment. Ensure electrical safety compliance and work with wiring, circuits, and power distribution.",
+        "si": "ගොඩනැගිලි සහ කර්මාන්තවල විදුලි පද්ධති ස්ථාපනය, නඩත්තු සහ අලුත්වැඩියා කරයි. දෝෂ හඳුනාගෙන ආරක්ෂිත සහ නීති අනුකූල විදුලි සේවා තහවුරු කරයි.",
+        "ta": "கட்டடங்களிலும் தொழிற்சாலைகளிலும் மின்சார அமைப்புகளை நிறுவிப் பராமரித்துப் பழுதுபார்க்கிறார். கோளாறுகளைக் கண்டறிந்து பாதுகாப்பையும் விதிமுறை இணக்கத்தையும் உறுதிப்படுத்துகிறார்."
+      },
+      "summary": {
+        "en": "Install, maintain, and repair electrical systems in buildings and equipment.",
+        "si": "ගොඩනැගිලි සහ කර්මාන්තවල විදුලි පද්ධති ස්ථාපනය, නඩත්තු සහ අලුත්වැඩියා කරයි.",
+        "ta": "கட்டடங்களிலும் தொழிற்சாலைகளிலும் மின்சார அமைப்புகளை நிறுவிப் பராமரித்துப் பழுதுபார்க்கிறார்."
+      },
+      "aliases": [],
+      "routeType": "vocational",
+      "qualification": {
+        "en": "A relevant recognised vocational qualification or apprenticeship, with supervised practical assessment.",
+        "si": "අධීක්ෂිත ප්‍රායෝගික ඇගයීම සහිත අදාළ පිළිගත් වෘත්තීය සුදුසුකමක් හෝ ආධුනික පුහුණුවක්.",
+        "ta": "மேற்பார்வையிட்ட நடைமுறை மதிப்பீட்டுடன் தொடர்புடைய அங்கீகரிக்கப்பட்ட தொழிற்தகுதி அல்லது தொழிற்பயிற்சி."
+      },
+      "degreePaths": {},
+      "directDegrees": null,
+      "skillTargets": {
+        "electrical_safety": 0.9,
+        "fault_diagnosis": 0.8,
+        "practical_skills": 0.85
+      },
+      "project": {
+        "en": "Create assessed work demonstrating the key skills of Electrician.",
+        "si": "මෙම වෘත්තියේ ප්‍රධාන කුසලතා පෙන්වන ඇගයූ කාර්ය සාක්ෂි සකසන්න.",
+        "ta": "இந்தத் தொழிலின் முக்கியத் திறன்களை வெளிப்படுத்தும் மதிப்பிடப்பட்ட பணிச் சான்றுகளை உருவாக்குங்கள்."
+      }
+    },
+    {
+      "id": 15,
+      "title": {
+        "en": "Chef",
+        "si": "සූපවේදී",
+        "ta": "சமையல் கலைஞர்"
+      },
+      "category": "Hospitality",
+      "sector": "hospitality",
+      "description": {
+        "en": "Prepare and cook food in restaurants, hotels, or other food service establishments. Create menus, manage kitchen operations, and ensure food quality and safety standards.",
+        "si": "ආහාර සැලසුම් කර සකස් කරයි, මුළුතැන්ගෙයි කටයුතු කළමනාකරණය කරයි සහ ආහාර ගුණාත්මකභාවය හා සනීපාරක්ෂාව තහවුරු කරයි. නව ආහාර වට්ටෝරු නිර්මාණය කරයි.",
+        "ta": "உணவுகளைத் திட்டமிட்டுத் தயாரிக்கிறார், சமையலறைப் பணிகளை நிர்வகித்து உணவின் தரத்தையும் சுகாதாரத்தையும் உறுதிப்படுத்துகிறார். புதிய சமையல் குறிப்புகளை உருவாக்குகிறார்."
+      },
+      "summary": {
+        "en": "Prepare and cook food in restaurants, hotels, or other food service establishments.",
+        "si": "ආහාර සැලසුම් කර සකස් කරයි, මුළුතැන්ගෙයි කටයුතු කළමනාකරණය කරයි සහ ආහාර ගුණාත්මකභාවය හා සනීපාරක්ෂාව තහවුරු කරයි.",
+        "ta": "உணவுகளைத் திட்டமிட்டுத் தயாரிக்கிறார், சமையலறைப் பணிகளை நிர்வகித்து உணவின் தரத்தையும் சுகாதாரத்தையும் உறுதிப்படுத்துகிறார்."
+      },
+      "aliases": [],
+      "routeType": "vocational",
+      "qualification": {
+        "en": "A relevant recognised vocational qualification or apprenticeship, with supervised practical assessment.",
+        "si": "අධීක්ෂිත ප්‍රායෝගික ඇගයීම සහිත අදාළ පිළිගත් වෘත්තීය සුදුසුකමක් හෝ ආධුනික පුහුණුවක්.",
+        "ta": "மேற்பார்வையிட்ட நடைமுறை மதிப்பீட்டுடன் தொடர்புடைய அங்கீகரிக்கப்பட்ட தொழிற்தகுதி அல்லது தொழிற்பயிற்சி."
+      },
+      "degreePaths": {},
+      "directDegrees": null,
+      "skillTargets": {
+        "creativity": 0.9,
+        "management": 0.7,
+        "stress_handling": 0.8,
+        "communication": 0.65
+      },
+      "project": {
+        "en": "Create assessed work demonstrating the key skills of Chef.",
+        "si": "මෙම වෘත්තියේ ප්‍රධාන කුසලතා පෙන්වන ඇගයූ කාර්ය සාක්ෂි සකසන්න.",
+        "ta": "இந்தத் தொழிலின் முக்கியத் திறன்களை வெளிப்படுத்தும் மதிப்பிடப்பட்ட பணிச் சான்றுகளை உருவாக்குங்கள்."
+      }
+    },
+    {
+      "id": 16,
+      "title": {
+        "en": "Architect",
+        "si": "වාස්තු විද්‍යාඥ",
+        "ta": "கட்டடக் கலைஞர்"
+      },
+      "category": "Design",
+      "sector": "design",
+      "description": {
+        "en": "Design buildings and structures that are functional, safe, and aesthetically pleasing. Work with clients to understand their needs and create detailed plans and specifications.",
+        "si": "ගොඩනැගිලි සහ අවකාශයන් නිර්මාණය කරයි. සෞන්දර්යය, ක්‍රියාකාරීත්වය, ආරක්ෂාව සහ තිරසාරත්වය සමබර කර ඉදිකිරීම් සැලසුම් සහ ව්‍යාපෘති අධීක්ෂණය සිදු කරයි.",
+        "ta": "கட்டடங்களையும் இடங்களையும் வடிவமைக்கிறார். அழகு, பயன்பாடு, பாதுகாப்பு மற்றும் நிலைத்தன்மையைச் சமநிலைப்படுத்தி கட்டுமானத் திட்டங்களையும் மேற்பார்வையையும் மேற்கொள்கிறார்."
+      },
+      "summary": {
+        "en": "Design buildings and structures that are functional, safe, and aesthetically pleasing.",
+        "si": "ගොඩනැගිලි සහ අවකාශයන් නිර්මාණය කරයි.",
+        "ta": "கட்டடங்களையும் இடங்களையும் வடிவமைக்கிறார்."
+      },
+      "aliases": [],
+      "routeType": "professional",
+      "qualification": {
+        "en": "A profession-specific recognised qualification, supervised training and any required registration. A related general degree does not establish professional eligibility.",
+        "si": "වෘත්තියට විශේෂිත පිළිගත් සුදුසුකමක්, අධීක්ෂිත පුහුණුව සහ අවශ්‍ය ලියාපදිංචිය. සම්බන්ධිත සාමාන්‍ය උපාධියක් වෘත්තීය සුදුසුකම තහවුරු නොකරයි.",
+        "ta": "தொழிலுக்குரிய அங்கீகரிக்கப்பட்ட தகுதி, மேற்பார்வைப் பயிற்சி மற்றும் தேவையான பதிவுகள். தொடர்புடைய பொதுப் பட்டம் தொழில்சார் தகுதியை உறுதிப்படுத்தாது."
+      },
+      "degreePaths": {
+        "Architecture": 0.95,
+        "Quantity Surveying": 0.5,
+        "Engineering": 0.3
+      },
+      "directDegrees": null,
+      "skillTargets": {
+        "design": 0.95,
+        "mathematics": 0.8,
+        "creativity": 0.9,
+        "communication": 0.7
+      },
+      "project": {
+        "en": "Create assessed work demonstrating the key skills of Architect.",
+        "si": "මෙම වෘත්තියේ ප්‍රධාන කුසලතා පෙන්වන ඇගයූ කාර්ය සාක්ෂි සකසන්න.",
+        "ta": "இந்தத் தொழிலின் முக்கியத் திறன்களை வெளிப்படுத்தும் மதிப்பிடப்பட்ட பணிச் சான்றுகளை உருவாக்குங்கள்."
+      }
+    },
+    {
+      "id": 17,
+      "title": {
+        "en": "Pharmacist",
+        "si": "ඖෂධවේදී",
+        "ta": "மருந்தாளர்"
+      },
+      "category": "Healthcare",
+      "sector": "professional",
+      "description": {
+        "en": "Dispense medications, provide drug information to patients, and ensure safe and effective use of medicines. Work in hospitals, pharmacies, or pharmaceutical companies.",
+        "si": "ඖෂධ නිකුත් කරයි සහ ඒවා නිවැරදිව භාවිත කිරීම පිළිබඳ උපදෙස් දෙයි. ඖෂධ ආරක්ෂාව, මාත්‍රා සහ අන්තර්ක්‍රියා පරීක්ෂා කර සෞඛ්‍ය සේවාවට සහාය දෙයි.",
+        "ta": "மருந்துகளை வழங்கி அவற்றைச் சரியாகப் பயன்படுத்துவது குறித்து ஆலோசனை அளிக்கிறார். பாதுகாப்பு, அளவுகள் மற்றும் மருந்து இடைவினைகளைச் சரிபார்த்து சுகாதாரச் சேவைக்கு உதவுகிறார்."
+      },
+      "summary": {
+        "en": "Dispense medications, provide drug information to patients, and ensure safe and effective use of medicines.",
+        "si": "ඖෂධ නිකුත් කරයි සහ ඒවා නිවැරදිව භාවිත කිරීම පිළිබඳ උපදෙස් දෙයි.",
+        "ta": "மருந்துகளை வழங்கி அவற்றைச் சரியாகப் பயன்படுத்துவது குறித்து ஆலோசனை அளிக்கிறார்."
+      },
+      "aliases": [],
+      "routeType": "professional",
+      "qualification": {
+        "en": "A profession-specific recognised qualification, supervised training and any required registration. A related general degree does not establish professional eligibility.",
+        "si": "වෘත්තියට විශේෂිත පිළිගත් සුදුසුකමක්, අධීක්ෂිත පුහුණුව සහ අවශ්‍ය ලියාපදිංචිය. සම්බන්ධිත සාමාන්‍ය උපාධියක් වෘත්තීය සුදුසුකම තහවුරු නොකරයි.",
+        "ta": "தொழிலுக்குரிய அங்கீகரிக்கப்பட்ட தகுதி, மேற்பார்வைப் பயிற்சி மற்றும் தேவையான பதிவுகள். தொடர்புடைய பொதுப் பட்டம் தொழில்சார் தகுதியை உறுதிப்படுத்தாது."
+      },
+      "degreePaths": {
+        "Pharmacy": 0.95,
+        "Bio Science": 0.4
+      },
+      "directDegrees": null,
+      "skillTargets": {
+        "chemistry": 0.9,
+        "biology": 0.8,
+        "accuracy": 0.9,
+        "ethics": 0.85
+      },
+      "project": {
+        "en": "Create assessed work demonstrating the key skills of Pharmacist.",
+        "si": "මෙම වෘත්තියේ ප්‍රධාන කුසලතා පෙන්වන ඇගයූ කාර්ය සාක්ෂි සකසන්න.",
+        "ta": "இந்தத் தொழிலின் முக்கியத் திறன்களை வெளிப்படுத்தும் மதிப்பிடப்பட்ட பணிச் சான்றுகளை உருவாக்குங்கள்."
+      }
+    },
+    {
+      "id": 18,
+      "title": {
+        "en": "Journalist",
+        "si": "මාධ්‍යවේදී",
+        "ta": "ஊடகவியலாளர்"
+      },
+      "category": "Media",
+      "sector": "professional",
+      "description": {
+        "en": "Research, write, and report news stories for newspapers, magazines, TV, or online platforms. Investigate events, conduct interviews, and keep the public informed about current affairs.",
+        "si": "ප්‍රවෘත්ති සහ සිදුවීම් විමර්ශනය කර වාර්තා කරයි. සම්මුඛ සාකච්ඡා සහ කරුණු තහවුරු කිරීම මඟින් මුද්‍රිත, විකාශන හෝ ඩිජිටල් මාධ්‍ය සඳහා කථා සකස් කරයි.",
+        "ta": "செய்திகளையும் நிகழ்வுகளையும் ஆராய்ந்து அறிக்கையிடுகிறார். நேர்காணல்கள் மற்றும் உண்மைச் சரிபார்ப்பின் மூலம் அச்சு, ஒளிபரப்பு அல்லது மின்னணு ஊடகங்களுக்கான செய்திகளைத் தயாரிக்கிறார்."
+      },
+      "summary": {
+        "en": "Research, write, and report news stories for newspapers, magazines, TV, or online platforms.",
+        "si": "ප්‍රවෘත්ති සහ සිදුවීම් විමර්ශනය කර වාර්තා කරයි.",
+        "ta": "செய்திகளையும் நிகழ்வுகளையும் ஆராய்ந்து அறிக்கையிடுகிறார்."
+      },
+      "aliases": [],
+      "routeType": "academic",
+      "qualification": {
+        "en": "A relevant recognised degree, with role-specific training and practical evidence.",
+        "si": "අදාළ පිළිගත් උපාධියක් සමඟ භූමිකාවට විශේෂිත පුහුණුව සහ ප්‍රායෝගික සාක්ෂි.",
+        "ta": "பணி சார்ந்த பயிற்சியும் நடைமுறை ஆதாரங்களும் கொண்ட தொடர்புடைய அங்கீகரிக்கப்பட்ட பட்டப்படிப்பு."
+      },
+      "degreePaths": {
+        "Arts": 0.8,
+        "Social Sciences": 0.6
+      },
+      "directDegrees": null,
+      "skillTargets": {
+        "writing": 0.9,
+        "communication": 0.85,
+        "research": 0.8,
+        "curiosity": 0.85
+      },
+      "project": {
+        "en": "Create assessed work demonstrating the key skills of Journalist.",
+        "si": "මෙම වෘත්තියේ ප්‍රධාන කුසලතා පෙන්වන ඇගයූ කාර්ය සාක්ෂි සකසන්න.",
+        "ta": "இந்தத் தொழிலின் முக்கியத் திறன்களை வெளிப்படுத்தும் மதிப்பிடப்பட்ட பணிச் சான்றுகளை உருவாக்குங்கள்."
+      }
+    },
+    {
+      "id": 19,
+      "title": {
+        "en": "Financial Analyst",
+        "si": "මූල්‍ය විශ්ලේෂක",
+        "ta": "நிதிப் பகுப்பாய்வாளர்"
+      },
+      "category": "Finance",
+      "sector": "business",
+      "description": {
+        "en": "Analyze financial data, prepare reports, and provide investment recommendations. Help businesses and individuals make informed financial decisions based on market trends and economic indicators.",
+        "si": "මූල්‍ය දත්ත, ආයෝජන සහ වෙළඳපොළ ප්‍රවණතා විශ්ලේෂණය කරයි. අවදානම් සහ ප්‍රතිලාභ ඇගයීමෙන් මූල්‍ය තීරණ සඳහා නිර්දේශ ලබාදෙයි.",
+        "ta": "நிதித் தரவுகள், முதலீடுகள் மற்றும் சந்தைப் போக்குகளைப் பகுப்பாய்வு செய்கிறார். ஆபத்துகளையும் வருமானத்தையும் மதிப்பிட்டு நிதி முடிவுகளுக்குப் பரிந்துரைகளை வழங்குகிறார்."
+      },
+      "summary": {
+        "en": "Analyze financial data, prepare reports, and provide investment recommendations.",
+        "si": "මූල්‍ය දත්ත, ආයෝජන සහ වෙළඳපොළ ප්‍රවණතා විශ්ලේෂණය කරයි.",
+        "ta": "நிதித் தரவுகள், முதலீடுகள் மற்றும் சந்தைப் போக்குகளைப் பகுப்பாய்வு செய்கிறார்."
+      },
+      "aliases": [],
+      "routeType": "academic",
+      "qualification": {
+        "en": "A relevant recognised degree, with role-specific training and practical evidence.",
+        "si": "අදාළ පිළිගත් උපාධියක් සමඟ භූමිකාවට විශේෂිත පුහුණුව සහ ප්‍රායෝගික සාක්ෂි.",
+        "ta": "பணி சார்ந்த பயிற்சியும் நடைமுறை ஆதாரங்களும் கொண்ட தொடர்புடைய அங்கீகரிக்கப்பட்ட பட்டப்படிப்பு."
+      },
+      "degreePaths": {
+        "Finance": 0.9,
+        "Accounting": 0.7,
+        "Mathematics": 0.6,
+        "Business": 0.5
+      },
+      "directDegrees": null,
+      "skillTargets": {
+        "mathematics": 0.85,
+        "analysis": 0.9,
+        "economics": 0.8,
+        "communication": 0.7
+      },
+      "project": {
+        "en": "Create assessed work demonstrating the key skills of Financial Analyst.",
+        "si": "මෙම වෘත්තියේ ප්‍රධාන කුසලතා පෙන්වන ඇගයූ කාර්ය සාක්ෂි සකසන්න.",
+        "ta": "இந்தத் தொழிலின் முக்கியத் திறன்களை வெளிப்படுத்தும் மதிப்பிடப்பட்ட பணிச் சான்றுகளை உருவாக்குங்கள்."
+      }
+    },
+    {
+      "id": 20,
+      "title": {
+        "en": "Dentist",
+        "si": "දන්ත වෛද්‍යවරයා",
+        "ta": "பல் மருத்துவர்"
+      },
+      "category": "Healthcare",
+      "sector": "professional",
+      "description": {
+        "en": "Diagnose and treat dental problems, perform oral surgeries, and educate patients about oral hygiene. Work in private practices, hospitals, or public health settings.",
+        "si": "දත් සහ මුඛ සෞඛ්‍ය ගැටලු හඳුනාගෙන ප්‍රතිකාර කරයි. වැළැක්වීමේ සත්කාර, දන්ත ක්‍රියාමාර්ග සහ සෞඛ්‍ය උපදෙස් සපයයි.",
+        "ta": "பல் மற்றும் வாய்நலப் பிரச்சினைகளைக் கண்டறிந்து சிகிச்சை அளிக்கிறார். தடுப்புப் பராமரிப்பு, பல் சிகிச்சைகள் மற்றும் சுகாதார ஆலோசனைகளை வழங்குகிறார்."
+      },
+      "summary": {
+        "en": "Diagnose and treat dental problems, perform oral surgeries, and educate patients about oral hygiene.",
+        "si": "දත් සහ මුඛ සෞඛ්‍ය ගැටලු හඳුනාගෙන ප්‍රතිකාර කරයි.",
+        "ta": "பல் மற்றும் வாய்நலப் பிரச்சினைகளைக் கண்டறிந்து சிகிச்சை அளிக்கிறார்."
+      },
+      "aliases": [],
+      "routeType": "professional",
+      "qualification": {
+        "en": "A profession-specific recognised qualification, supervised training and any required registration. A related general degree does not establish professional eligibility.",
+        "si": "වෘත්තියට විශේෂිත පිළිගත් සුදුසුකමක්, අධීක්ෂිත පුහුණුව සහ අවශ්‍ය ලියාපදිංචිය. සම්බන්ධිත සාමාන්‍ය උපාධියක් වෘත්තීය සුදුසුකම තහවුරු නොකරයි.",
+        "ta": "தொழிலுக்குரிய அங்கீகரிக்கப்பட்ட தகுதி, மேற்பார்வைப் பயிற்சி மற்றும் தேவையான பதிவுகள். தொடர்புடைய பொதுப் பட்டம் தொழில்சார் தகுதியை உறுதிப்படுத்தாது."
+      },
+      "degreePaths": {
+        "Dental": 0.95,
+        "Medicine": 0.3
+      },
+      "directDegrees": null,
+      "skillTargets": {
+        "biology": 0.9,
+        "precision": 0.95,
+        "empathy": 0.8,
+        "communication": 0.7
+      },
+      "project": {
+        "en": "Create assessed work demonstrating the key skills of Dentist.",
+        "si": "මෙම වෘත්තියේ ප්‍රධාන කුසලතා පෙන්වන ඇගයූ කාර්ය සාක්ෂි සකසන්න.",
+        "ta": "இந்தத் தொழிலின் முக்கியத் திறன்களை வெளிப்படுத்தும் மதிப்பிடப்பட்ட பணிச் சான்றுகளை உருவாக்குங்கள்."
+      }
+    },
+    {
+      "id": 21,
+      "title": {
+        "en": "Pilot",
+        "si": "ගුවන් නියමු",
+        "ta": "விமானி"
+      },
+      "category": "Aviation",
+      "sector": "professional",
+      "description": {
+        "en": "Fly aircraft to transport passengers or cargo. Ensure flight safety, navigate routes, and communicate with air traffic control. Requires extensive training and certification.",
+        "si": "ගුවන් යානා මෙහෙයවයි, ගුවන් ගමන් සැලසුම් කරයි සහ මගීන්ගේ ආරක්ෂාව තහවුරු කරයි. ගුවන් නීති, නාවිකරණය සහ හදිසි ක්‍රියාමාර්ග අනුගමනය කරයි.",
+        "ta": "விமானங்களை இயக்கி பயணங்களைத் திட்டமிட்டு பயணிகளின் பாதுகாப்பை உறுதிப்படுத்துகிறார். விமான விதிகள், வழிசெலுத்தல் மற்றும் அவசர நடைமுறைகளைப் பின்பற்றுகிறார்."
+      },
+      "summary": {
+        "en": "Fly aircraft to transport passengers or cargo.",
+        "si": "ගුවන් යානා මෙහෙයවයි, ගුවන් ගමන් සැලසුම් කරයි සහ මගීන්ගේ ආරක්ෂාව තහවුරු කරයි.",
+        "ta": "விமானங்களை இயக்கி பயணங்களைத் திட்டமிட்டு பயணிகளின் பாதுகாப்பை உறுதிப்படுத்துகிறார்."
+      },
+      "aliases": [],
+      "routeType": "professional",
+      "qualification": {
+        "en": "A profession-specific recognised qualification, supervised training and any required registration. A related general degree does not establish professional eligibility.",
+        "si": "වෘත්තියට විශේෂිත පිළිගත් සුදුසුකමක්, අධීක්ෂිත පුහුණුව සහ අවශ්‍ය ලියාපදිංචිය. සම්බන්ධිත සාමාන්‍ය උපාධියක් වෘත්තීය සුදුසුකම තහවුරු නොකරයි.",
+        "ta": "தொழிலுக்குரிய அங்கீகரிக்கப்பட்ட தகுதி, மேற்பார்வைப் பயிற்சி மற்றும் தேவையான பதிவுகள். தொடர்புடைய பொதுப் பட்டம் தொழில்சார் தகுதியை உறுதிப்படுத்தாது."
+      },
+      "degreePaths": {
+        "Physical Science": 0.7,
+        "Engineering": 0.5,
+        "Mathematics": 0.4
+      },
+      "directDegrees": null,
+      "skillTargets": {
+        "physics": 0.8,
+        "mathematics": 0.75,
+        "stress_handling": 0.9,
+        "spatial_awareness": 0.9
+      },
+      "project": {
+        "en": "Create assessed work demonstrating the key skills of Pilot.",
+        "si": "මෙම වෘත්තියේ ප්‍රධාන කුසලතා පෙන්වන ඇගයූ කාර්ය සාක්ෂි සකසන්න.",
+        "ta": "இந்தத் தொழிலின் முக்கியத் திறன்களை வெளிப்படுத்தும் மதிப்பிடப்பட்ட பணிச் சான்றுகளை உருவாக்குங்கள்."
+      }
+    },
+    {
+      "id": 22,
+      "title": {
+        "en": "Veterinarian",
+        "si": "පශු වෛද්‍යවරයා",
+        "ta": "கால்நடை மருத்துவர்"
+      },
+      "category": "Healthcare",
+      "sector": "professional",
+      "description": {
+        "en": "Diagnose and treat illnesses and injuries in animals. Perform surgeries, prescribe medications, and provide preventive care for pets, livestock, and wildlife.",
+        "si": "සතුන්ගේ රෝග හඳුනාගෙන ප්‍රතිකාර කරයි, ශල්‍යකර්ම සහ වැළැක්වීමේ සත්කාර සපයයි. සත්ව සෞඛ්‍යය සහ සුභසාධනය පිළිබඳ උපදෙස් දෙයි.",
+        "ta": "விலங்குகளின் நோய்களைக் கண்டறிந்து சிகிச்சை அளிக்கிறார், அறுவைச் சிகிச்சையையும் தடுப்புப் பராமரிப்பையும் வழங்குகிறார். விலங்கு ஆரோக்கியம் மற்றும் நலன் குறித்து ஆலோசனை அளிக்கிறார்."
+      },
+      "summary": {
+        "en": "Diagnose and treat illnesses and injuries in animals.",
+        "si": "සතුන්ගේ රෝග හඳුනාගෙන ප්‍රතිකාර කරයි, ශල්‍යකර්ම සහ වැළැක්වීමේ සත්කාර සපයයි.",
+        "ta": "விலங்குகளின் நோய்களைக் கண்டறிந்து சிகிச்சை அளிக்கிறார், அறுவைச் சிகிச்சையையும் தடுப்புப் பராமரிப்பையும் வழங்குகிறார்."
+      },
+      "aliases": [],
+      "routeType": "professional",
+      "qualification": {
+        "en": "A profession-specific recognised qualification, supervised training and any required registration. A related general degree does not establish professional eligibility.",
+        "si": "වෘත්තියට විශේෂිත පිළිගත් සුදුසුකමක්, අධීක්ෂිත පුහුණුව සහ අවශ්‍ය ලියාපදිංචිය. සම්බන්ධිත සාමාන්‍ය උපාධියක් වෘත්තීය සුදුසුකම තහවුරු නොකරයි.",
+        "ta": "தொழிலுக்குரிய அங்கீகரிக்கப்பட்ட தகுதி, மேற்பார்வைப் பயிற்சி மற்றும் தேவையான பதிவுகள். தொடர்புடைய பொதுப் பட்டம் தொழில்சார் தகுதியை உறுதிப்படுத்தாது."
+      },
+      "degreePaths": {
+        "Veterinary Science": 0.95,
+        "Bio Science": 0.4,
+        "Agriculture": 0.3
+      },
+      "directDegrees": null,
+      "skillTargets": {
+        "biology": 0.9,
+        "empathy": 0.85,
+        "surgery": 0.8,
+        "communication": 0.7
+      },
+      "project": {
+        "en": "Create assessed work demonstrating the key skills of Veterinarian.",
+        "si": "මෙම වෘත්තියේ ප්‍රධාන කුසලතා පෙන්වන ඇගයූ කාර්ය සාක්ෂි සකසන්න.",
+        "ta": "இந்தத் தொழிலின் முக்கியத் திறன்களை வெளிப்படுத்தும் மதிப்பிடப்பட்ட பணிச் சான்றுகளை உருவாக்குங்கள்."
+      }
+    },
+    {
+      "id": 23,
+      "title": {
+        "en": "Web Developer",
+        "si": "වෙබ් සංවර්ධක",
+        "ta": "வலை உருவாக்குநர்"
+      },
+      "category": "Technology",
+      "sector": "digital",
+      "description": {
+        "en": "Build and maintain websites and web applications. Use programming languages like HTML, CSS, JavaScript, and frameworks to create user-friendly and responsive digital experiences.",
+        "si": "වෙබ් අඩවි සහ වෙබ් යෙදුම් නිර්මාණය, සංවර්ධනය සහ නඩත්තු කරයි. HTML, CSS සහ JavaScript වැනි තාක්ෂණ භාවිතයෙන් ප්‍රතිචාරාත්මක සහ භාවිතයට පහසු අත්දැකීම් සාදයි.",
+        "ta": "வலைத்தளங்களையும் வலைப் பயன்பாடுகளையும் வடிவமைத்து உருவாக்கிப் பராமரிக்கிறார். HTML, CSS, JavaScript போன்ற தொழில்நுட்பங்களால் பல திரைகளுக்கேற்ற எளிய அனுபவங்களை உருவாக்குகிறார்."
+      },
+      "summary": {
+        "en": "Build and maintain websites and web applications.",
+        "si": "වෙබ් අඩවි සහ වෙබ් යෙදුම් නිර්මාණය, සංවර්ධනය සහ නඩත්තු කරයි.",
+        "ta": "வலைத்தளங்களையும் வலைப் பயன்பாடுகளையும் வடிவமைத்து உருவாக்கிப் பராமரிக்கிறார்."
+      },
+      "aliases": [],
+      "routeType": "academic",
+      "qualification": {
+        "en": "A relevant recognised degree, with role-specific training and practical evidence.",
+        "si": "අදාළ පිළිගත් උපාධියක් සමඟ භූමිකාවට විශේෂිත පුහුණුව සහ ප්‍රායෝගික සාක්ෂි.",
+        "ta": "பணி சார்ந்த பயிற்சியும் நடைமுறை ஆதாரங்களும் கொண்ட தொடர்புடைய அங்கீகரிக்கப்பட்ட பட்டப்படிப்பு."
+      },
+      "degreePaths": {
+        "IT": 0.9,
+        "Computer Science": 0.85
+      },
+      "directDegrees": null,
+      "skillTargets": {
+        "programming": 0.85,
+        "design": 0.7,
+        "creativity": 0.75,
+        "problem_solving": 0.8
+      },
+      "project": {
+        "en": "Create assessed work demonstrating the key skills of Web Developer.",
+        "si": "මෙම වෘත්තියේ ප්‍රධාන කුසලතා පෙන්වන ඇගයූ කාර්ය සාක්ෂි සකසන්න.",
+        "ta": "இந்தத் தொழிலின் முக்கியத் திறன்களை வெளிப்படுத்தும் மதிப்பிடப்பட்ட பணிச் சான்றுகளை உருவாக்குங்கள்."
+      }
+    },
+    {
+      "id": 24,
+      "title": {
+        "en": "Human Resources Manager",
+        "si": "මානව සම්පත් කළමනාකරු",
+        "ta": "மனித வள முகாமையாளர்"
+      },
+      "category": "Business",
+      "sector": "business",
+      "description": {
+        "en": "Manage employee relations, recruitment, training, and organizational development. Ensure workplace policies are followed and foster a positive work environment.",
+        "si": "සේවක බඳවාගැනීම්, පුහුණුව, කාර්යසාධනය සහ සේවක සබඳතා කළමනාකරණය කරයි. ආයතන ප්‍රතිපත්ති සහ කම්කරු නීති අනුකූලතාව තහවුරු කරයි.",
+        "ta": "பணியாளர் ஆட்சேர்ப்பு, பயிற்சி, செயல்திறன் மற்றும் பணியாளர் தொடர்புகளை நிர்வகிக்கிறார். நிறுவனக் கொள்கைகளையும் தொழிலாளர் சட்ட இணக்கத்தையும் உறுதிப்படுத்துகிறார்."
+      },
+      "summary": {
+        "en": "Manage employee relations, recruitment, training, and organizational development.",
+        "si": "සේවක බඳවාගැනීම්, පුහුණුව, කාර්යසාධනය සහ සේවක සබඳතා කළමනාකරණය කරයි.",
+        "ta": "பணியாளர் ஆட்சேர்ப்பு, பயிற்சி, செயல்திறன் மற்றும் பணியாளர் தொடர்புகளை நிர்வகிக்கிறார்."
+      },
+      "aliases": [],
+      "routeType": "academic",
+      "qualification": {
+        "en": "A relevant recognised degree, with role-specific training and practical evidence.",
+        "si": "අදාළ පිළිගත් උපාධියක් සමඟ භූමිකාවට විශේෂිත පුහුණුව සහ ප්‍රායෝගික සාක්ෂි.",
+        "ta": "பணி சார்ந்த பயிற்சியும் நடைமுறை ஆதாரங்களும் கொண்ட தொடர்புடைய அங்கீகரிக்கப்பட்ட பட்டப்படிப்பு."
+      },
+      "degreePaths": {
+        "Management": 0.85,
+        "Business": 0.8
+      },
+      "directDegrees": null,
+      "skillTargets": {
+        "communication": 0.9,
+        "empathy": 0.85,
+        "leadership": 0.8,
+        "negotiation": 0.75
+      },
+      "project": {
+        "en": "Create assessed work demonstrating the key skills of Human Resources Manager.",
+        "si": "මෙම වෘත්තියේ ප්‍රධාන කුසලතා පෙන්වන ඇගයූ කාර්ය සාක්ෂි සකසන්න.",
+        "ta": "இந்தத் தொழிலின் முக்கியத் திறன்களை வெளிப்படுத்தும் மதிப்பிடப்பட்ட பணிச் சான்றுகளை உருவாக்குங்கள்."
+      }
+    },
+    {
+      "id": 25,
+      "title": {
+        "en": "Environmental Scientist",
+        "si": "පරිසර විද්‍යාඥ",
+        "ta": "சுற்றுச்சூழல் விஞ்ஞானி"
+      },
+      "category": "Science",
+      "sector": "science",
+      "description": {
+        "en": "Study environmental issues and develop solutions to protect natural resources. Conduct research on pollution, climate change, and sustainability to inform policy and practices.",
+        "si": "පරිසර දත්ත විශ්ලේෂණය කර දූෂණය සහ ස්වාභාවික සම්පත් ගැටලු අධ්‍යයනය කරයි. සංරක්ෂණය සහ තිරසාර සංවර්ධනය සඳහා විසඳුම් සපයයි.",
+        "ta": "சுற்றுச்சூழல் தரவுகளை ஆராய்ந்து மாசுபாடு மற்றும் இயற்கை வளப் பிரச்சினைகளைப் படிக்கிறார். பாதுகாப்புக்கும் நிலையான வளர்ச்சிக்கும் தீர்வுகளை வழங்குகிறார்."
+      },
+      "summary": {
+        "en": "Study environmental issues and develop solutions to protect natural resources.",
+        "si": "පරිසර දත්ත විශ්ලේෂණය කර දූෂණය සහ ස්වාභාවික සම්පත් ගැටලු අධ්‍යයනය කරයි.",
+        "ta": "சுற்றுச்சூழல் தரவுகளை ஆராய்ந்து மாசுபாடு மற்றும் இயற்கை வளப் பிரச்சினைகளைப் படிக்கிறார்."
+      },
+      "aliases": [],
+      "routeType": "academic",
+      "qualification": {
+        "en": "A relevant recognised degree, with role-specific training and practical evidence.",
+        "si": "අදාළ පිළිගත් උපාධියක් සමඟ භූමිකාවට විශේෂිත පුහුණුව සහ ප්‍රායෝගික සාක්ෂි.",
+        "ta": "பணி சார்ந்த பயிற்சியும் நடைமுறை ஆதாரங்களும் கொண்ட தொடர்புடைய அங்கீகரிக்கப்பட்ட பட்டப்படிப்பு."
+      },
+      "degreePaths": {
+        "Bio Science": 0.8,
+        "Agriculture": 0.6,
+        "Physical Science": 0.5
+      },
+      "directDegrees": null,
+      "skillTargets": {
+        "biology": 0.8,
+        "research": 0.85,
+        "analysis": 0.8,
+        "fieldwork": 0.75
+      },
+      "project": {
+        "en": "Create assessed work demonstrating the key skills of Environmental Scientist.",
+        "si": "මෙම වෘත්තියේ ප්‍රධාන කුසලතා පෙන්වන ඇගයූ කාර්ය සාක්ෂි සකසන්න.",
+        "ta": "இந்தத் தொழிலின் முக்கியத் திறன்களை வெளிப்படுத்தும் மதிப்பிடப்பட்ட பணிச் சான்றுகளை உருவாக்குங்கள்."
+      }
+    },
+    {
+      "id": 26,
+      "title": {
+        "en": "Police Officer",
+        "si": "පොලිස් නිලධාරී",
+        "ta": "காவல்துறை அதிகாரி"
+      },
+      "category": "Public Service",
+      "sector": "professional",
+      "description": {
+        "en": "Maintain public safety, enforce laws, and prevent crime. Patrol communities, respond to emergencies, conduct investigations, and build relationships with community members.",
+        "si": "නීතිය සහ සාමය පවත්වාගෙන යයි, අපරාධ වැළැක්වීම සහ විමර්ශනය සිදු කරයි. මහජන ආරක්ෂාව, හදිසි ප්‍රතිචාර සහ ප්‍රජා සේවාව සපයයි.",
+        "ta": "சட்டம் மற்றும் ஒழுங்கைப் பேணி குற்றங்களைத் தடுத்து விசாரிக்கிறார். பொதுப் பாதுகாப்பு, அவசர நடவடிக்கை மற்றும் சமூகச் சேவைகளை வழங்குகிறார்."
+      },
+      "summary": {
+        "en": "Maintain public safety, enforce laws, and prevent crime.",
+        "si": "නීතිය සහ සාමය පවත්වාගෙන යයි, අපරාධ වැළැක්වීම සහ විමර්ශනය සිදු කරයි.",
+        "ta": "சட்டம் மற்றும் ஒழுங்கைப் பேணி குற்றங்களைத் தடுத்து விசாரிக்கிறார்."
+      },
+      "aliases": [],
+      "routeType": "professional",
+      "qualification": {
+        "en": "A profession-specific recognised qualification, supervised training and any required registration. A related general degree does not establish professional eligibility.",
+        "si": "වෘත්තියට විශේෂිත පිළිගත් සුදුසුකමක්, අධීක්ෂිත පුහුණුව සහ අවශ්‍ය ලියාපදිංචිය. සම්බන්ධිත සාමාන්‍ය උපාධියක් වෘත්තීය සුදුසුකම තහවුරු නොකරයි.",
+        "ta": "தொழிலுக்குரிய அங்கீகரிக்கப்பட்ட தகுதி, மேற்பார்வைப் பயிற்சி மற்றும் தேவையான பதிவுகள். தொடர்புடைய பொதுப் பட்டம் தொழில்சார் தகுதியை உறுதிப்படுத்தாது."
+      },
+      "degreePaths": {
+        "Law": 0.7,
+        "Social Sciences": 0.6,
+        "Arts": 0.4
+      },
+      "directDegrees": null,
+      "skillTargets": {
+        "law": 0.8,
+        "communication": 0.85,
+        "stress_handling": 0.9,
+        "fitness": 0.8
+      },
+      "project": {
+        "en": "Create assessed work demonstrating the key skills of Police Officer.",
+        "si": "මෙම වෘත්තියේ ප්‍රධාන කුසලතා පෙන්වන ඇගයූ කාර්ය සාක්ෂි සකසන්න.",
+        "ta": "இந்தத் தொழிலின் முக்கியத் திறன்களை வெளிப்படுத்தும் மதிப்பிடப்பட்ட பணிச் சான்றுகளை உருவாக்குங்கள்."
+      }
+    },
+    {
+      "id": 27,
+      "title": {
+        "en": "Biomedical Engineer",
+        "si": "ජෛව වෛද්‍ය ඉංජිනේරු",
+        "ta": "உயிர்மருத்துவப் பொறியாளர்"
+      },
+      "category": "Engineering",
+      "sector": "engineering",
+      "description": {
+        "en": "Design and develop medical devices and equipment. Combine engineering principles with medical knowledge to create solutions that improve healthcare outcomes.",
+        "si": "ඉංජිනේරු මූලධර්ම වෛද්‍ය සහ ජීව විද්‍යාව සමඟ එක් කර වෛද්‍ය උපකරණ සහ පද්ධති සංවර්ධනය කරයි. සෞඛ්‍ය තාක්ෂණයේ ආරක්ෂාව සහ කාර්යසාධනය වැඩිදියුණු කරයි.",
+        "ta": "பொறியியல் கொள்கைகளை மருத்துவம் மற்றும் உயிரியலுடன் இணைத்து மருத்துவச் சாதனங்களையும் அமைப்புகளையும் உருவாக்குகிறார். சுகாதாரத் தொழில்நுட்பத்தின் பாதுகாப்பையும் செயல்திறனையும் மேம்படுத்துகிறார்."
+      },
+      "summary": {
+        "en": "Design and develop medical devices and equipment.",
+        "si": "ඉංජිනේරු මූලධර්ම වෛද්‍ය සහ ජීව විද්‍යාව සමඟ එක් කර වෛද්‍ය උපකරණ සහ පද්ධති සංවර්ධනය කරයි.",
+        "ta": "பொறியியல் கொள்கைகளை மருத்துவம் மற்றும் உயிரியலுடன் இணைத்து மருத்துவச் சாதனங்களையும் அமைப்புகளையும் உருவாக்குகிறார்."
+      },
+      "aliases": [],
+      "routeType": "professional",
+      "qualification": {
+        "en": "A profession-specific recognised qualification, supervised training and any required registration. A related general degree does not establish professional eligibility.",
+        "si": "වෘත්තියට විශේෂිත පිළිගත් සුදුසුකමක්, අධීක්ෂිත පුහුණුව සහ අවශ්‍ය ලියාපදිංචිය. සම්බන්ධිත සාමාන්‍ය උපාධියක් වෘත්තීය සුදුසුකම තහවුරු නොකරයි.",
+        "ta": "தொழிலுக்குரிய அங்கீகரிக்கப்பட்ட தகுதி, மேற்பார்வைப் பயிற்சி மற்றும் தேவையான பதிவுகள். தொடர்புடைய பொதுப் பட்டம் தொழில்சார் தகுதியை உறுதிப்படுத்தாது."
+      },
+      "degreePaths": {
+        "Engineering": 0.7,
+        "Bio Science": 0.8,
+        "Computer Science": 0.4
+      },
+      "directDegrees": null,
+      "skillTargets": {
+        "biology": 0.8,
+        "engineering": 0.85,
+        "mathematics": 0.75,
+        "research": 0.8
+      },
+      "project": {
+        "en": "Create assessed work demonstrating the key skills of Biomedical Engineer.",
+        "si": "මෙම වෘත්තියේ ප්‍රධාන කුසලතා පෙන්වන ඇගයූ කාර්ය සාක්ෂි සකසන්න.",
+        "ta": "இந்தத் தொழிலின் முக்கியத் திறன்களை வெளிப்படுத்தும் மதிப்பிடப்பட்ட பணிச் சான்றுகளை உருவாக்குங்கள்."
+      }
+    },
+    {
+      "id": 28,
+      "title": {
+        "en": "Social Worker",
+        "si": "සමාජ සේවකයා",
+        "ta": "சமூகப் பணியாளர்"
+      },
+      "category": "Social Services",
+      "sector": "professional",
+      "description": {
+        "en": "Help individuals and families cope with challenges and improve their well-being. Connect people with resources, provide counseling, and advocate for vulnerable populations.",
+        "si": "පුද්ගලයන්, පවුල් සහ ප්‍රජාවන්ට සමාජ අභියෝග හසුරුවා ගැනීමට සහාය දෙයි. උපදේශනය, සම්පත් සම්බන්ධ කිරීම සහ අවදානමට ලක්වූ පුද්ගලයන් වෙනුවෙන් පෙනී සිටීම සිදු කරයි.",
+        "ta": "தனிநபர்கள், குடும்பங்கள் மற்றும் சமூகங்கள் சமூகச் சவால்களைச் சமாளிக்க உதவுகிறார். ஆலோசனை, வள இணைப்பு மற்றும் பாதிக்கப்படக்கூடியவர்களுக்கான ஆதரவை வழங்குகிறார்."
+      },
+      "summary": {
+        "en": "Help individuals and families cope with challenges and improve their well-being.",
+        "si": "පුද්ගලයන්, පවුල් සහ ප්‍රජාවන්ට සමාජ අභියෝග හසුරුවා ගැනීමට සහාය දෙයි.",
+        "ta": "தனிநபர்கள், குடும்பங்கள் மற்றும் சமூகங்கள் சமூகச் சவால்களைச் சமாளிக்க உதவுகிறார்."
+      },
+      "aliases": [],
+      "routeType": "academic",
+      "qualification": {
+        "en": "A relevant recognised degree, with role-specific training and practical evidence.",
+        "si": "අදාළ පිළිගත් උපාධියක් සමඟ භූමිකාවට විශේෂිත පුහුණුව සහ ප්‍රායෝගික සාක්ෂි.",
+        "ta": "பணி சார்ந்த பயிற்சியும் நடைமுறை ஆதாரங்களும் கொண்ட தொடர்புடைய அங்கீகரிக்கப்பட்ட பட்டப்படிப்பு."
+      },
+      "degreePaths": {
+        "Social Sciences": 0.9,
+        "Arts": 0.6,
+        "Education": 0.4
+      },
+      "directDegrees": null,
+      "skillTargets": {
+        "empathy": 0.95,
+        "communication": 0.85,
+        "counseling": 0.8,
+        "advocacy": 0.75
+      },
+      "project": {
+        "en": "Create assessed work demonstrating the key skills of Social Worker.",
+        "si": "මෙම වෘත්තියේ ප්‍රධාන කුසලතා පෙන්වන ඇගයූ කාර්ය සාක්ෂි සකසන්න.",
+        "ta": "இந்தத் தொழிலின் முக்கியத் திறன்களை வெளிப்படுத்தும் மதிப்பிடப்பட்ட பணிச் சான்றுகளை உருவாக்குங்கள்."
+      }
+    },
+    {
+      "id": 29,
+      "title": {
+        "en": "Cybersecurity Analyst",
+        "si": "සයිබර් ආරක්ෂණ විශ්ලේෂක",
+        "ta": "இணையப் பாதுகாப்புப் பகுப்பாய்வாளர்"
+      },
+      "category": "Technology",
+      "sector": "digital",
+      "description": {
+        "en": "Protect organizations from cyber threats and data breaches. Monitor security systems, investigate incidents, and implement security measures to safeguard digital assets.",
+        "si": "සයිබර් තර්ජන සහ දත්ත කඩවීම්වලින් ආයතන ආරක්ෂා කරයි. ආරක්ෂණ පද්ධති නිරීක්ෂණය, සිදුවීම් විමර්ශනය සහ ඩිජිටල් සම්පත් ආරක්ෂණ ක්‍රියාමාර්ග සිදු කරයි.",
+        "ta": "இணைய அச்சுறுத்தல்கள் மற்றும் தரவு மீறல்களிலிருந்து நிறுவனங்களைப் பாதுகாக்கிறார். பாதுகாப்பு அமைப்புகளைக் கண்காணித்து சம்பவங்களை விசாரித்து மின்னணு வளங்களைப் பாதுகாக்கிறார்."
+      },
+      "summary": {
+        "en": "Protect organizations from cyber threats and data breaches.",
+        "si": "සයිබර් තර්ජන සහ දත්ත කඩවීම්වලින් ආයතන ආරක්ෂා කරයි.",
+        "ta": "இணைய அச்சுறுத்தல்கள் மற்றும் தரவு மீறல்களிலிருந்து நிறுவனங்களைப் பாதுகாக்கிறார்."
+      },
+      "aliases": [],
+      "routeType": "academic",
+      "qualification": {
+        "en": "A relevant recognised degree, with role-specific training and practical evidence.",
+        "si": "අදාළ පිළිගත් උපාධියක් සමඟ භූමිකාවට විශේෂිත පුහුණුව සහ ප්‍රායෝගික සාක්ෂි.",
+        "ta": "பணி சார்ந்த பயிற்சியும் நடைமுறை ஆதாரங்களும் கொண்ட தொடர்புடைய அங்கீகரிக்கப்பட்ட பட்டப்படிப்பு."
+      },
+      "degreePaths": {
+        "IT": 0.85,
+        "Computer Science": 0.9
+      },
+      "directDegrees": null,
+      "skillTargets": {
+        "programming": 0.8,
+        "networking": 0.9,
+        "analysis": 0.85,
+        "ethics": 0.8
+      },
+      "project": {
+        "en": "Create assessed work demonstrating the key skills of Cybersecurity Analyst.",
+        "si": "මෙම වෘත්තියේ ප්‍රධාන කුසලතා පෙන්වන ඇගයූ කාර්ය සාක්ෂි සකසන්න.",
+        "ta": "இந்தத் தொழிலின் முக்கியத் திறன்களை வெளிப்படுத்தும் மதிப்பிடப்பட்ட பணிச் சான்றுகளை உருவாக்குங்கள்."
+      }
+    },
+    {
+      "id": 30,
+      "title": {
+        "en": "Agricultural Scientist",
+        "si": "කෘෂි විද්‍යාඥ",
+        "ta": "வேளாண்மை விஞ்ஞானி"
+      },
+      "category": "Agriculture",
+      "sector": "professional",
+      "description": {
+        "en": "Research and develop methods to improve crop yields, livestock health, and sustainable farming practices. Work to address food security and environmental challenges in agriculture.",
+        "si": "බෝග අස්වැන්න, පශු සෞඛ්‍යය සහ තිරසාර ගොවිතැන දියුණු කිරීමට පර්යේෂණ කරයි. කෘෂිකර්මයේ ආහාර සුරක්ෂිතතාව සහ පරිසර අභියෝග සඳහා විසඳුම් සොයයි.",
+        "ta": "பயிர் விளைச்சல், கால்நடை ஆரோக்கியம் மற்றும் நிலையான விவசாயத்தை மேம்படுத்த ஆராய்கிறார். உணவுப் பாதுகாப்பு மற்றும் வேளாண்மைச் சுற்றுச்சூழல் சவால்களுக்கு தீர்வுகளைத் தேடுகிறார்."
+      },
+      "summary": {
+        "en": "Research and develop methods to improve crop yields, livestock health, and sustainable farming practices.",
+        "si": "බෝග අස්වැන්න, පශු සෞඛ්‍යය සහ තිරසාර ගොවිතැන දියුණු කිරීමට පර්යේෂණ කරයි.",
+        "ta": "பயிர் விளைச்சல், கால்நடை ஆரோக்கியம் மற்றும் நிலையான விவசாயத்தை மேம்படுத்த ஆராய்கிறார்."
+      },
+      "aliases": [],
+      "routeType": "academic",
+      "qualification": {
+        "en": "A relevant recognised degree, with role-specific training and practical evidence.",
+        "si": "අදාළ පිළිගත් උපාධියක් සමඟ භූමිකාවට විශේෂිත පුහුණුව සහ ප්‍රායෝගික සාක්ෂි.",
+        "ta": "பணி சார்ந்த பயிற்சியும் நடைமுறை ஆதாரங்களும் கொண்ட தொடர்புடைய அங்கீகரிக்கப்பட்ட பட்டப்படிப்பு."
+      },
+      "degreePaths": {
+        "Agriculture": 0.95,
+        "Bio Science": 0.7
+      },
+      "directDegrees": null,
+      "skillTargets": {
+        "biology": 0.85,
+        "research": 0.8,
+        "analysis": 0.75,
+        "fieldwork": 0.7
+      },
+      "project": {
+        "en": "Create assessed work demonstrating the key skills of Agricultural Scientist.",
+        "si": "මෙම වෘත්තියේ ප්‍රධාන කුසලතා පෙන්වන ඇගයූ කාර්ය සාක්ෂි සකසන්න.",
+        "ta": "இந்தத் தொழிலின் முக்கியத் திறன்களை வெளிப்படுத்தும் மதிப்பிடப்பட்ட பணிச் சான்றுகளை உருவாக்குங்கள்."
+      }
+    },
+    {
+      "id": 31,
+      "title": {
+        "en": "AI Engineer",
+        "si": "AI ඉංජිනේරු",
+        "ta": "AI பொறியாளர்"
+      },
+      "category": "Technology",
+      "sector": "digital",
+      "description": {
+        "en": "Build and evaluate AI systems that solve a defined problem.",
+        "si": "නිශ්චිත ගැටලුවක් විසඳන AI පද්ධති ගොඩනඟා ඇගයීම.",
+        "ta": "குறிப்பிட்ட சிக்கலைத் தீர்க்கும் AI அமைப்புகளை உருவாக்கி மதிப்பிடுதல்."
+      },
+      "summary": {
+        "en": "Build and evaluate AI systems that solve a defined problem.",
+        "si": "නිශ්චිත ගැටලුවක් විසඳන AI පද්ධති ගොඩනඟා ඇගයීම.",
+        "ta": "குறிப்பிட்ட சிக்கலைத் தீர்க்கும் AI அமைப்புகளை உருவாக்கி மதிப்பிடுதல்."
+      },
+      "aliases": [
+        "artificial intelligence",
+        "machine learning engineer"
+      ],
+      "routeType": "academic",
+      "qualification": {
+        "en": "A relevant recognised degree, with role-specific training and practical evidence.",
+        "si": "අදාළ පිළිගත් උපාධියක් සමඟ භූමිකාවට විශේෂිත පුහුණුව සහ ප්‍රායෝගික සාක්ෂි.",
+        "ta": "பணி சார்ந்த பயிற்சியும் நடைமுறை ஆதாரங்களும் கொண்ட தொடர்புடைய அங்கீகரிக்கப்பட்ட பட்டப்படிப்பு."
+      },
+      "degreePaths": {
+        "Computer Science": 0.9,
+        "IT": 0.8
+      },
+      "directDegrees": [
+        "Computer Science",
+        "IT"
+      ],
+      "skillTargets": {
+        "programming": 0.85,
+        "statistics": 0.8,
+        "analysis": 0.75,
+        "ethics": 0.75
+      },
+      "project": {
+        "en": "Build an AI prototype and report its errors and limitations.",
+        "si": "AI ආදර්ශයක් ගොඩනඟා එහි දෝෂ සහ සීමා වාර්තා කරන්න.",
+        "ta": "AI முன்மாதிரியை உருவாக்கி அதன் பிழைகளையும் வரம்புகளையும் அறிக்கையிடுங்கள்."
+      }
+    },
+    {
+      "id": 32,
+      "title": {
+        "en": "Data Analyst",
+        "si": "දත්ත විශ්ලේෂක",
+        "ta": "தரவு ஆய்வாளர்"
+      },
+      "category": "Technology",
+      "sector": "digital",
+      "description": {
+        "en": "Turn business data into reliable reports and decisions.",
+        "si": "ව්‍යාපාර දත්ත විශ්වාසනීය වාර්තා සහ තීරණ බවට පත් කිරීම.",
+        "ta": "வணிகத் தரவுகளை நம்பகமான அறிக்கைகளாகவும் முடிவுகளாகவும் மாற்றுதல்."
+      },
+      "summary": {
+        "en": "Turn business data into reliable reports and decisions.",
+        "si": "ව්‍යාපාර දත්ත විශ්වාසනීය වාර්තා සහ තීරණ බවට පත් කිරීම.",
+        "ta": "வணிகத் தரவுகளை நம்பகமான அறிக்கைகளாகவும் முடிவுகளாகவும் மாற்றுதல்."
+      },
+      "aliases": [],
+      "routeType": "academic",
+      "qualification": {
+        "en": "A relevant recognised degree, with role-specific training and practical evidence.",
+        "si": "අදාළ පිළිගත් උපාධියක් සමඟ භූමිකාවට විශේෂිත පුහුණුව සහ ප්‍රායෝගික සාක්ෂි.",
+        "ta": "பணி சார்ந்த பயிற்சியும் நடைமுறை ஆதாரங்களும் கொண்ட தொடர்புடைய அங்கீகரிக்கப்பட்ட பட்டப்படிப்பு."
+      },
+      "degreePaths": {
+        "Mathematics": 0.9,
+        "IT": 0.8,
+        "Computer Science": 0.7
+      },
+      "directDegrees": [
+        "Mathematics",
+        "IT",
+        "Computer Science"
+      ],
+      "skillTargets": {
+        "analysis": 0.85,
+        "statistics": 0.8,
+        "communication": 0.75,
+        "accuracy": 0.75
+      },
+      "project": {
+        "en": "Clean a dataset and build a dashboard with an explained recommendation.",
+        "si": "දත්ත කට්ටලයක් පිරිසිදු කර පැහැදිලි නිර්දේශයක් සහිත උපකරණ පුවරුවක් සකසන්න.",
+        "ta": "தரவுத் தொகுப்பைச் சுத்தப்படுத்தி விளக்கப்பட்ட பரிந்துரையுடன் ஒரு தகவல் பலகையை உருவாக்குங்கள்."
+      }
+    },
+    {
+      "id": 33,
+      "title": {
+        "en": "Cloud Engineer",
+        "si": "ක්ලවුඩ් ඉංජිනේරු",
+        "ta": "மேகக் கணினிப் பொறியாளர்"
+      },
+      "category": "Technology",
+      "sector": "digital",
+      "description": {
+        "en": "Deploy and maintain secure cloud infrastructure.",
+        "si": "ආරක්ෂිත ක්ලවුඩ් යටිතල පහසුකම් යෙදවීම සහ නඩත්තු කිරීම.",
+        "ta": "பாதுகாப்பான மேகக் கணினிக் கட்டமைப்பை நிறுவிப் பராமரித்தல்."
+      },
+      "summary": {
+        "en": "Deploy and maintain secure cloud infrastructure.",
+        "si": "ආරක්ෂිත ක්ලවුඩ් යටිතල පහසුකම් යෙදවීම සහ නඩත්තු කිරීම.",
+        "ta": "பாதுகாப்பான மேகக் கணினிக் கட்டமைப்பை நிறுவிப் பராமரித்தல்."
+      },
+      "aliases": [],
+      "routeType": "academic",
+      "qualification": {
+        "en": "A relevant recognised degree, with role-specific training and practical evidence.",
+        "si": "අදාළ පිළිගත් උපාධියක් සමඟ භූමිකාවට විශේෂිත පුහුණුව සහ ප්‍රායෝගික සාක්ෂි.",
+        "ta": "பணி சார்ந்த பயிற்சியும் நடைமுறை ஆதாரங்களும் கொண்ட தொடர்புடைய அங்கீகரிக்கப்பட்ட பட்டப்படிப்பு."
+      },
+      "degreePaths": {
+        "IT": 0.9,
+        "Computer Science": 0.8
+      },
+      "directDegrees": [
+        "IT",
+        "Computer Science"
+      ],
+      "skillTargets": {
+        "networking": 0.85,
+        "programming": 0.8,
+        "security": 0.75,
+        "problem_solving": 0.75
+      },
+      "project": {
+        "en": "Deploy an application with access controls, backups and monitoring.",
+        "si": "ප්‍රවේශ පාලන, උපස්ථ සහ අධීක්ෂණය සහිත යෙදුමක් යොදවන්න.",
+        "ta": "அணுகல் கட்டுப்பாடு, காப்புப்பிரதி மற்றும் கண்காணிப்புடன் ஒரு செயலியை நிறுவுங்கள்."
+      }
+    },
+    {
+      "id": 34,
+      "title": {
+        "en": "DevOps Engineer",
+        "si": "DevOps ඉංජිනේරු",
+        "ta": "DevOps பொறியாளர்"
+      },
+      "category": "Technology",
+      "sector": "digital",
+      "description": {
+        "en": "Automate software delivery and improve service reliability.",
+        "si": "මෘදුකාංග සැපයීම ස්වයංක්‍රීය කර සේවා විශ්වසනීයත්වය දියුණු කිරීම.",
+        "ta": "மென்பொருள் வழங்கலைத் தானியக்கமாக்கிச் சேவை நம்பகத்தன்மையை மேம்படுத்துதல்."
+      },
+      "summary": {
+        "en": "Automate software delivery and improve service reliability.",
+        "si": "මෘදුකාංග සැපයීම ස්වයංක්‍රීය කර සේවා විශ්වසනීයත්වය දියුණු කිරීම.",
+        "ta": "மென்பொருள் வழங்கலைத் தானியக்கமாக்கிச் சேவை நம்பகத்தன்மையை மேம்படுத்துதல்."
+      },
+      "aliases": [],
+      "routeType": "academic",
+      "qualification": {
+        "en": "A relevant recognised degree, with role-specific training and practical evidence.",
+        "si": "අදාළ පිළිගත් උපාධියක් සමඟ භූමිකාවට විශේෂිත පුහුණුව සහ ප්‍රායෝගික සාක්ෂි.",
+        "ta": "பணி சார்ந்த பயிற்சியும் நடைமுறை ஆதாரங்களும் கொண்ட தொடர்புடைய அங்கீகரிக்கப்பட்ட பட்டப்படிப்பு."
+      },
+      "degreePaths": {
+        "IT": 0.9,
+        "Computer Science": 0.8
+      },
+      "directDegrees": [
+        "IT",
+        "Computer Science"
+      ],
+      "skillTargets": {
+        "programming": 0.85,
+        "networking": 0.8,
+        "problem_solving": 0.75,
+        "teamwork": 0.75
+      },
+      "project": {
+        "en": "Create a tested deployment pipeline with rollback and monitoring.",
+        "si": "ආපසු හැරවීම සහ අධීක්ෂණය සහිත පරීක්ෂිත යෙදවුම් ක්‍රියාවලියක් සාදන්න.",
+        "ta": "மீளமைப்பும் கண்காணிப்பும் கொண்ட சோதிக்கப்பட்ட வெளியீட்டுச் செயல்முறையை உருவாக்குங்கள்."
+      }
+    },
+    {
+      "id": 35,
+      "title": {
+        "en": "Software QA Engineer",
+        "si": "මෘදුකාංග තත්ත්ව සහතික ඉංජිනේරු",
+        "ta": "மென்பொருள் தர உறுதிப் பொறியாளர்"
+      },
+      "category": "Technology",
+      "sector": "digital",
+      "description": {
+        "en": "Test software quality and document defects clearly.",
+        "si": "මෘදුකාංග තත්ත්වය පරීක්ෂා කර දෝෂ පැහැදිලිව ලේඛනගත කිරීම.",
+        "ta": "மென்பொருள் தரத்தைச் சோதித்துக் குறைபாடுகளைத் தெளிவாக ஆவணப்படுத்துதல்."
+      },
+      "summary": {
+        "en": "Test software quality and document defects clearly.",
+        "si": "මෘදුකාංග තත්ත්වය පරීක්ෂා කර දෝෂ පැහැදිලිව ලේඛනගත කිරීම.",
+        "ta": "மென்பொருள் தரத்தைச் சோதித்துக் குறைபாடுகளைத் தெளிவாக ஆவணப்படுத்துதல்."
+      },
+      "aliases": [
+        "QA tester",
+        "quality assurance",
+        "SQA"
+      ],
+      "routeType": "academic",
+      "qualification": {
+        "en": "A relevant recognised degree, with role-specific training and practical evidence.",
+        "si": "අදාළ පිළිගත් උපාධියක් සමඟ භූමිකාවට විශේෂිත පුහුණුව සහ ප්‍රායෝගික සාක්ෂි.",
+        "ta": "பணி சார்ந்த பயிற்சியும் நடைமுறை ஆதாரங்களும் கொண்ட தொடர்புடைய அங்கீகரிக்கப்பட்ட பட்டப்படிப்பு."
+      },
+      "degreePaths": {
+        "IT": 0.9,
+        "Computer Science": 0.8
+      },
+      "directDegrees": [
+        "IT",
+        "Computer Science"
+      ],
+      "skillTargets": {
+        "software_testing": 0.85,
+        "accuracy": 0.8,
+        "programming": 0.75,
+        "communication": 0.75
+      },
+      "project": {
+        "en": "Prepare test cases, automated checks and a reproducible defect report.",
+        "si": "පරීක්ෂණ අවස්ථා, ස්වයංක්‍රීය පරීක්ෂණ සහ නැවත පෙන්විය හැකි දෝෂ වාර්තාවක් සාදන්න.",
+        "ta": "சோதனை நிகழ்வுகள், தானியக்கச் சோதனைகள் மற்றும் மீளுருவாக்கக்கூடிய பிழை அறிக்கையைத் தயாரியுங்கள்."
+      }
+    },
+    {
+      "id": 36,
+      "title": {
+        "en": "Mobile Application Developer",
+        "si": "ජංගම යෙදුම් සංවර්ධක",
+        "ta": "கையடக்கச் செயலி உருவாக்குநர்"
+      },
+      "category": "Technology",
+      "sector": "digital",
+      "description": {
+        "en": "Develop accessible mobile applications and maintain their releases.",
+        "si": "ප්‍රවේශ විය හැකි ජංගම යෙදුම් නිපදවා නිකුතු නඩත්තු කිරීම.",
+        "ta": "அணுகக்கூடிய கையடக்கச் செயலிகளை உருவாக்கி வெளியீடுகளைப் பராமரித்தல்."
+      },
+      "summary": {
+        "en": "Develop accessible mobile applications and maintain their releases.",
+        "si": "ප්‍රවේශ විය හැකි ජංගම යෙදුම් නිපදවා නිකුතු නඩත්තු කිරීම.",
+        "ta": "அணுகக்கூடிய கையடக்கச் செயலிகளை உருவாக்கி வெளியீடுகளைப் பராமரித்தல்."
+      },
+      "aliases": [],
+      "routeType": "academic",
+      "qualification": {
+        "en": "A relevant recognised degree, with role-specific training and practical evidence.",
+        "si": "අදාළ පිළිගත් උපාධියක් සමඟ භූමිකාවට විශේෂිත පුහුණුව සහ ප්‍රායෝගික සාක්ෂි.",
+        "ta": "பணி சார்ந்த பயிற்சியும் நடைமுறை ஆதாரங்களும் கொண்ட தொடர்புடைய அங்கீகரிக்கப்பட்ட பட்டப்படிப்பு."
+      },
+      "degreePaths": {
+        "IT": 0.9,
+        "Computer Science": 0.8
+      },
+      "directDegrees": [
+        "IT",
+        "Computer Science"
+      ],
+      "skillTargets": {
+        "programming": 0.85,
+        "design": 0.8,
+        "problem_solving": 0.75,
+        "teamwork": 0.75
+      },
+      "project": {
+        "en": "Publish a tested mobile app prototype with clear privacy controls.",
+        "si": "පැහැදිලි පෞද්ගලිකත්ව පාලන සහිත පරීක්ෂිත ජංගම යෙදුම් ආදර්ශයක් සකසන්න.",
+        "ta": "தெளிவான தனியுரிமைக் கட்டுப்பாடுகளுடன் சோதிக்கப்பட்ட கையடக்கச் செயலி முன்மாதிரியை உருவாக்குங்கள்."
+      }
+    },
+    {
+      "id": 37,
+      "title": {
+        "en": "UX Designer",
+        "si": "පරිශීලක අත්දැකීම් නිර්මාණකරු",
+        "ta": "பயனர் அனுபவ வடிவமைப்பாளர்"
+      },
+      "category": "Design",
+      "sector": "design",
+      "description": {
+        "en": "Research user needs and design usable digital experiences.",
+        "si": "පරිශීලක අවශ්‍යතා විමසා පහසු ඩිජිටල් අත්දැකීම් නිර්මාණය කිරීම.",
+        "ta": "பயனர் தேவைகளை ஆராய்ந்து பயன்படுத்த எளிய டிஜிட்டல் அனுபவங்களை வடிவமைத்தல்."
+      },
+      "summary": {
+        "en": "Research user needs and design usable digital experiences.",
+        "si": "පරිශීලක අවශ්‍යතා විමසා පහසු ඩිජිටල් අත්දැකීම් නිර්මාණය කිරීම.",
+        "ta": "பயனர் தேவைகளை ஆராய்ந்து பயன்படுத்த எளிய டிஜிட்டல் அனுபவங்களை வடிவமைத்தல்."
+      },
+      "aliases": [
+        "UI UX",
+        "user experience"
+      ],
+      "routeType": "specialist",
+      "qualification": {
+        "en": "Design or computing study combined with user research, accessibility training and an assessed UX portfolio.",
+        "si": "පරිශීලක පර්යේෂණ, ප්‍රවේශතා පුහුණුව සහ ඇගයූ UX කාර්ය එකතුවක් සමඟ සැලසුම් හෝ පරිගණක අධ්‍යයනය.",
+        "ta": "பயனர் ஆய்வு, அணுகல் பயிற்சி மற்றும் மதிப்பிடப்பட்ட UX பணித்தொகுப்புடன் வடிவமைப்பு அல்லது கணினிக் கல்வி."
+      },
+      "degreePaths": {
+        "IT": 0.9,
+        "Computer Science": 0.8
+      },
+      "directDegrees": [],
+      "skillTargets": {
+        "design": 0.85,
+        "research": 0.8,
+        "empathy": 0.75,
+        "communication": 0.75
+      },
+      "project": {
+        "en": "Test a clickable prototype with users and document improvements.",
+        "si": "ක්ලික් කළ හැකි ආදර්ශයක් පරිශීලකයන් සමඟ පරීක්ෂා කර දියුණු කිරීම් ලේඛනගත කරන්න.",
+        "ta": "சொடுக்கக்கூடிய முன்மாதிரியைப் பயனர்களுடன் சோதித்து மேம்பாடுகளை ஆவணப்படுத்துங்கள்."
+      }
+    },
+    {
+      "id": 38,
+      "title": {
+        "en": "Business Analyst",
+        "si": "ව්‍යාපාර විශ්ලේෂක",
+        "ta": "வணிக ஆய்வாளர்"
+      },
+      "category": "Business",
+      "sector": "business",
+      "description": {
+        "en": "Translate business needs into clear process and system requirements.",
+        "si": "ව්‍යාපාර අවශ්‍යතා පැහැදිලි ක්‍රියාවලි සහ පද්ධති අවශ්‍යතා බවට පත් කිරීම.",
+        "ta": "வணிகத் தேவைகளைத் தெளிவான செயல்முறை மற்றும் அமைப்புத் தேவைகளாக மாற்றுதல்."
+      },
+      "summary": {
+        "en": "Translate business needs into clear process and system requirements.",
+        "si": "ව්‍යාපාර අවශ්‍යතා පැහැදිලි ක්‍රියාවලි සහ පද්ධති අවශ්‍යතා බවට පත් කිරීම.",
+        "ta": "வணிகத் தேவைகளைத் தெளிவான செயல்முறை மற்றும் அமைப்புத் தேவைகளாக மாற்றுதல்."
+      },
+      "aliases": [],
+      "routeType": "academic",
+      "qualification": {
+        "en": "A relevant recognised degree, with role-specific training and practical evidence.",
+        "si": "අදාළ පිළිගත් උපාධියක් සමඟ භූමිකාවට විශේෂිත පුහුණුව සහ ප්‍රායෝගික සාක්ෂි.",
+        "ta": "பணி சார்ந்த பயிற்சியும் நடைமுறை ஆதாரங்களும் கொண்ட தொடர்புடைய அங்கீகரிக்கப்பட்ட பட்டப்படிப்பு."
+      },
+      "degreePaths": {
+        "Business": 0.9,
+        "Management": 0.8,
+        "IT": 0.7
+      },
+      "directDegrees": [
+        "Business",
+        "Management",
+        "IT"
+      ],
+      "skillTargets": {
+        "analysis": 0.85,
+        "communication": 0.8,
+        "research": 0.75,
+        "problem_solving": 0.75
+      },
+      "project": {
+        "en": "Map a business process and write requirements with acceptance criteria.",
+        "si": "ව්‍යාපාර ක්‍රියාවලියක් සිතියම්ගත කර පිළිගැනීමේ නිර්ණායක සහිත අවශ්‍යතා ලියන්න.",
+        "ta": "வணிகச் செயல்முறையை வரைபடமாக்கி ஏற்றுக்கொள்ளும் அளவுகோல்களுடன் தேவைகளை எழுதுங்கள்."
+      }
+    },
+    {
+      "id": 39,
+      "title": {
+        "en": "Product Manager",
+        "si": "නිෂ්පාදන කළමනාකරු",
+        "ta": "தயாரிப்பு முகாமையாளர்"
+      },
+      "category": "Business",
+      "sector": "business",
+      "description": {
+        "en": "Prioritize customer problems and coordinate product development.",
+        "si": "පාරිභෝගික ගැටලු ප්‍රමුඛ කර නිෂ්පාදන සංවර්ධනය සම්බන්ධීකරණය කිරීම.",
+        "ta": "வாடிக்கையாளர் சிக்கல்களுக்கு முன்னுரிமை அளித்துத் தயாரிப்பு மேம்பாட்டை ஒருங்கிணைத்தல்."
+      },
+      "summary": {
+        "en": "Prioritize customer problems and coordinate product development.",
+        "si": "පාරිභෝගික ගැටලු ප්‍රමුඛ කර නිෂ්පාදන සංවර්ධනය සම්බන්ධීකරණය කිරීම.",
+        "ta": "வாடிக்கையாளர் சிக்கல்களுக்கு முன்னுரிமை அளித்துத் தயாரிப்பு மேம்பாட்டை ஒருங்கிணைத்தல்."
+      },
+      "aliases": [],
+      "routeType": "academic",
+      "qualification": {
+        "en": "A relevant recognised degree, with role-specific training and practical evidence.",
+        "si": "අදාළ පිළිගත් උපාධියක් සමඟ භූමිකාවට විශේෂිත පුහුණුව සහ ප්‍රායෝගික සාක්ෂි.",
+        "ta": "பணி சார்ந்த பயிற்சியும் நடைமுறை ஆதாரங்களும் கொண்ட தொடர்புடைய அங்கீகரிக்கப்பட்ட பட்டப்படிப்பு."
+      },
+      "degreePaths": {
+        "Business": 0.9,
+        "Management": 0.8,
+        "IT": 0.7
+      },
+      "directDegrees": [
+        "Business",
+        "Management",
+        "IT"
+      ],
+      "skillTargets": {
+        "research": 0.85,
+        "communication": 0.8,
+        "leadership": 0.75,
+        "analysis": 0.75
+      },
+      "project": {
+        "en": "Create a product brief, prioritised backlog and measurable success criteria.",
+        "si": "නිෂ්පාදන සාරාංශයක්, ප්‍රමුඛතා ලැයිස්තුවක් සහ මැනිය හැකි සාර්ථකතා නිර්ණායක සාදන්න.",
+        "ta": "தயாரிப்புச் சுருக்கம், முன்னுரிமைப் பட்டியல் மற்றும் அளவிடக்கூடிய வெற்றி அளவுகோல்களை உருவாக்குங்கள்."
+      }
+    },
+    {
+      "id": 40,
+      "title": {
+        "en": "Network Engineer",
+        "si": "ජාල ඉංජිනේරු",
+        "ta": "வலையமைப்புப் பொறியாளர்"
+      },
+      "category": "Technology",
+      "sector": "digital",
+      "description": {
+        "en": "Design and troubleshoot secure computer networks.",
+        "si": "ආරක්ෂිත පරිගණක ජාල සැලසුම් කර දෝෂ විසඳීම.",
+        "ta": "பாதுகாப்பான கணினி வலையமைப்புகளை வடிவமைத்துக் கோளாறுகளைத் தீர்த்தல்."
+      },
+      "summary": {
+        "en": "Design and troubleshoot secure computer networks.",
+        "si": "ආරක්ෂිත පරිගණක ජාල සැලසුම් කර දෝෂ විසඳීම.",
+        "ta": "பாதுகாப்பான கணினி வலையமைப்புகளை வடிவமைத்துக் கோளாறுகளைத் தீர்த்தல்."
+      },
+      "aliases": [],
+      "routeType": "academic",
+      "qualification": {
+        "en": "A relevant recognised degree, with role-specific training and practical evidence.",
+        "si": "අදාළ පිළිගත් උපාධියක් සමඟ භූමිකාවට විශේෂිත පුහුණුව සහ ප්‍රායෝගික සාක්ෂි.",
+        "ta": "பணி சார்ந்த பயிற்சியும் நடைமுறை ஆதாரங்களும் கொண்ட தொடர்புடைய அங்கீகரிக்கப்பட்ட பட்டப்படிப்பு."
+      },
+      "degreePaths": {
+        "IT": 0.9,
+        "Computer Science": 0.8
+      },
+      "directDegrees": [
+        "IT",
+        "Computer Science"
+      ],
+      "skillTargets": {
+        "networking": 0.85,
+        "security": 0.8,
+        "problem_solving": 0.75,
+        "accuracy": 0.75
+      },
+      "project": {
+        "en": "Configure a lab network and document security and fault diagnosis.",
+        "si": "පුහුණු ජාලයක් සකසා ආරක්ෂාව සහ දෝෂ හඳුනාගැනීම ලේඛනගත කරන්න.",
+        "ta": "பயிற்சி வலையமைப்பை அமைத்துப் பாதுகாப்பையும் கோளாறு கண்டறிதலையும் ஆவணப்படுத்துங்கள்."
+      }
+    },
+    {
+      "id": 41,
+      "title": {
+        "en": "Supply Chain Analyst",
+        "si": "සැපයුම් දාම විශ්ලේෂක",
+        "ta": "விநியோகச் சங்கிலி ஆய்வாளர்"
+      },
+      "category": "Business",
+      "sector": "business",
+      "description": {
+        "en": "Analyse inventory, procurement and delivery performance.",
+        "si": "තොග, මිලදී ගැනීම් සහ බෙදාහැරීම් කාර්යසාධනය විශ්ලේෂණය කිරීම.",
+        "ta": "கையிருப்பு, கொள்முதல் மற்றும் வழங்கல் செயல்திறனைப் பகுப்பாய்வு செய்தல்."
+      },
+      "summary": {
+        "en": "Analyse inventory, procurement and delivery performance.",
+        "si": "තොග, මිලදී ගැනීම් සහ බෙදාහැරීම් කාර්යසාධනය විශ්ලේෂණය කිරීම.",
+        "ta": "கையிருப்பு, கொள்முதல் மற்றும் வழங்கல் செயல்திறனைப் பகுப்பாய்வு செய்தல்."
+      },
+      "aliases": [],
+      "routeType": "academic",
+      "qualification": {
+        "en": "A relevant recognised degree, with role-specific training and practical evidence.",
+        "si": "අදාළ පිළිගත් උපාධියක් සමඟ භූමිකාවට විශේෂිත පුහුණුව සහ ප්‍රායෝගික සාක්ෂි.",
+        "ta": "பணி சார்ந்த பயிற்சியும் நடைமுறை ஆதாரங்களும் கொண்ட தொடர்புடைய அங்கீகரிக்கப்பட்ட பட்டப்படிப்பு."
+      },
+      "degreePaths": {
+        "Business": 0.9,
+        "Management": 0.8,
+        "Mathematics": 0.7
+      },
+      "directDegrees": [
+        "Business",
+        "Management",
+        "Mathematics"
+      ],
+      "skillTargets": {
+        "analysis": 0.85,
+        "statistics": 0.8,
+        "communication": 0.75,
+        "accuracy": 0.75
+      },
+      "project": {
+        "en": "Compare inventory policies using demand data and explain trade-offs.",
+        "si": "ඉල්ලුම් දත්ත අනුව තොග ප්‍රතිපත්ති සසඳා වාසි සහ සීමා පැහැදිලි කරන්න.",
+        "ta": "தேவைத் தரவுகளைக் கொண்டு கையிருப்புக் கொள்கைகளை ஒப்பிட்டு நன்மை தீமைகளை விளக்குங்கள்."
+      }
+    },
+    {
+      "id": 42,
+      "title": {
+        "en": "Logistics Coordinator",
+        "si": "ප්‍රවාහන සහ සැපයුම් සම්බන්ධීකාරක",
+        "ta": "போக்குவரத்து ஒருங்கிணைப்பாளர்"
+      },
+      "category": "Business",
+      "sector": "business",
+      "description": {
+        "en": "Coordinate shipments, records and delivery schedules.",
+        "si": "නැව්ගත කිරීම්, ලේඛන සහ බෙදාහැරීම් කාලසටහන් සම්බන්ධීකරණය කිරීම.",
+        "ta": "சரக்கு அனுப்புதல், பதிவுகள் மற்றும் வழங்கல் அட்டவணைகளை ஒருங்கிணைத்தல்."
+      },
+      "summary": {
+        "en": "Coordinate shipments, records and delivery schedules.",
+        "si": "නැව්ගත කිරීම්, ලේඛන සහ බෙදාහැරීම් කාලසටහන් සම්බන්ධීකරණය කිරීම.",
+        "ta": "சரக்கு அனுப்புதல், பதிவுகள் மற்றும் வழங்கல் அட்டவணைகளை ஒருங்கிணைத்தல்."
+      },
+      "aliases": [],
+      "routeType": "academic",
+      "qualification": {
+        "en": "A relevant recognised degree, with role-specific training and practical evidence.",
+        "si": "අදාළ පිළිගත් උපාධියක් සමඟ භූමිකාවට විශේෂිත පුහුණුව සහ ප්‍රායෝගික සාක්ෂි.",
+        "ta": "பணி சார்ந்த பயிற்சியும் நடைமுறை ஆதாரங்களும் கொண்ட தொடர்புடைய அங்கீகரிக்கப்பட்ட பட்டப்படிப்பு."
+      },
+      "degreePaths": {
+        "Business": 0.9,
+        "Management": 0.8
+      },
+      "directDegrees": [
+        "Business",
+        "Management"
+      ],
+      "skillTargets": {
+        "organization": 0.85,
+        "communication": 0.8,
+        "accuracy": 0.75,
+        "problem_solving": 0.75
+      },
+      "project": {
+        "en": "Prepare a shipment plan with tracking records and delay responses.",
+        "si": "ලුහුබැඳීම් වාර්තා සහ ප්‍රමාද පිළියම් සහිත නැව්ගත සැලැස්මක් සාදන්න.",
+        "ta": "கண்காணிப்புப் பதிவுகளும் தாமதத் தீர்வுகளும் கொண்ட சரக்கு அனுப்பும் திட்டத்தைத் தயாரியுங்கள்."
+      }
+    },
+    {
+      "id": 43,
+      "title": {
+        "en": "Digital Marketing Specialist",
+        "si": "ඩිජිටල් අලෙවිකරණ විශේෂඥ",
+        "ta": "டிஜிட்டல் சந்தைப்படுத்தல் நிபுணர்"
+      },
+      "category": "Business",
+      "sector": "business",
+      "description": {
+        "en": "Plan digital campaigns and evaluate their results responsibly.",
+        "si": "ඩිජිටල් ප්‍රචාරණ සැලසුම් කර ප්‍රතිඵල වගකීමෙන් ඇගයීම.",
+        "ta": "டிஜிட்டல் பிரசாரங்களைத் திட்டமிட்டு முடிவுகளைப் பொறுப்புடன் மதிப்பிடுதல்."
+      },
+      "summary": {
+        "en": "Plan digital campaigns and evaluate their results responsibly.",
+        "si": "ඩිජිටල් ප්‍රචාරණ සැලසුම් කර ප්‍රතිඵල වගකීමෙන් ඇගයීම.",
+        "ta": "டிஜிட்டல் பிரசாரங்களைத் திட்டமிட்டு முடிவுகளைப் பொறுப்புடன் மதிப்பிடுதல்."
+      },
+      "aliases": [],
+      "routeType": "academic",
+      "qualification": {
+        "en": "A relevant recognised degree, with role-specific training and practical evidence.",
+        "si": "අදාළ පිළිගත් උපාධියක් සමඟ භූමිකාවට විශේෂිත පුහුණුව සහ ප්‍රායෝගික සාක්ෂි.",
+        "ta": "பணி சார்ந்த பயிற்சியும் நடைமுறை ஆதாரங்களும் கொண்ட தொடர்புடைய அங்கீகரிக்கப்பட்ட பட்டப்படிப்பு."
+      },
+      "degreePaths": {
+        "Business": 0.9,
+        "Management": 0.8,
+        "IT": 0.7
+      },
+      "directDegrees": [
+        "Business",
+        "Management",
+        "IT"
+      ],
+      "skillTargets": {
+        "communication": 0.85,
+        "creativity": 0.8,
+        "analysis": 0.75,
+        "research": 0.75
+      },
+      "project": {
+        "en": "Create a campaign plan, sample content and an honest performance report.",
+        "si": "ප්‍රචාරණ සැලැස්මක්, නියැදි අන්තර්ගත සහ නිවැරදි කාර්යසාධන වාර්තාවක් සාදන්න.",
+        "ta": "பிரசாரத் திட்டம், மாதிரி உள்ளடக்கம் மற்றும் நேர்மையான செயல்திறன் அறிக்கையை உருவாக்குங்கள்."
+      }
+    },
+    {
+      "id": 44,
+      "title": {
+        "en": "E-commerce Manager",
+        "si": "විද්‍යුත් වාණිජ කළමනාකරු",
+        "ta": "மின்னணு வணிக முகாமையாளர்"
+      },
+      "category": "Business",
+      "sector": "business",
+      "description": {
+        "en": "Manage online retail operations and customer experience.",
+        "si": "මාර්ගගත සිල්ලර මෙහෙයුම් සහ පාරිභෝගික අත්දැකීම් කළමනාකරණය කිරීම.",
+        "ta": "இணையச் சில்லறை நடவடிக்கைகளையும் வாடிக்கையாளர் அனுபவத்தையும் முகாமை செய்தல்."
+      },
+      "summary": {
+        "en": "Manage online retail operations and customer experience.",
+        "si": "මාර්ගගත සිල්ලර මෙහෙයුම් සහ පාරිභෝගික අත්දැකීම් කළමනාකරණය කිරීම.",
+        "ta": "இணையச் சில்லறை நடவடிக்கைகளையும் வாடிக்கையாளர் அனுபவத்தையும் முகாமை செய்தல்."
+      },
+      "aliases": [],
+      "routeType": "academic",
+      "qualification": {
+        "en": "A relevant recognised degree, with role-specific training and practical evidence.",
+        "si": "අදාළ පිළිගත් උපාධියක් සමඟ භූමිකාවට විශේෂිත පුහුණුව සහ ප්‍රායෝගික සාක්ෂි.",
+        "ta": "பணி சார்ந்த பயிற்சியும் நடைமுறை ஆதாரங்களும் கொண்ட தொடர்புடைய அங்கீகரிக்கப்பட்ட பட்டப்படிப்பு."
+      },
+      "degreePaths": {
+        "Business": 0.9,
+        "Management": 0.8,
+        "IT": 0.7
+      },
+      "directDegrees": [
+        "Business",
+        "Management",
+        "IT"
+      ],
+      "skillTargets": {
+        "analysis": 0.85,
+        "organization": 0.8,
+        "communication": 0.75,
+        "customer_service": 0.75
+      },
+      "project": {
+        "en": "Build a sample store and map checkout, inventory and returns processes.",
+        "si": "නියැදි වෙළඳසැලක් සාදා ගෙවීම්, තොග සහ ආපසු භාරගැනීමේ ක්‍රියාවලි දක්වන්න.",
+        "ta": "மாதிரிக் கடையை உருவாக்கிப் பணம் செலுத்தல், கையிருப்பு மற்றும் திருப்பிச் செலுத்தல் செயல்முறைகளை விளக்குங்கள்."
+      }
+    },
+    {
+      "id": 45,
+      "title": {
+        "en": "Project Coordinator",
+        "si": "ව්‍යාපෘති සම්බන්ධීකාරක",
+        "ta": "திட்ட ஒருங்கிணைப்பாளர்"
+      },
+      "category": "Business",
+      "sector": "business",
+      "description": {
+        "en": "Track project tasks, risks and stakeholder communication.",
+        "si": "ව්‍යාපෘති කාර්යයන්, අවදානම් සහ පාර්ශ්වකරුවන්ගේ සන්නිවේදනය අධීක්ෂණය කිරීම.",
+        "ta": "திட்டப் பணிகள், இடர்கள் மற்றும் தொடர்புடையவர்களின் தகவல்தொடர்பைக் கண்காணித்தல்."
+      },
+      "summary": {
+        "en": "Track project tasks, risks and stakeholder communication.",
+        "si": "ව්‍යාපෘති කාර්යයන්, අවදානම් සහ පාර්ශ්වකරුවන්ගේ සන්නිවේදනය අධීක්ෂණය කිරීම.",
+        "ta": "திட்டப் பணிகள், இடர்கள் மற்றும் தொடர்புடையவர்களின் தகவல்தொடர்பைக் கண்காணித்தல்."
+      },
+      "aliases": [],
+      "routeType": "academic",
+      "qualification": {
+        "en": "A relevant recognised degree, with role-specific training and practical evidence.",
+        "si": "අදාළ පිළිගත් උපාධියක් සමඟ භූමිකාවට විශේෂිත පුහුණුව සහ ප්‍රායෝගික සාක්ෂි.",
+        "ta": "பணி சார்ந்த பயிற்சியும் நடைமுறை ஆதாரங்களும் கொண்ட தொடர்புடைய அங்கீகரிக்கப்பட்ட பட்டப்படிப்பு."
+      },
+      "degreePaths": {
+        "Management": 0.9,
+        "Business": 0.8,
+        "IT": 0.7
+      },
+      "directDegrees": [
+        "Management",
+        "Business",
+        "IT"
+      ],
+      "skillTargets": {
+        "organization": 0.85,
+        "communication": 0.8,
+        "teamwork": 0.75,
+        "accuracy": 0.75
+      },
+      "project": {
+        "en": "Maintain a project schedule, risk register and progress report.",
+        "si": "ව්‍යාපෘති කාලසටහනක්, අවදානම් ලේඛනයක් සහ ප්‍රගති වාර්තාවක් පවත්වා ගන්න.",
+        "ta": "திட்ட அட்டவணை, இடர்ப் பதிவு மற்றும் முன்னேற்ற அறிக்கையைப் பராமரியுங்கள்."
+      }
+    },
+    {
+      "id": 46,
+      "title": {
+        "en": "Hotel Operations Manager",
+        "si": "හෝටල් මෙහෙයුම් කළමනාකරු",
+        "ta": "விடுதி நடவடிக்கை முகாமையாளர்"
+      },
+      "category": "Hospitality",
+      "sector": "hospitality",
+      "description": {
+        "en": "Coordinate hotel services, staff and guest experience.",
+        "si": "හෝටල් සේවා, කාර්ය මණ්ඩලය සහ අමුත්තන්ගේ අත්දැකීම් සම්බන්ධීකරණය කිරීම.",
+        "ta": "விடுதிச் சேவைகள், பணியாளர்கள் மற்றும் விருந்தினர் அனுபவத்தை ஒருங்கிணைத்தல்."
+      },
+      "summary": {
+        "en": "Coordinate hotel services, staff and guest experience.",
+        "si": "හෝටල් සේවා, කාර්ය මණ්ඩලය සහ අමුත්තන්ගේ අත්දැකීම් සම්බන්ධීකරණය කිරීම.",
+        "ta": "விடுதிச் சேவைகள், பணியாளர்கள் மற்றும் விருந்தினர் அனுபவத்தை ஒருங்கிணைத்தல்."
+      },
+      "aliases": [],
+      "routeType": "academic",
+      "qualification": {
+        "en": "A relevant recognised degree, with role-specific training and practical evidence.",
+        "si": "අදාළ පිළිගත් උපාධියක් සමඟ භූමිකාවට විශේෂිත පුහුණුව සහ ප්‍රායෝගික සාක්ෂි.",
+        "ta": "பணி சார்ந்த பயிற்சியும் நடைமுறை ஆதாரங்களும் கொண்ட தொடர்புடைய அங்கீகரிக்கப்பட்ட பட்டப்படிப்பு."
+      },
+      "degreePaths": {
+        "Management": 0.9,
+        "Business": 0.8
+      },
+      "directDegrees": [
+        "Management",
+        "Business"
+      ],
+      "skillTargets": {
+        "customer_service": 0.85,
+        "leadership": 0.8,
+        "communication": 0.75,
+        "organization": 0.75
+      },
+      "project": {
+        "en": "Document a supervised guest-service placement and service improvement.",
+        "si": "අධීක්ෂිත අමුත්තන් සේවා පුහුණුවක් සහ සේවා දියුණු කිරීමක් ලේඛනගත කරන්න.",
+        "ta": "மேற்பார்வையிட்ட விருந்தினர் சேவைப் பயிற்சியையும் சேவை மேம்பாட்டையும் ஆவணப்படுத்துங்கள்."
+      }
+    },
+    {
+      "id": 47,
+      "title": {
+        "en": "Tour Guide",
+        "si": "සංචාරක මාර්ගෝපදේශක",
+        "ta": "சுற்றுலா வழிகாட்டி"
+      },
+      "category": "Hospitality",
+      "sector": "hospitality",
+      "description": {
+        "en": "Explain destinations and guide visitors safely and responsibly.",
+        "si": "ගමනාන්ත පැහැදිලි කර අමුත්තන්ට ආරක්ෂිතව සහ වගකීමෙන් මඟපෙන්වීම.",
+        "ta": "இடங்களை விளக்கிப் பயணிகளுக்குப் பாதுகாப்பாகவும் பொறுப்புடனும் வழிகாட்டுதல்."
+      },
+      "summary": {
+        "en": "Explain destinations and guide visitors safely and responsibly.",
+        "si": "ගමනාන්ත පැහැදිලි කර අමුත්තන්ට ආරක්ෂිතව සහ වගකීමෙන් මඟපෙන්වීම.",
+        "ta": "இடங்களை விளக்கிப் பயணிகளுக்குப் பாதுகாப்பாகவும் பொறுப்புடனும் வழிகாட்டுதல்."
+      },
+      "aliases": [],
+      "routeType": "vocational",
+      "qualification": {
+        "en": "A relevant recognised vocational qualification or apprenticeship, with supervised practical assessment.",
+        "si": "අධීක්ෂිත ප්‍රායෝගික ඇගයීම සහිත අදාළ පිළිගත් වෘත්තීය සුදුසුකමක් හෝ ආධුනික පුහුණුවක්.",
+        "ta": "மேற்பார்வையிட்ட நடைமுறை மதிப்பீட்டுடன் தொடர்புடைய அங்கீகரிக்கப்பட்ட தொழிற்தகுதி அல்லது தொழிற்பயிற்சி."
+      },
+      "degreePaths": {},
+      "directDegrees": [],
+      "skillTargets": {
+        "communication": 0.85,
+        "knowledge": 0.8,
+        "customer_service": 0.75,
+        "safety": 0.75
+      },
+      "project": {
+        "en": "Prepare an accurate tour itinerary with a safety plan and commentary.",
+        "si": "ආරක්ෂක සැලැස්මක් සහ විස්තර සහිත නිවැරදි සංචාරක වැඩසටහනක් සාදන්න.",
+        "ta": "பாதுகாப்புத் திட்டமும் விளக்கவுரையும் கொண்ட துல்லியமான சுற்றுலா நிகழ்ச்சியைத் தயாரியுங்கள்."
+      },
+      "registrationNote": {
+        "en": "For Sri Lanka, check the guide category, recognised training and registration process with SLTDA before offering guiding services.",
+        "si": "ශ්‍රී ලංකාවේ මාර්ගෝපදේශ සේවා සැපයීමට පෙර මාර්ගෝපදේශක කාණ්ඩය, පිළිගත් පුහුණුව සහ ලියාපදිංචි ක්‍රියාවලිය SLTDA සමඟ පරීක්ෂා කරන්න.",
+        "ta": "இலங்கையில் வழிகாட்டிச் சேவைகளை வழங்குவதற்கு முன் வழிகாட்டி வகை, அங்கீகரிக்கப்பட்ட பயிற்சி மற்றும் பதிவுச் செயல்முறையை SLTDA மூலம் சரிபார்க்கவும்."
+      },
+      "sources": [
+        {
+          "title": "SLTDA guide training and registration",
+          "url": "https://www.sltda.gov.lk/en/register-with-us",
+          "scope": "Verify the current guide category and registration requirements."
+        }
+      ]
+    },
+    {
+      "id": 48,
+      "title": {
+        "en": "Travel Consultant",
+        "si": "සංචාරක උපදේශක",
+        "ta": "பயண ஆலோசகர்"
+      },
+      "category": "Hospitality",
+      "sector": "hospitality",
+      "description": {
+        "en": "Help clients compare travel options and organise bookings.",
+        "si": "සංචාර විකල්ප සැසඳීමට සහ වෙන්කිරීම් සංවිධානයට පාරිභෝගිකයන්ට සහාය වීම.",
+        "ta": "பயணத் தெரிவுகளை ஒப்பிடவும் முன்பதிவுகளை ஒழுங்குபடுத்தவும் வாடிக்கையாளர்களுக்கு உதவுதல்."
+      },
+      "summary": {
+        "en": "Help clients compare travel options and organise bookings.",
+        "si": "සංචාර විකල්ප සැසඳීමට සහ වෙන්කිරීම් සංවිධානයට පාරිභෝගිකයන්ට සහාය වීම.",
+        "ta": "பயணத் தெரிவுகளை ஒப்பிடவும் முன்பதிவுகளை ஒழுங்குபடுத்தவும் வாடிக்கையாளர்களுக்கு உதவுதல்."
+      },
+      "aliases": [],
+      "routeType": "academic",
+      "qualification": {
+        "en": "A relevant recognised degree, with role-specific training and practical evidence.",
+        "si": "අදාළ පිළිගත් උපාධියක් සමඟ භූමිකාවට විශේෂිත පුහුණුව සහ ප්‍රායෝගික සාක්ෂි.",
+        "ta": "பணி சார்ந்த பயிற்சியும் நடைமுறை ஆதாரங்களும் கொண்ட தொடர்புடைய அங்கீகரிக்கப்பட்ட பட்டப்படிப்பு."
+      },
+      "degreePaths": {
+        "Business": 0.9,
+        "Management": 0.8
+      },
+      "directDegrees": [
+        "Business",
+        "Management"
+      ],
+      "skillTargets": {
+        "customer_service": 0.85,
+        "communication": 0.8,
+        "organization": 0.75,
+        "accuracy": 0.75
+      },
+      "project": {
+        "en": "Prepare a costed itinerary and explain booking and cancellation conditions.",
+        "si": "පිරිවැය සහිත සංචාර සැලැස්මක් සාදා වෙන්කිරීම් සහ අවලංගු කොන්දේසි පැහැදිලි කරන්න.",
+        "ta": "செலவுகளுடன் பயணத் திட்டம் தயாரித்து முன்பதிவு மற்றும் ரத்துச் செய்யும் நிபந்தனைகளை விளக்குங்கள்."
+      }
+    },
+    {
+      "id": 49,
+      "title": {
+        "en": "Export Operations Coordinator",
+        "si": "අපනයන මෙහෙයුම් සම්බන්ධීකාරක",
+        "ta": "ஏற்றுமதி நடவடிக்கை ஒருங்கிணைப்பாளர்"
+      },
+      "category": "Business",
+      "sector": "business",
+      "description": {
+        "en": "Coordinate export documentation and shipment operations.",
+        "si": "අපනයන ලේඛන සහ නැව්ගත මෙහෙයුම් සම්බන්ධීකරණය කිරීම.",
+        "ta": "ஏற்றுமதி ஆவணங்களையும் சரக்கு அனுப்பும் நடவடிக்கைகளையும் ஒருங்கிணைத்தல்."
+      },
+      "summary": {
+        "en": "Coordinate export documentation and shipment operations.",
+        "si": "අපනයන ලේඛන සහ නැව්ගත මෙහෙයුම් සම්බන්ධීකරණය කිරීම.",
+        "ta": "ஏற்றுமதி ஆவணங்களையும் சரக்கு அனுப்பும் நடவடிக்கைகளையும் ஒருங்கிணைத்தல்."
+      },
+      "aliases": [],
+      "routeType": "academic",
+      "qualification": {
+        "en": "A relevant recognised degree, with role-specific training and practical evidence.",
+        "si": "අදාළ පිළිගත් උපාධියක් සමඟ භූමිකාවට විශේෂිත පුහුණුව සහ ප්‍රායෝගික සාක්ෂි.",
+        "ta": "பணி சார்ந்த பயிற்சியும் நடைமுறை ஆதாரங்களும் கொண்ட தொடர்புடைய அங்கீகரிக்கப்பட்ட பட்டப்படிப்பு."
+      },
+      "degreePaths": {
+        "Business": 0.9,
+        "Management": 0.8
+      },
+      "directDegrees": [
+        "Business",
+        "Management"
+      ],
+      "skillTargets": {
+        "organization": 0.85,
+        "accuracy": 0.8,
+        "communication": 0.75,
+        "ethics": 0.75
+      },
+      "project": {
+        "en": "Prepare a sample export documentation pack and shipment checklist.",
+        "si": "නියැදි අපනයන ලේඛන කට්ටලයක් සහ නැව්ගත පරීක්ෂණ ලැයිස්තුවක් සාදන්න.",
+        "ta": "மாதிரி ஏற்றுமதி ஆவணத் தொகுப்பையும் சரக்கு அனுப்பும் சரிபார்ப்புப் பட்டியலையும் தயாரியுங்கள்."
+      }
+    },
+    {
+      "id": 50,
+      "title": {
+        "en": "Apparel Merchandiser",
+        "si": "ඇඟලුම් වෙළඳ සම්බන්ධීකාරක",
+        "ta": "ஆடை வணிக ஒருங்கிணைப்பாளர்"
+      },
+      "category": "Business",
+      "sector": "business",
+      "description": {
+        "en": "Coordinate apparel orders, costing and production milestones.",
+        "si": "ඇඟලුම් ඇණවුම්, පිරිවැය සහ නිෂ්පාදන අදියර සම්බන්ධීකරණය කිරීම.",
+        "ta": "ஆடை ஆணைகள், செலவுக் கணக்கீடு மற்றும் உற்பத்திக் கட்டங்களை ஒருங்கிணைத்தல்."
+      },
+      "summary": {
+        "en": "Coordinate apparel orders, costing and production milestones.",
+        "si": "ඇඟලුම් ඇණවුම්, පිරිවැය සහ නිෂ්පාදන අදියර සම්බන්ධීකරණය කිරීම.",
+        "ta": "ஆடை ஆணைகள், செலவுக் கணக்கீடு மற்றும் உற்பத்திக் கட்டங்களை ஒருங்கிணைத்தல்."
+      },
+      "aliases": [],
+      "routeType": "academic",
+      "qualification": {
+        "en": "A relevant recognised degree, with role-specific training and practical evidence.",
+        "si": "අදාළ පිළිගත් උපාධියක් සමඟ භූමිකාවට විශේෂිත පුහුණුව සහ ප්‍රායෝගික සාක්ෂි.",
+        "ta": "பணி சார்ந்த பயிற்சியும் நடைமுறை ஆதாரங்களும் கொண்ட தொடர்புடைய அங்கீகரிக்கப்பட்ட பட்டப்படிப்பு."
+      },
+      "degreePaths": {
+        "Business": 0.9,
+        "Management": 0.8
+      },
+      "directDegrees": [
+        "Business",
+        "Management"
+      ],
+      "skillTargets": {
+        "communication": 0.85,
+        "organization": 0.8,
+        "accuracy": 0.75,
+        "analysis": 0.75
+      },
+      "project": {
+        "en": "Create a sample garment costing and order-to-delivery tracking sheet.",
+        "si": "නියැදි ඇඟලුම් පිරිවැයක් සහ ඇණවුමේ සිට බෙදාහැරීම දක්වා ලුහුබැඳීම් පත්‍රයක් සාදන්න.",
+        "ta": "மாதிரி ஆடைச் செலவுக் கணக்கையும் ஆணையிலிருந்து வழங்கல் வரை கண்காணிப்புப் பதிவையும் உருவாக்குங்கள்."
+      }
+    },
+    {
+      "id": 51,
+      "title": {
+        "en": "Food Technologist",
+        "si": "ආහාර තාක්ෂණවේදී",
+        "ta": "உணவுத் தொழில்நுட்பவியலாளர்"
+      },
+      "category": "Science",
+      "sector": "science",
+      "description": {
+        "en": "Develop and assess food products, quality and processing safety.",
+        "si": "ආහාර නිෂ්පාදන, තත්ත්වය සහ සැකසුම් ආරක්ෂාව සංවර්ධනය කර ඇගයීම.",
+        "ta": "உணவுப் பொருட்கள், தரம் மற்றும் செயலாக்கப் பாதுகாப்பை உருவாக்கி மதிப்பிடுதல்."
+      },
+      "summary": {
+        "en": "Develop and assess food products, quality and processing safety.",
+        "si": "ආහාර නිෂ්පාදන, තත්ත්වය සහ සැකසුම් ආරක්ෂාව සංවර්ධනය කර ඇගයීම.",
+        "ta": "உணவுப் பொருட்கள், தரம் மற்றும் செயலாக்கப் பாதுகாப்பை உருவாக்கி மதிப்பிடுதல்."
+      },
+      "aliases": [],
+      "routeType": "specialist",
+      "qualification": {
+        "en": "A food science or food technology qualification with laboratory and food-processing practice. Broad science degrees need an appropriate food specialisation.",
+        "si": "රසායනාගාර සහ ආහාර සැකසුම් පුහුණුව සහිත ආහාර විද්‍යා හෝ ආහාර තාක්ෂණ සුදුසුකමක්. පුළුල් විද්‍යා උපාධි සඳහා අදාළ ආහාර විශේෂීකරණයක් අවශ්‍යයි.",
+        "ta": "ஆய்வுகூட மற்றும் உணவுச் செயலாக்கப் பயிற்சியுடன் உணவு விஞ்ஞானம் அல்லது உணவுத் தொழில்நுட்பத் தகுதி. பொதுவான விஞ்ஞானப் பட்டங்களுக்கு ஏற்ற உணவுத் துறைச் சிறப்பாக்கம் தேவை."
+      },
+      "degreePaths": {
+        "Bio Science": 0.9,
+        "Agriculture": 0.8
+      },
+      "directDegrees": [],
+      "skillTargets": {
+        "chemistry": 0.85,
+        "biology": 0.8,
+        "accuracy": 0.75,
+        "quality_control": 0.75
+      },
+      "project": {
+        "en": "Document a supervised food-processing trial and quality measurements.",
+        "si": "අධීක්ෂිත ආහාර සැකසුම් අත්හදා බැලීමක් සහ තත්ත්ව මිනුම් ලේඛනගත කරන්න.",
+        "ta": "மேற்பார்வையிட்ட உணவுச் செயலாக்க முயற்சியையும் தர அளவீடுகளையும் ஆவணப்படுத்துங்கள்."
+      }
+    },
+    {
+      "id": 52,
+      "title": {
+        "en": "Renewable Energy Technician",
+        "si": "පුනර්ජනනීය බලශක්ති කාර්මික",
+        "ta": "புதுப்பிக்கத்தக்க ஆற்றல் தொழில்நுட்பவியலாளர்"
+      },
+      "category": "Trades",
+      "sector": "trades",
+      "description": {
+        "en": "Support safe installation and maintenance of renewable energy equipment.",
+        "si": "පුනර්ජනනීය බලශක්ති උපකරණ ආරක්ෂිතව සවි කිරීමට සහ නඩත්තු කිරීමට සහාය වීම.",
+        "ta": "புதுப்பிக்கத்தக்க ஆற்றல் உபகரணங்களைப் பாதுகாப்பாக நிறுவவும் பராமரிக்கவும் உதவுதல்."
+      },
+      "summary": {
+        "en": "Support safe installation and maintenance of renewable energy equipment.",
+        "si": "පුනර්ජනනීය බලශක්ති උපකරණ ආරක්ෂිතව සවි කිරීමට සහ නඩත්තු කිරීමට සහාය වීම.",
+        "ta": "புதுப்பிக்கத்தக்க ஆற்றல் உபகரணங்களைப் பாதுகாப்பாக நிறுவவும் பராமரிக்கவும் உதவுதல்."
+      },
+      "aliases": [],
+      "routeType": "vocational",
+      "qualification": {
+        "en": "A relevant recognised vocational qualification or apprenticeship, with supervised practical assessment.",
+        "si": "අධීක්ෂිත ප්‍රායෝගික ඇගයීම සහිත අදාළ පිළිගත් වෘත්තීය සුදුසුකමක් හෝ ආධුනික පුහුණුවක්.",
+        "ta": "மேற்பார்வையிட்ட நடைமுறை மதிப்பீட்டுடன் தொடர்புடைய அங்கீகரிக்கப்பட்ட தொழிற்தகுதி அல்லது தொழிற்பயிற்சி."
+      },
+      "degreePaths": {},
+      "directDegrees": [],
+      "skillTargets": {
+        "practical_skills": 0.85,
+        "safety": 0.8,
+        "fault_diagnosis": 0.75,
+        "mathematics": 0.75
+      },
+      "project": {
+        "en": "Record supervised equipment inspections and maintenance measurements.",
+        "si": "අධීක්ෂිත උපකරණ පරීක්ෂණ සහ නඩත්තු මිනුම් වාර්තා කරන්න.",
+        "ta": "மேற்பார்வையிட்ட உபகரண ஆய்வுகளையும் பராமரிப்பு அளவீடுகளையும் பதிவுசெய்யுங்கள்."
+      }
+    },
+    {
+      "id": 53,
+      "title": {
+        "en": "Solar PV Installer",
+        "si": "සූර්ය විදුලි පද්ධති ස්ථාපක",
+        "ta": "சூரிய மின்கல நிறுவுநர்"
+      },
+      "category": "Trades",
+      "sector": "trades",
+      "description": {
+        "en": "Install and maintain solar photovoltaic systems under qualified supervision.",
+        "si": "සුදුසුකම් ලත් අධීක්ෂණය යටතේ සූර්ය විදුලි පද්ධති සවි කිරීම සහ නඩත්තු කිරීම.",
+        "ta": "தகுதியான மேற்பார்வையில் சூரிய மின்கல அமைப்புகளை நிறுவிப் பராமரித்தல்."
+      },
+      "summary": {
+        "en": "Install and maintain solar photovoltaic systems under qualified supervision.",
+        "si": "සුදුසුකම් ලත් අධීක්ෂණය යටතේ සූර්ය විදුලි පද්ධති සවි කිරීම සහ නඩත්තු කිරීම.",
+        "ta": "தகுதியான மேற்பார்வையில் சூரிய மின்கல அமைப்புகளை நிறுவிப் பராமரித்தல்."
+      },
+      "aliases": [
+        "solar technician"
+      ],
+      "routeType": "vocational",
+      "qualification": {
+        "en": "A relevant recognised vocational qualification or apprenticeship, with supervised practical assessment.",
+        "si": "අධීක්ෂිත ප්‍රායෝගික ඇගයීම සහිත අදාළ පිළිගත් වෘත්තීය සුදුසුකමක් හෝ ආධුනික පුහුණුවක්.",
+        "ta": "மேற்பார்வையிட்ட நடைமுறை மதிப்பீட்டுடன் தொடர்புடைய அங்கீகரிக்கப்பட்ட தொழிற்தகுதி அல்லது தொழிற்பயிற்சி."
+      },
+      "degreePaths": {},
+      "directDegrees": [],
+      "skillTargets": {
+        "electrical_safety": 0.85,
+        "practical_skills": 0.8,
+        "accuracy": 0.75,
+        "teamwork": 0.75
+      },
+      "project": {
+        "en": "Complete supervised mounting, inspection and commissioning records.",
+        "si": "අධීක්ෂිත සවි කිරීම, පරීක්ෂණ සහ ක්‍රියාත්මක කිරීමේ වාර්තා සම්පූර්ණ කරන්න.",
+        "ta": "மேற்பார்வையிட்ட பொருத்தல், ஆய்வு மற்றும் இயக்கத் தொடக்கப் பதிவுகளைப் பூர்த்தி செய்யுங்கள்."
+      }
+    },
+    {
+      "id": 54,
+      "title": {
+        "en": "HVAC Technician",
+        "si": "වායු සමීකරණ සහ ශීතකරණ කාර්මික",
+        "ta": "காற்றுச்சீராக்கல் மற்றும் குளிரூட்டல் தொழில்நுட்பவியலாளர்"
+      },
+      "category": "Trades",
+      "sector": "trades",
+      "description": {
+        "en": "Maintain heating, ventilation, air conditioning and refrigeration equipment.",
+        "si": "උණුසුම් කිරීමේ, වාතාශ්‍රය, වායු සමීකරණ සහ ශීතකරණ උපකරණ නඩත්තු කිරීම.",
+        "ta": "வெப்பமூட்டல், காற்றோட்டம், காற்றுச்சீராக்கல் மற்றும் குளிரூட்டல் உபகரணங்களைப் பராமரித்தல்."
+      },
+      "summary": {
+        "en": "Maintain heating, ventilation, air conditioning and refrigeration equipment.",
+        "si": "උණුසුම් කිරීමේ, වාතාශ්‍රය, වායු සමීකරණ සහ ශීතකරණ උපකරණ නඩත්තු කිරීම.",
+        "ta": "வெப்பமூட்டல், காற்றோட்டம், காற்றுச்சீராக்கல் மற்றும் குளிரூட்டல் உபகரணங்களைப் பராமரித்தல்."
+      },
+      "aliases": [
+        "AC technician",
+        "refrigeration"
+      ],
+      "routeType": "vocational",
+      "qualification": {
+        "en": "A relevant recognised vocational qualification or apprenticeship, with supervised practical assessment.",
+        "si": "අධීක්ෂිත ප්‍රායෝගික ඇගයීම සහිත අදාළ පිළිගත් වෘත්තීය සුදුසුකමක් හෝ ආධුනික පුහුණුවක්.",
+        "ta": "மேற்பார்வையிட்ட நடைமுறை மதிப்பீட்டுடன் தொடர்புடைய அங்கீகரிக்கப்பட்ட தொழிற்தகுதி அல்லது தொழிற்பயிற்சி."
+      },
+      "degreePaths": {},
+      "directDegrees": [],
+      "skillTargets": {
+        "practical_skills": 0.85,
+        "safety": 0.8,
+        "fault_diagnosis": 0.75,
+        "accuracy": 0.75
+      },
+      "project": {
+        "en": "Record supervised fault diagnosis and servicing with safety checks.",
+        "si": "ආරක්ෂක පරීක්ෂණ සමඟ අධීක්ෂිත දෝෂ හඳුනාගැනීම සහ සේවා වාර්තා කරන්න.",
+        "ta": "பாதுகாப்புச் சோதனைகளுடன் மேற்பார்வையிட்ட கோளாறு கண்டறிதலையும் சேவையையும் பதிவுசெய்யுங்கள்."
+      }
+    },
+    {
+      "id": 55,
+      "title": {
+        "en": "Automotive Technician",
+        "si": "මෝටර් රථ කාර්මික",
+        "ta": "வாகனத் தொழில்நுட்பவியலாளர்"
+      },
+      "category": "Trades",
+      "sector": "trades",
+      "description": {
+        "en": "Diagnose vehicle faults and perform supervised maintenance.",
+        "si": "වාහන දෝෂ හඳුනාගෙන අධීක්ෂිත නඩත්තු සිදු කිරීම.",
+        "ta": "வாகனக் கோளாறுகளைக் கண்டறிந்து மேற்பார்வையில் பராமரித்தல்."
+      },
+      "summary": {
+        "en": "Diagnose vehicle faults and perform supervised maintenance.",
+        "si": "වාහන දෝෂ හඳුනාගෙන අධීක්ෂිත නඩත්තු සිදු කිරීම.",
+        "ta": "வாகனக் கோளாறுகளைக் கண்டறிந்து மேற்பார்வையில் பராமரித்தல்."
+      },
+      "aliases": [
+        "motor mechanic"
+      ],
+      "routeType": "vocational",
+      "qualification": {
+        "en": "A relevant recognised vocational qualification or apprenticeship, with supervised practical assessment.",
+        "si": "අධීක්ෂිත ප්‍රායෝගික ඇගයීම සහිත අදාළ පිළිගත් වෘත්තීය සුදුසුකමක් හෝ ආධුනික පුහුණුවක්.",
+        "ta": "மேற்பார்வையிட்ட நடைமுறை மதிப்பீட்டுடன் தொடர்புடைய அங்கீகரிக்கப்பட்ட தொழிற்தகுதி அல்லது தொழிற்பயிற்சி."
+      },
+      "degreePaths": {},
+      "directDegrees": [],
+      "skillTargets": {
+        "fault_diagnosis": 0.85,
+        "practical_skills": 0.8,
+        "safety": 0.75,
+        "accuracy": 0.75
+      },
+      "project": {
+        "en": "Complete a supervised vehicle inspection and diagnostic report.",
+        "si": "අධීක්ෂිත වාහන පරීක්ෂණයක් සහ දෝෂ විනිශ්චය වාර්තාවක් සම්පූර්ණ කරන්න.",
+        "ta": "மேற்பார்வையிட்ட வாகன ஆய்வையும் கோளாறு கண்டறியும் அறிக்கையையும் பூர்த்தி செய்யுங்கள்."
+      }
+    },
+    {
+      "id": 56,
+      "title": {
+        "en": "Welder",
+        "si": "පෑස්සුම් ශිල්පී",
+        "ta": "பற்றவைப்பாளர்"
+      },
+      "category": "Trades",
+      "sector": "trades",
+      "description": {
+        "en": "Join metal components to specifications using safe working methods.",
+        "si": "ආරක්ෂිත වැඩ ක්‍රම භාවිතයෙන් පිරිවිතර අනුව ලෝහ කොටස් සම්බන්ධ කිරීම.",
+        "ta": "பாதுகாப்பான முறைகளில் விவரக்குறிப்புகளுக்கு ஏற்ப உலோகப் பகுதிகளை இணைத்தல்."
+      },
+      "summary": {
+        "en": "Join metal components to specifications using safe working methods.",
+        "si": "ආරක්ෂිත වැඩ ක්‍රම භාවිතයෙන් පිරිවිතර අනුව ලෝහ කොටස් සම්බන්ධ කිරීම.",
+        "ta": "பாதுகாப்பான முறைகளில் விவரக்குறிப்புகளுக்கு ஏற்ப உலோகப் பகுதிகளை இணைத்தல்."
+      },
+      "aliases": [],
+      "routeType": "vocational",
+      "qualification": {
+        "en": "A relevant recognised vocational qualification or apprenticeship, with supervised practical assessment.",
+        "si": "අධීක්ෂිත ප්‍රායෝගික ඇගයීම සහිත අදාළ පිළිගත් වෘත්තීය සුදුසුකමක් හෝ ආධුනික පුහුණුවක්.",
+        "ta": "மேற்பார்வையிட்ட நடைமுறை மதிப்பீட்டுடன் தொடர்புடைய அங்கீகரிக்கப்பட்ட தொழிற்தகுதி அல்லது தொழிற்பயிற்சி."
+      },
+      "degreePaths": {},
+      "directDegrees": [],
+      "skillTargets": {
+        "practical_skills": 0.85,
+        "safety": 0.8,
+        "accuracy": 0.75,
+        "attention_to_detail": 0.75
+      },
+      "project": {
+        "en": "Produce supervised weld samples and document inspection results.",
+        "si": "අධීක්ෂිත පෑස්සුම් නියැදි නිපදවා පරීක්ෂණ ප්‍රතිඵල ලේඛනගත කරන්න.",
+        "ta": "மேற்பார்வையிட்ட பற்றவைப்பு மாதிரிகளை உருவாக்கி ஆய்வு முடிவுகளை ஆவணப்படுத்துங்கள்."
+      }
+    },
+    {
+      "id": 57,
+      "title": {
+        "en": "Electrical Engineer",
+        "si": "විදුලි ඉංජිනේරු",
+        "ta": "மின் பொறியாளர்"
+      },
+      "category": "Engineering",
+      "sector": "engineering",
+      "description": {
+        "en": "Design and analyse electrical systems within professional competence.",
+        "si": "වෘත්තීය නිපුණතා සීමාවන් තුළ විදුලි පද්ධති සැලසුම් කිරීම සහ විශ්ලේෂණය කිරීම.",
+        "ta": "தொழில்சார் திறன் வரம்புக்குள் மின் அமைப்புகளை வடிவமைத்துப் பகுப்பாய்வு செய்தல்."
+      },
+      "summary": {
+        "en": "Design and analyse electrical systems within professional competence.",
+        "si": "වෘත්තීය නිපුණතා සීමාවන් තුළ විදුලි පද්ධති සැලසුම් කිරීම සහ විශ්ලේෂණය කිරීම.",
+        "ta": "தொழில்சார் திறன் வரம்புக்குள் மின் அமைப்புகளை வடிவமைத்துப் பகுப்பாய்வு செய்தல்."
+      },
+      "aliases": [],
+      "routeType": "professional",
+      "qualification": {
+        "en": "An accredited electrical engineering qualification, supervised practice and any required professional registration.",
+        "si": "ප්‍රතීතනය ලත් විදුලි ඉංජිනේරු සුදුසුකමක්, අධීක්ෂිත පුහුණුව සහ අවශ්‍ය වෘත්තීය ලියාපදිංචිය.",
+        "ta": "அங்கீகரிக்கப்பட்ட மின் பொறியியல் தகுதி, மேற்பார்வைப் பயிற்சி மற்றும் தேவையான தொழில்சார் பதிவு."
+      },
+      "degreePaths": {
+        "Engineering": 0.9
+      },
+      "directDegrees": [
+        "Engineering"
+      ],
+      "skillTargets": {
+        "mathematics": 0.85,
+        "physics": 0.8,
+        "design": 0.75,
+        "safety": 0.75
+      },
+      "project": {
+        "en": "Complete an electrical design study with calculations and supervised review.",
+        "si": "ගණනය කිරීම් සහ අධීක්ෂිත සමාලෝචනය සහිත විදුලි සැලසුම් අධ්‍යයනයක් සම්පූර්ණ කරන්න.",
+        "ta": "கணக்கீடுகளும் மேற்பார்வை மதிப்பாய்வும் கொண்ட மின் வடிவமைப்பு ஆய்வைப் பூர்த்தி செய்யுங்கள்."
+      }
+    },
+    {
+      "id": 58,
+      "title": {
+        "en": "Quantity Surveyor",
+        "si": "ප්‍රමාණ සමීක්ෂක",
+        "ta": "அளவையியலாளர்"
+      },
+      "category": "Engineering",
+      "sector": "engineering",
+      "description": {
+        "en": "Measure construction work and manage project costs and contracts.",
+        "si": "ඉදිකිරීම් වැඩ ප්‍රමාණ මැන ව්‍යාපෘති පිරිවැය සහ ගිවිසුම් කළමනාකරණය කිරීම.",
+        "ta": "கட்டுமானப் பணிகளை அளந்து திட்டச் செலவுகளையும் ஒப்பந்தங்களையும் முகாமை செய்தல்."
+      },
+      "summary": {
+        "en": "Measure construction work and manage project costs and contracts.",
+        "si": "ඉදිකිරීම් වැඩ ප්‍රමාණ මැන ව්‍යාපෘති පිරිවැය සහ ගිවිසුම් කළමනාකරණය කිරීම.",
+        "ta": "கட்டுமானப் பணிகளை அளந்து திட்டச் செலவுகளையும் ஒப்பந்தங்களையும் முகாமை செய்தல்."
+      },
+      "aliases": [],
+      "routeType": "professional",
+      "qualification": {
+        "en": "A recognised quantity surveying qualification, measured-work experience and any required professional assessment.",
+        "si": "පිළිගත් ප්‍රමාණ සමීක්ෂණ සුදුසුකමක්, මැනුම් වැඩ අත්දැකීම් සහ අවශ්‍ය වෘත්තීය ඇගයීම.",
+        "ta": "அங்கீகரிக்கப்பட்ட அளவையியல் தகுதி, அளவிடப்பட்ட பணியனுபவம் மற்றும் தேவையான தொழில்சார் மதிப்பீடு."
+      },
+      "degreePaths": {
+        "Quantity Surveying": 0.9
+      },
+      "directDegrees": [
+        "Quantity Surveying"
+      ],
+      "skillTargets": {
+        "mathematics": 0.85,
+        "accuracy": 0.8,
+        "analysis": 0.75,
+        "communication": 0.75
+      },
+      "project": {
+        "en": "Prepare a measured bill of quantities and a cost comparison.",
+        "si": "මැනුම් අනුව ප්‍රමාණ පත්‍රයක් සහ පිරිවැය සැසඳීමක් සාදන්න.",
+        "ta": "அளவிடப்பட்ட அளவுப் பட்டியலையும் செலவு ஒப்பீட்டையும் தயாரியுங்கள்."
+      }
+    },
+    {
+      "id": 59,
+      "title": {
+        "en": "Industrial Laboratory Technician",
+        "si": "කාර්මික රසායනාගාර කාර්මික",
+        "ta": "கைத்தொழில் ஆய்வுகூடத் தொழில்நுட்பவியலாளர்"
+      },
+      "category": "Science",
+      "sector": "science",
+      "description": {
+        "en": "Support industrial sampling, testing and laboratory record keeping.",
+        "si": "කාර්මික නියැදි ගැනීම, පරීක්ෂා කිරීම සහ රසායනාගාර වාර්තා තබා ගැනීමට සහාය වීම.",
+        "ta": "கைத்தொழில் மாதிரி சேகரிப்பு, சோதனை மற்றும் ஆய்வுகூடப் பதிவுகளைப் பராமரிக்க உதவுதல்."
+      },
+      "summary": {
+        "en": "Support industrial sampling, testing and laboratory record keeping.",
+        "si": "කාර්මික නියැදි ගැනීම, පරීක්ෂා කිරීම සහ රසායනාගාර වාර්තා තබා ගැනීමට සහාය වීම.",
+        "ta": "கைத்தொழில் மாதிரி சேகரிப்பு, சோதனை மற்றும் ஆய்வுகூடப் பதிவுகளைப் பராமரிக்க உதவுதல்."
+      },
+      "aliases": [],
+      "routeType": "specialist",
+      "qualification": {
+        "en": "A relevant laboratory qualification and supervised industrial testing competence. This pathway does not qualify someone for clinical diagnosis.",
+        "si": "අදාළ රසායනාගාර සුදුසුකමක් සහ අධීක්ෂිත කාර්මික පරීක්ෂණ නිපුණතාව. මෙම මාර්ගය සායනික රෝග විනිශ්චය සඳහා සුදුසුකමක් නොවේ.",
+        "ta": "தொடர்புடைய ஆய்வுகூடத் தகுதியும் மேற்பார்வையிட்ட கைத்தொழில் சோதனைத் திறனும் தேவை. இப்பாதை மருத்துவ நோயறிதலுக்குத் தகுதி அளிக்காது."
+      },
+      "degreePaths": {
+        "Bio Science": 0.9,
+        "Physical Science": 0.8
+      },
+      "directDegrees": [],
+      "skillTargets": {
+        "accuracy": 0.85,
+        "chemistry": 0.8,
+        "safety": 0.75,
+        "quality_control": 0.75
+      },
+      "project": {
+        "en": "Complete a supervised test log with calibration and quality-control records.",
+        "si": "ක්‍රමාංකනය සහ තත්ත්ව පාලන වාර්තා සහිත අධීක්ෂිත පරීක්ෂණ සටහනක් සම්පූර්ණ කරන්න.",
+        "ta": "அளவுத்திருத்தம் மற்றும் தரக் கட்டுப்பாட்டுப் பதிவுகளுடன் மேற்பார்வையிட்ட சோதனைப் பதிவைத் தயாரியுங்கள்."
+      }
+    },
+    {
+      "id": 60,
+      "title": {
+        "en": "Animation Artist",
+        "si": "සජීවිකරණ ශිල්පී",
+        "ta": "அசைவூட்டக் கலைஞர்"
+      },
+      "category": "Design",
+      "sector": "design",
+      "description": {
+        "en": "Create animated visuals through storytelling, design and production.",
+        "si": "කතාකරණය, සැලසුම් සහ නිෂ්පාදනය මඟින් සජීවිකරණ දෘශ්‍ය නිර්මාණය කිරීම.",
+        "ta": "கதைசொல்லல், வடிவமைப்பு மற்றும் தயாரிப்பின் மூலம் அசைவூட்டக் காட்சிகளை உருவாக்குதல்."
+      },
+      "summary": {
+        "en": "Create animated visuals through storytelling, design and production.",
+        "si": "කතාකරණය, සැලසුම් සහ නිෂ්පාදනය මඟින් සජීවිකරණ දෘශ්‍ය නිර්මාණය කිරීම.",
+        "ta": "கதைசொல்லல், வடிவமைப்பு மற்றும் தயாரிப்பின் மூலம் அசைவூட்டக் காட்சிகளை உருவாக்குதல்."
+      },
+      "aliases": [],
+      "routeType": "specialist",
+      "qualification": {
+        "en": "Animation or digital-design training with a reviewed animation portfolio; broad Fine Arts or IT study alone is not equivalent animation training.",
+        "si": "සමාලෝචිත සජීවිකරණ කාර්ය එකතුවක් සහිත සජීවිකරණ හෝ ඩිජිටල් සැලසුම් පුහුණුව; පුළුල් ලලිත කලා හෝ IT අධ්‍යයනය පමණක් සමාන සජීවිකරණ පුහුණුවක් නොවේ.",
+        "ta": "மதிப்பாய்வு செய்யப்பட்ட அசைவூட்டப் பணித்தொகுப்புடன் அசைவூட்டம் அல்லது டிஜிட்டல் வடிவமைப்புப் பயிற்சி; பொதுவான நுண்கலை அல்லது IT கல்வி மட்டும் சமமான அசைவூட்டப் பயிற்சி அல்ல."
+      },
+      "degreePaths": {
+        "Fine Arts": 0.9,
+        "IT": 0.8
+      },
+      "directDegrees": [],
+      "skillTargets": {
+        "design": 0.85,
+        "creativity": 0.8,
+        "communication": 0.75,
+        "attention_to_detail": 0.75
+      },
+      "project": {
+        "en": "Produce a short animation with a storyboard and documented revisions.",
+        "si": "කතා පුවරුවක් සහ ලේඛනගත සංශෝධන සහිත කෙටි සජීවිකරණයක් නිපදවන්න.",
+        "ta": "கதைப்பலகையும் ஆவணப்படுத்தப்பட்ட திருத்தங்களும் கொண்ட குறுகிய அசைவூட்டத்தை உருவாக்குங்கள்."
+      }
+    }
+  ]
+}

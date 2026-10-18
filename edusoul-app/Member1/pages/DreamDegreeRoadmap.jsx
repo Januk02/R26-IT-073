@@ -1,3 +1,7 @@
+import { skillLabel } from '../data/skillLabels';
+import CareerPlanSummary from '../components/CareerPlanSummary';
+import AdvisorHeader from '../components/AdvisorHeader';
+import './AdvisorWorkspace.css';
 import { useLanguage } from '../../src/contexts/LanguageContext';
 import { useAdvisorTranslation } from '../data/advisorTranslations';
 import { useState, useRef, useEffect } from 'react';
@@ -17,6 +21,39 @@ export default function DreamDegreeRoadmap({ recommendation, studentData, onBack
     document.addEventListener('mousedown', handleClick);
     return () => document.removeEventListener('mousedown', handleClick);
   }, []);
+
+  if (recommendation?.roadmap_stages) {
+    return (
+      <div className="advisor-workspace">
+        <AdvisorHeader onHome={onHome} onViewProfile={onViewProfile} onNavigateToDashboard={onNavigateToDashboard} />
+        <main className="advisor-container">
+        <div className="max-w-4xl mx-auto">
+          <nav className="flex flex-wrap justify-between gap-3 mb-6">
+            <button onClick={onBack} className="text-blue-700 font-semibold">{tr('Back to Results')}</button>
+
+          </nav>
+          <h1 className="text-3xl font-bold text-slate-900">{tr('Future Goal Roadmap')}</h1>
+          <p className="mt-2 mb-6 text-slate-600">{recommendation.degree && <>{tr(recommendation.degree)} · </>}{tr(studentData.dreamJob)}</p>
+          <p className="rounded-xl border border-amber-200 bg-amber-50 p-4 mb-6 text-sm">{tr('Qualification duration and professional requirements depend on the selected institution and must be verified.')}</p>
+          <CareerPlanSummary plan={recommendation.career_plan} showBackwardSteps={false} />
+          <ol className="space-y-4">{recommendation.roadmap_stages.map((stage, index) => (
+            <li key={stage.id} className="bg-white border border-slate-200 rounded-2xl p-5">
+              <h2 className="font-bold text-lg text-slate-900">{index + 1}. {tr(stage.title || stage.id)}</h2>
+              <p className="text-sm text-blue-700 mt-1">{tr(stage.status)}</p>
+              {stage.description && <p className="mt-2 text-sm text-slate-600">{tr(stage.description)}</p>}
+              {stage.focus_skills?.length > 0 && <p className="mt-2 text-xs text-slate-600">{stage.focus_skills.map(skill => tr(skillLabel(skill))).join(', ')}</p>}
+              {stage.degree && <p className="mt-2 text-sm">{tr(stage.degree)} · {tr(stage.goal_relation || recommendation.goal_relation)}</p>}
+              {stage.institution && <p className="mt-2 text-sm">{tr(stage.institution)}</p>}
+              {stage.checks && <ul className="mt-3 space-y-1">{stage.checks.map(check => <li key={check} className="text-sm text-slate-600">{tr(check)}</li>)}</ul>}
+              {stage.skills && <div className="mt-3 space-y-2">{stage.skills.map(skill => <div key={skill.skill} className="text-sm flex flex-wrap justify-between gap-2"><span>{tr(skillLabel(skill.skill))}</span><span>{skill.current == null ? tr('Not assessed') : `${Math.round(skill.current * 100)}%`} → {Math.round(skill.target * 100)}%</span></div>)}</div>}
+            </li>
+          ))}</ol>
+          <button onClick={onHome} className="mt-6 advisor-primary">{tr('Home')}</button>
+        </div>
+        </main>
+      </div>
+    );
+  }
 
   const dreamJob = dreamJobs.find(job => job.title === studentData.dreamJob) || dreamJobs[0];
   const university = recommendation.university || 'Your University';

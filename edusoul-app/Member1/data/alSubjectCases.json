@@ -1,0 +1,335 @@
+[
+  {
+    "id": "engineering_technology_ict",
+    "stream": "Engineering Technology",
+    "subjects": [
+      "Engineering Technology",
+      "Science for Technology",
+      "Information & Communication Technology"
+    ],
+    "valid": true
+  },
+  {
+    "id": "engineering_technology_accounting",
+    "stream": "Engineering Technology",
+    "subjects": [
+      "Engineering Technology",
+      "Science for Technology",
+      "Accounting"
+    ],
+    "valid": true
+  },
+  {
+    "id": "engineering_technology_missing_core",
+    "stream": "Engineering Technology",
+    "subjects": [
+      "Engineering Technology",
+      "Physics",
+      "Information & Communication Technology"
+    ],
+    "valid": false
+  },
+  {
+    "id": "technology_fake_subject",
+    "stream": "Engineering Technology",
+    "subjects": [
+      "Engineering Technology",
+      "Science for Technology",
+      "Automotive Technology"
+    ],
+    "valid": false
+  },
+  {
+    "id": "biosystems_english",
+    "stream": "Bio Systems Technology",
+    "subjects": [
+      "Biosystems Technology",
+      "Science for Technology",
+      "English"
+    ],
+    "valid": true
+  },
+  {
+    "id": "biosystems_missing_science",
+    "stream": "Bio Systems Technology",
+    "subjects": [
+      "Biosystems Technology",
+      "Agricultural Science",
+      "English"
+    ],
+    "valid": false
+  },
+  {
+    "id": "bio_agriculture",
+    "stream": "Biological Science",
+    "subjects": [
+      "Biology",
+      "Chemistry",
+      "Agricultural Science"
+    ],
+    "valid": true
+  },
+  {
+    "id": "bio_maths",
+    "stream": "Biological Science",
+    "subjects": [
+      "Biology",
+      "Chemistry",
+      "Combined Mathematics"
+    ],
+    "valid": true
+  },
+  {
+    "id": "bio_fake_health",
+    "stream": "Biological Science",
+    "subjects": [
+      "Biology",
+      "Chemistry",
+      "Health Science"
+    ],
+    "valid": false
+  },
+  {
+    "id": "physical_ict",
+    "stream": "Physical Science",
+    "subjects": [
+      "Combined Mathematics",
+      "Physics",
+      "Information & Communication Technology"
+    ],
+    "valid": true
+  },
+  {
+    "id": "physical_higher_maths",
+    "stream": "Physical Science",
+    "subjects": [
+      "Higher Mathematics",
+      "Chemistry",
+      "Physics"
+    ],
+    "valid": true
+  },
+  {
+    "id": "physical_fake_cs",
+    "stream": "Physical Science",
+    "subjects": [
+      "Combined Mathematics",
+      "Physics",
+      "Computer Science"
+    ],
+    "valid": false
+  },
+  {
+    "id": "commerce_ict",
+    "stream": "Commerce",
+    "subjects": [
+      "Accounting",
+      "Economics",
+      "Information & Communication Technology"
+    ],
+    "valid": true
+  },
+  {
+    "id": "commerce_statistics",
+    "stream": "Commerce",
+    "subjects": [
+      "Business Studies",
+      "Economics",
+      "Business Statistics"
+    ],
+    "valid": true
+  },
+  {
+    "id": "commerce_one_core",
+    "stream": "Commerce",
+    "subjects": [
+      "Economics",
+      "English",
+      "Geography"
+    ],
+    "valid": false
+  },
+  {
+    "id": "arts_social",
+    "stream": "Arts",
+    "subjects": [
+      "Economics",
+      "Geography",
+      "Political Science"
+    ],
+    "valid": true
+  },
+  {
+    "id": "arts_religion_pair",
+    "stream": "Arts",
+    "subjects": [
+      "Buddhism",
+      "Buddhist Civilization",
+      "History"
+    ],
+    "valid": false
+  },
+  {
+    "id": "arts_two_religions",
+    "stream": "Arts",
+    "subjects": [
+      "Buddhism",
+      "Hinduism",
+      "History"
+    ],
+    "valid": true
+  },
+  {
+    "id": "arts_two_music",
+    "stream": "Arts",
+    "subjects": [
+      "Music (Oriental)",
+      "Music (Western)",
+      "History"
+    ],
+    "valid": false
+  },
+  {
+    "id": "arts_different_aesthetic",
+    "stream": "Arts",
+    "subjects": [
+      "Art",
+      "Music (Western)",
+      "History"
+    ],
+    "valid": true
+  },
+  {
+    "id": "arts_national_languages",
+    "stream": "Arts",
+    "subjects": [
+      "Sinhala",
+      "Tamil",
+      "English"
+    ],
+    "valid": true
+  },
+  {
+    "id": "arts_national_classical",
+    "stream": "Arts",
+    "subjects": [
+      "Sinhala",
+      "Pali",
+      "Sanskrit"
+    ],
+    "valid": true
+  },
+  {
+    "id": "arts_two_national_one_classical",
+    "stream": "Arts",
+    "subjects": [
+      "Sinhala",
+      "English",
+      "Pali"
+    ],
+    "valid": true
+  },
+  {
+    "id": "arts_three_classical",
+    "stream": "Arts",
+    "subjects": [
+      "Arabic",
+      "Pali",
+      "Sanskrit"
+    ],
+    "valid": false
+  },
+  {
+    "id": "arts_three_foreign",
+    "stream": "Arts",
+    "subjects": [
+      "French",
+      "German",
+      "Japanese"
+    ],
+    "valid": false
+  },
+  {
+    "id": "arts_foreign_mixed_three",
+    "stream": "Arts",
+    "subjects": [
+      "Sinhala",
+      "French",
+      "German"
+    ],
+    "valid": false
+  },
+  {
+    "id": "arts_two_languages_art",
+    "stream": "Arts",
+    "subjects": [
+      "French",
+      "German",
+      "Art"
+    ],
+    "valid": true
+  },
+  {
+    "id": "arts_two_languages_religion",
+    "stream": "Arts",
+    "subjects": [
+      "Sinhala",
+      "Arabic",
+      "Islam"
+    ],
+    "valid": true
+  },
+  {
+    "id": "arts_no_social",
+    "stream": "Arts",
+    "subjects": [
+      "Buddhism",
+      "Hinduism",
+      "Art"
+    ],
+    "valid": false
+  },
+  {
+    "id": "arts_two_technology",
+    "stream": "Arts",
+    "subjects": [
+      "Mechanical Technology",
+      "Civil Technology",
+      "History"
+    ],
+    "valid": false
+  },
+  {
+    "id": "arts_alternative_accounting",
+    "stream": "Arts",
+    "subjects": [
+      "Accounting",
+      "Business Statistics",
+      "History"
+    ],
+    "valid": false
+  },
+  {
+    "id": "arts_partial_pair",
+    "stream": "Arts",
+    "subjects": [
+      "Buddhism",
+      "Buddhist Civilization"
+    ],
+    "valid": false
+  },
+  {
+    "id": "partial_core",
+    "stream": "Engineering Technology",
+    "subjects": [
+      "Engineering Technology"
+    ],
+    "valid": true
+  },
+  {
+    "id": "no_evidence",
+    "stream": "Arts",
+    "subjects": [],
+    "valid": true
+  }
+]

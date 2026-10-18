@@ -1,3 +1,6 @@
+import AdvisorHeader from '../components/AdvisorHeader';
+import './AdvisorWorkspace.css';
+import RecommendationEvidence from '../components/RecommendationEvidence';
 import { useLanguage } from '../../src/contexts/LanguageContext';
 import { useAdvisorTranslation } from '../data/advisorTranslations';
 import { useState, useRef, useEffect } from 'react';
@@ -16,6 +19,25 @@ export default function DreamDegreeGuidance({ studentData, backendResults, onBac
     document.addEventListener('mousedown', handleClick);
     return () => document.removeEventListener('mousedown', handleClick);
   }, []);
+
+  if (backendResults?.schema_version === '2.0') {
+    return (
+      <div className="advisor-workspace">
+        <AdvisorHeader onHome={onHome} onViewProfile={onViewProfile} onNavigateToDashboard={onNavigateToDashboard} />
+        <main className="advisor-container">
+        <div className="max-w-6xl mx-auto">
+          <nav className="flex flex-wrap justify-between gap-3 mb-6">
+            <button onClick={onBack} className="text-blue-700 font-semibold">{tr('Back to Results')}</button>
+
+          </nav>
+          <h1 className="text-3xl font-bold text-slate-900 mb-6">{tr('Improvement Guidance')}</h1>
+          <RecommendationEvidence result={backendResults} />
+          <button onClick={onHome} className="advisor-primary">{tr('Home')}</button>
+        </div>
+        </main>
+      </div>
+    );
+  }
 
   const generateCounterfactuals = () => {
     const zScore = parseFloat(studentData.academicResults.zScore) || 0;

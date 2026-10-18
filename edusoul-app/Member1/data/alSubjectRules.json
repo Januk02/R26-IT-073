@@ -1,0 +1,991 @@
+{
+  "version": "ugc-subjects-2025-26-v2",
+  "academicYear": "2025/2026",
+  "source": "https://www.ugc.ac.lk/downloads/admissions/Handbook_2025_26/student_handbook_english.pdf",
+  "verifiedOn": "2026-10-17",
+  "scope": "UGC subject guidance and selected course prerequisites; not a complete national examination subject registry or admission decision.",
+  "streams": {
+    "Physical Science": {
+      "section": "2.2.4",
+      "hint": "Choose your actual science subjects. Engineering requires Chemistry; ICT is accepted for some computing routes.",
+      "groups": [
+        {
+          "label": "Mathematics subjects",
+          "subjects": [
+            "Combined Mathematics",
+            "Higher Mathematics",
+            "Mathematics"
+          ]
+        },
+        {
+          "label": "Science subjects",
+          "subjects": [
+            "Physics",
+            "Chemistry",
+            "Biology",
+            "Agricultural Science"
+          ]
+        },
+        {
+          "label": "Computing subject",
+          "subjects": [
+            "Information & Communication Technology"
+          ]
+        }
+      ],
+      "required": [],
+      "intakeRequired": [
+        "Combined Mathematics",
+        "Physics"
+      ],
+      "intakeGroups": [
+        {
+          "label": "Main subjects",
+          "subjects": [
+            "Combined Mathematics",
+            "Physics"
+          ]
+        },
+        {
+          "label": "Third subject",
+          "subjects": [
+            "Chemistry",
+            "Information & Communication Technology"
+          ]
+        }
+      ],
+      "intakeHint": "Combined Mathematics and Physics are the main subjects. Choose Chemistry or ICT as the third subject."
+    },
+    "Biological Science": {
+      "section": "2.2.3",
+      "hint": "Biology and Chemistry are the foundation. Your third subject changes which courses you can enter.",
+      "groups": [
+        {
+          "label": "Core Subjects",
+          "subjects": [
+            "Biology",
+            "Chemistry"
+          ]
+        },
+        {
+          "label": "Third subject",
+          "subjects": [
+            "Physics",
+            "Agricultural Science",
+            "Higher Mathematics",
+            "Mathematics",
+            "Combined Mathematics",
+            "Food Technology",
+            "Bio-Resource Technology",
+            "Agro Technology"
+          ]
+        }
+      ],
+      "required": [
+        "Biology",
+        "Chemistry"
+      ],
+      "intakeRequired": [
+        "Biology",
+        "Chemistry"
+      ],
+      "intakeGroups": [
+        {
+          "label": "Main subjects",
+          "subjects": [
+            "Biology",
+            "Chemistry"
+          ]
+        },
+        {
+          "label": "Third subject",
+          "subjects": [
+            "Physics",
+            "Agricultural Science"
+          ]
+        }
+      ],
+      "intakeHint": "Biology and Chemistry are the main subjects. Choose Physics or Agricultural Science as the third subject."
+    },
+    "Commerce": {
+      "section": "2.2.2",
+      "hint": "Select at least two of Accounting, Business Studies and Economics, plus an approved third subject.",
+      "groups": [
+        {
+          "label": "Core commerce subjects",
+          "subjects": [
+            "Accounting",
+            "Business Studies",
+            "Economics"
+          ]
+        },
+        {
+          "label": "Third subject",
+          "subjects": [
+            "Agricultural Science",
+            "Geography",
+            "Business Statistics",
+            "German",
+            "Combined Mathematics",
+            "Mathematics",
+            "History",
+            "Political Science",
+            "English",
+            "Logic & Scientific Method",
+            "French",
+            "Information & Communication Technology"
+          ]
+        }
+      ],
+      "required": [],
+      "intakeRequired": [],
+      "intakeGroups": [
+        {
+          "label": "Core commerce subjects",
+          "subjects": [
+            "Accounting",
+            "Business Studies",
+            "Economics"
+          ]
+        },
+        {
+          "label": "Additional options",
+          "subjects": [
+            "Business Statistics",
+            "Information & Communication Technology"
+          ]
+        }
+      ],
+      "intakeHint": "Choose at least two core commerce subjects. The third may be another core subject, Business Statistics or ICT."
+    },
+    "Arts": {
+      "section": "2.2.1.1",
+      "hint": "Choose three subjects using the four Arts baskets. Language exceptions and subject-pair restrictions apply.",
+      "groups": [
+        {
+          "label": "Basket 1: Social sciences and applied studies",
+          "subjects": [
+            "Economics",
+            "Geography",
+            "History",
+            "Home Economics",
+            "Agricultural Science",
+            "Mathematics",
+            "Combined Mathematics",
+            "Communication & Media Studies",
+            "Information & Communication Technology",
+            "Accounting",
+            "Business Statistics",
+            "Political Science",
+            "Logic & Scientific Method",
+            "Civil Technology",
+            "Electrical, Electronic and Information Technology",
+            "Agro Technology",
+            "Mechanical Technology",
+            "Food Technology",
+            "Bio-Resource Technology"
+          ]
+        },
+        {
+          "label": "Basket 2: Religions and civilizations",
+          "subjects": [
+            "Buddhism",
+            "Hinduism",
+            "Christianity",
+            "Islam",
+            "Buddhist Civilization",
+            "Hindu Civilization",
+            "Christian Civilization",
+            "Islamic Civilization",
+            "Greek & Roman Civilization"
+          ]
+        },
+        {
+          "label": "Basket 3: Aesthetic studies",
+          "subjects": [
+            "Art",
+            "Dancing (Sinhala)",
+            "Dancing (Bharatha)",
+            "Music (Oriental)",
+            "Music (Carnatic)",
+            "Music (Western)",
+            "Drama & Theatre (Sinhala)",
+            "Drama & Theatre (Tamil)",
+            "Drama & Theatre (English)"
+          ]
+        },
+        {
+          "label": "Basket 4: Languages",
+          "subjects": [
+            "Sinhala",
+            "Tamil",
+            "English",
+            "Arabic",
+            "Pali",
+            "Sanskrit",
+            "Chinese",
+            "French",
+            "German",
+            "Hindi",
+            "Japanese",
+            "Malay",
+            "Russian",
+            "Korean"
+          ]
+        }
+      ],
+      "required": [],
+      "intakeRequired": [],
+      "intakeGroups": [
+        {
+          "label": "Social Sciences",
+          "subjects": [
+            "Geography",
+            "Political Science",
+            "History",
+            "Economics"
+          ]
+        },
+        {
+          "label": "Languages",
+          "subjects": [
+            "Sinhala",
+            "Tamil",
+            "English",
+            "French",
+            "German",
+            "Japanese",
+            "Chinese",
+            "Hindi",
+            "Arabic"
+          ]
+        },
+        {
+          "label": "Religions and civilizations",
+          "subjects": [
+            "Buddhism",
+            "Hinduism",
+            "Christianity",
+            "Islam",
+            "Buddhist Civilization",
+            "Hindu Civilization",
+            "Christian Civilization",
+            "Islamic Civilization"
+          ]
+        },
+        {
+          "label": "Aesthetic studies",
+          "subjects": [
+            "Art",
+            "Dancing (Sinhala)",
+            "Dancing (Bharatha)",
+            "Music (Oriental)",
+            "Music (Carnatic)",
+            "Music (Western)",
+            "Drama & Theatre (Sinhala)",
+            "Drama & Theatre (Tamil)",
+            "Drama & Theatre (English)"
+          ]
+        },
+        {
+          "label": "Other subjects",
+          "subjects": [
+            "Logic & Scientific Method",
+            "Communication & Media Studies",
+            "Home Economics",
+            "Information & Communication Technology"
+          ]
+        }
+      ],
+      "intakeHint": "Choose three Arts subjects from these groups. UGC basket restrictions and language exceptions still apply."
+    },
+    "Engineering Technology": {
+      "section": "2.2.5",
+      "hint": "Engineering Technology and Science for Technology are required. Choose one approved third subject.",
+      "groups": [
+        {
+          "label": "Core Subjects",
+          "subjects": [
+            "Engineering Technology",
+            "Science for Technology"
+          ]
+        },
+        {
+          "label": "Third subject",
+          "subjects": [
+            "Economics",
+            "Geography",
+            "Home Economics",
+            "English",
+            "Communication & Media Studies",
+            "Information & Communication Technology",
+            "Art",
+            "Business Studies",
+            "Agricultural Science",
+            "Accounting",
+            "Mathematics"
+          ]
+        }
+      ],
+      "required": [
+        "Engineering Technology",
+        "Science for Technology"
+      ],
+      "intakeRequired": [
+        "Engineering Technology",
+        "Science for Technology"
+      ],
+      "intakeGroups": [
+        {
+          "label": "Main subjects",
+          "subjects": [
+            "Engineering Technology",
+            "Science for Technology"
+          ]
+        },
+        {
+          "label": "Third subject",
+          "subjects": [
+            "Information & Communication Technology",
+            "Agricultural Science",
+            "Geography",
+            "Economics",
+            "Business Studies",
+            "Art"
+          ]
+        }
+      ],
+      "intakeHint": "Engineering Technology and Science for Technology are required. Choose one approved third subject."
+    },
+    "Bio Systems Technology": {
+      "section": "2.2.6",
+      "hint": "Biosystems Technology and Science for Technology are required. Choose one approved third subject.",
+      "groups": [
+        {
+          "label": "Core Subjects",
+          "subjects": [
+            "Biosystems Technology",
+            "Science for Technology"
+          ]
+        },
+        {
+          "label": "Third subject",
+          "subjects": [
+            "Economics",
+            "Geography",
+            "Home Economics",
+            "English",
+            "Communication & Media Studies",
+            "Information & Communication Technology",
+            "Art",
+            "Business Studies",
+            "Agricultural Science",
+            "Accounting",
+            "Mathematics"
+          ]
+        }
+      ],
+      "required": [
+        "Biosystems Technology",
+        "Science for Technology"
+      ],
+      "intakeRequired": [
+        "Biosystems Technology",
+        "Science for Technology"
+      ],
+      "intakeGroups": [
+        {
+          "label": "Main subjects",
+          "subjects": [
+            "Biosystems Technology",
+            "Science for Technology"
+          ]
+        },
+        {
+          "label": "Third subject",
+          "subjects": [
+            "Information & Communication Technology",
+            "Agricultural Science",
+            "Geography",
+            "Economics",
+            "Business Studies",
+            "Art"
+          ]
+        }
+      ],
+      "intakeHint": "Biosystems Technology and Science for Technology are required. Choose one approved third subject."
+    }
+  },
+  "arts": {
+    "social": [
+      "Economics",
+      "Geography",
+      "History",
+      "Home Economics",
+      "Agricultural Science",
+      "Mathematics",
+      "Combined Mathematics",
+      "Communication & Media Studies",
+      "Information & Communication Technology",
+      "Accounting",
+      "Business Statistics",
+      "Political Science",
+      "Logic & Scientific Method",
+      "Civil Technology",
+      "Electrical, Electronic and Information Technology",
+      "Agro Technology",
+      "Mechanical Technology",
+      "Food Technology",
+      "Bio-Resource Technology"
+    ],
+    "religions": [
+      "Buddhism",
+      "Hinduism",
+      "Christianity",
+      "Islam",
+      "Buddhist Civilization",
+      "Hindu Civilization",
+      "Christian Civilization",
+      "Islamic Civilization",
+      "Greek & Roman Civilization"
+    ],
+    "aesthetics": [
+      "Art",
+      "Dancing (Sinhala)",
+      "Dancing (Bharatha)",
+      "Music (Oriental)",
+      "Music (Carnatic)",
+      "Music (Western)",
+      "Drama & Theatre (Sinhala)",
+      "Drama & Theatre (Tamil)",
+      "Drama & Theatre (English)"
+    ],
+    "national": [
+      "Sinhala",
+      "Tamil",
+      "English"
+    ],
+    "classical": [
+      "Arabic",
+      "Pali",
+      "Sanskrit"
+    ],
+    "foreign": [
+      "Chinese",
+      "French",
+      "German",
+      "Hindi",
+      "Japanese",
+      "Malay",
+      "Russian",
+      "Korean"
+    ],
+    "technology": [
+      "Civil Technology",
+      "Electrical, Electronic and Information Technology",
+      "Agro Technology",
+      "Mechanical Technology",
+      "Food Technology",
+      "Bio-Resource Technology"
+    ],
+    "exclusiveGroups": [
+      [
+        "Agricultural Science",
+        "Mathematics",
+        "Combined Mathematics"
+      ],
+      [
+        "Accounting",
+        "Business Statistics"
+      ]
+    ],
+    "incompatiblePairs": [
+      [
+        "Buddhism",
+        "Buddhist Civilization"
+      ],
+      [
+        "Hinduism",
+        "Hindu Civilization"
+      ],
+      [
+        "Christianity",
+        "Christian Civilization"
+      ],
+      [
+        "Islam",
+        "Islamic Civilization"
+      ]
+    ],
+    "aestheticAreas": [
+      [
+        "Art"
+      ],
+      [
+        "Dancing (Sinhala)",
+        "Dancing (Bharatha)"
+      ],
+      [
+        "Music (Oriental)",
+        "Music (Carnatic)",
+        "Music (Western)"
+      ],
+      [
+        "Drama & Theatre (Sinhala)",
+        "Drama & Theatre (Tamil)",
+        "Drama & Theatre (English)"
+      ]
+    ]
+  },
+  "commerceCore": [
+    "Accounting",
+    "Business Studies",
+    "Economics"
+  ],
+  "subjectAliases": {
+    "Bio Systems Technology": "Biosystems Technology",
+    "Bio-Systems Technology": "Biosystems Technology",
+    "ICT": "Information & Communication Technology",
+    "Information and Communication Technology": "Information & Communication Technology",
+    "Accountancy": "Accounting",
+    "Business statistics": "Business Statistics",
+    "Logic and Scientific Method": "Logic & Scientific Method",
+    "Communication and Media Studies": "Communication & Media Studies",
+    "Islam Civilization": "Islamic Civilization"
+  },
+  "degreeRules": {
+    "Medicine": {
+      "section": "2.2.3.1",
+      "required": [
+        "Biology",
+        "Chemistry",
+        "Physics"
+      ],
+      "allowed": [
+        "Biology",
+        "Chemistry",
+        "Physics"
+      ],
+      "minimumGrades": {},
+      "creditAny": [],
+      "creditsRequired": 2
+    },
+    "Dental": {
+      "section": "2.2.3.2",
+      "required": [
+        "Biology",
+        "Chemistry",
+        "Physics"
+      ],
+      "allowed": [
+        "Biology",
+        "Chemistry",
+        "Physics"
+      ],
+      "minimumGrades": {},
+      "creditAny": []
+    },
+    "Veterinary Science": {
+      "section": "2.2.3.3",
+      "required": [
+        "Biology",
+        "Chemistry",
+        "Physics"
+      ],
+      "allowed": [
+        "Biology",
+        "Chemistry",
+        "Physics"
+      ],
+      "minimumGrades": {},
+      "creditAny": []
+    },
+    "Nursing": {
+      "section": "2.2.3.17",
+      "required": [
+        "Biology",
+        "Chemistry",
+        "Physics"
+      ],
+      "allowed": [
+        "Biology",
+        "Chemistry",
+        "Physics"
+      ],
+      "minimumGrades": {},
+      "creditAny": []
+    },
+    "Pharmacy": {
+      "section": "2.2.3.18",
+      "required": [
+        "Biology",
+        "Chemistry",
+        "Physics"
+      ],
+      "allowed": [
+        "Biology",
+        "Chemistry",
+        "Physics"
+      ],
+      "minimumGrades": {
+        "Chemistry": "C"
+      },
+      "creditAny": []
+    },
+    "Engineering": {
+      "section": "2.2.4.1",
+      "required": [
+        "Combined Mathematics",
+        "Chemistry",
+        "Physics"
+      ],
+      "allowed": [
+        "Combined Mathematics",
+        "Chemistry",
+        "Physics"
+      ],
+      "minimumGrades": {},
+      "creditAny": []
+    },
+    "Computer Science": {
+      "section": "2.2.4.6",
+      "required": [],
+      "allowed": [
+        "Combined Mathematics",
+        "Higher Mathematics",
+        "Physics",
+        "Chemistry",
+        "Mathematics",
+        "Information & Communication Technology"
+      ],
+      "minimumGrades": {},
+      "creditAny": [
+        "Combined Mathematics",
+        "Physics",
+        "Higher Mathematics"
+      ]
+    },
+    "Bio Science": {
+      "section": "2.2.3.14",
+      "required": [
+        "Biology",
+        "Chemistry"
+      ],
+      "allowed": [
+        "Biology",
+        "Chemistry",
+        "Physics",
+        "Agricultural Science",
+        "Higher Mathematics",
+        "Mathematics",
+        "Combined Mathematics"
+      ],
+      "minimumGrades": {},
+      "creditAny": []
+    },
+    "Physical Science": {
+      "section": "2.2.4.5",
+      "required": [],
+      "allowed": [
+        "Combined Mathematics",
+        "Higher Mathematics",
+        "Physics",
+        "Chemistry",
+        "Agricultural Science",
+        "Biology"
+      ],
+      "minimumGrades": {},
+      "creditAny": [],
+      "requiredAny": [
+        [
+          "Combined Mathematics",
+          "Higher Mathematics"
+        ],
+        [
+          "Chemistry",
+          "Physics"
+        ]
+      ]
+    },
+    "Engineering Technology": {
+      "section": "2.2.5",
+      "required": [
+        "Engineering Technology",
+        "Science for Technology"
+      ],
+      "allowed": [
+        "Engineering Technology",
+        "Science for Technology",
+        "Economics",
+        "Geography",
+        "Home Economics",
+        "English",
+        "Communication & Media Studies",
+        "Information & Communication Technology",
+        "Art",
+        "Business Studies",
+        "Agricultural Science",
+        "Accounting",
+        "Mathematics"
+      ],
+      "minimumGrades": {},
+      "creditAny": []
+    },
+    "Biosystems Technology": {
+      "section": "2.2.6",
+      "required": [
+        "Biosystems Technology",
+        "Science for Technology"
+      ],
+      "allowed": [
+        "Biosystems Technology",
+        "Science for Technology",
+        "Economics",
+        "Geography",
+        "Home Economics",
+        "English",
+        "Communication & Media Studies",
+        "Information & Communication Technology",
+        "Art",
+        "Business Studies",
+        "Agricultural Science",
+        "Accounting",
+        "Mathematics"
+      ],
+      "minimumGrades": {},
+      "creditAny": []
+    },
+    "Business": {
+      "section": "2.2.2",
+      "required": [],
+      "allowed": [
+        "Accounting",
+        "Business Studies",
+        "Economics",
+        "Agricultural Science",
+        "Geography",
+        "Business Statistics",
+        "German",
+        "Combined Mathematics",
+        "Mathematics",
+        "History",
+        "Political Science",
+        "English",
+        "Logic & Scientific Method",
+        "French",
+        "Information & Communication Technology"
+      ],
+      "minimumGrades": {},
+      "creditAny": [],
+      "atLeast": {
+        "subjects": [
+          "Accounting",
+          "Business Studies",
+          "Economics"
+        ],
+        "count": 2
+      }
+    },
+    "Management": {
+      "section": "2.2.2",
+      "required": [],
+      "allowed": [
+        "Accounting",
+        "Business Studies",
+        "Economics",
+        "Agricultural Science",
+        "Geography",
+        "Business Statistics",
+        "German",
+        "Combined Mathematics",
+        "Mathematics",
+        "History",
+        "Political Science",
+        "English",
+        "Logic & Scientific Method",
+        "French",
+        "Information & Communication Technology"
+      ],
+      "minimumGrades": {},
+      "creditAny": [],
+      "atLeast": {
+        "subjects": [
+          "Accounting",
+          "Business Studies",
+          "Economics"
+        ],
+        "count": 2
+      }
+    },
+    "Arts": {
+      "section": "2.2.1.1",
+      "required": [],
+      "allowed": [],
+      "minimumGrades": {},
+      "creditAny": [],
+      "artsBaskets": true
+    },
+    "Law": {
+      "section": "2.2.8.10",
+      "required": [],
+      "allowed": [
+        "Accounting",
+        "Political Science",
+        "Agricultural Science",
+        "Geography",
+        "Biology",
+        "Higher Mathematics",
+        "Business Statistics",
+        "History",
+        "Business Studies",
+        "Logic & Scientific Method",
+        "Chemistry",
+        "Economics",
+        "Physics",
+        "Mathematics",
+        "Combined Mathematics",
+        "Communication & Media Studies",
+        "Information & Communication Technology",
+        "Buddhism",
+        "Hinduism",
+        "Christianity",
+        "Islam",
+        "Buddhist Civilization",
+        "Hindu Civilization",
+        "Christian Civilization",
+        "Islamic Civilization",
+        "Greek & Roman Civilization",
+        "Sinhala",
+        "Tamil",
+        "English",
+        "Arabic",
+        "Pali",
+        "Sanskrit",
+        "Chinese",
+        "French",
+        "German",
+        "Hindi",
+        "Japanese",
+        "Malay",
+        "Russian",
+        "Korean"
+      ],
+      "minimumGrades": {},
+      "creditAny": [],
+      "creditsRequired": 2,
+      "atLeast": {
+        "subjects": [
+          "Accounting",
+          "Political Science",
+          "Agricultural Science",
+          "Geography",
+          "Biology",
+          "Higher Mathematics",
+          "Business Statistics",
+          "History",
+          "Business Studies",
+          "Logic & Scientific Method",
+          "Chemistry",
+          "Economics",
+          "Physics",
+          "Mathematics",
+          "Combined Mathematics",
+          "Communication & Media Studies",
+          "Information & Communication Technology"
+        ],
+        "count": 1
+      }
+    },
+    "Architecture": {
+      "section": "2.2.8.6",
+      "required": [],
+      "allowed": [
+        "Art",
+        "Chemistry",
+        "Higher Mathematics",
+        "Biology",
+        "Combined Mathematics",
+        "Physics",
+        "Geography",
+        "Accounting",
+        "Mathematics",
+        "Hindu Civilization",
+        "Sanskrit",
+        "Business Statistics",
+        "German",
+        "Islamic Civilization",
+        "Information & Communication Technology",
+        "Greek & Roman Civilization",
+        "Political Science",
+        "Arabic",
+        "English",
+        "History",
+        "Sinhala",
+        "Business Studies",
+        "Communication & Media Studies",
+        "Japanese",
+        "Christian Civilization",
+        "Economics",
+        "Hindi",
+        "Pali",
+        "Buddhist Civilization",
+        "French",
+        "Home Economics",
+        "Tamil",
+        "Chinese",
+        "Agricultural Science",
+        "Logic & Scientific Method",
+        "Korean"
+      ],
+      "minimumGrades": {},
+      "creditAny": [],
+      "requiredAny": [
+        [
+          "Art",
+          "Chemistry",
+          "Higher Mathematics",
+          "Biology",
+          "Combined Mathematics",
+          "Physics",
+          "Geography"
+        ]
+      ]
+    },
+    "Quantity Surveying": {
+      "section": "2.2.8.3",
+      "required": [],
+      "allowed": [
+        "Combined Mathematics",
+        "Higher Mathematics",
+        "Accounting",
+        "Economics",
+        "Business Statistics",
+        "Business Studies",
+        "Physics",
+        "Chemistry",
+        "Information & Communication Technology"
+      ],
+      "minimumGrades": {},
+      "creditAny": [],
+      "requiredAny": [
+        [
+          "Combined Mathematics",
+          "Higher Mathematics"
+        ]
+      ]
+    },
+    "IT": {
+      "section": "2.2.8.1",
+      "required": [],
+      "allowed": [],
+      "minimumGrades": {},
+      "creditAny": [
+        "Higher Mathematics",
+        "Combined Mathematics",
+        "Mathematics",
+        "Physics"
+      ]
+    }
+  },
+  "intakeScope": "Common school-stream choices for the advisor form; broader UGC course-entry rules remain separate. School availability and course eligibility must be checked."
+}

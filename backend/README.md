@@ -1,5 +1,23 @@
 # FutureDream Degree Advisor Backend
 
+
+## Active Member 1 Flask service
+
+The `edusoul-app/Member1` frontend uses `flask_app.py` on port **8006**.
+The validated v2 endpoints and scoring are documented in
+[ADVISOR_VALIDATION.md](ADVISOR_VALIDATION.md).
+
+```sh
+# Run from backend/ using a compatible Python environment
+python flask_app.py
+python -m unittest discover -s tests -v
+```
+
+Use `requirements-advisor.txt` with Python 3.9–3.12 to reproduce the tested
+scikit-learn 1.6.1 environment. Existing model files are preserved.
+`GET /health` reports whether compatible model inference is enabled.
+The sections below describe the older experimental server and architecture.
+
 ## 🚀 Overview
 Advanced AI-powered backend for FutureDream app featuring backward-chaining degree recommendation system with comprehensive multi-parameter analysis.
 

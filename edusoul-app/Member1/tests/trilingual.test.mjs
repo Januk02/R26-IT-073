@@ -63,7 +63,9 @@ test('display translation preserves model data, numbers and English text', () =>
 test('results, roadmap and guidance use the shared saved language', () => {
   for (const page of ['DreamDegreeResults', 'DreamDegreeRoadmap', 'DreamDegreeGuidance']) {
     const source = readFileSync(new URL(`../pages/${page}.jsx`, import.meta.url), 'utf8');
-    assert.match(source, /changeLanguage: setLanguage.*useLanguage\(\)/);
+    assert.match(source, /AdvisorHeader|changeLanguage: setLanguage.*useLanguage\(\)/);
     assert.doesNotMatch(source, /\[language, setLanguage\].*useState/);
   }
+  const header = readFileSync(new URL('../components/AdvisorHeader.jsx', import.meta.url), 'utf8');
+  assert.match(header, /language, changeLanguage.*useLanguage\(\)/);
 });

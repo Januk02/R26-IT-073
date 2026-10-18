@@ -1,150 +1,20 @@
-import React, { useState, useRef, useEffect } from "react";
+import { ArrowRight, Check } from 'lucide-react';
+import AdvisorHeader from '../components/AdvisorHeader';
 import { useAdvisorTranslation } from '../data/advisorTranslations';
-import hom2Image from "../../src/assets/hom2.png";
-import { dreamJobs } from "../data/dreamDegreeData";
-import { useLanguage } from "../../src/contexts/LanguageContext";
-import { translations } from "../data/languageTranslations";
-import { useAuth } from "../../src/contexts/AuthContext";
-import './DreamDegreeHome.css';
+import { useAuth } from '../../src/contexts/AuthContext';
+import './AdvisorWorkspace.css';
 
-// ── Split components ──────────────────────────────
-import DreamHomeNavbar from "../components/DreamHomeNavbar";
-import DreamHomeHero from "../components/DreamHomeHero";
-import DreamHomeCareers from "../components/DreamHomeCareers";
-import { StatsSection, AISection, RoadmapSection, UniversitiesSection, CTASection, Footer } from "../components/DreamHomeSections";
-
-export default function App({ onStart, onLogin, onLogout, onNavigateToDashboard, onViewProfile }) {
+export default function DreamDegreeHome({ onStart, onLogin, onLogout, onNavigateToDashboard, onViewProfile }) {
   const tr = useAdvisorTranslation();
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All");
-  const [selectedJob, setSelectedJob] = useState(null);
-  const [avatarOpen, setAvatarOpen] = useState(false);
-  const [portalOpen, setPortalOpen] = useState(false);
-  const avatarRef = useRef(null);
-  const portalRef = useRef(null);
-  let authUser = null;
-  try { const auth = useAuth(); authUser = auth?.user; } catch(e) {}
-
-  // Close dropdown on outside click
-  useEffect(() => {
-    const handleClick = (e) => {
-      if (avatarRef.current && !avatarRef.current.contains(e.target)) setAvatarOpen(false);
-      if (portalRef.current && !portalRef.current.contains(e.target)) setPortalOpen(false);
-    };
-    document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
-  }, []);
-
-  // Scroll-reveal observer
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('revealed');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
-    );
-    document.querySelectorAll('.scroll-reveal').forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
-  const { language, changeLanguage } = useLanguage();
-  const t = translations[language];
-
-  // Get unique categories
-  const categories = ["All", ...new Set(dreamJobs.map(job => job.category))];
-
-  // Filter jobs based on search and category
-  const filteredJobs = dreamJobs.filter(job => {
-    const matchesSearch = (job.title.toLowerCase().includes(searchTerm.toLowerCase()) || tr(job.title).toLowerCase().includes(searchTerm.toLowerCase())) ||
-                         job.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === "All" || job.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
-
-  // Display jobs (show first 12 if no search, otherwise show filtered results)
-  const displayJobs = searchTerm || selectedCategory !== "All" ? filteredJobs : dreamJobs.slice(0, 12);
-
-  const features = [
-    { icon: "🧠", title: t.aiGuidance, text: t.aiGuidanceDesc, className: "ai-card" },
-    { icon: "⌘", title: t.roadmap, text: t.roadmapDesc, className: "roadmap-card" },
-    { icon: "🎓", title: t.degreeMatch, text: t.degreeMatchDesc, className: "degree-card" },
-    { icon: "🏛️", title: t.universityFinder, text: t.universityFinderDesc, className: "university-card" },
-  ];
-
-  const stats = [
-    ["♧", "500+", "Future Goals Explored"],
-    ["🎓", "1000+", "Students Guided"],
-    ["🏆", "95%", "Success Rate"],
-    ["☆", "4.9/5", "Student Rating"],
-  ];
-
-  const universities = [
-    "University of Moratuwa", "University of Colombo",
-    "SLIIT", "NSBM Green University", "IIT Sri Lanka", "UCSC Sri Lanka",
-  ];
-
-  return (
-    <div className="dream-degree">
-
-      {/* ── NAVBAR ── */}
-      <DreamHomeNavbar
-        onStart={onStart}
-        onLogin={onLogin}
-        onLogout={onLogout}
-        onNavigateToDashboard={onNavigateToDashboard}
-        onViewProfile={onViewProfile}
-        language={language}
-        changeLanguage={changeLanguage}
-        t={t}
-        portalOpen={portalOpen}
-        setPortalOpen={setPortalOpen}
-        portalRef={portalRef}
-        avatarOpen={avatarOpen}
-        setAvatarOpen={setAvatarOpen}
-        avatarRef={avatarRef}
-        authUser={authUser}
-      />
-
-      {/* ── HERO ── */}
-      <DreamHomeHero onStart={onStart} features={features} hom2Image={hom2Image} />
-
-      {/* ── STATS ── */}
-      <StatsSection stats={stats} />
-
-      {/* ── CAREERS ── */}
-      <DreamHomeCareers
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
-        categories={categories}
-        displayJobs={displayJobs}
-        selectedJob={selectedJob}
-        setSelectedJob={setSelectedJob}
-        onStart={onStart}
-        t={t}
-      />
-
-      {/* ── AI ── */}
-      <AISection onLogin={onLogin} />
-
-      {/* ── ROADMAP ── */}
-      <RoadmapSection />
-
-      {/* ── UNIVERSITIES ── */}
-      <UniversitiesSection universities={universities} />
-
-      {/* ── CTA ── */}
-      <CTASection onStart={onStart} onLogin={onLogin} onLogout={onLogout} />
-
-      {/* ── FOOTER ── */}
-      <Footer />
-
-    </div>
-  );
+  const { user } = useAuth();
+  return <div className="advisor-workspace">
+    <AdvisorHeader onHome={() => window.scrollTo({ top: 0, behavior: 'smooth' })} onViewProfile={onViewProfile} onNavigateToDashboard={onNavigateToDashboard} />
+    <main className="advisor-container">
+      <section className="advisor-landing">
+        <div><p className="advisor-eyebrow">{tr('FUTURE DREAM DEGREE ADVISOR')}</p><h1>{tr('Your ambition.')}<em>{tr('A considered way forward.')}</em></h1><p className="advisor-landing-copy">{tr('Connect your career goal with degree options, university pathways and a practical plan built around your academic profile.')}</p><div className="advisor-landing-actions"><button className="advisor-primary" onClick={onStart}>{tr('Build my degree plan')}<ArrowRight size={17} aria-hidden="true" /></button>{!user && onLogin && <button className="advisor-nav-link" onClick={onLogin}>{tr('Sign in')}</button>}{user && onLogout && <button className="advisor-nav-link" onClick={onLogout}>{tr('Sign out')}</button>}</div><p className="advisor-landing-note">{tr('Four essential details. Optional assessments. One clear starting point.')}</p></div>
+        <div className="advisor-path-preview"><p className="advisor-eyebrow">{tr('FROM AMBITION TO ACTION')}</p><h2>{tr('See how your path connects.')}</h2>{[['Your career goal', 'Start with the work you want to do.'], ['Your academic profile', 'Compare your stream, district and Z-score with reference requirements.'], ['Your degree options', 'Understand the fit, requirements and alternatives.'], ['Your next steps', 'Turn gaps into a practical development plan.']].map(([title, detail], index) => <div className="advisor-path-node" key={title}><span>{String(index + 1).padStart(2, '0')}</span><div><strong>{tr(title)}</strong><small>{tr(detail)}</small></div></div>)}<footer><Check size={13} aria-hidden="true" />{tr('Recommendations explained, with evidence and next steps.')}</footer></div>
+      </section>
+      <section className="advisor-capabilities" aria-label={tr('What you will receive')}>{[['01', 'Explore with context', 'Compare degree and university options against your goal and academic evidence.'], ['02', 'Understand your readiness', 'See qualification requirements, assessed strengths and the information still needed.'], ['03', 'Plan your next move', 'Review skill gaps, improvement scenarios and a roadmap towards your chosen career.']].map(([number, title, detail]) => <article key={number}><span>{number}</span><h2>{tr(title)}</h2><p>{tr(detail)}</p></article>)}</section>
+    </main>
+  </div>;
 }

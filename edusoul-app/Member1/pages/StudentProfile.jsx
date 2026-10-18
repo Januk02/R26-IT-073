@@ -200,16 +200,7 @@ export default function StudentProfile({ onBack, onEditProfile }) {
                   <p className="text-lg font-extrabold text-gray-900">{tr(dreamJob)}</p>
                 </div>
                 {tr(dreamJobData && (
-                  <div className="flex gap-5">
-                    <div className="text-center">
-                      <p className="text-lg font-extrabold text-blue-600">{tr(dreamJobData.marketDemand)}%</p>
-                      <p className="text-[10px] text-gray-400 font-medium">{tr("Demand")}</p>
-                    </div>
-                    <div className="text-center">
-                      <p className="text-lg font-extrabold text-green-600">{tr(dreamJobData.sustainabilityScore)}%</p>
-                      <p className="text-[10px] text-gray-400 font-medium">{tr("Stability")}</p>
-                    </div>
-                  </div>
+                  <p className="text-sm text-gray-600">{tr(dreamJobData.requiredQualifications[0])}</p>
                 ))}
               </div>
             ))}

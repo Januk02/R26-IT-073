@@ -44,13 +44,18 @@ export default function InputStepAcademic({ formData, setFormData, handleStreamC
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-2">{tr("Z-Score")}<span className="text-orange-500">*</span>
           </label>
-          <input type="number" step="0.01" min="0" max="3.5"
+          <input type="number" step="0.01" min="-4" max="4"
             value={formData.academicResults.zScore}
             onChange={(e) => setFormData({ ...formData, academicResults: { ...formData.academicResults, zScore: e.target.value } })}
             className="w-full px-4 py-3.5 glass-input rounded-xl text-lg font-mono"
             placeholder={tr("e.g. 1.85")} />
-          <p className="text-xs text-gray-400 mt-1.5">{tr("Typical range: 0.00 - 3.00. Medicine requires ~1.90+")}</p>
+          <p className="text-xs text-gray-400 mt-1.5">{tr("Enter your official Z-score. Course and district cutoffs must be checked separately.")}</p>
         </div>
+
+        <label className="block text-sm font-semibold text-gray-700">
+          {tr('Common General Test mark (optional)')}
+          <input type="number" min="0" max="100" value={formData.academicResults.commonGeneralTest ?? ''} onChange={event => setFormData({ ...formData, academicResults: { ...formData.academicResults, commonGeneralTest: event.target.value === '' ? undefined : Number(event.target.value) } })} className="block w-full mt-2 px-4 py-3 glass-input rounded-xl" />
+        </label>
 
         {tr(!hasSubjectBuckets && streamSubjects.length > 0 && (
           <div className="p-5 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl border border-blue-100">
@@ -162,7 +167,7 @@ export default function InputStepAcademic({ formData, setFormData, handleStreamC
             const selectedFromBucket = bucket.subjects.filter(s => formData.academicResults.subjects.hasOwnProperty(s)).length;
             const bucketFull = selectedFromBucket >= bucket.maxFromBucket;
             // For Arts stream, limit to 3 total subjects. For other streams, allow core + optional
-            const totalFull = formData.academicResults.stream === 'Arts' && Object.keys(formData.academicResults.subjects).length >= 3;
+            const totalFull = Object.keys(formData.academicResults.subjects).length >= 3;
             return (
               <div key={bucketName} className="p-4 glass-subtle rounded-2xl">
                 <div className="flex items-center justify-between mb-3">

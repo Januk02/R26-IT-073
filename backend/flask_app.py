@@ -8,7 +8,10 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import json
 import numpy as np
-from enhanced_trained_model import TrainedModelPredictor, UniversityRecommender
+from enhanced_trained_model import TrainedModelPredictor
+from advisor_engine import AdvisorEngine, ValidationError, RULE_VERSION
+from state_universities import complete_state_universities
+from werkzeug.exceptions import BadRequest, UnsupportedMediaType, RequestEntityTooLarge
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -16,13 +19,13 @@ CORS(app)
 
 # Initialize trained model predictor
 model_predictor = TrainedModelPredictor()
-university_recommender = UniversityRecommender()
+app.config["MAX_CONTENT_LENGTH"] = 64 * 1024
 
 print("🚀 FutureDream Backend Starting...")
-print("📊 Model: Trained Random Forest + Backward-Chaining")
-print("🎓 University Database: 19 Government + 25 Private Universities (ALL Sri Lankan Universities)")
+print("📊 Advisor: goal-directed research rules + optional compatible model evidence")
+print("🎓 University data: bundled research reference catalog; verify current admission rules")
 
-# Complete Sri Lankan University Database - ALL Universities
+# Legacy reference data, normalised against the shared state-university directory below.
 UNIVERSITY_DATABASE = {
     "government": {
         # Major National Universities
@@ -1428,13 +1431,15 @@ def safe_float(value, default=1.5):
 def home():
     return jsonify({
         "message": "FutureDream Degree Advisor API",
-        "version": "1.0.0",
+        "version": "2.0.0",
         "framework": "Flask"
     })
 
 @app.route('/health')
 def health_check():
-    return jsonify({"status": "healthy", "model_loaded": True})
+    return jsonify({"status": "healthy", "model_loaded": model_predictor.model is not None,
+        "model_inference_enabled": model_predictor.model is not None and not model_predictor.version_mismatch,
+        "model_status": model_predictor.load_status, "rule_version": RULE_VERSION})
 
 def get_backward_analysis(dream_job):
     """Get backward analysis for dream job from backend model"""
@@ -1676,27 +1681,34 @@ def get_backward_analysis(dream_job):
         "salary_range": "Salary ranges vary significantly by industry and location"
     })
 
+UNIVERSITY_DATABASE = complete_state_universities(UNIVERSITY_DATABASE)
+advisor_engine = AdvisorEngine(BackwardChainingModel().career_knowledge, UNIVERSITY_DATABASE, model_predictor)
+
+
+def _request_profile(knowledge_only=False):
+    return advisor_engine.validate(request.get_json(), knowledge_only=knowledge_only)
+
+
+@app.errorhandler(ValidationError)
+def profile_validation_error(error):
+    return jsonify(error.as_dict()), error.status
+
+
+@app.errorhandler(BadRequest)
+@app.errorhandler(UnsupportedMediaType)
+def invalid_json_request(error):
+    return jsonify({"error": "Send a valid JSON object with Content-Type application/json.", "code": "invalid_json"}), 400
+
+
+@app.errorhandler(RequestEntityTooLarge)
+def oversized_request(error):
+    return jsonify({"error": "Profile payload exceeds the 64 KB limit.", "code": "payload_too_large"}), 413
+
+
 @app.route('/backward-analysis', methods=['POST'])
 def get_backward_analysis_endpoint():
-    """Get backward analysis for a specific dream job"""
-    try:
-        data = request.get_json()
-        dream_job = data.get('dream_job', '')
-        
-        if not dream_job:
-            return jsonify({"error": "Dream job is required"}), 400
-        
-        # Get backward analysis from backend model
-        analysis = get_backward_analysis(dream_job)
-        
-        return jsonify({
-            "dream_job": dream_job,
-            "backward_analysis": analysis,
-            "source": "backend_model"
-        }), 200
-        
-    except Exception as e:
-        return jsonify({"error": f"Error in backward analysis: {str(e)}"}), 500
+    return jsonify(advisor_engine.backward(_request_profile(knowledge_only=True)))
+
 
 def _build_degree_explanation(student_profile, predicted_degree):
     """Build a detailed, human-readable XAI explanation for a degree recommendation."""
@@ -1729,216 +1741,12 @@ def _build_degree_explanation(student_profile, predicted_degree):
 
 @app.route('/recommend', methods=['POST'])
 def get_recommendations():
+    profile = _request_profile()
     try:
-        student_profile = request.json
-        print(f"Received student data: {student_profile}")
-
-        # Validate required fields
-        if not student_profile.get('dream_job'):
-            return jsonify({"error": "Dream job is required. Please select a career goal."}), 400
-        if not student_profile.get('stream'):
-            return jsonify({"error": "A/L stream is required. Please select your stream."}), 400
-        if not student_profile.get('z_score') and student_profile.get('z_score') != 0:
-            return jsonify({"error": "Z-Score is required. Please enter your Z-Score."}), 400
-
-        # Only use text-based personality extraction if numeric scores aren't already provided
-        if not student_profile.get('analytical_skill'):
-            personality_description = student_profile.get('personality_description', '')
-            detected_traits = student_profile.get('detected_traits', [])
-
-            if personality_description and detected_traits:
-                personality_scores = extract_personality_traits_from_text(personality_description, detected_traits)
-                student_profile['analytical_skill'] = personality_scores.get('analytical', 3)
-                student_profile['creativity'] = personality_scores.get('creativity', 3)
-                student_profile['leadership'] = personality_scores.get('leadership', 3)
-                student_profile['communication_skill'] = personality_scores.get('communication', 3)
-                student_profile['problem_solving'] = personality_scores.get('problem_solving', 3)
-                student_profile['teamwork'] = personality_scores.get('teamwork', 3)
-                student_profile['adaptability'] = personality_scores.get('adaptability', 3)
-                student_profile['attention_to_detail'] = personality_scores.get('attention_to_detail', 3)
-                print(f"Extracted personality from text: {personality_scores}")
-        else:
-            print(f"Using provided personality scores: analytical={student_profile.get('analytical_skill')}, creativity={student_profile.get('creativity')}, leadership={student_profile.get('leadership')}, communication={student_profile.get('communication_skill')}, problem_solving={student_profile.get('problem_solving')}, teamwork={student_profile.get('teamwork')}, adaptability={student_profile.get('adaptability')}, attention_to_detail={student_profile.get('attention_to_detail')}")
-        
-        # Use trained model for prediction
-        prediction_result = model_predictor.predict_degree(student_profile)
-        predicted_degree = prediction_result["predicted_degree"]
-        confidence = prediction_result["confidence"]
-        method_used = prediction_result["method"]
-        
-        print(f"Model prediction: {predicted_degree} (confidence: {confidence:.3f}, method: {method_used})")
-        
-        # Generate university recommendations
-        university_recommendations = university_recommender.recommend_universities(
-            prediction_result['predicted_degree'], 
-            float(student_profile.get('z_score', 0)), 
-            student_profile.get('district', '')
-        )
-        
-        # Get multiple degree recommendations from model
-        if 'recommendations' in prediction_result:
-            degree_recommendations = prediction_result['recommendations']
-        else:
-            # Fallback to single degree if multiple not available
-            degree_recommendations = [{
-                "degree": predicted_degree,
-                "probability": confidence,
-                "overall_score": confidence,
-                "skill_match": {
-                    "analytical": float(student_profile.get('analytical_skill', 3) / 5.0),
-                    "creativity": float(student_profile.get('creativity', 3) / 5.0),
-                    "problem_solving": float(student_profile.get('problem_solving', 3) / 5.0)
-                },
-                "personality_match": {
-                    "analytical": float(student_profile.get('analytical_skill', 3) / 5.0),
-                    "creativity": float(student_profile.get('creativity', 3) / 5.0),
-                    "leadership": float(student_profile.get('leadership', 3) / 5.0),
-                    "communication": float(student_profile.get('communication_skill', 3) / 5.0),
-                    "problem_solving": float(student_profile.get('problem_solving', 3) / 5.0),
-                    "teamwork": float(student_profile.get('teamwork', 3) / 5.0),
-                    "adaptability": float(student_profile.get('adaptability', 3) / 5.0),
-                    "attention_to_detail": float(student_profile.get('attention_to_detail', 3) / 5.0),
-                    "entrepreneurial_mindset": float(safe_int(student_profile.get('entrepreneurial_mindset', 3)) / 5.0),
-                    "risk_taking": float(safe_int(student_profile.get('risk_taking', 3)) / 5.0)
-                },
-                "academic_feasibility": {
-                    "z_score_feasibility": min(1.0, float(student_profile.get('z_score', 0)) / 2.0),
-                    "district_adjustment": 0.8,
-                    "threshold_gap": max(0, 2.0 - float(student_profile.get('z_score', 0)))
-                },
-                "lifestyle_compatibility": {
-                    "stress_match": min(1.0, safe_int(student_profile.get('stress_tolerance', 3)) / 5.0 / 0.5),
-                    "work_life_balance": 1.0 - (safe_int(student_profile.get('work_life_balance_priority', 3)) / 5.0) * 0.4,
-                    "salary_match": 1.0 - (safe_int(student_profile.get('financial_stability_need', 3)) / 5.0) * 0.3,
-                    "career_growth": 1.0 - (safe_int(student_profile.get('career_sustainability_priority', 3)) / 5.0) * 0.3,
-                    "social_impact": 1.0 - (safe_int(student_profile.get('social_impact_priority', 3)) / 5.0) * 0.4,
-                    "location_match": 0.8,
-                    "family_friendly": 1.0 - (safe_int(student_profile.get('family_attachment_level', 3)) / 5.0) * 0.4,
-                    "travel_tolerance": safe_int(student_profile.get('travel_tolerance', 3)) / 5.0,
-                    "work_environment": student_profile.get('work_environment', 'Hybrid'),
-                    "social_interaction": student_profile.get('social_interaction', 'Ambivert')
-                },
-                "explanation": _build_degree_explanation(student_profile, predicted_degree),
-                "roadmap": _generate_roadmap(predicted_degree)
-            }]
-        
-        # Combine recommendations with university data
-        enhanced_recommendations = []
-        for rec in degree_recommendations:
-            # Get best university for this degree
-            best_uni = None
-            best_uni_type = None
-            best_uni_location = None
-            best_uni_distance = None
-            best_admission_prob = 0
-            
-            # Check government universities
-            for uni in university_recommendations.get('government', []):
-                if uni.get('admission_probability', 0) > best_admission_prob:
-                    best_uni = uni
-                    best_uni_type = 'Government'
-                    best_uni_location = uni.get('location', 'Unknown')
-                    best_uni_distance = uni.get('distance_km')
-                    best_admission_prob = uni.get('admission_probability', 0)
-            
-            # Check private universities
-            for uni in university_recommendations.get('private', []):
-                if uni.get('admission_probability', 0) > best_admission_prob:
-                    best_uni = uni
-                    best_uni_type = 'Private'
-                    best_uni_location = uni.get('location', 'Unknown')
-                    best_uni_distance = uni.get('distance_km')
-                    best_admission_prob = uni.get('admission_probability', 0)
-            
-            enhanced_rec = rec.copy()
-            if best_uni:
-                enhanced_rec.update({
-                    'university': best_uni.get('name', 'Unknown University'),
-                    'universityLocation': best_uni_location,
-                    'universityType': best_uni_type,
-                    'admissionProbability': f"{best_admission_prob * 100:.0f}%",
-                    'distance_km': best_uni_distance
-                })
-            else:
-                # Get default university based on degree
-                default_universities = {
-                    "Medicine": "University of Colombo",
-                    "Bio Science": "University of Peradeniya", 
-                    "Engineering": "University of Moratuwa",
-                    "IT": "University of Colombo",
-                    "Computer Science": "University of Colombo",
-                    "Physical Science": "University of Peradeniya",
-                    "Mathematics": "University of Colombo",
-                    "Statistics": "University of Colombo",
-                    "Business": "University of Sri Jayewardenepura",
-                    "Accounting": "University of Sri Jayewardenepura",
-                    "Finance": "University of Sri Jayewardenepura",
-                    "Management": "University of Sri Jayewardenepura",
-                    "Arts": "University of Peradeniya",
-                    "Literature": "University of Peradeniya",
-                    "Social Sciences": "University of Colombo",
-                    "Education": "University of Colombo",
-                    "Agriculture": "University of Peradeniya",
-                    "Engineering Technology": "University of Moratuwa",
-                    "Information Technology": "SLIIT"
-                }
-                
-                default_uni_name = default_universities.get(rec.get('degree', 'IT'), "University of Colombo")
-                default_uni_type = "Government" if "University of" in default_uni_name else "Private"
-                
-                enhanced_rec.update({
-                    'university': default_uni_name,
-                    'universityLocation': 'Colombo',
-                    'universityType': default_uni_type,
-                    'admissionProbability': '75%',
-                    'distance_km': 0.0
-                })
-            
-            enhanced_recommendations.append(enhanced_rec)
-        
-        # Model info for transparency
-        model_info = {
-            "method": method_used,
-            "method_label": {
-                "trained_random_forest": "Trained Random Forest Classifier",
-                "z_score_fallback": "Z-Score Based Rule Engine + Career Compatibility Matrix",
-                "fallback": "Rule-Based Fallback Engine"
-            }.get(method_used, method_used),
-            "description": {
-                "trained_random_forest": "A supervised machine learning model trained on historical student data. Uses ensemble decision trees to predict the best-fit degree based on your Z-score, stream, personality traits, and career goals.",
-                "z_score_fallback": "A hybrid recommendation engine combining Z-score threshold analysis with a stream-degree compatibility matrix (weighted 60%) and job-degree alignment scoring (weighted 40%). Evaluates your academic standing against university cutoff marks and matches career requirements.",
-                "fallback": "A rule-based recommendation system using predefined career-to-degree mappings and Z-score thresholds."
-            }.get(method_used, "AI-powered recommendation engine"),
-            "confidence_score": float(confidence),
-            "accuracy_note": "Confidence score indicates the model's certainty in its top prediction. Higher scores (>80%) suggest strong alignment between your profile and the recommended degree.",
-            "factors_used": [
-                f"Z-Score: {student_profile.get('z_score', 0)}",
-                f"Stream: {student_profile.get('stream', 'N/A')}",
-                f"Dream Job: {student_profile.get('dream_job', 'N/A')}",
-                f"District: {student_profile.get('district', 'N/A')}",
-                f"Analytical Skill: {student_profile.get('analytical_skill', 'N/A')}/5",
-                f"Creativity: {student_profile.get('creativity', 'N/A')}/5",
-                f"Leadership: {student_profile.get('leadership', 'N/A')}/5",
-            ],
-            "universities_analyzed": len(university_recommendations.get('government', [])) + len(university_recommendations.get('private', [])),
-            "total_university_database": 44,
-        }
-
-        return jsonify({
-            "method": method_used,
-            "model_info": model_info,
-            "recommendations": enhanced_recommendations,
-            "university_recommendations": university_recommendations,
-            "best_degree": predicted_degree,
-            "counterfactual_guidance": {
-                "skill_improvement": f"Focus on improving key skills for {student_profile.get('dream_job', '')}",
-                "z_score_improvement": f"Improve Z-score from {student_profile.get('z_score', 0)} to 2.0+ for better opportunities"
-            }
-        }), 200
-        
-    except Exception as e:
-        print(f"Error: {str(e)}")
-        return jsonify({"error": f"Error processing recommendation: {str(e)}"}), 500
+        return jsonify(advisor_engine.recommend(profile))
+    except Exception:
+        app.logger.exception("Recommendation engine failed")
+        return jsonify({"error": "The recommendation service could not complete this request.", "code": "recommendation_failed"}), 500
 
 def _generate_roadmap(degree):
     """Generate career roadmap based on degree"""
@@ -1955,36 +1763,8 @@ def _generate_roadmap(degree):
 
 @app.route('/predict-simple', methods=['POST'])
 def simple_prediction():
-    """Simple prediction endpoint for testing"""
-    try:
-        data = request.get_json()
-        dream_job = data.get('dream_job', 'Software Engineer')
-        z_score = float(data.get('z_score', 1.5))
-        stream = data.get('stream', 'Physical Science')
-        
-        # Simple rule-based prediction
-        if dream_job == 'Software Engineer' and z_score >= 1.5:
-            degree = 'IT'
-            confidence = 0.85
-        elif dream_job == 'Doctor' and z_score >= 2.0:
-            degree = 'Medicine'
-            confidence = 0.90
-        elif dream_job == 'Data Scientist' and z_score >= 1.4:
-            degree = 'IT'
-            confidence = 0.80
-        else:
-            degree = 'Business'
-            confidence = 0.60
-        
-        return jsonify({
-            "dream_job": dream_job,
-            "z_score": z_score,
-            "stream": stream,
-            "method": "simple_rule_based"
-        })
-        
-    except Exception as e:
-        return jsonify({"error": f"Error in prediction: {str(e)}"}), 500
+    # Keep the legacy URL, with the same validation and evidence as /recommend.
+    return get_recommendations()
 
 if __name__ == "__main__":
     print("🚀 Starting FutureDream Flask Server...")

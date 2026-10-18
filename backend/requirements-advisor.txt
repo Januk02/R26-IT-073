@@ -1,0 +1,7 @@
+# Verified with Python 3.9.6. Use Python 3.9–3.12 for these pinned wheels.
+Flask==3.1.0
+flask-cors==5.0.1
+numpy==2.0.2
+pandas==2.2.3
+scikit-learn==1.6.1
+joblib==1.4.2

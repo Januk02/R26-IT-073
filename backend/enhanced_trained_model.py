@@ -5,6 +5,7 @@ try:
     from sklearn.ensemble import RandomForestClassifier
     from sklearn.preprocessing import LabelEncoder
     import joblib
+    from sklearn import __version__ as sklearn_version
 except ImportError:
     print("⚠️  sklearn not available, using fallback model")
     RandomForestClassifier = None
@@ -12,12 +13,17 @@ except ImportError:
     joblib = None
 import os
 import math
+import warnings
+import re
+from pathlib import Path
 
 class TrainedModelPredictor:
     def __init__(self):
         self.model = None
         self.encoders = {}
         self.le_target = None
+        self.load_status = "not_loaded"
+        self.version_mismatch = False
         self.load_trained_model()
         
     def load_trained_model(self):
@@ -30,6 +36,8 @@ class TrainedModelPredictor:
                 'logical_target_encoder.pkl'
             ]
             
+            base = Path(__file__).resolve().parent
+            model_files = [base / name for name in model_files]
             for file in model_files:
                 if os.path.exists(file):
                     print(f"✓ Found {file}")
@@ -38,10 +46,25 @@ class TrainedModelPredictor:
                     return self.create_fallback_model()
             
             # Load trained model if available
-            if os.path.exists('logical_degree_model.pkl'):
-                self.model = joblib.load('logical_degree_model.pkl')
-                self.encoders = joblib.load('logical_encoders.pkl')
-                self.le_target = joblib.load('logical_target_encoder.pkl')
+            if model_files[0].exists():
+                # Inspect joblib's plain pickle header before deserializing native estimators.
+                # Older tree formats may be unsafe to execute under another sklearn version.
+                for path in model_files:
+                    with path.open('rb') as artifact:
+                        header = artifact.read(4096)
+                    version = re.search(rb'_sklearn_version.{0,8}?(\d+\.\d+\.\d+)', header)
+                    if version and version.group(1).decode('ascii') != sklearn_version:
+                        self.create_fallback_model()
+                        self.version_mismatch = True
+                        self.load_status = "version_mismatch"
+                        return
+                with warnings.catch_warnings(record=True) as caught:
+                    warnings.simplefilter("always")
+                    self.model = joblib.load(model_files[0])
+                    self.encoders = joblib.load(model_files[1])
+                    self.le_target = joblib.load(model_files[2])
+                self.version_mismatch = any(w.category.__name__ == "InconsistentVersionWarning" for w in caught)
+                self.load_status = "version_mismatch" if self.version_mismatch else "loaded"
                 print("✅ Loaded logical degree model")
             else:
                 print("⚠️  Using fallback model (logical model not found)")
@@ -53,6 +76,7 @@ class TrainedModelPredictor:
     
     def create_fallback_model(self):
         """Create fallback model based on notebook logic"""
+        self.load_status = "fallback"
         # Comprehensive career knowledge base — all 30 dream jobs from frontend
         self.career_knowledge = {
             "Software Engineer": {
@@ -375,7 +399,7 @@ class TrainedModelPredictor:
         known_districts = ['Ampara', 'Anuradhapura', 'Badulla', 'Batticaloa', 'Colombo',
                            'Galle', 'Gampaha', 'Hambantota', 'Jaffna', 'Kalutara', 'Kandy',
                            'Kegalle', 'Kilinochchi', 'Kurunegala', 'Mannar', 'Matara',
-                           'Monaragala', 'Mullaitivu', 'Nuwara Eliya', 'Polonnaruwa',
+                           'Matale', 'Monaragala', 'Mullaitivu', 'Nuwara Eliya', 'Polonnaruwa',
                            'Puttalam', 'Ratnapura', 'Trincomalee', 'Vavuniya']
         district = student_data.get('district', 'Colombo')
         if district not in known_districts:
@@ -420,6 +444,53 @@ class TrainedModelPredictor:
         }
 
         return model_input
+
+    def prediction_evidence(self, student_data):
+        """Expose actual classifier output without fabricated fallback confidence.
+
+        This API never aliases an unfamiliar career/district to another student.
+        Version-incompatible artifacts are retained but excluded from inference.
+        """
+        result = {"available": False, "probabilities": {}, "top_probability": None,
+                  "calibrated": False, "training_data": "synthetic_research_dataset",
+                  "load_status": self.load_status, "warnings": []}
+        if self.version_mismatch:
+            result["warnings"].append("Model artifact and installed scikit-learn versions differ; model inference is disabled.")
+            return result
+        if self.model is None or self.le_target is None:
+            result["warnings"].append("Trained model unavailable; explicit research rules are used.")
+            return result
+        try:
+            # Check original canonical values before the legacy input mapper can substitute them.
+            for field in ("dream_job", "district", "stream"):
+                encoder = self.encoders.get(field)
+                if encoder is not None and student_data[field] not in encoder.classes_:
+                    result["warnings"].append(f"Model has no encoded value for {field}; rule evidence is used without substitution.")
+                    return result
+            prepared = self._prepare_model_input(student_data)
+            missing = [key for key in prepared if key not in student_data]
+            result["imputed_features"] = missing
+            frame = pd.DataFrame([prepared])
+            for field, encoder in self.encoders.items():
+                if field in frame:
+                    if str(frame[field].iloc[0]) not in encoder.classes_:
+                        result["warnings"].append(f"Unsupported encoded value for {field}; no model prediction was made.")
+                        return result
+                    frame[field] = encoder.transform(frame[field].astype(str))
+            if hasattr(self.model, "feature_names_in_"):
+                frame = frame[self.model.feature_names_in_]
+            probabilities = np.asarray(self.model.predict_proba(frame)[0], dtype=float)
+            classes = self.le_target.inverse_transform(np.asarray(self.model.classes_, dtype=int))
+            if len(classes) != len(probabilities) or not np.isfinite(probabilities).all() or (probabilities < 0).any():
+                raise ValueError("Invalid probability vector")
+            if not np.isclose(probabilities.sum(), 1.0):
+                raise ValueError("Probability vector is not normalized")
+            result.update(available=True, probabilities={str(key): float(value) for key, value in zip(classes, probabilities)},
+                          top_probability=float(probabilities.max()))
+            return result
+        except Exception:
+            result["warnings"].append("Model inference failed validation; explicit research rules are used.")
+            return result
 
     def predict_degree(self, student_data):
         """Predict degree program using trained model or fallback"""

@@ -1,9 +1,15 @@
+import { careerExpansionMessages } from './advisorCareerExpansionTranslations.js';
+import { stateUniversityMessages } from './stateUniversityTranslations.js';
+import careerCatalog from './careerCatalog.json' with { type: 'json' };
 import { dreamJobs } from './dreamDegreeData.js';
 import { extraMessages } from './advisorExtraTranslations.js';
 import { pathMessages } from './advisorPathTranslations.js';
 import { careerMessages, careerDescriptions } from './advisorCareerTranslations.js';
 import { advisorTemplates } from './advisorTemplates.js';
 import { academicMessages } from './advisorAcademicTranslations.js';
+import { evidenceMessages } from './advisorEvidenceTranslations.js';
+import { subjectMessages } from './advisorSubjectTranslations.js';
+import { workspaceMessages } from './advisorWorkspaceTranslations.js';
 
 // Display translations only: identifiers and values sent to the API stay unchanged.
 export const advisorMessages = {
@@ -181,9 +187,22 @@ export const advisorMessages = {
   'All': ['සියලු', 'அனைத்தும்'],
 };
 
-Object.assign(advisorMessages, extraMessages, pathMessages, careerMessages, academicMessages);
+Object.assign(advisorMessages, extraMessages, pathMessages, careerMessages, academicMessages, evidenceMessages, workspaceMessages, subjectMessages, careerExpansionMessages, stateUniversityMessages);
 for (const career of dreamJobs) {
   if (careerDescriptions[career.id]) advisorMessages[career.description] = careerDescriptions[career.id];
+}
+
+// Career identifiers remain English in API payloads; only display copy is localised.
+for (const job of careerCatalog.jobs) {
+  for (const step of [...(job.roadmapSteps || []), ...(job.futurePathSteps || [])]) {
+    for (const value of [step.title, step.description]) advisorMessages[value.en] = [value.si, value.ta];
+  }
+  for (const value of [job.title, job.description, job.summary, job.qualification, job.project, ...[job.registrationNote].filter(Boolean)]) {
+    advisorMessages[value.en] = [value.si, value.ta];
+  }
+}
+for (const value of [...Object.values(careerCatalog.copy), ...Object.values(careerCatalog.foundations)]) {
+  advisorMessages[value.en] = [value.si, value.ta];
 }
 
 const templatePatterns = Object.entries(advisorTemplates).map(([source, values]) => {
@@ -200,6 +219,8 @@ export function translateAdvisor(text, language = 'en') {
   const trimmed = text.trim();
   const value = advisorMessages[trimmed]?.[index];
   if (value) return text.replace(trimmed, value);
+  const normalized = trimmed.replace(/^skill_scores\./, '').replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
+  if (advisorMessages[normalized]) return advisorMessages[normalized][index];
   if (!/[A-Za-z]/.test(trimmed)) return text;
   const degree = trimmed.match(/^(BSc(?: in)?|MSc|Diploma in|PhD) (.+)$/);
   if (degree) {

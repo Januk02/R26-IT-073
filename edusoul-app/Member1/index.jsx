@@ -39,6 +39,7 @@ export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, o
   const [selectedRecommendation, setSelectedRecommendation] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [fieldErrors, setFieldErrors] = useState({});
   const [existingProfile, setExistingProfile] = useState(null);
 
   // Fetch existing profile from Firebase when user is logged in
@@ -66,8 +67,18 @@ export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, o
     setStudentData(data);
     setIsLoading(true);
     setError(null);
+    setFieldErrors({});
 
     try {
+      // Fetch recommendations and backward analysis in parallel
+      // backward-analysis can fail for custom jobs not in knowledge base — don't block results
+      const [recommendations, backward] = await Promise.all([
+        getRecommendations(data),
+        data.dreamJob
+          ? getBackwardAnalysis(data.dreamJob, data).catch(() => null)
+          : Promise.resolve(null),
+      ]);
+
       // Save student profile to Firebase if user is logged in
       if (user) {
         try {
@@ -78,31 +89,24 @@ export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, o
             dreamJob: data.dreamJob || data.dream_job || '',
             academicResults: data.academicResults || { stream: data.stream || '', zScore: data.z_score || 0 },
             personalityScores: data.personalityScores || {},
+            skillScores: data.skillScores || {},
             lifestylePreferences: data.lifestylePreferences || {},
             role: 'student',
             updatedAt: new Date().toISOString(),
           };
-          await setDoc(doc(db, 'students', user.uid), studentProfile, { merge: true });
+          await setDoc(doc(db, 'students', user.uid), removeUndefined(studentProfile), { merge: true });
           setExistingProfile(studentProfile);
         } catch (firebaseErr) {
           console.warn('Could not save profile to Firebase:', firebaseErr);
         }
       }
 
-      // Fetch recommendations and backward analysis in parallel
-      // backward-analysis can fail for custom jobs not in knowledge base — don't block results
-      const [recommendations, backward] = await Promise.all([
-        getRecommendations(data),
-        data.dreamJob
-          ? getBackwardAnalysis(data.dreamJob).catch(() => null)
-          : Promise.resolve(null),
-      ]);
-
       setBackendResults(recommendations);
-      setBackwardAnalysis(backward || {});
+      setBackwardAnalysis({ ...(backward || {}), backward_analysis: recommendations.backward_analysis || backward?.backward_analysis || {} });
       setCurrentView('results');
     } catch (err) {
       console.error('Backend API Error:', err);
+      setFieldErrors(err.fieldErrors || {});
       setError(err.message || 'Failed to connect to the AI backend. Please ensure the server is running.');
     } finally {
       setIsLoading(false);
@@ -129,6 +133,8 @@ export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, o
   };
 
   const handleBackToInput = () => {
+    setError(null);
+    setFieldErrors({});
     setCurrentView('input');
   };
 
@@ -143,38 +149,13 @@ export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, o
   // Loading Screen
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 flex items-center justify-center">
-        <div className="text-center max-w-lg mx-auto px-6">
-          {/* Animated Brain Icon */}
-          <div className="relative w-32 h-32 mx-auto mb-8">
-            <div className="absolute inset-0 rounded-full bg-blue-500/20 animate-ping" />
-            <div className="absolute inset-2 rounded-full bg-blue-500/30 animate-pulse" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <svg className="w-16 h-16 text-blue-400 animate-spin" style={{ animationDuration: '3s' }} fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-              </svg>
-            </div>
-          </div>
-
-          <h2 className="text-3xl font-bold text-white mb-3">{tr("AI Model Processing")}</h2>
-          <p className="text-blue-200/80 text-lg mb-6">{tr("Our trained Random Forest model is analyzing your profile across 44 universities...")}</p>
-
-          {/* Progress Steps */}
-          <div className="space-y-3 text-left bg-white/5 rounded-2xl p-6 border border-white/10">
-            {tr([
-              'Analyzing personality traits...',
-              'Running career prediction model...',
-              'Matching with university programs...',
-              'Calculating admission probabilities...',
-              'Generating career roadmap...',
-            ].map((step, i) => (
-              <div key={i} className="flex items-center space-x-3" style={{ animationDelay: `${i * 0.5}s` }}>
-                <div className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" style={{ animationDelay: `${i * 0.3}s` }} />
-                <span className="text-blue-100/70 text-sm">{tr(step)}</span>
-              </div>
-            )))}
-          </div>
+      <div className="advisor-workspace advisor-state">
+        <div className="advisor-state-card" role="status" aria-live="polite">
+          <div className="advisor-state-spinner" aria-hidden="true" />
+          <p className="advisor-eyebrow" style={{ marginTop: 24 }}>{tr('YOUR DEGREE & CAREER PLAN')}</p>
+          <h2>{tr('Preparing your recommendations')}</h2>
+          <p>{tr('Checking your goal requirements and supplied profile evidence...')}</p>
+          <p>{tr('Comparing reference cutoff readiness...')}</p>
         </div>
       </div>
     );
@@ -183,36 +164,16 @@ export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, o
   // Error Screen
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-red-900/20 to-slate-900 flex items-center justify-center">
-        <div className="text-center max-w-lg mx-auto px-6">
-          <div className="w-20 h-20 mx-auto mb-6 bg-red-500/20 rounded-full flex items-center justify-center">
-            <svg className="w-10 h-10 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
-            </svg>
-          </div>
-
-          <h2 className="text-2xl font-bold text-white mb-3">{tr("Connection Error")}</h2>
-          <p className="text-red-200/80 mb-2">{tr("Could not reach the AI backend server.")}</p>
-          <p className="text-sm text-red-300/60 mb-8 bg-red-500/10 p-3 rounded-lg border border-red-500/20 font-mono">
-            {tr(error)}
-          </p>
-
-          <div className="bg-white/5 rounded-xl p-4 mb-8 border border-white/10 text-left">
-            <p className="text-white font-medium mb-2">{tr("Make sure the backend is running:")}</p>
-            <code className="text-blue-300 text-sm block bg-black/30 p-3 rounded-lg">
-              cd backend && python flask_app.py
-            </code>
-          </div>
-
-          <div className="flex space-x-4 justify-center">
-            <button
-              onClick={handleRetry}
-              className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all font-medium shadow-lg shadow-blue-500/30"
-            >{tr("Retry Connection")}</button>
-            <button
-              onClick={handleBackToInput}
-              className="px-6 py-3 bg-white/10 text-white rounded-xl hover:bg-white/20 transition-all border border-white/20"
-            >{tr("Back to Form")}</button>
+      <div className="advisor-workspace advisor-state">
+        <div className="advisor-state-card" role="alert">
+          <p className="advisor-eyebrow">{tr('YOUR DEGREE & CAREER PLAN')}</p>
+          <h2>{tr(Object.keys(fieldErrors).length ? "Profile validation" : "Connection Error")}</h2>
+          <p>{tr(Object.keys(fieldErrors).length ? "Review the fields below and return to your profile." : "Could not reach the AI backend server.")}</p>
+          <p>{tr(error)}</p>
+          {Object.keys(fieldErrors).length > 0 && <ul className="text-sm text-slate-600 space-y-2 my-5">{Object.entries(fieldErrors).map(([field, detail]) => <li key={field}><strong>{tr(field === 'subject_grades' ? 'Academic evidence' : field)}</strong>: {tr(typeof detail === 'string' ? detail : detail.message)}</li>)}</ul>}
+          <div className="flex flex-wrap items-center gap-5 mt-6">
+            {!Object.keys(fieldErrors).length && <button onClick={handleRetry} className="advisor-primary">{tr("Retry Connection")}</button>}
+            <button onClick={handleBackToInput} className={Object.keys(fieldErrors).length ? 'advisor-primary' : 'advisor-nav-link'}>{tr("Back to Form")}</button>
           </div>
         </div>
       </div>
@@ -230,7 +191,7 @@ export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, o
           onBack={handleBackToHome}
           onViewProfile={handleViewProfile}
           onNavigateToDashboard={onNavigateToDashboard}
-          initialData={existingProfile}
+          initialData={studentData || existingProfile}
         />
       ))}
       {tr(currentView === 'profile' && (

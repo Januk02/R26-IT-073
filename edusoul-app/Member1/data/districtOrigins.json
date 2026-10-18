@@ -1,0 +1,159 @@
+{
+  "source": "https://download.geonames.org/export/dump/LK.zip",
+  "attribution": "GeoNames",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "retrieved_on": "2026-10-17",
+  "basis": "Representative district town, not a home address or a district centroid.",
+  "districts": {
+    "Colombo": {
+      "town": "Colombo",
+      "lat": 6.93548,
+      "lon": 79.84868,
+      "geonames_id": 1248991
+    },
+    "Gampaha": {
+      "town": "Gampaha",
+      "lat": 7.0897,
+      "lon": 79.9925,
+      "geonames_id": 1246007
+    },
+    "Kalutara": {
+      "town": "Kalutara",
+      "lat": 6.5831,
+      "lon": 79.9593,
+      "geonames_id": 1241964
+    },
+    "Kandy": {
+      "town": "Kandy",
+      "lat": 7.2906,
+      "lon": 80.6336,
+      "geonames_id": 1241622
+    },
+    "Matale": {
+      "town": "Matale",
+      "lat": 7.4698,
+      "lon": 80.6217,
+      "geonames_id": 1235855
+    },
+    "Nuwara Eliya": {
+      "town": "Nuwara Eliya",
+      "lat": 6.97078,
+      "lon": 80.78286,
+      "geonames_id": 1232783
+    },
+    "Galle": {
+      "town": "Galle",
+      "lat": 6.0461,
+      "lon": 80.2103,
+      "geonames_id": 1246294
+    },
+    "Matara": {
+      "town": "Matara",
+      "lat": 5.94851,
+      "lon": 80.53528,
+      "geonames_id": 1235846
+    },
+    "Hambantota": {
+      "town": "Hambantota",
+      "lat": 6.1241,
+      "lon": 81.1185,
+      "geonames_id": 1244926
+    },
+    "Jaffna": {
+      "town": "Jaffna",
+      "lat": 9.66845,
+      "lon": 80.00742,
+      "geonames_id": 1242833
+    },
+    "Kilinochchi": {
+      "town": "Kilinochchi",
+      "lat": 9.3961,
+      "lon": 80.3982,
+      "geonames_id": 1240372
+    },
+    "Mannar": {
+      "town": "Mannar",
+      "lat": 8.98945,
+      "lon": 79.87842,
+      "geonames_id": 1236150
+    },
+    "Mullaitivu": {
+      "town": "Mullaitivu",
+      "lat": 9.268,
+      "lon": 80.815,
+      "geonames_id": 1234393
+    },
+    "Vavuniya": {
+      "town": "Vavuniya",
+      "lat": 8.7514,
+      "lon": 80.4971,
+      "geonames_id": 1225018
+    },
+    "Batticaloa": {
+      "town": "Batticaloa",
+      "lat": 7.7102,
+      "lon": 81.6924,
+      "geonames_id": 1250161
+    },
+    "Ampara": {
+      "town": "Ampara",
+      "lat": 7.29754,
+      "lon": 81.68202,
+      "geonames_id": 1251459
+    },
+    "Trincomalee": {
+      "town": "Trincomalee",
+      "lat": 8.5778,
+      "lon": 81.2289,
+      "geonames_id": 1226260
+    },
+    "Kurunegala": {
+      "town": "Kurunegala",
+      "lat": 7.4839,
+      "lon": 80.3683,
+      "geonames_id": 1237980
+    },
+    "Puttalam": {
+      "town": "Puttalam",
+      "lat": 8.0362,
+      "lon": 79.8283,
+      "geonames_id": 1229293
+    },
+    "Anuradhapura": {
+      "town": "Anuradhapura",
+      "lat": 8.31223,
+      "lon": 80.41306,
+      "geonames_id": 1251081
+    },
+    "Polonnaruwa": {
+      "town": "Polonnaruwa",
+      "lat": 7.93965,
+      "lon": 81.00274,
+      "geonames_id": 1229901
+    },
+    "Badulla": {
+      "town": "Badulla",
+      "lat": 6.9802,
+      "lon": 81.0577,
+      "geonames_id": 1250615
+    },
+    "Monaragala": {
+      "town": "Monaragala",
+      "lat": 6.8714,
+      "lon": 81.3487,
+      "geonames_id": 1234808
+    },
+    "Ratnapura": {
+      "town": "Ratnapura",
+      "lat": 6.6858,
+      "lon": 80.4036,
+      "geonames_id": 1228730
+    },
+    "Kegalle": {
+      "town": "Kegalle",
+      "lat": 7.2523,
+      "lon": 80.3436,
+      "geonames_id": 1240723
+    }
+  }
+}
