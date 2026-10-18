@@ -1,5 +1,4 @@
 import { skillLabel } from '../data/skillLabels';
-import CareerPlanSummary from '../components/CareerPlanSummary';
 import AdvisorHeader from '../components/AdvisorHeader';
 import './AdvisorWorkspace.css';
 import { useLanguage } from '../../src/contexts/LanguageContext';
@@ -38,7 +37,6 @@ export default function DreamDegreeRoadmap({ recommendation, studentData, onBack
           <h1 className="text-3xl font-bold text-slate-900">{tr('Future Goal Roadmap')}</h1>
           <p className="mt-2 mb-6 text-slate-600">{recommendation.degree && <>{tr(recommendation.degree)} · </>}{tr(studentData.dreamJob)}</p>
           <p className="rounded-xl border border-amber-200 bg-amber-50 p-4 mb-6 text-sm">{tr('Qualification duration and professional requirements depend on the selected institution and must be verified.')}</p>
-          <CareerPlanSummary plan={careerPlan} showBackwardSteps={false} />
           <ol className="advisor-roadmap-stages space-y-4">{roadmapStages.map((stage, index) => (
             <li key={stage.id} className="bg-white border border-slate-200 rounded-2xl p-5">
               <h2 className="font-bold text-lg text-slate-900">{index + 1}. {tr(stage.title || stage.id)}</h2>

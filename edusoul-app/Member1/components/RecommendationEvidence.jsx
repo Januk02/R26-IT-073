@@ -43,14 +43,14 @@ export function ScoreEvidence({ recommendation }) {
       <h4 className="font-semibold text-slate-900 mb-3">{tr('Score evidence')}</h4>
       <p className="text-xs text-slate-500 mb-3">{tr('Missing evidence is excluded from scoring; its weight is redistributed across assessed factors.')}</p>
       <SubjectPrerequisites check={recommendation.subject_prerequisites} />
-      <div className="space-y-2 mt-4">
+      {/* <div className="space-y-2 mt-4">
         {recommendation.score_breakdown.map(item => (
           <div key={item.factor} className="flex flex-wrap justify-between gap-2 text-sm">
             <span className="text-slate-600">{tr(item.factor)}</span>
             <span className="font-medium text-slate-900">{tr(percent(item.value))} · {tr('Weight')} {percent(item.effective_weight)}</span>
           </div>
         ))}
-      </div>
+      </div> */}
     </section>
   );
 }

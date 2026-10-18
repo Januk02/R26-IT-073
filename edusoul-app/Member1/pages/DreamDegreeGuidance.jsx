@@ -31,7 +31,7 @@ export default function DreamDegreeGuidance({ studentData, backendResults, onBac
 
           </nav>
           <h1 className="text-3xl font-bold text-slate-900 mb-6">{tr('Improvement Guidance')}</h1>
-          <RecommendationEvidence result={backendResults} />
+          <RecommendationEvidence result={backendResults} onViewRoadmap={onComplete} />
           <button onClick={onHome} className="advisor-primary">{tr('Home')}</button>
         </div>
         </main>

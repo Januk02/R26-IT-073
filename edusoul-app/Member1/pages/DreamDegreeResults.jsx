@@ -1,4 +1,4 @@
-import RecommendationEvidence, { ScoreEvidence } from '../components/RecommendationEvidence';
+import { ScoreEvidence } from '../components/RecommendationEvidence';
 import { useAdvisorTranslation } from '../data/advisorTranslations';
 import { useState, useMemo, lazy, Suspense } from 'react';
 
@@ -281,8 +281,6 @@ export default function DreamDegreeResults({ studentData, backendResults, backwa
               </div>
             )))}
           </div>
-
-          <RecommendationEvidence result={backendResults} onViewRoadmap={onViewRoadmap} />
 
           {/* Tab Navigation */}
           <div className="res-tabs flex space-x-1 res-card rounded-2xl p-1.5 mb-8">
