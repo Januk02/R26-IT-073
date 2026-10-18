@@ -7,6 +7,60 @@ from career_pathways import CATALOG, PROFILES
 
 
 class CareerExpansionTests(unittest.TestCase):
+    def test_every_career_returns_its_own_forward_and_backward_dependencies(self):
+        for title, job in PROFILES.items():
+            for profile in ({'dream_job': title}, {'dream_job': title,
+                    'stream': 'Physical Science', 'district': 'Ratnapura', 'z_score': 1.5}):
+                with self.subTest(career=title, personalized='stream' in profile):
+                    response = self.client.post('/backward-analysis', json=profile)
+                    self.assertEqual(response.status_code, 200)
+                    result = response.get_json()
+                    analysis = result['backward_analysis']
+                    journey = analysis['career_journey']
+                    self.assertEqual(journey, result['career_plan']['career_journey'])
+                    self.assertGreaterEqual(len(journey['forward']), 6)
+                    self.assertEqual(journey['backward'][0], journey['goal'])
+                    if title == 'Software Engineer':
+                        self.assertEqual(journey['backward'][:4], ['Senior Software Engineer',
+                            'Software Engineer', 'Junior Software Engineer', 'Software Engineering Intern'])
+                        self.assertIn('university', journey['forward'][0])
+                    else:
+                        self.assertEqual(journey['goal'], job['careerJourney']['goal']['en'])
+                    self.assertEqual(analysis['journey_version'], CATALOG['journey_version'])
+                    self.assertEqual(analysis['goal'], title)
+                    self.assertEqual(analysis['future_path_version'], CATALOG['future_path_version'])
+                    expected = job['futurePathSteps']
+                    self.assertEqual([step['id'] for step in analysis['career_path_steps']],
+                        [step['id'] for step in expected])
+                    self.assertEqual([step['description'] for step in analysis['career_path_steps']],
+                        [step['description']['en'] for step in expected])
+                    required = [step['id'] for step in reversed(expected) if not step.get('optional')]
+                    self.assertEqual([step['id'] for step in analysis['backward_steps']], required)
+                    self.assertEqual(analysis['backward_steps'], result['career_plan']['backward_steps'])
+                    if title != 'Doctor':
+                        self.assertNotIn('entry_route_status', result['career_plan'])
+
+    def test_doctor_civil_and_lawyer_use_explicit_roles_and_valid_dependency_order(self):
+        for title, goal, roles in [
+                ('Doctor', 'Specialist Doctor', ['Specialist Doctor', 'Consultant / Specialist Doctor']),
+                ('Civil Engineer', 'Senior Civil Engineer', ['Senior Civil Engineer', 'Civil Engineer',
+                    'Junior / Graduate Civil Engineer', 'Civil Engineering Intern']),
+                ('Lawyer', 'Senior Lawyer', ['Senior Lawyer', 'Experienced Lawyer / Legal Specialist',
+                    'Practising Lawyer (Attorney-at-Law)'])]:
+            with self.subTest(career=title):
+                journey = self.client.post('/backward-analysis', json={'dream_job': title}).get_json()['backward_analysis']['career_journey']
+                self.assertEqual(journey['goal'], goal)
+                self.assertEqual(journey['backward'][:len(roles)], roles)
+        doctor = self.client.post('/backward-analysis', json={'dream_job': 'Doctor'}).get_json()['backward_analysis']['career_journey']
+        forward = doctor['forward']
+        def pos(text):
+            return next(i for i, step in enumerate(forward) if text in step)
+        self.assertLess(pos('MBBS'), pos('provisional SLMC'))
+        self.assertLess(pos('provisional SLMC'), pos('Intern Medical Officer'))
+        self.assertLess(pos('Intern Medical Officer'), pos('full SLMC'))
+        self.assertLess(pos('full SLMC'), pos('postgraduate specialist'))
+        self.assertLess(pos('postgraduate specialist'), pos('Consultant / Specialist'))
+
     def test_software_future_path_explains_progression_in_both_analysis_modes(self):
         for profile in [{'dream_job': 'Software Engineer'}, {'dream_job': 'Software Engineer',
                 'stream': 'Physical Science', 'district': 'Ratnapura', 'z_score': 1.5}]:
@@ -75,8 +129,8 @@ class CareerExpansionTests(unittest.TestCase):
                 self.assertEqual(plan['catalog_version'], CATALOG['version'])
                 self.assertTrue(plan['summary'])
                 self.assertTrue(plan['qualification'])
-                self.assertEqual(len(plan['roadmap_stages']), 6)
-                self.assertEqual(len({stage['id'] for stage in plan['roadmap_stages']}), 6)
+                self.assertEqual(len(plan['roadmap_stages']), len(PROFILES[title]['futurePathSteps']))
+                self.assertEqual(len({stage['id'] for stage in plan['roadmap_stages']}), len(PROFILES[title]['futurePathSteps']))
                 self.assertTrue(all(stage['title'] and stage['description'] for stage in plan['roadmap_stages']))
                 self.assertTrue(plan['sri_lanka_pathway'])
                 self.assertTrue(plan['international_pathway'])
@@ -84,7 +138,9 @@ class CareerExpansionTests(unittest.TestCase):
                 self.assertIsNone(plan['salary_forecast'])
                 for rec in data['recommendations']:
                     self.assertEqual(rec['career_plan']['career'], title)
-                    self.assertEqual(len(rec['roadmap_stages']), 6)
+                    self.assertEqual(len(rec['roadmap_stages']), len(PROFILES[title]['futurePathSteps']))
+                    if PROFILES[title]['routeType'] == 'professional' and rec['goal_relation'] != 'direct':
+                        self.assertTrue(all('degree' not in stage for stage in rec['roadmap_stages']))
 
     def test_vocational_jobs_have_a_roadmap_without_fabricated_degrees(self):
         for title in ('Solar PV Installer','HVAC Technician','Automotive Technician','Welder','Tour Guide'):

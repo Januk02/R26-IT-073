@@ -5,7 +5,7 @@ import AdvisorHeader from '../components/AdvisorHeader';
 import CareerSkillAssessment from '../components/CareerSkillAssessment';
 import { useAdvisorTranslation } from '../data/advisorTranslations';
 import { dreamJobs, personalityTraits, lifestyleFactors } from '../data/dreamDegreeData';
-import { STREAM_SUBJECTS, ALL_DISTRICTS, alSubjectRules } from '../data/advisorIntakeData';
+import { STREAM_SUBJECTS, ALL_DISTRICTS } from '../data/advisorIntakeData';
 import { createIntake, validateIntake, updateIntakeSubject, prepareStreamSubjects } from '../data/advisorIntake';
 import './AdvisorWorkspace.css';
 
@@ -99,7 +99,7 @@ export default function DreamDegreeInput({ onAnalyze, onBack, onViewProfile, onN
           {panel('academic', 'Academic evidence', 'Subject grades, general test and a target Z-score', subjects.filter(([, grade]) => grade).length + Number(data.academicResults.commonGeneralTest !== '' && data.academicResults.commonGeneralTest != null), <>
             <p className="advisor-help">{tr('Add up to three subject grades. These help check entry requirements.')}</p>
             {streamRule?.required.length > 0 && <p className="advisor-help">{tr('Main subject names are fixed for this stream. Enter their grades and choose the third subject. Grades remain optional.')}</p>}
-            {streamRule && <div className="advisor-subject-guidance"><strong>{tr(data.academicResults.stream)}</strong><p>{tr(streamRule.description)}</p><a href={alSubjectRules.source} target="_blank" rel="noopener noreferrer">{tr('UGC subject guidance')} · {alSubjectRules.academicYear} · {streamRule.section} ↗</a></div>}
+            {streamRule && <div className="advisor-subject-guidance"><strong>{tr(data.academicResults.stream)}</strong><p>{tr(streamRule.description)}</p></div>}
             {subjectCleanup.adjusted && <p className="advisor-help" role="status">{tr(subjectCleanup.requiresReselection ? 'Your saved profile contained more than three subjects for this stream. Select your actual three subjects and grades again.' : 'Saved subjects outside the selected stream were removed from this form. Check your remaining subjects and grades.')}</p>}
             <div id="subjects" tabIndex={-1} aria-describedby={errors.subjects ? 'subjects-error' : undefined}>{errorText('subjects')}</div>
             {!data.academicResults.stream ? <p className="advisor-help">{tr('Select your A/L stream first.')}</p> : <StreamSubjectFields stream={data.academicResults.stream} subjects={data.academicResults.subjects} onChange={setSubject} />}

@@ -202,3 +202,14 @@
 .advisor-roadmap-stages>li{border-left:3px solid #2455b3;background:linear-gradient(100deg,#f0f5ff,#fff 70%)}
 .advisor-roadmap-stages>li:nth-child(3n+2){border-left-color:#b96c10;background:linear-gradient(100deg,#fff6e9,#fff 70%)}
 .advisor-roadmap-stages>li:nth-child(3n+3){border-left-color:#6942a0;background:linear-gradient(100deg,#f5f0fc,#fff 70%)}
+.career-path-steps{list-style:decimal;padding-left:1.75rem;margin:0}
+.career-path-steps>li{display:list-item;padding-left:.5rem}
+.career-path-steps>li::marker{font-size:13px;font-weight:650;color:#2455b3}
+.career-journey{font-size:14px;line-height:1.9;overflow-wrap:anywhere;color:#44536a}
+.career-journey h4{font-size:12px;font-weight:650;color:#17243d;margin:20px 0 7px}
+.career-journey-goal{color:#17243d;font-size:16px;margin:0}
+.career-journey-backward{background:#fff;border:1px solid #dbe5f3;border-radius:10px;padding:14px 16px;color:#2455b3}
+.career-journey-forward{margin:0}
+.career-journey-details{margin-top:20px;border-top:1px solid #dbe5f3;padding-top:14px}
+.career-journey-details summary{cursor:pointer;color:#2455b3;font-size:13px;font-weight:650}
+.career-journey-details[open] summary{margin-bottom:20px}

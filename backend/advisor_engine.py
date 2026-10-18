@@ -6,10 +6,10 @@ configuration, not an authoritative or annually verified admissions dataset.
 from copy import deepcopy
 from difflib import get_close_matches
 import math
-from career_pathways import CATALOG as CAREER_CATALOG, PROFILES, extend_careers, career_plan, future_path_steps
+from career_pathways import CATALOG as CAREER_CATALOG, PROFILES, extend_careers, career_plan, future_path_steps, career_journey
 from al_subjects import CATALOG, canonical_subject, combination_issues, course_subject_check
 
-RULE_VERSION = "advisor-rules-2.4"
+RULE_VERSION = "advisor-rules-2.6"
 HANDBOOK = "https://www.ugc.ac.lk/downloads/admissions/Handbook_2025_26/student_handbook_english.pdf"
 STREAM_DEGREES = {
     "Biological Science": {"Medicine", "Dental", "Nursing", "Pharmacy", "Bio Science", "Agriculture", "Veterinary Science"},
@@ -495,7 +495,9 @@ class AdvisorEngine:
             "key_skills": list(career.get("required_skills", {})),
             "required_education": career.get("vocational_route") or ", ".join(sorted(direct)),
             "career_path_steps": future_path_steps(job),
-            "career_path": " → ".join(step['title'] for step in future_path_steps(job)) or "Verify entry requirements → Complete an appropriate qualification → Gain supervised experience → Verify professional requirements",
+            "career_journey": career_journey(job),
+            "journey_version": CAREER_CATALOG['journey_version'],
+            "career_path": " → ".join(career_journey(job)['forward']),
             "salary_range": None, "timeline": "Depends on the qualification, institution and professional requirements."}
         grades = profile.get("subject_grades", {})
         backward["goal_proof"] = evaluate_proof({"id": "current_goal_readiness", "operator": "AND", "children": [
@@ -552,8 +554,9 @@ class AdvisorEngine:
         response["career_plan"] = career_plan(job,
             subject_check=course_subject_check('Medicine', profile.get('subject_grades', {})) if job == 'Doctor' else None,
             stream=profile['stream'])
+        backward['backward_steps'] = response['career_plan']['backward_steps']
+        backward['future_path_version'] = CAREER_CATALOG.get('future_path_version')
         if job == 'Doctor':
-            backward['backward_steps'] = response['career_plan']['backward_steps']
             backward['entry_route_status'] = response['career_plan']['entry_route_status']
         response["career_catalog_version"] = CAREER_CATALOG["version"]
         actions = self._actions(profile, top, skills, unmet)
@@ -619,11 +622,15 @@ class AdvisorEngine:
                 "counterfactual_scenarios": result["counterfactual_scenarios"], "action_plan": result["action_plan"], "career_plan": result["career_plan"], "source": RULE_VERSION}
         career = self.careers[profile["dream_job"]]
         direct = career.get("direct_degrees", DIRECT_DEGREES.get(profile["dream_job"], set(career.get("degree_paths", {}))))
+        plan = career_plan(profile['dream_job'])
         return {"dream_job": profile["dream_job"], "source": RULE_VERSION,
-            "career_plan": career_plan(profile["dream_job"]),
+            "career_plan": plan,
             "backward_analysis": {"goal": profile["dream_job"], "personalized": False,
+                "backward_steps": plan['backward_steps'], "future_path_version": CAREER_CATALOG.get('future_path_version'),
                 "career_path_steps": future_path_steps(profile['dream_job']),
-                "career_path": " → ".join(step['title'] for step in future_path_steps(profile['dream_job'])),
+                "career_journey": career_journey(profile['dream_job']),
+                "journey_version": CAREER_CATALOG['journey_version'],
+                "career_path": " → ".join(career_journey(profile['dream_job'])['forward']),
                 "required_education": career.get("vocational_route") or ", ".join(sorted(direct)),
                 "key_skills": list(career.get("required_skills", {})), "requirements": {"degree_paths": career.get("degree_paths", {}), "direct_degrees": sorted(direct), "vocational_route": career.get("vocational_route")},
                 "missing_evidence": ["stream", "z_score", "district", "skill_scores"], "inference_trace": [{"rule": "goal", "status": "resolved", "goal": profile["dream_job"]}]}}

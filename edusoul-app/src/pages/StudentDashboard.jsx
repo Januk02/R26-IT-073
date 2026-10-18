@@ -66,7 +66,6 @@ export default function StudentDashboard({
   const firstName = user?.displayName?.trim().split(/\s+/)[0] || user?.email?.split('@')[0] || 'Student';
   const [matchedMentors, setMatchedMentors] = useState([]);
   const [matchError, setMatchError] = useState("");
-  const [isMatching, setIsMatching] = useState(false);
   const initial = firstName.charAt(0).toUpperCase();
   const today = new Date();
   const greeting =
@@ -190,20 +189,6 @@ export default function StudentDashboard({
     return unsubscribe;
   }, [user?.uid]);
 
-  const handleRefreshMentors = async () => {
-    if (!user?.uid) return;
-    setIsMatching(true);
-    setMatchError("");
-    try {
-      await syncStudentMatchingProfile(user.uid);
-      await findAndAssignMentorsForStudent(user.uid);
-    } catch (error) {
-      setMatchError("Failed to refresh mentor matches. Please try again.");
-      console.error("Error refreshing mentors:", error);
-    } finally {
-      setIsMatching(false);
-    }
-  };
 
   return (
     <div className="study-dashboard">
@@ -317,15 +302,10 @@ export default function StudentDashboard({
             </div>
             <button
               type="button"
-              onClick={handleRefreshMentors}
-              disabled={isMatching}
+              onClick={onNavigateToMentorHub}
               className="rounded-md border border-teal-300 px-3 py-2 text-sm font-semibold text-teal-700 hover:bg-teal-50 disabled:opacity-50"
             >
-              {isMatching
-                ? "Refreshing..."
-                : matchedMentors.length
-                  ? "Refresh Matches"
-                  : "Find Mentors"}
+              Find Mentors
             </button>
           </div>
           {matchedMentors.length ? (
@@ -367,8 +347,7 @@ export default function StudentDashboard({
             </div>
           ) : (
             <p className="text-sm text-slate-600">
-              No mentors matched yet. Use “Find Mentors” to refresh
-              recommendations based on your profile.
+              No mentors matched yet. Select “Find Mentors” to explore the Mentor Hub.
             </p>
           )}
           {matchError && (

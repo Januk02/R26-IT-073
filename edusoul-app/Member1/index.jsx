@@ -31,7 +31,7 @@ const removeUndefined = (value) => {
   return value;
 };
 
-export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, onNavigateToDashboard, initialView = 'dashboard', initialStudentData = null }) {
+export default function Member1DreamDegreeAdvisor({ onBack, onNavigateToDashboard, initialView = 'home', initialStudentData = null }) {
   const tr = useAdvisorTranslation();
   const { user } = useAuth();
   const [currentView, setCurrentView] = useState(initialView);
@@ -182,6 +182,8 @@ export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, o
     );
   }
 
+  if (currentView === 'home') return <DreamDegreeHome onStart={handleStart} onLaunch={() => setCurrentView('dashboard')} onNavigateToDashboard={onNavigateToDashboard || onBack} />;
+
   const latestRoadmap = backendResults?.recommendations?.[0] || (backendResults?.career_plan ? { career_plan: backendResults.career_plan, roadmap_stages: backendResults.career_plan.roadmap_stages } : null);
   const navigateAdvisor = view => {
     if (view === 'roadmap') { if (latestRoadmap) handleViewRoadmap(latestRoadmap); return; }
@@ -191,9 +193,6 @@ export default function Member1DreamDegreeAdvisor({ onBack, onLogin, onLogout, o
   return (
     <AdvisorModuleLayout view={currentView} onNavigate={navigateAdvisor} onPortal={onNavigateToDashboard || onBack} hasResults={!!backendResults} hasRoadmap={!!latestRoadmap}>
       {currentView === 'dashboard' && <AdvisorDashboard profile={studentData || existingProfile} results={backendResults} userName={user?.displayName?.split(' ')[0] || user?.email?.split('@')[0]} onNavigate={navigateAdvisor} />}
-      {tr(currentView === 'home' && (
-        <DreamDegreeHome onStart={handleStart} onLogin={onLogin} onLogout={onLogout} onNavigateToDashboard={onNavigateToDashboard} onViewProfile={handleViewProfile} />
-      ))}
       {tr(currentView === 'input' && (
         <DreamDegreeInput
           onAnalyze={handleAnalyze}

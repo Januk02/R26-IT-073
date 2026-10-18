@@ -182,7 +182,7 @@ function AppContent({ currentView, setCurrentView }) {
               onLogout={logout}
               onNavigateToDashboard={go("studentHome")}
               initialStudentData={onboardingData}
-              initialView={onboardingData ? "input" : "dashboard"}
+              initialView={onboardingData ? "input" : "home"}
             />
           </ProtectedRoute>
         );

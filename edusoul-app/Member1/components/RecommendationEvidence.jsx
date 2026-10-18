@@ -32,7 +32,6 @@ export function SubjectPrerequisites({ check }) {
     {check.at_least && <p className="text-xs text-slate-600 mt-2">{tr('Minimum subjects from this group')}: {check.at_least.count} · {check.at_least.subjects.map(subject => tr(subject)).join(', ')}</p>}
     {check.issues?.map(issue => <p key={issue} className="text-xs text-amber-800 mt-2">{tr(issueLabels[issue] || issue)}</p>)}
     <p className="text-xs text-slate-500 mt-2">{tr('Only A/L subject evidence is checked here. This is not a final admission decision.')}</p>
-    {check.section && <a className="text-xs underline text-blue-700" href={check.source} target="_blank" rel="noopener noreferrer">{tr('UGC subject guidance')} {check.academic_year} · {check.section} ↗</a>}
   </div>;
 }
 

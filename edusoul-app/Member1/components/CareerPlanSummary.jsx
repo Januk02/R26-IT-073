@@ -1,30 +1,30 @@
 import { skillLabel } from '../data/skillLabels';
 import { useAdvisorTranslation } from '../data/advisorTranslations';
+import { careerJourneyForCareer, refreshCareerPlan } from '../data/careerFuturePaths';
 
-export default function CareerPlanSummary({ plan, onViewRoadmap, showBackwardSteps = true }) {
+export default function CareerPlanSummary({ plan: savedPlan, onViewRoadmap, showBackwardSteps = true }) {
   const tr = useAdvisorTranslation();
+  const plan = refreshCareerPlan(savedPlan);
   if (!plan) return null;
+  const journey = careerJourneyForCareer(plan.career);
   const entryMessages = {"stream_change_required": "Your selected stream does not support the checked UGC Medicine route. Review a Biological Science pathway with Biology, Chemistry and Physics before applying.", "subject_requirements_not_met": "Your supplied subjects or grades do not meet the checked Medicine requirements. Resolve the subject or grade gaps before applying.", "subject_requirements_supported": "Your supplied subjects and grades meet the checked Medicine subject minimum. Current admission selection and other entry requirements still need verification.", "more_evidence_needed": "Supply your Biology, Chemistry and Physics grades to check the Medicine subject requirements."};
   return <section className="advisor-career-plan rounded-xl border border-slate-200 bg-white p-5 mb-4" aria-label={tr('Your career pathway')}>
     <p className="advisor-eyebrow">{tr('Your career pathway')}</p>
     <h2 className="font-semibold text-xl text-slate-900">{tr(plan.career)}</h2>
     <p className="mt-2 text-sm text-slate-600">{tr(plan.summary)}</p>
     <p className="mt-3 text-sm text-slate-700"><strong>{tr('Qualification route')}: </strong>{tr(plan.qualification)}</p>
-    {plan.backward_steps?.length > 0 && <>
+    {plan.career === 'Doctor' && plan.backward_steps?.length > 0 &&
       <div className="mt-4 rounded-lg border border-blue-200 bg-blue-50 p-4" data-testid="medical-entry-assessment">
         <h3 className="text-sm font-semibold text-slate-900">{tr('Your next step towards Medicine')}</h3>
         <p className="text-sm text-slate-700 mt-2">{tr(entryMessages[plan.entry_route_status] || entryMessages.more_evidence_needed)}</p>
         {plan.student_stream && <p className="text-xs text-slate-600 mt-2">{tr('Selected stream')}: {tr(plan.student_stream)}</p>}
         {!!plan.entry_subject_check?.missing_subjects?.length && <p className="text-xs text-amber-800 mt-2">{tr('Not supplied')}: {plan.entry_subject_check.missing_subjects.map(subject => tr(subject)).join(', ')}</p>}
-      </div>
-      {showBackwardSteps && <div className="mt-5" data-testid="career-backward-steps">
-        <h3 className="font-semibold text-slate-900">{tr('Work backwards from your career goal')}</h3>
-        <ol className="mt-3 space-y-3">{plan.backward_steps.map((step, index) => <li key={step.id} className="border-l-2 border-blue-200 pl-4">
-          <h4 className="text-sm font-semibold text-slate-900">{index + 1}. {tr(step.title)}</h4>
-          <p className="text-sm text-slate-600 mt-1">{tr(step.description)}</p>
-        </li>)}</ol>
       </div>}
-    </>}
+      {showBackwardSteps && journey && <div className="mt-5" data-testid="career-backward-steps">
+        <h3 className="font-semibold text-slate-900">{tr('Work backwards from your career goal')}</h3>
+        <p className="text-sm text-slate-900 mt-3"><strong>{tr('Dream job')}: </strong>{tr(journey.goal)}</p>
+        <p className="career-journey career-journey-backward mt-3">{journey.backward.map(item => tr(item)).join(' → ')}</p>
+      </div>}
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
       <div className="bg-slate-50 rounded-lg p-4"><h3 className="text-sm font-semibold text-slate-900">{tr('Sri Lanka pathway')}</h3><p className="text-xs text-slate-600 mt-2">{tr(plan.sri_lanka_pathway)}</p></div>
       <div className="bg-slate-50 rounded-lg p-4"><h3 className="text-sm font-semibold text-slate-900">{tr('International pathway')}</h3><p className="text-xs text-slate-600 mt-2">{tr(plan.international_pathway)}</p></div>

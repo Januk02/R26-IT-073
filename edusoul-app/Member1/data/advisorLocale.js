@@ -195,6 +195,11 @@ for (const career of dreamJobs) {
 
 // Career identifiers remain English in API payloads; only display copy is localised.
 for (const job of careerCatalog.jobs) {
+  if (job.careerJourney) {
+    for (const value of [job.careerJourney.goal, ...job.careerJourney.backward, ...job.careerJourney.forward]) {
+      advisorMessages[value.en] = [value.si, value.ta];
+    }
+  }
   for (const step of [...(job.roadmapSteps || []), ...(job.futurePathSteps || [])]) {
     for (const value of [step.title, step.description]) advisorMessages[value.en] = [value.si, value.ta];
   }

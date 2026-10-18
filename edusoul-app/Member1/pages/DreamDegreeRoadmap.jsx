@@ -6,6 +6,7 @@ import { useLanguage } from '../../src/contexts/LanguageContext';
 import { useAdvisorTranslation } from '../data/advisorTranslations';
 import { useState, useRef, useEffect } from 'react';
 import { dreamJobs } from '../data/dreamDegreeData';
+import { refreshCareerPlan } from '../data/careerFuturePaths';
 
 const BG_IMAGE_URL = 'https://i.pinimg.com/1200x/d7/76/5d/d7765d7445ccfecafbd6546e8e36b813.jpg';
 
@@ -15,6 +16,8 @@ export default function DreamDegreeRoadmap({ recommendation, studentData, onBack
   const [selectedPath, setSelectedPath] = useState('academic');
   const [portalOpen, setPortalOpen] = useState(false);
   const portalRef = useRef(null);
+  const careerPlan = refreshCareerPlan(recommendation?.career_plan);
+  const roadmapStages = careerPlan?.roadmap_stages || recommendation?.roadmap_stages;
 
   useEffect(() => {
     const handleClick = (e) => { if (portalRef.current && !portalRef.current.contains(e.target)) setPortalOpen(false); };
@@ -22,7 +25,7 @@ export default function DreamDegreeRoadmap({ recommendation, studentData, onBack
     return () => document.removeEventListener('mousedown', handleClick);
   }, []);
 
-  if (recommendation?.roadmap_stages) {
+  if (roadmapStages) {
     return (
       <div className="advisor-workspace">
         <AdvisorHeader onHome={onHome} onViewProfile={onViewProfile} onNavigateToDashboard={onNavigateToDashboard} />
@@ -35,8 +38,8 @@ export default function DreamDegreeRoadmap({ recommendation, studentData, onBack
           <h1 className="text-3xl font-bold text-slate-900">{tr('Future Goal Roadmap')}</h1>
           <p className="mt-2 mb-6 text-slate-600">{recommendation.degree && <>{tr(recommendation.degree)} · </>}{tr(studentData.dreamJob)}</p>
           <p className="rounded-xl border border-amber-200 bg-amber-50 p-4 mb-6 text-sm">{tr('Qualification duration and professional requirements depend on the selected institution and must be verified.')}</p>
-          <CareerPlanSummary plan={recommendation.career_plan} showBackwardSteps={false} />
-          <ol className="advisor-roadmap-stages space-y-4">{recommendation.roadmap_stages.map((stage, index) => (
+          <CareerPlanSummary plan={careerPlan} showBackwardSteps={false} />
+          <ol className="advisor-roadmap-stages space-y-4">{roadmapStages.map((stage, index) => (
             <li key={stage.id} className="bg-white border border-slate-200 rounded-2xl p-5">
               <h2 className="font-bold text-lg text-slate-900">{index + 1}. {tr(stage.title || stage.id)}</h2>
               <p className="text-sm text-blue-700 mt-1">{tr(stage.status)}</p>
