@@ -5,13 +5,13 @@ export default function CareerPlanSummary({ plan, onViewRoadmap, showBackwardSte
   const tr = useAdvisorTranslation();
   if (!plan) return null;
   const entryMessages = {"stream_change_required": "Your selected stream does not support the checked UGC Medicine route. Review a Biological Science pathway with Biology, Chemistry and Physics before applying.", "subject_requirements_not_met": "Your supplied subjects or grades do not meet the checked Medicine requirements. Resolve the subject or grade gaps before applying.", "subject_requirements_supported": "Your supplied subjects and grades meet the checked Medicine subject minimum. Current admission selection and other entry requirements still need verification.", "more_evidence_needed": "Supply your Biology, Chemistry and Physics grades to check the Medicine subject requirements."};
-  return <section className="rounded-xl border border-slate-200 bg-white p-5 mb-4" aria-label={tr('Your career pathway')}>
+  return <section className="advisor-career-plan rounded-xl border border-slate-200 bg-white p-5 mb-4" aria-label={tr('Your career pathway')}>
     <p className="advisor-eyebrow">{tr('Your career pathway')}</p>
     <h2 className="font-semibold text-xl text-slate-900">{tr(plan.career)}</h2>
     <p className="mt-2 text-sm text-slate-600">{tr(plan.summary)}</p>
     <p className="mt-3 text-sm text-slate-700"><strong>{tr('Qualification route')}: </strong>{tr(plan.qualification)}</p>
     {plan.backward_steps?.length > 0 && <>
-      <div className="mt-4 rounded-lg border border-teal-200 bg-teal-50 p-4" data-testid="medical-entry-assessment">
+      <div className="mt-4 rounded-lg border border-blue-200 bg-blue-50 p-4" data-testid="medical-entry-assessment">
         <h3 className="text-sm font-semibold text-slate-900">{tr('Your next step towards Medicine')}</h3>
         <p className="text-sm text-slate-700 mt-2">{tr(entryMessages[plan.entry_route_status] || entryMessages.more_evidence_needed)}</p>
         {plan.student_stream && <p className="text-xs text-slate-600 mt-2">{tr('Selected stream')}: {tr(plan.student_stream)}</p>}
@@ -19,7 +19,7 @@ export default function CareerPlanSummary({ plan, onViewRoadmap, showBackwardSte
       </div>
       {showBackwardSteps && <div className="mt-5" data-testid="career-backward-steps">
         <h3 className="font-semibold text-slate-900">{tr('Work backwards from your career goal')}</h3>
-        <ol className="mt-3 space-y-3">{plan.backward_steps.map((step, index) => <li key={step.id} className="border-l-2 border-teal-200 pl-4">
+        <ol className="mt-3 space-y-3">{plan.backward_steps.map((step, index) => <li key={step.id} className="border-l-2 border-blue-200 pl-4">
           <h4 className="text-sm font-semibold text-slate-900">{index + 1}. {tr(step.title)}</h4>
           <p className="text-sm text-slate-600 mt-1">{tr(step.description)}</p>
         </li>)}</ol>

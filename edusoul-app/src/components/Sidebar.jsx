@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   LayoutDashboard,
   GraduationCap,
@@ -20,6 +20,7 @@ import {
   UserRound,
 } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
+import studyfyxLogo from "../assets/studyfyxlogo.png";
 
 const SIDEBAR_WIDTH = 260;
 
@@ -156,9 +157,31 @@ const groupBySection = (items) =>
     return groups;
   }, []);
 
-export default function Sidebar({ currentView, setCurrentView }) {
+export default function Sidebar({ currentView, setCurrentView, isOpen, onOpenChange }) {
   const { user, userRole, logout } = useAuth();
-  const [open, setOpen] = useState(false); // mobile drawer
+  const [localOpen, setLocalOpen] = useState(() => window.matchMedia('(min-width: 769px)').matches);
+  const open = isOpen ?? localOpen;
+  const setOpen = onOpenChange || setLocalOpen;
+  const toggleRef = useRef(null);
+  const sidebarRef = useRef(null);
+  useEffect(() => {
+    const desktop = window.matchMedia('(min-width: 769px)');
+    const onBreakpointChange = event => setOpen(event.matches);
+    desktop.addEventListener('change', onBreakpointChange);
+    return () => desktop.removeEventListener('change', onBreakpointChange);
+  }, [setOpen]);
+  useEffect(() => {
+    if (!open) return;
+    const onEscape = event => {
+      if (event.key === 'Escape' && (window.matchMedia('(max-width: 768px)').matches
+          || sidebarRef.current?.contains(event.target) || toggleRef.current === event.target)) {
+        setOpen(false);
+        toggleRef.current?.focus();
+      }
+    };
+    document.addEventListener('keydown', onEscape);
+    return () => document.removeEventListener('keydown', onEscape);
+  }, [open, setOpen]);
 
   const isAuth = !!user;
   const isMentor = userRole === "mentor";
@@ -174,7 +197,7 @@ export default function Sidebar({ currentView, setCurrentView }) {
     } else {
       setCurrentView(item.id);
     }
-    setOpen(false);
+    if (window.matchMedia('(max-width: 768px)').matches) setOpen(false);
   };
 
   const handleLogout = async () => {
@@ -189,9 +212,9 @@ export default function Sidebar({ currentView, setCurrentView }) {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
 
-        /* ── Hamburger (mobile only) ── */
+        /* Navigation toggle is available on desktop and mobile. */
         .sb-hamburger {
-          display: none;
+          display: flex;
           position: fixed;
           top: 16px; left: 16px;
           z-index: 1100;
@@ -203,6 +226,12 @@ export default function Sidebar({ currentView, setCurrentView }) {
           align-items: center; justify-content: center;
           cursor: pointer;
           color: white;
+          transition: left 0.3s ease, background 0.2s ease;
+        }
+        .sb-hamburger:hover { background: #2455b3; }
+        .sb-hamburger:focus-visible { outline: 3px solid #f79412; outline-offset: 3px; }
+        @media (min-width: 769px) {
+          .sb-hamburger.expanded { left: ${SIDEBAR_WIDTH - 52}px; top: 22px; width: 34px; height: 34px; border-radius: 9px; }
         }
 
         /* ── Backdrop (mobile) ── */
@@ -220,17 +249,17 @@ export default function Sidebar({ currentView, setCurrentView }) {
           top: 0; left: 0; bottom: 0;
           width: ${SIDEBAR_WIDTH}px;
           font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif;
-          background:
-            radial-gradient(120% 40% at 0% 0%, rgba(99, 102, 241, 0.22) 0%, transparent 60%),
-            radial-gradient(90% 35% at 100% 100%, rgba(139, 92, 246, 0.16) 0%, transparent 65%),
-            #0B1020;
+          background: linear-gradient(180deg, #122743, #0d1c33);
           display: flex;
           flex-direction: column;
           z-index: 1000;
           transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
           border-right: 1px solid rgba(255,255,255,0.06);
           overflow: hidden;
+          transform: translateX(-100%);
+          visibility: hidden;
         }
+        .sb-root.open { transform: translateX(0); visibility: visible; }
 
         /* faint grid texture */
         .sb-root::before {
@@ -249,9 +278,11 @@ export default function Sidebar({ currentView, setCurrentView }) {
 
         /* ── Logo area ── */
         .sb-logo {
-          display: flex; align-items: center; gap: 12px;
-          padding: 22px 20px 18px;
+          display: flex; flex-direction: column; align-items: flex-start; gap: 9px;
+          padding: 22px 22px 18px;
         }
+
+        .sb-brand-image { width: 122px; height: 76px; padding: 8px 11px; object-fit: contain; background: white; border-radius: 9px; }
 
         .sb-logo-icon {
           width: 38px; height: 38px;
@@ -347,8 +378,8 @@ export default function Sidebar({ currentView, setCurrentView }) {
 
         .sb-item.active {
           color: #FFFFFF;
-          background: linear-gradient(90deg, rgba(99,102,241,0.22) 0%, rgba(139,92,246,0.08) 100%);
-          border-color: rgba(129,140,248,0.22);
+          background: linear-gradient(90deg, rgba(59,130,246,0.24), rgba(59,130,246,0.06));
+          border-color: rgba(96,165,250,0.24);
         }
 
         /* gradient indicator bar */
@@ -359,8 +390,8 @@ export default function Sidebar({ currentView, setCurrentView }) {
           transform: translateY(-50%);
           width: 3px; height: 20px;
           border-radius: 0 4px 4px 0;
-          background: linear-gradient(180deg, #818CF8, #C084FC);
-          box-shadow: 0 0 12px rgba(129,140,248,0.8);
+          background: linear-gradient(180deg, #f79412, #ffbe68);
+          box-shadow: 0 0 12px rgba(247,148,18,0.35);
         }
 
         .sb-item-icon {
@@ -380,7 +411,7 @@ export default function Sidebar({ currentView, setCurrentView }) {
 
         .sb-item.active .sb-item-icon {
           color: #FFFFFF;
-          background: linear-gradient(135deg, #6366F1, #8B5CF6);
+          background: linear-gradient(135deg, #2563eb, #3b82f6);
           box-shadow: 0 4px 12px rgba(99,102,241,0.4);
         }
 
@@ -428,7 +459,7 @@ export default function Sidebar({ currentView, setCurrentView }) {
         .sb-auth-btn.login:hover { background: rgba(255,255,255,0.08); }
 
         .sb-auth-btn.register {
-          background: linear-gradient(135deg, #6366F1, #8B5CF6);
+          background: linear-gradient(135deg, #2563eb, #3b82f6);
           color: white;
           border: none;
           box-shadow: 0 6px 18px rgba(99,102,241,0.35);
@@ -453,7 +484,7 @@ export default function Sidebar({ currentView, setCurrentView }) {
           position: relative;
           width: 36px; height: 36px;
           border-radius: 10px;
-          background: linear-gradient(135deg, #6366F1, #A855F7);
+          background: linear-gradient(135deg, #2563eb, #3b82f6);
           display: flex; align-items: center; justify-content: center;
           font-size: 14px; font-weight: 800; color: white;
           flex-shrink: 0;
@@ -510,11 +541,7 @@ export default function Sidebar({ currentView, setCurrentView }) {
       `}</style>
 
       {/* Hamburger toggle */}
-      <button
-        className="sb-hamburger"
-        onClick={() => setOpen(!open)}
-        aria-label="Toggle navigation"
-      >
+      <button type="button" ref={toggleRef} className={`sb-hamburger ${open ? 'expanded' : ''}`} onClick={() => setOpen(value => !value)} aria-label={open ? 'Close navigation' : 'Open navigation'} aria-expanded={open} aria-controls="studyfyx-sidebar">
         {open ? <X size={18} /> : <Menu size={18} />}
       </button>
 
@@ -525,16 +552,12 @@ export default function Sidebar({ currentView, setCurrentView }) {
       />
 
       {/* Sidebar */}
-      <aside className={`sb-root ${open ? "open" : ""}`}>
+      <aside ref={sidebarRef} id="studyfyx-sidebar" className={`sb-root ${open ? 'open' : ''}`}>
+
         {/* Logo */}
         <div className="sb-logo">
-          <div className="sb-logo-icon">S</div>
-          <div className="sb-logo-text">
-            <div className="sb-logo-name">
-              Study<span>Fyx</span>
-            </div>
-            <div className="sb-logo-sub">AI EDUCATION PLATFORM</div>
-          </div>
+          <img className="sb-brand-image" src={studyfyxLogo} alt="Studyfyx" />
+          <div className="sb-logo-sub">EDUCATION. DIRECTION. POSSIBILITY.</div>
         </div>
 
         {/* Portal chip */}

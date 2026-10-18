@@ -164,8 +164,8 @@ export default function DreamDegreeResults({ studentData, backendResults, backwa
         </div>
 
         {tr(uni.explanation && <p className="text-gray-400 text-xs mt-3 italic">{tr(uni.explanation)}</p>)}
-        {uni.website?.startsWith('https://') && <a className="inline-block text-sm underline text-teal-800 mt-3" href={uni.website} target="_blank" rel="noopener noreferrer">{tr('Official website')} ↗</a>}
-        {resolveUniversityCoordinates(uni) && <button className="block text-sm font-semibold underline text-teal-800 mt-3" onClick={() => { setUniversityDegree(uni.degree || selectedDegreeRecommendation?.degree); setMapUniversity(uni.name); setActiveTab('map'); }}>{tr('View on map')} →</button>}
+        {uni.website?.startsWith('https://') && <a className="inline-block text-sm underline text-blue-800 mt-3" href={uni.website} target="_blank" rel="noopener noreferrer">{tr('Official website')} ↗</a>}
+        {resolveUniversityCoordinates(uni) && <button className="block text-sm font-semibold underline text-blue-800 mt-3" onClick={() => { setUniversityDegree(uni.degree || selectedDegreeRecommendation?.degree); setMapUniversity(uni.name); setActiveTab('map'); }}>{tr('View on map')} →</button>}
       </div>
     );
   };
@@ -324,7 +324,7 @@ export default function DreamDegreeResults({ studentData, backendResults, backwa
                 </div>
               ) : (
                 recommendations.map((rec, index) => (
-                  <div key={index} className="res-card-strong rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-100">
+                  <div key={index} className={`res-card-strong advisor-degree-card advisor-degree-tone-${index % 4} rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-100`}>
                     {/* Card Header */}
                     <div className="p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
                       <div className="flex items-center space-x-4">

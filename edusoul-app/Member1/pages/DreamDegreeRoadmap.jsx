@@ -36,7 +36,7 @@ export default function DreamDegreeRoadmap({ recommendation, studentData, onBack
           <p className="mt-2 mb-6 text-slate-600">{recommendation.degree && <>{tr(recommendation.degree)} · </>}{tr(studentData.dreamJob)}</p>
           <p className="rounded-xl border border-amber-200 bg-amber-50 p-4 mb-6 text-sm">{tr('Qualification duration and professional requirements depend on the selected institution and must be verified.')}</p>
           <CareerPlanSummary plan={recommendation.career_plan} showBackwardSteps={false} />
-          <ol className="space-y-4">{recommendation.roadmap_stages.map((stage, index) => (
+          <ol className="advisor-roadmap-stages space-y-4">{recommendation.roadmap_stages.map((stage, index) => (
             <li key={stage.id} className="bg-white border border-slate-200 rounded-2xl p-5">
               <h2 className="font-bold text-lg text-slate-900">{index + 1}. {tr(stage.title || stage.id)}</h2>
               <p className="text-sm text-blue-700 mt-1">{tr(stage.status)}</p>

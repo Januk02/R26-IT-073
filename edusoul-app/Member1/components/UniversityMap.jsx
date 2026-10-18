@@ -20,7 +20,7 @@ const govIcon = createIcon('#059669', 'G');
 const privateIcon = createIcon('#7c3aed', 'P');
 const preferredIcon = createIcon('#f59e0b', '★');
 const studentIcon = createIcon('#182f3d', 'S');
-const routeIcon = createIcon('#14665f', '→');
+const routeIcon = createIcon('#2563eb', '→');
 
 function FitBounds({ points }) {
   const map = useMap();
@@ -68,16 +68,16 @@ export default function UniversityMap({ universities = [], preferredUnis = [], s
     </label>}
     {!recommendationOnly && <><label className="flex items-center gap-2 text-sm text-slate-700"><input type="checkbox" checked={showAllUniversities} onChange={event => setShowAllUniversities(event.target.checked)} />{tr('Show all recommended universities')}</label>
     <p className="text-xs text-slate-600">{tr('Select a university marker or View route to see its road distance and travel time.')}</p></>}
-    {origin && destination && <section className="rounded-xl bg-teal-50 border border-teal-100 p-4 space-y-3" aria-live="polite">
-      <h3 className="text-sm font-semibold text-teal-900">{tr(origin.district)} → {tr(destination.name)}</h3>
+    {origin && destination && <section className="rounded-xl bg-blue-50 border border-blue-100 p-4 space-y-3" aria-live="polite">
+      <h3 className="text-sm font-semibold text-blue-900">{tr(origin.district)} → {tr(destination.name)}</h3>
       <dl className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" data-testid="recommended-route-summary">
         <div><dt className="text-xs text-slate-600">{tr('Selected district')}</dt><dd className="text-base font-semibold text-slate-900 mt-1" data-testid="route-selected-district">{tr(origin.district)}</dd></div>
         <div><dt className="text-xs text-slate-600">{tr('Recommended university')}</dt><dd className="text-base font-semibold text-slate-900 mt-1" data-testid="route-recommended-university">{tr(destination.name)}</dd></div>
-        <div><dt className="text-xs text-slate-600">{tr('Road distance')}</dt><dd className={`${roadRoute ? 'text-2xl' : 'text-sm'} font-semibold text-teal-900 mt-1`} data-testid="route-distance">{roadRoute ? `${roadRoute.distanceKm.toFixed(1)} ${tr('km')}` : tr(routeStatus === 'loading' ? 'Calculating road distance…' : 'Road distance unavailable')}</dd></div>
-        <div><dt className="text-xs text-slate-600">{tr('Estimated driving time')}</dt><dd className="text-base font-semibold text-teal-900 mt-1" data-testid="route-travel-time">{roadRoute ? travelTime(roadRoute.durationMinutes) : tr(routeStatus === 'loading' ? 'Loading road route…' : 'Travel time unavailable')}</dd></div>
+        <div><dt className="text-xs text-slate-600">{tr('Road distance')}</dt><dd className={`${roadRoute ? 'text-2xl' : 'text-sm'} font-semibold text-blue-900 mt-1`} data-testid="route-distance">{roadRoute ? `${roadRoute.distanceKm.toFixed(1)} ${tr('km')}` : tr(routeStatus === 'loading' ? 'Calculating road distance…' : 'Road distance unavailable')}</dd></div>
+        <div><dt className="text-xs text-slate-600">{tr('Estimated driving time')}</dt><dd className="text-base font-semibold text-blue-900 mt-1" data-testid="route-travel-time">{roadRoute ? travelTime(roadRoute.durationMinutes) : tr(routeStatus === 'loading' ? 'Loading road route…' : 'Travel time unavailable')}</dd></div>
       </dl>
       {roadRoute ? <>
-        <p className="text-xs font-medium text-teal-900">{tr('Shortest returned road route')} · {roadRoute.routeCount} {tr('route options checked')}</p>
+        <p className="text-xs font-medium text-blue-900">{tr('Shortest returned road route')} · {roadRoute.routeCount} {tr('route options checked')}</p>
         <p className="text-xs text-slate-600">{tr('Selected by distance from the routes returned by the routing service; other shorter roads may exist.')}</p>
         <p className="text-xs text-slate-600">{tr('Driving estimate excludes live traffic, stops and bus waiting times.')}</p>
         <details className="text-sm text-slate-700"><summary className="cursor-pointer font-semibold">{tr('Roads along this route')}</summary>
@@ -86,7 +86,7 @@ export default function UniversityMap({ universities = [], preferredUnis = [], s
       </> : routeStatus === 'loading' ? <p className="text-sm" role="status">{tr('Loading road route…')}</p> : <div className="text-sm text-slate-700"><p>{tr('Road route unavailable. Use driving directions to check your journey.')}</p><button className="underline mt-2" onClick={() => setRouteAttempt(value => value + 1)}>{tr('Try again')}</button></div>}
       <p className="text-xs text-slate-600">{tr('Road distance is calculated from your district town to the stored campus location.')}</p>
       <p className="text-xs text-slate-600">{tr('Approx. straight-line distance')}: {distanceText(destination.distanceKm)}</p>
-      <div className="flex flex-wrap gap-3 text-sm font-semibold text-teal-900">
+      <div className="flex flex-wrap gap-3 text-sm font-semibold text-blue-900">
         <a className="underline" href={directions(destination)} target="_blank" rel="noopener noreferrer">{tr('Driving directions')} ↗</a>
         <a className="underline" href={transitDirectionsUrl(origin, destination.coordinates)} target="_blank" rel="noopener noreferrer">{tr('Bus and train options')} ↗</a>
       </div>
@@ -94,7 +94,7 @@ export default function UniversityMap({ universities = [], preferredUnis = [], s
       <p className="text-xs text-slate-500">{tr('Road routing')}: <a className="underline" href="https://project-osrm.org/" target="_blank" rel="noopener noreferrer">OSRM</a> · OpenStreetMap</p>
     </section>}
     {!recommendationOnly && <div className="flex flex-wrap items-center gap-4 bg-white rounded-xl p-3 border border-slate-200">
-      {[[tr('Selected district'), 'bg-slate-800'], [tr('Selected route'), 'bg-teal-700'], [tr('Government'), 'bg-emerald-600'], [tr('Private'), 'bg-purple-600'], [tr('Preferred'), 'bg-amber-500']].map(([label, color]) => <span key={label} className="flex items-center gap-2 text-xs text-slate-600"><span className={`w-3 h-3 rounded-full ${color}`} />{label}</span>)}
+      {[[tr('Selected district'), 'bg-slate-800'], [tr('Selected route'), 'bg-blue-700'], [tr('Government'), 'bg-emerald-600'], [tr('Private'), 'bg-purple-600'], [tr('Preferred'), 'bg-amber-500']].map(([label, color]) => <span key={label} className="flex items-center gap-2 text-xs text-slate-600"><span className={`w-3 h-3 rounded-full ${color}`} />{label}</span>)}
       <span className="ml-auto text-xs text-slate-500">{visibleMarkers.length} {tr('universities shown')}</span>
     </div>}
     {points.length > 0 ? <div className="rounded-xl overflow-hidden border border-slate-200 relative z-0" style={{ height: 520 }}>
@@ -119,7 +119,7 @@ export default function UniversityMap({ universities = [], preferredUnis = [], s
             </div>
           </Popup>
         </Marker>)}
-        {origin && displayedMarkers.map(uni => <Polyline key={`distance-${uni.name}`} positions={roadRoute ? roadRoute.points.map(point => [point.lat, point.lon]) : [[origin.lat, origin.lon], [uni.coordinates.lat, uni.coordinates.lon]]} pathOptions={{ color: preferredUnis.includes(uni.name) ? '#d97706' : '#14665f', weight: roadRoute ? 5 : 2, opacity: 0.85, dashArray: roadRoute ? undefined : '6 6' }}>
+        {origin && displayedMarkers.map(uni => <Polyline key={`distance-${uni.name}`} positions={roadRoute ? roadRoute.points.map(point => [point.lat, point.lon]) : [[origin.lat, origin.lon], [uni.coordinates.lat, uni.coordinates.lon]]} pathOptions={{ color: preferredUnis.includes(uni.name) ? '#d97706' : '#2563eb', weight: roadRoute ? 5 : 2, opacity: 0.85, dashArray: roadRoute ? undefined : '6 6' }}>
           <Tooltip permanent direction="center" className="university-route-distance">{tr(origin.district)} → {tr(uni.name)}<br />{roadRoute ? `${roadRoute.distanceKm.toFixed(1)} ${tr('km')} · ${travelTime(roadRoute.durationMinutes)} · ${tr('Road distance')}` : tr(routeStatus === 'loading' ? 'Calculating road distance…' : 'Road distance unavailable')}</Tooltip>
         </Polyline>)}
       </MapContainer>
@@ -133,8 +133,8 @@ export default function UniversityMap({ universities = [], preferredUnis = [], s
         <p className="text-xs text-slate-500 mt-1">{tr(uni.location)} · {tr(uni.type)}</p>
         <UniversityDistance university={uni} studentDistrict={studentDistrict} />
         <p className="text-xs text-slate-600 mt-2">{entryStatus(uni)}</p>
-        {validCoordinates(uni.coordinates) && <button className="mt-3 rounded-lg border border-teal-200 bg-teal-50 px-3 py-2 text-xs font-semibold text-teal-900" aria-pressed={uni.name === destination?.name} onClick={() => setSelectedUniversity(uni.name)}>{tr(uni.name === destination?.name ? 'Selected route' : 'View route')}</button>}
-        {uni.name === destination?.name && roadRoute && <p className="text-xs font-semibold text-teal-800 mt-2">{tr('Road distance')}: {distanceText(roadRoute.distanceKm)} · {travelTime(roadRoute.durationMinutes)}</p>}
+        {validCoordinates(uni.coordinates) && <button className="mt-3 rounded-lg border border-blue-200 bg-blue-50 px-3 py-2 text-xs font-semibold text-blue-900" aria-pressed={uni.name === destination?.name} onClick={() => setSelectedUniversity(uni.name)}>{tr(uni.name === destination?.name ? 'Selected route' : 'View route')}</button>}
+        {uni.name === destination?.name && roadRoute && <p className="text-xs font-semibold text-blue-800 mt-2">{tr('Road distance')}: {distanceText(roadRoute.distanceKm)} · {travelTime(roadRoute.durationMinutes)}</p>}
       </div>)}
     </div>
     </>}

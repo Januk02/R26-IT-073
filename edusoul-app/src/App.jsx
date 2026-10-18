@@ -52,20 +52,23 @@ const FULL_SCREEN = [
 // ── App shell layout ──────────────────────────────────────────
 function Layout({ currentView, setCurrentView, children }) {
   const showSidebar = WITH_SIDEBAR.includes(currentView);
+  const [sidebarOpen, setSidebarOpen] = useState(() => window.matchMedia('(min-width: 769px)').matches);
 
   if (!showSidebar) return <>{children}</>;
 
   return (
-    <div style={{ display: "flex", minHeight: "100vh" }}>
-      <Sidebar currentView={currentView} setCurrentView={setCurrentView} />
+    <div className={`studyfyx-shell ${sidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`} style={{ display: 'flex', minHeight: '100vh' }}>
+      <Sidebar currentView={currentView} setCurrentView={setCurrentView} isOpen={sidebarOpen} onOpenChange={setSidebarOpen} />
       <main
+        className="studyfyx-shell-content"
         style={{
           flex: 1,
-          marginLeft: SIDEBAR_WIDTH,
-          minHeight: "100vh",
-          overflow: "auto",
-          background: "#f8faff",
-          transition: "margin-left 0.3s ease",
+          minWidth: 0,
+          marginLeft: sidebarOpen ? SIDEBAR_WIDTH : 0,
+          minHeight: '100vh',
+          overflow: 'auto',
+          background: '#f8faff',
+          transition: 'margin-left 0.3s ease',
         }}
       >
         {children}
@@ -76,8 +79,11 @@ function Layout({ currentView, setCurrentView, children }) {
 
       {/* Mobile override */}
       <style>{`
+        @media (min-width: 769px) {
+          .studyfyx-shell.sidebar-closed .sd-topbar { padding-left: 78px; }
+        }
         @media (max-width: 768px) {
-          main { margin-left: 0 !important; padding-top: 56px; }
+          .studyfyx-shell-content { margin-left: 0 !important; padding-top: 56px; }
         }
       `}</style>
     </div>

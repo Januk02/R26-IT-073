@@ -1,3 +1,4 @@
+import './AdvisorWorkspace.css';
 import { useAdvisorTranslation } from '../data/advisorTranslations';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -98,7 +99,7 @@ export default function StudentProfile({ onBack, onEditProfile }) {
   ];
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
+    <div className="advisor-profile min-h-screen relative overflow-hidden">
       {/* ===== BACKGROUND ===== */}
       <div className="fixed inset-0 z-0">
         <img src={BG_IMAGE_URL} alt="" className="absolute inset-0 w-full h-full object-cover scale-105 prof-bg-zoom" />

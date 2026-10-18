@@ -12,7 +12,7 @@ export default function FutureCareerPath({ analysis = {}, career }) {
   return <section className="bg-slate-50 rounded-xl p-5 border border-slate-200 md:col-span-2" data-testid="career-future-path">
     <h3 className="text-slate-900 font-semibold mb-4 text-sm">{tr('Future Path')}</h3>
     {steps.length ? <ol className="space-y-4">{steps.map((step, index) => <li key={step.id} className="flex items-start gap-3">
-      <span className="flex items-center justify-center shrink-0 w-7 h-7 rounded-full bg-teal-100 text-teal-900 text-xs font-semibold" aria-hidden="true">{index + 1}</span>
+      <span className="flex items-center justify-center shrink-0 w-7 h-7 rounded-full bg-blue-100 text-blue-900 text-xs font-semibold" aria-hidden="true">{index + 1}</span>
       <div><h4 className="text-sm font-semibold text-slate-900">{tr(step.title)}</h4><p className="mt-1 text-sm leading-relaxed text-slate-600">{tr(step.description)}</p></div>
     </li>)}</ol> : <p className="text-slate-700 text-sm leading-relaxed">{tr(analysis.career_path)}</p>}
   </section>;

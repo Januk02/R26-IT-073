@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -10,6 +10,7 @@ import {
   GraduationCap,
   Layers3,
   MessageSquare,
+  Menu,
   Search,
   Sparkles,
   Target,
@@ -33,15 +34,39 @@ export default function StudentDashboard({
   onNavigateToMessages,
 }) {
   const { user } = useAuth();
-  const [query, setQuery] = useState("");
-  const [category, setCategory] = useState("All tools");
+  const [query, setQuery] = useState('');
+  const [category, setCategory] = useState('All tools');
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const userMenuRef = useRef(null);
+  const userMenuButtonRef = useRef(null);
+  const userMenuId = useId();
+  useEffect(() => {
+    if (!userMenuOpen) return;
+    userMenuRef.current?.querySelector('nav button')?.focus();
+    const outside = event => {
+      if (!userMenuRef.current?.contains(event.target)) setUserMenuOpen(false);
+    };
+    const escape = event => {
+      if (event.key === 'Escape') {
+        setUserMenuOpen(false);
+        userMenuButtonRef.current?.focus();
+      }
+    };
+    document.addEventListener('pointerdown', outside);
+    document.addEventListener('keydown', escape);
+    return () => {
+      document.removeEventListener('pointerdown', outside);
+      document.removeEventListener('keydown', escape);
+    };
+  }, [userMenuOpen]);
+  const navigateFromUserMenu = action => {
+    setUserMenuOpen(false);
+    action?.();
+  };
+  const firstName = user?.displayName?.trim().split(/\s+/)[0] || user?.email?.split('@')[0] || 'Student';
   const [matchedMentors, setMatchedMentors] = useState([]);
   const [matchError, setMatchError] = useState("");
   const [isMatching, setIsMatching] = useState(false);
-  const firstName =
-    user?.displayName?.trim().split(/\s+/)[0] ||
-    user?.email?.split("@")[0] ||
-    "Student";
   const initial = firstName.charAt(0).toUpperCase();
   const today = new Date();
   const greeting =
@@ -51,66 +76,21 @@ export default function StudentDashboard({
         ? "Good afternoon"
         : "Good evening";
   const modules = [
-    {
-      id: "degree",
-      icon: GraduationCap,
-      category: "Planning",
-      label: "DEGREE & UNIVERSITY",
-      title: "Dream Degree Advisor",
-      description:
-        "Connect your A/L profile and career goal with degree pathways, university options and a practical roadmap.",
-      action: "Explore my degree path",
-      onClick: onStartDreamDegreeAdvisor,
-      tone: "blue",
-    },
-    {
-      id: "skills",
-      icon: Target,
-      category: "Planning",
-      label: "CAREER & SKILLS",
-      title: "Career Pathway",
-      description:
-        "Understand the skills your chosen career needs and find learning opportunities to help you move forward.",
-      action: "Build my career plan",
-      onClick: onNavigateToCourses,
-      tone: "orange",
-    },
-    {
-      id: "wellbeing",
-      icon: Brain,
-      category: "Wellbeing",
-      label: "STUDY & BALANCE",
-      title: "Study & Stress Analytics",
-      description:
-        "Explore your study patterns and wellbeing insights to create a more balanced approach to learning.",
-      action: "Open my analytics",
-      onClick: onNavigateToAnalytics,
-      tone: "blue",
-    },
-    {
-      id: "mentors",
-      icon: Users,
-      category: "Community",
-      label: "PEOPLE & GUIDANCE",
-      title: "Mentorship Hub",
-      description:
-        "Find mentors who can help you understand your options, strengthen your skills and plan your next step.",
-      action: "Explore mentors",
-      onClick: onNavigateToMentorHub,
-      tone: "orange",
-    },
-    {
-      id: "messages",
-      icon: MessageSquare,
-      category: "Community",
-      label: "CONVERSATIONS",
-      title: "Mentor Messages",
-      description:
-        "Keep your questions, feedback and conversations with mentors together in one place.",
-      action: "Open messages",
-      onClick: onNavigateToMessages || onNavigateToMentorHub,
-      tone: "blue",
-    },
+    { id: 'degree', icon: GraduationCap, category: 'Planning', label: 'DEGREE & UNIVERSITY', title: 'Dream Degree Advisor',
+      description: 'Connect your A/L profile and career goal with degree pathways, university options and a practical roadmap.',
+      action: 'Explore my degree path', onClick: onStartDreamDegreeAdvisor, tone: 'blue' },
+    { id: 'skills', icon: Target, category: 'Planning', label: 'CAREER & SKILLS', title: 'Career Pathway',
+      description: 'Understand the skills your chosen career needs and find learning opportunities to help you move forward.',
+      action: 'Build my career plan', onClick: onNavigateToCourses, tone: 'orange' },
+    { id: 'wellbeing', icon: Brain, category: 'Wellbeing', label: 'STUDY & BALANCE', title: 'Study & Stress Analytics',
+      description: 'Explore your study patterns and wellbeing insights to create a more balanced approach to learning.',
+      action: 'Open my analytics', onClick: onNavigateToAnalytics, tone: 'teal' },
+    { id: 'mentors', icon: Users, category: 'Community', label: 'PEOPLE & GUIDANCE', title: 'Mentorship Hub',
+      description: 'Find mentors who can help you understand your options, strengthen your skills and plan your next step.',
+      action: 'Explore mentors', onClick: onNavigateToMentorHub, tone: 'violet' },
+    { id: 'messages', icon: MessageSquare, category: 'Community', label: 'CONVERSATIONS', title: 'Mentor Messages',
+      description: 'Keep your questions, feedback and conversations with mentors together in one place.',
+      action: 'Open messages', onClick: onNavigateToMessages || onNavigateToMentorHub, tone: 'rose' },
   ];
   const visibleModules = modules.filter(
     (module) =>
@@ -181,29 +161,28 @@ export default function StudentDashboard({
 
   return (
     <div className="study-dashboard">
-      <header className="sd-topbar">
-        <div className="sd-brand">
-          <img src={studyfyxLogo} alt="Studyfyx" />
-          <span className="sd-brand-divider" />
-          <div>
-            <span className="sd-eyebrow">YOUR PERSONAL WORKSPACE</span>
-            <p>Student dashboard</p>
-          </div>
+    <header className="sd-topbar">
+      <div className="sd-brand"><img src={studyfyxLogo} alt="Studyfyx" /><span className="sd-brand-divider" /><div><span className="sd-eyebrow">YOUR PERSONAL WORKSPACE</span><p>Student dashboard</p></div></div>
+      <div className="sd-topbar-right">
+        <span className="sd-date"><CalendarDays size={15} aria-hidden="true" />{today.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+        <div className="sd-user-menu" ref={userMenuRef} onBlur={event => {
+          if (!event.currentTarget.contains(event.relatedTarget)) setUserMenuOpen(false);
+        }}>
+          <button type="button" className="sd-user-trigger" ref={userMenuButtonRef} aria-label={userMenuOpen ? 'Close user menu' : 'Open user menu'} aria-expanded={userMenuOpen} aria-controls={userMenuId} onClick={() => setUserMenuOpen(value => !value)}>
+            <span className="sd-avatar" aria-hidden="true">{initial}</span>
+            {userMenuOpen ? <X size={18} aria-hidden="true" /> : <Menu size={18} aria-hidden="true" />}
+          </button>
+          {userMenuOpen && <div className="sd-user-popover" id={userMenuId}>
+            <div className="sd-user-details"><strong>{user?.displayName || firstName}</strong>{user?.email && <span>{user.email}</span>}<small>Student workspace</small></div>
+            <nav aria-label="User menu">
+              <button type="button" onClick={() => navigateFromUserMenu(onStartDreamDegreeAdvisor)}><GraduationCap size={17} aria-hidden="true" />Dream Degree Advisor<ArrowUpRight size={14} aria-hidden="true" /></button>
+              <button type="button" onClick={() => navigateFromUserMenu(onNavigateToMentorHub)}><Users size={17} aria-hidden="true" />Mentorship Hub<ArrowUpRight size={14} aria-hidden="true" /></button>
+              <button type="button" onClick={() => navigateFromUserMenu(onNavigateToMessages || onNavigateToMentorHub)}><MessageSquare size={17} aria-hidden="true" />Mentor Messages<ArrowUpRight size={14} aria-hidden="true" /></button>
+            </nav>
+          </div>}
         </div>
-        <div className="sd-topbar-right">
-          <span className="sd-date">
-            <CalendarDays size={15} aria-hidden="true" />
-            {today.toLocaleDateString(undefined, {
-              month: "short",
-              day: "numeric",
-              year: "numeric",
-            })}
-          </span>
-          <span className="sd-avatar" aria-label={`Signed in as ${firstName}`}>
-            {initial}
-          </span>
-        </div>
-      </header>
+      </div>
+    </header>
 
       <div className="sd-content">
         <div className="sd-welcome">
