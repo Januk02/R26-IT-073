@@ -63,6 +63,29 @@ service cloud.firestore {
       // Allow delete only if user is the owner
       allow delete: if isAuthenticated() && request.auth.uid == userId;
     }
+
+    // Mentor profiles expose only the professional details used for matching.
+    match /mentorProfiles/{mentorId} {
+      allow read: if isAuthenticated();
+      allow create, update, delete: if isOwner(mentorId) && hasRole('mentor');
+    }
+
+    // Student matching profiles contain only the fields needed for recommendations.
+    match /studentMentorshipProfiles/{studentId} {
+      allow read: if isOwner(studentId) || hasRole('mentor');
+      allow create, update, delete: if isOwner(studentId) && hasRole('student');
+    }
+
+    // Pairing is readable only by the matched student and mentor.
+    match /mentorMatches/{matchId} {
+      allow read: if isAuthenticated() &&
+                    (resource.data.studentId == request.auth.uid ||
+                     resource.data.mentorId == request.auth.uid);
+      allow create: if hasRole('mentor') && request.resource.data.mentorId == request.auth.uid;
+      allow update: if hasRole('mentor') && resource.data.mentorId == request.auth.uid &&
+                      request.resource.data.mentorId == request.auth.uid;
+      allow delete: if false;
+    }
     
     // Courses collection rules
     match /courses/{courseId} {

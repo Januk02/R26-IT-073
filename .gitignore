@@ -57,6 +57,7 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
+
 # ------------------------------------------
 # 5. Web Scraping & Automation
 # ------------------------------------------

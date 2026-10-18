@@ -1,39 +1,150 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
-  LayoutDashboard, GraduationCap, Rocket, Brain, Users, MessageSquare,
-  Globe, Sparkles, Info, Mic, FileText, Clock, WandSparkles,
-  LogIn, LogOut, Menu, X,
-} from 'lucide-react';
-import { useAuth } from '../contexts/AuthContext';
+  LayoutDashboard,
+  GraduationCap,
+  Rocket,
+  Brain,
+  Users,
+  MessageSquare,
+  Globe,
+  Sparkles,
+  Info,
+  Mic,
+  FileText,
+  Clock,
+  WandSparkles,
+  LogIn,
+  LogOut,
+  Menu,
+  X,
+  UserRound,
+} from "lucide-react";
+import { useAuth } from "../contexts/AuthContext";
 
 const SIDEBAR_WIDTH = 260;
 
 const publicNav = [
-  { id: 'home',     label: 'Home',                 icon: Globe,         section: 'Explore' },
-  { id: 'features', label: 'Features',             icon: Sparkles,      section: 'Explore', anchor: true },
-  { id: 'about',    label: 'About Us',             icon: Info,          section: 'Explore', anchor: true },
-  { id: 'students', label: 'For Students',         icon: GraduationCap, section: 'Audiences', anchor: true },
-  { id: 'mentors',  label: 'For Mentors',          icon: Users,         section: 'Audiences', anchor: true },
-  { id: 'login',    label: 'Dream Degree Advisor', icon: WandSparkles,  section: 'AI Tools', requiresAuth: true },
+  { id: "home", label: "Home", icon: Globe, section: "Explore" },
+  {
+    id: "features",
+    label: "Features",
+    icon: Sparkles,
+    section: "Explore",
+    anchor: true,
+  },
+  {
+    id: "about",
+    label: "About Us",
+    icon: Info,
+    section: "Explore",
+    anchor: true,
+  },
+  {
+    id: "students",
+    label: "For Students",
+    icon: GraduationCap,
+    section: "Audiences",
+    anchor: true,
+  },
+  {
+    id: "mentors",
+    label: "For Mentors",
+    icon: Users,
+    section: "Audiences",
+    anchor: true,
+  },
+  {
+    id: "login",
+    label: "Dream Degree Advisor",
+    icon: WandSparkles,
+    section: "AI Tools",
+    requiresAuth: true,
+  },
 ];
 
 const studentNav = [
-  { id: 'studentHome',        label: 'Dashboard',      icon: LayoutDashboard, section: 'Overview' },
-  { id: 'dreamDegreeAdvisor', label: 'Dream Advisor',  icon: GraduationCap,   section: 'AI Tools', accent: '#3B82F6' },
-  { id: 'courses',            label: 'Career Pathway', icon: Rocket,          section: 'AI Tools', accent: '#8B5CF6' },
-  { id: 'analytics',          label: 'Analytics',      icon: Brain,           section: 'AI Tools', accent: '#0EA5E9' },
-  { id: 'mentorHub',          label: 'Mentor Hub',     icon: Users,           section: 'Community', accent: '#14B8A6' },
-  { id: 'messages',           label: 'Messages',       icon: MessageSquare,   section: 'Community', accent: '#94A3B8' },
+  {
+    id: "studentHome",
+    label: "Dashboard",
+    icon: LayoutDashboard,
+    section: "Overview",
+  },
+  {
+    id: "dreamDegreeAdvisor",
+    label: "Dream Advisor",
+    icon: GraduationCap,
+    section: "AI Tools",
+    accent: "#3B82F6",
+  },
+  {
+    id: "courses",
+    label: "Career Pathway",
+    icon: Rocket,
+    section: "AI Tools",
+    accent: "#8B5CF6",
+  },
+  {
+    id: "analytics",
+    label: "Analytics",
+    icon: Brain,
+    section: "AI Tools",
+    accent: "#0EA5E9",
+  },
+  {
+    id: "mentorHub",
+    label: "Mentor Hub",
+    icon: Users,
+    section: "Community",
+    accent: "#14B8A6",
+  },
+  {
+    id: "messages",
+    label: "Messages",
+    icon: MessageSquare,
+    section: "Community",
+    accent: "#94A3B8",
+  },
 ];
 
 const mentorNav = [
-  { id: 'home',           label: 'Home',         icon: Globe,           section: 'Overview' },
-  { id: 'dashboard',      label: 'Dashboard',    icon: LayoutDashboard, section: 'Overview' },
-  { id: 'messages',       label: 'Messages',     icon: MessageSquare,   section: 'Overview' },
-  { id: 'verification',   label: 'Verification', icon: Mic,             section: 'Verification' },
-  { id: 'cvVerification', label: 'CV Analysis',  icon: FileText,        section: 'Verification' },
-  { id: 'mentorHub',      label: 'AI Matching',  icon: Sparkles,        section: 'Mentorship' },
-  { id: 'history',        label: 'History',      icon: Clock,           section: 'Mentorship' },
+  { id: "home", label: "Home", icon: Globe, section: "Overview" },
+  {
+    id: "dashboard",
+    label: "Dashboard",
+    icon: LayoutDashboard,
+    section: "Overview",
+  },
+  {
+    id: "messages",
+    label: "Messages",
+    icon: MessageSquare,
+    section: "Overview",
+  },
+  {
+    id: "verification",
+    label: "Verification",
+    icon: Mic,
+    section: "Verification",
+  },
+  {
+    id: "cvVerification",
+    label: "CV Analysis",
+    icon: FileText,
+    section: "Verification",
+  },
+  {
+    id: "mentorHub",
+    label: "AI Matching",
+    icon: Sparkles,
+    section: "Mentorship",
+  },
+  {
+    id: "mentorProfile",
+    label: "Edit Profile",
+    icon: UserRound,
+    section: "Mentorship",
+  },
+  { id: "history", label: "History", icon: Clock, section: "Mentorship" },
 ];
 
 // Group nav items by their section while preserving order
@@ -49,17 +160,17 @@ export default function Sidebar({ currentView, setCurrentView }) {
   const { user, userRole, logout } = useAuth();
   const [open, setOpen] = useState(false); // mobile drawer
 
-  const isAuth   = !!user;
-  const isMentor = userRole === 'mentor';
+  const isAuth = !!user;
+  const isMentor = userRole === "mentor";
   const navItems = !isAuth ? publicNav : isMentor ? mentorNav : studentNav;
-  const groups   = groupBySection(navItems);
+  const groups = groupBySection(navItems);
 
-  const displayName = user?.displayName || user?.email?.split('@')[0] || 'User';
+  const displayName = user?.displayName || user?.email?.split("@")[0] || "User";
 
   const handleNav = (item) => {
     if (item.anchor) {
       const el = document.getElementById(item.id);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
+      if (el) el.scrollIntoView({ behavior: "smooth" });
     } else {
       setCurrentView(item.id);
     }
@@ -68,7 +179,7 @@ export default function Sidebar({ currentView, setCurrentView }) {
 
   const handleLogout = async () => {
     await logout();
-    setCurrentView('home');
+    setCurrentView("home");
   };
 
   const isActive = (id) => currentView === id;
@@ -399,34 +510,46 @@ export default function Sidebar({ currentView, setCurrentView }) {
       `}</style>
 
       {/* Hamburger toggle */}
-      <button className="sb-hamburger" onClick={() => setOpen(!open)} aria-label="Toggle navigation">
+      <button
+        className="sb-hamburger"
+        onClick={() => setOpen(!open)}
+        aria-label="Toggle navigation"
+      >
         {open ? <X size={18} /> : <Menu size={18} />}
       </button>
 
       {/* Mobile backdrop */}
-      <div className={`sb-backdrop ${open ? 'open' : ''}`} onClick={() => setOpen(false)} />
+      <div
+        className={`sb-backdrop ${open ? "open" : ""}`}
+        onClick={() => setOpen(false)}
+      />
 
       {/* Sidebar */}
-      <aside className={`sb-root ${open ? 'open' : ''}`}>
-
+      <aside className={`sb-root ${open ? "open" : ""}`}>
         {/* Logo */}
         <div className="sb-logo">
           <div className="sb-logo-icon">S</div>
           <div className="sb-logo-text">
-            <div className="sb-logo-name">Study<span>Fyx</span></div>
+            <div className="sb-logo-name">
+              Study<span>Fyx</span>
+            </div>
             <div className="sb-logo-sub">AI EDUCATION PLATFORM</div>
           </div>
         </div>
 
         {/* Portal chip */}
         {isAuth && (
-          <div className={`sb-portal ${isMentor ? 'mentor' : 'student'}`}>
+          <div className={`sb-portal ${isMentor ? "mentor" : "student"}`}>
             <div className="sb-portal-mark">
               {isMentor ? <Users size={15} /> : <GraduationCap size={15} />}
             </div>
             <div className="sb-portal-text">
-              <div className="sb-portal-title">{isMentor ? 'Mentor Portal' : 'Student Portal'}</div>
-              <div className="sb-portal-sub">{isMentor ? 'Guide & verify' : 'Learn & grow'}</div>
+              <div className="sb-portal-title">
+                {isMentor ? "Mentor Portal" : "Student Portal"}
+              </div>
+              <div className="sb-portal-sub">
+                {isMentor ? "Guide & verify" : "Learn & grow"}
+              </div>
             </div>
             <span className="sb-live-dot" title="Online" />
           </div>
@@ -442,13 +565,19 @@ export default function Sidebar({ currentView, setCurrentView }) {
                 return (
                   <div
                     key={item.id}
-                    className={`sb-item ${isActive(item.id) ? 'active' : ''}`}
-                    style={item.accent ? { '--item-accent': item.accent } : undefined}
+                    className={`sb-item ${isActive(item.id) ? "active" : ""}`}
+                    style={
+                      item.accent ? { "--item-accent": item.accent } : undefined
+                    }
                     onClick={() => handleNav(item)}
                   >
-                    <div className="sb-item-icon"><Icon size={17} strokeWidth={2} /></div>
+                    <div className="sb-item-icon">
+                      <Icon size={17} strokeWidth={2} />
+                    </div>
                     <span className="sb-item-label">{item.label}</span>
-                    {item.requiresAuth && <span className="sb-login-badge">LOGIN</span>}
+                    {item.requiresAuth && (
+                      <span className="sb-login-badge">LOGIN</span>
+                    )}
                   </div>
                 );
               })}
@@ -460,29 +589,45 @@ export default function Sidebar({ currentView, setCurrentView }) {
         <div className="sb-bottom">
           {!isAuth ? (
             <>
-              <button className="sb-auth-btn login" onClick={() => { setCurrentView('login'); setOpen(false); }}>
+              <button
+                className="sb-auth-btn login"
+                onClick={() => {
+                  setCurrentView("login");
+                  setOpen(false);
+                }}
+              >
                 <LogIn size={15} /> Sign In
               </button>
-              <button className="sb-auth-btn register" onClick={() => { setCurrentView('register'); setOpen(false); }}>
+              <button
+                className="sb-auth-btn register"
+                onClick={() => {
+                  setCurrentView("register");
+                  setOpen(false);
+                }}
+              >
                 <Sparkles size={15} /> Get Started Free
               </button>
             </>
           ) : (
             <div className="sb-user">
               <div className="sb-user-avatar">
-                {(displayName[0] || 'U').toUpperCase()}
+                {(displayName[0] || "U").toUpperCase()}
               </div>
               <div className="sb-user-info">
                 <div className="sb-user-name">{displayName}</div>
                 <div className="sb-user-email">{user?.email}</div>
               </div>
-              <button className="sb-logout" onClick={handleLogout} title="Sign out" aria-label="Sign out">
+              <button
+                className="sb-logout"
+                onClick={handleLogout}
+                title="Sign out"
+                aria-label="Sign out"
+              >
                 <LogOut size={15} />
               </button>
             </div>
           )}
         </div>
-
       </aside>
     </>
   );

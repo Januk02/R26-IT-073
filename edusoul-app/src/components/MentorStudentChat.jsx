@@ -1,66 +1,63 @@
-import { useState, useEffect, useRef } from 'react';
-import { useAuth } from '../contexts/AuthContext';
-import { 
-  getOrCreateChat, 
-  subscribeToUserChats, 
-  subscribeToMessages, 
-  sendMessage, 
+import { useState, useEffect, useRef } from "react";
+import { useAuth } from "../contexts/AuthContext";
+import {
+  getOrCreateChat,
+  subscribeToUserChats,
+  subscribeToMessages,
+  sendMessage,
   markChatAsRead,
-  fetchRegisteredMentors
-} from '../services/chatService';
-
-// Default verified mentors
-const DEFAULT_MENTORS = [
-  { id: 'mentor_1', name: 'Dr. Sarah Williams', field: 'Software Engineering', avatar: 'SW', color: '#1d4ed8', exp: '12 yrs', available: true },
-  { id: 'mentor_2', name: 'Prof. Kamal Perera', field: 'Data Science & ML', avatar: 'KP', color: '#7c3aed', exp: '15 yrs', available: true },
-  { id: 'mentor_3', name: 'Ms. Dilani Silva', field: 'Business & Management', avatar: 'DS', color: '#0d9488', exp: '8 yrs', available: true },
-  { id: 'mentor_4', name: 'Mr. Rohan Jayasuriya', field: 'Mobile Development', avatar: 'RJ', color: '#d97706', exp: '7 yrs', available: true },
-  { id: 'mentor_5', name: 'Dr. Nimal Fernando', field: 'Biomedical Research', avatar: 'NF', color: '#be185d', exp: '18 yrs', available: true },
-];
+  fetchRegisteredMentors,
+} from "../services/chatService";
 
 const QUICK_QUESTIONS_STUDENT = [
-  '🎓 Which degree specialization should I pursue?',
-  '💼 What skills are tech companies in Sri Lanka looking for?',
-  '🗺️ Can you review my dream degree roadmap?',
-  '🧠 How do you manage exam stress and study planning?'
+  "🎓 Which degree specialization should I pursue?",
+  "💼 What skills are tech companies in Sri Lanka looking for?",
+  "🗺️ Can you review my dream degree roadmap?",
+  "🧠 How do you manage exam stress and study planning?",
 ];
 
 const QUICK_QUESTIONS_MENTOR = [
-  '👋 Welcome! What area of your studies can I help with today?',
-  '📚 Have you explored the curated courses for your stream?',
-  '🎯 Let’s set some milestones for your academic roadmap.',
-  '💡 Feel free to ask any university admission questions!'
+  "👋 Welcome! What area of your studies can I help with today?",
+  "📚 Have you explored the curated courses for your stream?",
+  "🎯 Let’s set some milestones for your academic roadmap.",
+  "💡 Feel free to ask any university admission questions!",
 ];
 
-export default function MentorStudentChat({ initialMentor = null, isEmbedded = false, onClose = null }) {
+export default function MentorStudentChat({
+  initialMentor = null,
+  isEmbedded = false,
+  onClose = null,
+}) {
   const { user, userRole } = useAuth();
   const [chats, setChats] = useState([]);
   const [activeChat, setActiveChat] = useState(null);
   const [messages, setMessages] = useState([]);
-  const [inputText, setInputText] = useState('');
+  const [inputText, setInputText] = useState("");
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
-  const [mentorsList, setMentorsList] = useState(DEFAULT_MENTORS);
+  const [mentorsList, setMentorsList] = useState([]);
   const [showMentorPicker, setShowMentorPicker] = useState(false);
-  const [mobileTab, setMobileTab] = useState('chat'); // 'list' | 'chat'
+  const [mobileTab, setMobileTab] = useState("chat"); // 'list' | 'chat'
   const messagesEndRef = useRef(null);
 
-  const isMentor = userRole === 'mentor';
-  const currentUserId = user?.uid || (isMentor ? 'mentor_me' : 'student_me');
-  const currentUserName = user?.displayName || user?.email?.split('@')[0] || (isMentor ? 'Mentor' : 'Student');
+  const isMentor = userRole === "mentor";
+  const currentUserId = user?.uid || (isMentor ? "mentor_me" : "student_me");
+  const currentUserName =
+    user?.displayName ||
+    user?.email?.split("@")[0] ||
+    (isMentor ? "Mentor" : "Student");
 
-  // Load mentors from Firestore and combine with default expert mentors
+  // Load the same verified Firestore mentor directory used by Mentor Hub.
   useEffect(() => {
     let isMounted = true;
     const loadMentors = async () => {
       const registered = await fetchRegisteredMentors();
-      if (isMounted && registered && registered.length > 0) {
-        const merged = [...registered, ...DEFAULT_MENTORS.filter(d => !registered.some(r => r.id === d.id))];
-        setMentorsList(merged);
-      }
+      if (isMounted) setMentorsList(registered || []);
     };
     loadMentors();
-    return () => { isMounted = false; };
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   // Subscribe to real-time chats list
@@ -79,17 +76,17 @@ export default function MentorStudentChat({ initialMentor = null, isEmbedded = f
         if (updatedChats.length > 0 && !activeChat) {
           if (initialMentor) {
             const mId = String(initialMentor.uid || initialMentor.id);
-            const found = updatedChats.find(c => c.mentorId === mId);
+            const found = updatedChats.find((c) => c.mentorId === mId);
             if (found) {
               setActiveChat(found);
-              setMobileTab('chat');
+              setMobileTab("chat");
               return;
             }
           }
           setActiveChat(updatedChats[0]);
         }
       },
-      () => setLoading(false)
+      () => setLoading(false),
     );
 
     return () => unsubscribe();
@@ -106,12 +103,12 @@ export default function MentorStudentChat({ initialMentor = null, isEmbedded = f
               displayName: currentUserName,
               email: user.email,
             },
-            mentor: initialMentor
+            mentor: initialMentor,
           });
           setActiveChat(chat);
-          setMobileTab('chat');
+          setMobileTab("chat");
         } catch (err) {
-          console.error('Error starting initial chat:', err);
+          console.error("Error starting initial chat:", err);
         }
       };
       initChat();
@@ -132,7 +129,7 @@ export default function MentorStudentChat({ initialMentor = null, isEmbedded = f
       (newMsgs) => {
         setMessages(newMsgs);
       },
-      (err) => console.warn('Messages stream note:', err)
+      (err) => console.warn("Messages stream note:", err),
     );
 
     return () => unsubscribe();
@@ -140,7 +137,7 @@ export default function MentorStudentChat({ initialMentor = null, isEmbedded = f
 
   // Smooth scroll to bottom
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, sending]);
 
   // Send message
@@ -148,20 +145,20 @@ export default function MentorStudentChat({ initialMentor = null, isEmbedded = f
     const text = (customText || inputText).trim();
     if (!text || !activeChat?.id) return;
 
-    setInputText('');
+    setInputText("");
     setSending(true);
 
     const sent = await sendMessage({
       chatId: activeChat.id,
       senderId: currentUserId,
       senderName: currentUserName,
-      senderRole: isMentor ? 'mentor' : 'student',
-      text: text
+      senderRole: isMentor ? "mentor" : "student",
+      text: text,
     });
 
     if (sent) {
-      setMessages(prev => {
-        if (prev.some(m => m.id === sent.id)) return prev;
+      setMessages((prev) => {
+        if (prev.some((m) => m.id === sent.id)) return prev;
         return [...prev, sent];
       });
     }
@@ -178,35 +175,41 @@ export default function MentorStudentChat({ initialMentor = null, isEmbedded = f
           displayName: currentUserName,
           email: user.email,
         },
-        mentor: mentor
+        mentor: mentor,
       });
       setActiveChat(chat);
       setShowMentorPicker(false);
-      setMobileTab('chat');
+      setMobileTab("chat");
     } catch (err) {
-      console.error('Error creating chat with mentor:', err);
+      console.error("Error creating chat with mentor:", err);
     }
   };
 
   const getPeerName = (chat) => {
-    if (!chat) return 'Chat';
-    return isMentor ? (chat.studentName || 'Student Mentee') : (chat.mentorName || 'Mentor');
+    if (!chat) return "Chat";
+    return isMentor
+      ? chat.studentName || "Student Mentee"
+      : chat.mentorName || "Mentor";
   };
 
   const getPeerSubtitle = (chat) => {
-    if (!chat) return '';
-    return isMentor ? (chat.studentEmail || 'Student') : (chat.mentorField || 'Verified Academic Mentor');
+    if (!chat) return "";
+    return isMentor
+      ? chat.studentEmail || "Student"
+      : chat.mentorField || "Verified Academic Mentor";
   };
 
   const getPeerAvatar = (chat) => {
-    if (!chat) return 'U';
+    if (!chat) return "U";
     if (isMentor) {
-      return (chat.studentName?.[0] || 'S').toUpperCase();
+      return (chat.studentName?.[0] || "S").toUpperCase();
     }
-    return (chat.mentorAvatar || chat.mentorName?.[0] || 'M').toUpperCase();
+    return (chat.mentorAvatar || chat.mentorName?.[0] || "M").toUpperCase();
   };
 
-  const quickPrompts = isMentor ? QUICK_QUESTIONS_MENTOR : QUICK_QUESTIONS_STUDENT;
+  const quickPrompts = isMentor
+    ? QUICK_QUESTIONS_MENTOR
+    : QUICK_QUESTIONS_STUDENT;
 
   return (
     <>
@@ -222,7 +225,7 @@ export default function MentorStudentChat({ initialMentor = null, isEmbedded = f
           border: 1px solid #e2e8f0;
           display: flex;
           flex-direction: column;
-          height: ${isEmbedded ? '560px' : 'calc(100vh - 130px)'};
+          height: ${isEmbedded ? "560px" : "calc(100vh - 130px)"};
           min-height: 480px;
           max-height: 820px;
           overflow: hidden;
@@ -766,12 +769,12 @@ export default function MentorStudentChat({ initialMentor = null, isEmbedded = f
 
           .msc-sidebar {
             width: 100%;
-            display: ${mobileTab === 'list' ? 'flex' : 'none'};
+            display: ${mobileTab === "list" ? "flex" : "none"};
             border-right: none;
           }
 
           .msc-stage {
-            display: ${mobileTab === 'chat' ? 'flex' : 'none'};
+            display: ${mobileTab === "chat" ? "flex" : "none"};
           }
 
           .msc-back-mobile {
@@ -787,17 +790,18 @@ export default function MentorStudentChat({ initialMentor = null, isEmbedded = f
       <div className="msc-wrapper">
         {/* Mobile Tab Navigation */}
         <div className="msc-mobile-tabs">
-          <button 
-            className={`msc-tab-btn ${mobileTab === 'list' ? 'active' : ''}`}
-            onClick={() => setMobileTab('list')}
+          <button
+            className={`msc-tab-btn ${mobileTab === "list" ? "active" : ""}`}
+            onClick={() => setMobileTab("list")}
           >
             📋 Conversations ({chats.length})
           </button>
-          <button 
-            className={`msc-tab-btn ${mobileTab === 'chat' ? 'active' : ''}`}
-            onClick={() => setMobileTab('chat')}
+          <button
+            className={`msc-tab-btn ${mobileTab === "chat" ? "active" : ""}`}
+            onClick={() => setMobileTab("chat")}
           >
-            💬 Active Chat {activeChat ? `(${getPeerName(activeChat).split(' ')[0]})` : ''}
+            💬 Active Chat{" "}
+            {activeChat ? `(${getPeerName(activeChat).split(" ")[0]})` : ""}
           </button>
         </div>
 
@@ -810,9 +814,15 @@ export default function MentorStudentChat({ initialMentor = null, isEmbedded = f
                 <span className="msc-badge-live">Live</span>
               </div>
               {onClose && (
-                <button 
+                <button
                   onClick={onClose}
-                  style={{ background: 'none', border: 'none', fontSize: 18, cursor: 'pointer', color: '#64748b' }}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    fontSize: 18,
+                    cursor: "pointer",
+                    color: "#64748b",
+                  }}
                 >
                   ✕
                 </button>
@@ -820,7 +830,7 @@ export default function MentorStudentChat({ initialMentor = null, isEmbedded = f
             </div>
 
             {!isMentor && (
-              <button 
+              <button
                 className="msc-new-chat-trigger"
                 onClick={() => setShowMentorPicker(true)}
               >
@@ -830,44 +840,73 @@ export default function MentorStudentChat({ initialMentor = null, isEmbedded = f
 
             <div className="msc-chats-scroll">
               {loading ? (
-                <div style={{ textAlign: 'center', padding: '24px 10px', color: '#94a3b8', fontSize: 13 }}>
+                <div
+                  style={{
+                    textAlign: "center",
+                    padding: "24px 10px",
+                    color: "#94a3b8",
+                    fontSize: 13,
+                  }}
+                >
                   Connecting to Firestore…
                 </div>
               ) : chats.length === 0 ? (
-                <div style={{ textAlign: 'center', padding: '28px 16px', color: '#64748b', fontSize: 13 }}>
-                  <p style={{ fontWeight: 600, color: '#334155', marginBottom: 4 }}>No active chats yet</p>
+                <div
+                  style={{
+                    textAlign: "center",
+                    padding: "28px 16px",
+                    color: "#64748b",
+                    fontSize: 13,
+                  }}
+                >
+                  <p
+                    style={{
+                      fontWeight: 600,
+                      color: "#334155",
+                      marginBottom: 4,
+                    }}
+                  >
+                    No active chats yet
+                  </p>
                   {!isMentor && (
-                    <p style={{ fontSize: 12, color: '#94a3b8' }}>
-                      Click "Connect with a Mentor" to begin real-time messaging.
+                    <p style={{ fontSize: 12, color: "#94a3b8" }}>
+                      Click "Connect with a Mentor" to begin real-time
+                      messaging.
                     </p>
                   )}
                 </div>
               ) : (
                 chats.map((chat) => {
                   const isSelected = activeChat?.id === chat.id;
-                  const unread = isMentor ? (chat.unreadMentor || 0) : (chat.unreadStudent || 0);
+                  const unread = isMentor
+                    ? chat.unreadMentor || 0
+                    : chat.unreadStudent || 0;
                   return (
                     <div
                       key={chat.id}
-                      className={`msc-chat-card ${isSelected ? 'active' : ''}`}
+                      className={`msc-chat-card ${isSelected ? "active" : ""}`}
                       onClick={() => {
                         setActiveChat(chat);
-                        setMobileTab('chat');
+                        setMobileTab("chat");
                       }}
                     >
-                      <div 
-                        className="msc-avatar" 
-                        style={{ background: chat.mentorColor || '#7c3aed' }}
+                      <div
+                        className="msc-avatar"
+                        style={{ background: chat.mentorColor || "#7c3aed" }}
                       >
                         {getPeerAvatar(chat)}
                       </div>
                       <div className="msc-card-meta">
                         <div className="msc-card-top">
-                          <span className="msc-card-name">{getPeerName(chat)}</span>
-                          {unread > 0 && <span className="msc-unread-badge">{unread}</span>}
+                          <span className="msc-card-name">
+                            {getPeerName(chat)}
+                          </span>
+                          {unread > 0 && (
+                            <span className="msc-unread-badge">{unread}</span>
+                          )}
                         </div>
                         <div className="msc-card-preview">
-                          {chat.lastMessage || 'Say hello!'}
+                          {chat.lastMessage || "Say hello!"}
                         </div>
                       </div>
                     </div>
@@ -884,20 +923,26 @@ export default function MentorStudentChat({ initialMentor = null, isEmbedded = f
                 {/* Header */}
                 <div className="msc-stage-head">
                   <div className="msc-stage-peer">
-                    <button 
+                    <button
                       className="msc-back-mobile"
-                      onClick={() => setMobileTab('list')}
+                      onClick={() => setMobileTab("list")}
                     >
                       ← Chats
                     </button>
-                    <div 
+                    <div
                       className="msc-avatar"
-                      style={{ background: activeChat.mentorColor || '#7c3aed', width: 38, height: 38 }}
+                      style={{
+                        background: activeChat.mentorColor || "#7c3aed",
+                        width: 38,
+                        height: 38,
+                      }}
                     >
                       {getPeerAvatar(activeChat)}
                     </div>
                     <div>
-                      <div className="msc-peer-title">{getPeerName(activeChat)}</div>
+                      <div className="msc-peer-title">
+                        {getPeerName(activeChat)}
+                      </div>
                       <div className="msc-peer-status">
                         <span className="msc-online-dot" />
                         <span>{getPeerSubtitle(activeChat)}</span>
@@ -909,41 +954,63 @@ export default function MentorStudentChat({ initialMentor = null, isEmbedded = f
                 {/* Messages Box */}
                 <div className="msc-messages-container">
                   {messages.length === 0 ? (
-                    <div style={{ textAlign: 'center', padding: '36px 20px', color: '#94a3b8' }}>
-                      <p style={{ fontSize: 15, fontWeight: 700, color: '#334155', marginBottom: 4 }}>
+                    <div
+                      style={{
+                        textAlign: "center",
+                        padding: "36px 20px",
+                        color: "#94a3b8",
+                      }}
+                    >
+                      <p
+                        style={{
+                          fontSize: 15,
+                          fontWeight: 700,
+                          color: "#334155",
+                          marginBottom: 4,
+                        }}
+                      >
                         Conversation with {getPeerName(activeChat)}
                       </p>
-                      <p style={{ fontSize: 13 }}>Send a message or tap one of the suggested starter questions.</p>
+                      <p style={{ fontSize: 13 }}>
+                        Send a message or tap one of the suggested starter
+                        questions.
+                      </p>
                     </div>
                   ) : (
                     messages.map((m, index) => {
-                      const isMine = String(m.senderId) === String(currentUserId);
+                      const isMine =
+                        String(m.senderId) === String(currentUserId);
                       const isSys = m.isInitial;
-                      const timeStr = m.createdAt 
-                        ? new Date(m.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) 
-                        : '';
+                      const timeStr = m.createdAt
+                        ? new Date(m.createdAt).toLocaleTimeString([], {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })
+                        : "";
 
                       if (isSys) {
                         return (
                           <div key={m.id || index} className="msc-row system">
-                            <div className="msc-bubble">
-                              {m.text}
-                            </div>
+                            <div className="msc-bubble">{m.text}</div>
                           </div>
                         );
                       }
 
                       return (
-                        <div 
-                          key={m.id || index} 
-                          className={`msc-row ${isMine ? 'mine' : 'peer'}`}
+                        <div
+                          key={m.id || index}
+                          className={`msc-row ${isMine ? "mine" : "peer"}`}
                         >
                           <div className="msc-msg-avatar">
-                            {isMine ? 'Me' : (m.senderName?.[0] || 'U').toUpperCase()}
+                            {isMine
+                              ? "Me"
+                              : (m.senderName?.[0] || "U").toUpperCase()}
                           </div>
                           <div className="msc-bubble-box">
                             <div className="msc-sender-label">
-                              {isMine ? 'You' : `${m.senderName || 'Mentor'} ${m.senderRole === 'mentor' ? '🧑‍🏫' : '🎓'}`}
+                              {isMine
+                                ? "You"
+                                : `${m.senderName || "Mentor"} ${m.senderRole === "mentor" ? "🧑‍🏫" : "🎓"}`}
                             </div>
                             <div className="msc-bubble">
                               {m.text}
@@ -960,8 +1027,8 @@ export default function MentorStudentChat({ initialMentor = null, isEmbedded = f
                 {/* Quick Prompts */}
                 <div className="msc-prompts-bar">
                   {quickPrompts.map((qp, qpIdx) => (
-                    <button 
-                      key={qpIdx} 
+                    <button
+                      key={qpIdx}
                       className="msc-prompt-chip"
                       onClick={() => handleSend(qp)}
                     >
@@ -978,7 +1045,7 @@ export default function MentorStudentChat({ initialMentor = null, isEmbedded = f
                     value={inputText}
                     onChange={(e) => setInputText(e.target.value)}
                     onKeyDown={(e) => {
-                      if (e.key === 'Enter' && !e.shiftKey) {
+                      if (e.key === "Enter" && !e.shiftKey) {
                         e.preventDefault();
                         handleSend();
                       }
@@ -996,17 +1063,31 @@ export default function MentorStudentChat({ initialMentor = null, isEmbedded = f
             ) : (
               <div className="msc-empty-state">
                 <div className="msc-empty-icon">💬</div>
-                <h3 style={{ fontSize: 19, fontWeight: 800, color: '#0f172a', marginBottom: 6 }}>
+                <h3
+                  style={{
+                    fontSize: 19,
+                    fontWeight: 800,
+                    color: "#0f172a",
+                    marginBottom: 6,
+                  }}
+                >
                   Firebase Mentorship Chat
                 </h3>
-                <p style={{ color: '#64748b', maxWidth: 360, lineHeight: 1.6, fontSize: 13.5 }}>
-                  {isMentor 
-                    ? 'Select an active student inquiry from the sidebar to start guiding them through their academic pathway.'
-                    : 'Reach out to verified industry experts and university mentors for 1-on-1 personalized academic guidance.'}
+                <p
+                  style={{
+                    color: "#64748b",
+                    maxWidth: 360,
+                    lineHeight: 1.6,
+                    fontSize: 13.5,
+                  }}
+                >
+                  {isMentor
+                    ? "Select an active student inquiry from the sidebar to start guiding them through their academic pathway."
+                    : "Reach out to verified industry experts and university mentors for 1-on-1 personalized academic guidance."}
                 </p>
                 {!isMentor && (
-                  <button 
-                    className="msc-new-chat-trigger" 
+                  <button
+                    className="msc-new-chat-trigger"
                     style={{ marginTop: 18 }}
                     onClick={() => setShowMentorPicker(true)}
                   >
@@ -1021,58 +1102,120 @@ export default function MentorStudentChat({ initialMentor = null, isEmbedded = f
 
       {/* Mentor Picker Modal */}
       {showMentorPicker && (
-        <div className="msc-modal-overlay" onClick={() => setShowMentorPicker(false)}>
+        <div
+          className="msc-modal-overlay"
+          onClick={() => setShowMentorPicker(false)}
+        >
           <div className="msc-modal-card" onClick={(e) => e.stopPropagation()}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <h3 style={{ fontSize: 18, fontWeight: 800, color: '#0f172a', margin: 0 }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <h3
+                style={{
+                  fontSize: 18,
+                  fontWeight: 800,
+                  color: "#0f172a",
+                  margin: 0,
+                }}
+              >
                 Select a Mentor to Message
               </h3>
-              <button 
+              <button
                 onClick={() => setShowMentorPicker(false)}
-                style={{ background: 'none', border: 'none', fontSize: 18, cursor: 'pointer', color: '#64748b' }}
+                style={{
+                  background: "none",
+                  border: "none",
+                  fontSize: 18,
+                  cursor: "pointer",
+                  color: "#64748b",
+                }}
               >
                 ✕
               </button>
             </div>
-            <p style={{ fontSize: 13, color: '#64748b', marginTop: 4, marginBottom: 12 }}>
+            <p
+              style={{
+                fontSize: 13,
+                color: "#64748b",
+                marginTop: 4,
+                marginBottom: 12,
+              }}
+            >
               Choose a mentor to launch an instant 1-on-1 Firebase conversation.
             </p>
 
             <div className="msc-picker-list">
               {mentorsList.map((m) => (
-                <div 
-                  key={m.id} 
+                <div
+                  key={m.id}
                   className="msc-mentor-row"
                   onClick={() => handleSelectMentorToChat(m)}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                    <div 
+                  <div
+                    style={{ display: "flex", alignItems: "center", gap: 12 }}
+                  >
+                    <div
                       className="msc-avatar"
-                      style={{ background: m.color || '#7c3aed', width: 40, height: 40 }}
+                      style={{
+                        background: m.color || "#7c3aed",
+                        width: 40,
+                        height: 40,
+                      }}
                     >
-                      {m.avatar || 'M'}
+                      {m.avatar || "M"}
                     </div>
                     <div>
-                      <div style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>{m.name}</div>
-                      <div style={{ fontSize: 12, color: '#64748b' }}>{m.field} · {m.exp}</div>
+                      <div
+                        style={{
+                          fontSize: 14,
+                          fontWeight: 700,
+                          color: "#0f172a",
+                        }}
+                      >
+                        {m.name}
+                      </div>
+                      <div style={{ fontSize: 12, color: "#64748b" }}>
+                        {m.field} · {m.exp}
+                      </div>
+                      <div
+                        style={{
+                          fontSize: 11,
+                          color: "#0f766e",
+                          fontWeight: 700,
+                          marginTop: 3,
+                        }}
+                      >
+                        {m.verification_level} verified mentor
+                      </div>
                     </div>
                   </div>
-                  <button 
+                  <button
                     style={{
-                      padding: '6px 14px',
-                      background: '#eff6ff',
-                      color: '#1d4ed8',
-                      border: '1px solid #bfdbfe',
+                      padding: "6px 14px",
+                      background: "#eff6ff",
+                      color: "#1d4ed8",
+                      border: "1px solid #bfdbfe",
                       borderRadius: 8,
                       fontWeight: 700,
                       fontSize: 12,
-                      cursor: 'pointer'
+                      cursor: "pointer",
                     }}
                   >
                     Start Chat →
                   </button>
                 </div>
               ))}
+              {mentorsList.length === 0 && (
+                <div
+                  style={{ padding: 24, textAlign: "center", color: "#64748b" }}
+                >
+                  No verified mentor profiles are available yet.
+                </div>
+              )}
             </div>
           </div>
         </div>

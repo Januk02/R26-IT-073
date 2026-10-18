@@ -71,19 +71,46 @@ const CVVerification = ({ onComplete, onCancel }) => {
       "needs-retry": "Needs Re-attempt",
       "pending-interview": "Interview Verification Required",
     };
+    const verificationLevel =
+      combinedScore === null
+        ? "Bronze"
+        : combinedScore >= 95
+          ? "Platinum"
+          : combinedScore >= 80
+            ? "Gold"
+            : combinedScore >= 65
+              ? "Silver"
+              : combinedScore >= 50
+                ? "Bronze"
+                : "Participant";
+    const publicVerification = {
+      mentorVerificationStatus: status,
+      mentorVerificationStatusLabel: statusLabels[status],
+      isMentorVerified: status === "verified",
+      oralAssessmentScore: bestInterview
+        ? Math.round(bestInterview.overallScore)
+        : null,
+      cvSkillAuditScore: Math.round(cvScore),
+      overallVerificationScore:
+        combinedScore === null ? null : Math.round(combinedScore),
+      verificationLevel,
+      verification_level: verificationLevel,
+      verificationScore:
+        combinedScore === null ? null : Math.round(combinedScore),
+      combined_verification_score:
+        combinedScore === null ? null : Math.round(combinedScore),
+      mentorCombinedScore:
+        combinedScore === null ? null : Math.round(combinedScore),
+      verification_status: status,
+      mentorVerificationStatusUpdatedAt: new Date().toISOString(),
+    };
 
-    await setDoc(
-      doc(db, "users", user.uid),
-      {
-        mentorVerificationStatus: status,
-        mentorVerificationStatusLabel: statusLabels[status],
-        isMentorVerified: status === "verified",
-        mentorCombinedScore:
-          combinedScore === null ? null : Math.round(combinedScore),
-        mentorVerificationStatusUpdatedAt: new Date().toISOString(),
-      },
-      { merge: true },
-    );
+    await setDoc(doc(db, "users", user.uid), publicVerification, {
+      merge: true,
+    });
+    await setDoc(doc(db, "mentorProfiles", user.uid), publicVerification, {
+      merge: true,
+    });
   };
 
   useEffect(() => {

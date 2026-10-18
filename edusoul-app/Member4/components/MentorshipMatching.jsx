@@ -4,8 +4,8 @@
  * Uses inline CSS, Framer Motion, Lucide icons, medal images
  */
 
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Sparkles,
   Search,
@@ -23,7 +23,7 @@ import {
   Zap,
   ChevronDown,
   Activity,
-} from 'lucide-react';
+} from "lucide-react";
 import {
   useApiHealth,
   useMentors,
@@ -31,42 +31,78 @@ import {
   useMatchPrediction,
   useFindMentors,
   useMentorshipStats,
-} from '../hooks/useMentorship';
+} from "../hooks/useMentorship";
 
 /* ───────── tiny helpers ───────── */
-const MEDAL = { Gold: '🥇', Silver: '🥈', Bronze: '🥉' };
+const MEDAL = { Gold: "🥇", Silver: "🥈", Bronze: "🥉" };
 const MEDAL_IMG = {
-  Gold: '/images/gold.png',
-  Silver: '/images/silver.png',
-  Bronze: '/images/bronze.png',
+  Gold: "/images/gold.png",
+  Silver: "/images/silver.png",
+  Bronze: "/images/bronze.png",
 };
 
 const MENTOR_NAMES = [
-  "Dr. Samantha Gunawardena", "Eng. Tharindu Wijesekara", "Prof. Dilani Wickramasinghe",
-  "Kavinda Senaratne", "Malithi Dissanayake", "Sachini Bandara",
-  "Dr. Asanka Perera", "Eng. Kasun Jayawardena", "Nadeesha Senanayake",
-  "Roshan Wijesinghe", "Chathura Fernando", "Dinesha Silva",
-  "Anushka Ratnayake", "Pradeep Jayasuriya", "Isuru Abeywickrama",
-  "Shenali Cooray", "Harsha Weerasinghe", "Nimesha Wickramasinghe",
-  "Dinuka Ekanayake", "Chamari Kulatunga", "Ravindu Mendis",
-  "Kusal De Silva", "Thisara Karunaratne", "Nethmi Alahakoon",
-  "Damith Rajapaksha", "Buddhika Herath", "Sanduni Samarakoon",
-  "Janith Pathirana", "Oshani Jayalath", "Vimukthi Ranasinghe",
-  "Suren Madushanka", "Hasini Premaratne", "Nuwan Hettiarachchi",
-  "Subhashini Gamage", "Ruwan Wijethunga", "Amila Senadheera",
-  "Lakmali Wanigasooriya", "Gayan Jayasundara", "Piyumi Liyanage",
-  "Supun Weerakkody", "Menaka Abeyrathne", "Charith Jayatissa",
-  "Dhanushka Samarawickrama", "Pavithra Attanayake", "Tharaka Wickramasinghe"
+  "Dr. Samantha Gunawardena",
+  "Eng. Tharindu Wijesekara",
+  "Prof. Dilani Wickramasinghe",
+  "Kavinda Senaratne",
+  "Malithi Dissanayake",
+  "Sachini Bandara",
+  "Dr. Asanka Perera",
+  "Eng. Kasun Jayawardena",
+  "Nadeesha Senanayake",
+  "Roshan Wijesinghe",
+  "Chathura Fernando",
+  "Dinesha Silva",
+  "Anushka Ratnayake",
+  "Pradeep Jayasuriya",
+  "Isuru Abeywickrama",
+  "Shenali Cooray",
+  "Harsha Weerasinghe",
+  "Nimesha Wickramasinghe",
+  "Dinuka Ekanayake",
+  "Chamari Kulatunga",
+  "Ravindu Mendis",
+  "Kusal De Silva",
+  "Thisara Karunaratne",
+  "Nethmi Alahakoon",
+  "Damith Rajapaksha",
+  "Buddhika Herath",
+  "Sanduni Samarakoon",
+  "Janith Pathirana",
+  "Oshani Jayalath",
+  "Vimukthi Ranasinghe",
+  "Suren Madushanka",
+  "Hasini Premaratne",
+  "Nuwan Hettiarachchi",
+  "Subhashini Gamage",
+  "Ruwan Wijethunga",
+  "Amila Senadheera",
+  "Lakmali Wanigasooriya",
+  "Gayan Jayasundara",
+  "Piyumi Liyanage",
+  "Supun Weerakkody",
+  "Menaka Abeyrathne",
+  "Charith Jayatissa",
+  "Dhanushka Samarawickrama",
+  "Pavithra Attanayake",
+  "Tharaka Wickramasinghe",
 ];
 
 const getMentorDisplayName = (mentor) => {
-  if (!mentor) return 'Mentor';
-  const rawName = mentor.name || '';
-  if (rawName && !rawName.toLowerCase().startsWith('mentor_') && !rawName.toLowerCase().startsWith('mentor ')) {
+  if (!mentor) return "Mentor";
+  const rawName = mentor.name || "";
+  if (
+    rawName &&
+    !rawName.toLowerCase().startsWith("mentor_") &&
+    !rawName.toLowerCase().startsWith("mentor ")
+  ) {
     return rawName;
   }
-  const digits = String(mentor.mentor_id || '' + rawName).replace(/\D/g, '');
-  const num = digits ? parseInt(digits, 10) : (rawName.split('').reduce((a, c) => a + c.charCodeAt(0), 0));
+  const digits = String(mentor.mentor_id || "" + rawName).replace(/\D/g, "");
+  const num = digits
+    ? parseInt(digits, 10)
+    : rawName.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
   return MENTOR_NAMES[num % MENTOR_NAMES.length];
 };
 
@@ -76,7 +112,11 @@ const stagger = {
 };
 const fadeUp = {
   hidden: { opacity: 0, y: 22 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] } },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] },
+  },
 };
 
 /* ═══════════════════════════════════════════════════════════ */
@@ -87,7 +127,7 @@ const AnimatedNumber = ({ value, duration = 1.2 }) => {
   const ref = useRef(null);
   useEffect(() => {
     if (value == null) return;
-    const target = typeof value === 'number' ? value : parseInt(value, 10) || 0;
+    const target = typeof value === "number" ? value : parseInt(value, 10) || 0;
     let start = 0;
     const step = (ts) => {
       if (!start) start = ts;
@@ -112,44 +152,98 @@ const CircularGauge = ({ score, size = 180 }) => {
   }, [score]);
 
   const getColor = (s) => {
-    if (s >= 80) return { start: '#10B981', end: '#059669', label: '#059669', bg: '#D1FAE5' };
-    if (s >= 60) return { start: '#F59E0B', end: '#D97706', label: '#D97706', bg: '#FEF3C7' };
-    return { start: '#EF4444', end: '#DC2626', label: '#DC2626', bg: '#FEE2E2' };
+    if (s >= 80)
+      return {
+        start: "#10B981",
+        end: "#059669",
+        label: "#059669",
+        bg: "#D1FAE5",
+      };
+    if (s >= 60)
+      return {
+        start: "#F59E0B",
+        end: "#D97706",
+        label: "#D97706",
+        bg: "#FEF3C7",
+      };
+    return {
+      start: "#EF4444",
+      end: "#DC2626",
+      label: "#DC2626",
+      bg: "#FEE2E2",
+    };
   };
   const c = getColor(score);
   const deg = (animScore / 100) * 360;
 
   return (
-    <div style={{
-      position: 'relative', width: size, height: size,
-      display: 'flex', alignItems: 'center', justifyContent: 'center',
-    }}>
+    <div
+      style={{
+        position: "relative",
+        width: size,
+        height: size,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       {/* outer glow */}
-      <div style={{
-        position: 'absolute', inset: -8, borderRadius: '50%',
-        background: c.bg, opacity: 0.5, filter: 'blur(12px)',
-      }} />
+      <div
+        style={{
+          position: "absolute",
+          inset: -8,
+          borderRadius: "50%",
+          background: c.bg,
+          opacity: 0.5,
+          filter: "blur(12px)",
+        }}
+      />
       {/* track ring */}
-      <div style={{
-        position: 'absolute', inset: 0, borderRadius: '50%',
-        background: `conic-gradient(${c.start} 0deg, ${c.end} ${deg}deg, #F1F5F9 ${deg}deg 360deg)`,
-        transition: 'all 1.4s cubic-bezier(.4,0,.2,1)',
-      }} />
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          borderRadius: "50%",
+          background: `conic-gradient(${c.start} 0deg, ${c.end} ${deg}deg, #F1F5F9 ${deg}deg 360deg)`,
+          transition: "all 1.4s cubic-bezier(.4,0,.2,1)",
+        }}
+      />
       {/* inner white circle */}
-      <div style={{
-        position: 'absolute', borderRadius: '50%',
-        width: size - 24, height: size - 24,
-        background: '#FFFFFF', display: 'flex', flexDirection: 'column',
-        alignItems: 'center', justifyContent: 'center',
-        boxShadow: 'inset 0 2px 8px rgba(0,0,0,0.06)',
-      }}>
-        <span style={{
-          fontSize: 42, fontWeight: 800, color: c.label,
-          letterSpacing: '-0.03em', lineHeight: 1,
-        }}>
+      <div
+        style={{
+          position: "absolute",
+          borderRadius: "50%",
+          width: size - 24,
+          height: size - 24,
+          background: "#FFFFFF",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          boxShadow: "inset 0 2px 8px rgba(0,0,0,0.06)",
+        }}
+      >
+        <span
+          style={{
+            fontSize: 42,
+            fontWeight: 800,
+            color: c.label,
+            letterSpacing: "-0.03em",
+            lineHeight: 1,
+          }}
+        >
           {Math.round(animScore)}
         </span>
-        <span style={{ fontSize: 12, color: '#94A3B8', fontWeight: 600, marginTop: 2 }}>/ 100</span>
+        <span
+          style={{
+            fontSize: 12,
+            color: "#94A3B8",
+            fontWeight: 600,
+            marginTop: 2,
+          }}
+        >
+          / 100
+        </span>
       </div>
     </div>
   );
@@ -165,34 +259,51 @@ const MentorshipMatching = ({ externalStudents = [], showRawData = false }) => {
   const { stats, loading: statsLoading } = useMentorshipStats();
 
   const mentees = externalStudents.length > 0 ? externalStudents : apiMentees;
-  const { predictMatch, result: matchResult, loading: matchLoading } = useMatchPrediction();
+  const {
+    predictMatch,
+    result: matchResult,
+    loading: matchLoading,
+  } = useMatchPrediction();
   const { findMentors, matches, loading: findLoading } = useFindMentors();
 
-  const [selectedMentor, setSelectedMentor] = useState('');
-  const [selectedMentee, setSelectedMentee] = useState('');
+  const [selectedMentor, setSelectedMentor] = useState("");
+  const [selectedMentee, setSelectedMentee] = useState("");
 
   const handlePredict = async () => {
     if (!selectedMentor || !selectedMentee) return;
-    const menteeData = mentees.find(m => (m.mentee_id || m.id || m.student_id) === selectedMentee);
+    const menteeData = mentees.find(
+      (m) => (m.mentee_id || m.id || m.student_id) === selectedMentee,
+    );
     await predictMatch(selectedMentor, selectedMentee, menteeData || null);
   };
   const handleFindMentors = async () => {
     if (!selectedMentee) return;
-    const menteeData = mentees.find(m => (m.mentee_id || m.id || m.student_id) === selectedMentee);
+    const menteeData = mentees.find(
+      (m) => (m.mentee_id || m.id || m.student_id) === selectedMentee,
+    );
     await findMentors(selectedMentee, 5, menteeData || null);
   };
 
   const BREAKDOWN_LABELS = {
-    domain_match: 'Domain Match', skills_alignment: 'Skills Alignment',
-    experience_match: 'Experience', location_preference: 'Location',
-    language_match: 'Language', availability_match: 'Availability',
-    verification_bonus: 'Mentor Level', gold_domain_bonus: 'Gold Bonus',
+    domain_match: "Domain Match",
+    skills_alignment: "Skills Alignment",
+    experience_match: "Experience",
+    location_preference: "Location",
+    language_match: "Language",
+    availability_match: "Availability",
+    verification_bonus: "Mentor Level",
+    gold_domain_bonus: "Gold Bonus",
   };
 
   const BREAKDOWN_ICONS = {
-    domain_match: Globe, skills_alignment: Zap, experience_match: TrendingUp,
-    location_preference: MapPin, language_match: MessageSquare,
-    availability_match: Clock, verification_bonus: Shield, gold_domain_bonus: Star,
+    domain_match: Globe,
+    skills_alignment: Zap,
+    experience_match: TrendingUp,
+    location_preference: MapPin,
+    language_match: MessageSquare,
+    availability_match: Clock,
+    verification_bonus: Shield,
+    gold_domain_bonus: Star,
   };
 
   /* ── Loading ── */
@@ -204,16 +315,37 @@ const MentorshipMatching = ({ externalStudents = [], showRawData = false }) => {
           <div className="mm-skeleton-stats">
             {[...Array(4)].map((_, i) => (
               <div key={i} className="mm-skel-stat">
-                <div className="skeleton-line" style={{ width: '60%', height: 14, marginBottom: 8 }} />
-                <div className="skeleton-line" style={{ width: '40%', height: 28 }} />
+                <div
+                  className="skeleton-line"
+                  style={{ width: "60%", height: 14, marginBottom: 8 }}
+                />
+                <div
+                  className="skeleton-line"
+                  style={{ width: "40%", height: 28 }}
+                />
               </div>
             ))}
           </div>
           <div className="mm-skel-panel">
-            <div className="skeleton-line" style={{ width: 200, height: 20, marginBottom: 20 }} />
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-              <div className="skeleton-line" style={{ height: 48, borderRadius: 12 }} />
-              <div className="skeleton-line" style={{ height: 48, borderRadius: 12 }} />
+            <div
+              className="skeleton-line"
+              style={{ width: 200, height: 20, marginBottom: 20 }}
+            />
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: 12,
+              }}
+            >
+              <div
+                className="skeleton-line"
+                style={{ height: 48, borderRadius: 12 }}
+              />
+              <div
+                className="skeleton-line"
+                style={{ height: 48, borderRadius: 12 }}
+              />
             </div>
           </div>
         </div>
@@ -221,65 +353,117 @@ const MentorshipMatching = ({ externalStudents = [], showRawData = false }) => {
     );
   }
 
-  /* ── Disconnected ── */
-  if (!isConnected) {
-    return (
-      <>
-        <style>{componentCSS}</style>
-        <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="mm-offline-card"
-        >
-          <div className="mm-offline-icon">
-            <Activity size={32} strokeWidth={1.5} />
-          </div>
-          <h3 className="mm-offline-title">ML Backend Offline</h3>
-          <p className="mm-offline-desc">Start the Python backend to enable AI matching</p>
-          <code className="mm-offline-code">
-            cd "Mentor - backend" && start.bat
-          </code>
-        </motion.div>
-      </>
-    );
-  }
+  const backendWarning = !isConnected && (mentors.length > 0 || stats);
 
-  /* ── Connected ── */
+  /* ── Connected or fallback data available ── */
   return (
     <>
       <style>{componentCSS}</style>
 
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mm-root">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="mm-root"
+      >
+        {backendWarning && (
+          <div
+            className="mm-offline-banner"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: 12,
+              marginBottom: 18,
+              padding: "12px 16px",
+              borderRadius: 12,
+              border: "1px solid rgba(245, 158, 11, 0.3)",
+              background: "rgba(254, 243, 199, 0.8)",
+              color: "#92400E",
+              fontWeight: 600,
+            }}
+          >
+            <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <Activity size={16} strokeWidth={2} />
+              ML backend is offline, showing verified mentor data from
+              Firestore.
+            </span>
+            <span style={{ fontSize: 12, opacity: 0.8 }}>
+              Matching features will resume when the backend is running.
+            </span>
+          </div>
+        )}
 
         {/* ─── Header ─── */}
         <div className="mm-header">
           <div>
             <h2 className="mm-title">AI-Powered Matching Engine</h2>
             <p className="mm-subtitle">
-              Connected to ML backend • {status?.mentors_count?.toLocaleString() || 0} mentors in model
+              {isConnected
+                ? `Connected to ML backend • ${status?.mentors_count?.toLocaleString() || 0} mentors in model`
+                : `Using Firestore mentor data • ${mentors.length.toLocaleString()} verified and registered mentors`}
             </p>
           </div>
-          <div className="mm-live-pill">
+          <div
+            className="mm-live-pill"
+            style={{
+              background: isConnected ? undefined : "rgba(245, 158, 11, 0.12)",
+              color: isConnected ? undefined : "#B45309",
+            }}
+          >
             <span className="mm-live-dot" />
-            <span>Connected</span>
+            <span>{isConnected ? "Connected" : "Fallback mode"}</span>
           </div>
         </div>
 
         {/* ─── Stats Grid ─── */}
         {stats && (
-          <motion.div variants={stagger} initial="hidden" animate="show" className="mm-stats-grid">
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            animate="show"
+            className="mm-stats-grid"
+          >
             {[
-              { label: 'Total Mentors', value: stats.total_mentors, icon: Users, gradient: 'linear-gradient(135deg, #7C3AED, #6366F1)' },
-              { label: 'Total Mentees', value: stats.total_mentees, icon: GraduationCap, gradient: 'linear-gradient(135deg, #2563EB, #0EA5E9)' },
-              { label: 'Universities', value: stats.universities_represented, icon: Globe, gradient: 'linear-gradient(135deg, #059669, #0D9488)' },
-              { label: 'Gold Mentors', value: stats.verification_distribution?.Gold || 0, icon: Award, gradient: 'linear-gradient(135deg, #D97706, #F59E0B)' },
+              {
+                label: "Total Mentors",
+                value: stats.total_mentors,
+                icon: Users,
+                gradient: "linear-gradient(135deg, #7C3AED, #6366F1)",
+              },
+              {
+                label: "Total Mentees",
+                value: stats.total_mentees,
+                icon: GraduationCap,
+                gradient: "linear-gradient(135deg, #2563EB, #0EA5E9)",
+              },
+              {
+                label: "Universities",
+                value: stats.universities_represented,
+                icon: Globe,
+                gradient: "linear-gradient(135deg, #059669, #0D9488)",
+              },
+              {
+                label: "Gold Mentors",
+                value: stats.verification_distribution?.Gold || 0,
+                icon: Award,
+                gradient: "linear-gradient(135deg, #D97706, #F59E0B)",
+              },
             ].map((s, i) => {
               const Icon = s.icon;
               return (
-                <motion.div key={i} variants={fadeUp} className="mm-stat-card" style={{ background: s.gradient }}>
-                  <div className="mm-stat-icon-bg"><Icon size={20} strokeWidth={1.8} /></div>
+                <motion.div
+                  key={i}
+                  variants={fadeUp}
+                  className="mm-stat-card"
+                  style={{ background: s.gradient }}
+                >
+                  <div className="mm-stat-icon-bg">
+                    <Icon size={20} strokeWidth={1.8} />
+                  </div>
                   <div className="mm-stat-label">{s.label}</div>
-                  <div className="mm-stat-value"><AnimatedNumber value={s.value} /></div>
+                  <div className="mm-stat-value">
+                    <AnimatedNumber value={s.value} />
+                  </div>
                 </motion.div>
               );
             })}
@@ -294,10 +478,14 @@ const MentorshipMatching = ({ externalStudents = [], showRawData = false }) => {
           className="mm-panel"
         >
           <div className="mm-panel-header">
-            <div className="mm-panel-icon"><Sparkles size={18} strokeWidth={2} /></div>
+            <div className="mm-panel-icon">
+              <Sparkles size={18} strokeWidth={2} />
+            </div>
             <div>
               <div className="mm-panel-title">Predict Match Compatibility</div>
-              <div className="mm-panel-desc">Select a mentor and mentee to analyze compatibility</div>
+              <div className="mm-panel-desc">
+                Select a mentor and mentee to analyze compatibility
+              </div>
             </div>
           </div>
 
@@ -314,10 +502,14 @@ const MentorshipMatching = ({ externalStudents = [], showRawData = false }) => {
                   <option value="">Choose a mentor…</option>
                   {mentors.slice(0, 30).map((mentor) => {
                     const mentorName = getMentorDisplayName(mentor);
-                    const subInfo = mentor.industry_role || mentor.university || `${mentor.experience_years} yrs`;
+                    const subInfo =
+                      mentor.industry_role ||
+                      mentor.university ||
+                      `${mentor.experience_years} yrs`;
                     return (
                       <option key={mentor.mentor_id} value={mentor.mentor_id}>
-                        {MEDAL[mentor.verification_level] || ''} {mentorName} — {mentor.domain} ({subInfo})
+                        {MEDAL[mentor.verification_level] || ""} {mentorName} —{" "}
+                        {mentor.domain} ({subInfo})
                       </option>
                     );
                   })}
@@ -336,12 +528,22 @@ const MentorshipMatching = ({ externalStudents = [], showRawData = false }) => {
                   <option value="">Choose a mentee…</option>
                   {mentees.slice(0, 30).map((mentee) => {
                     let interests = mentee.interests || [];
-                    if (typeof interests === 'object' && !Array.isArray(interests)) interests = Object.values(interests);
-                    const display = Array.isArray(interests) && interests.length > 0
-                      ? interests.slice(0, 2).join(', ')
-                      : mentee.field_of_study || 'General';
+                    if (
+                      typeof interests === "object" &&
+                      !Array.isArray(interests)
+                    )
+                      interests = Object.values(interests);
+                    const display =
+                      Array.isArray(interests) && interests.length > 0
+                        ? interests.slice(0, 2).join(", ")
+                        : mentee.field_of_study || "General";
                     return (
-                      <option key={mentee.mentee_id || mentee.id || mentee.student_id} value={mentee.mentee_id || mentee.id || mentee.student_id}>
+                      <option
+                        key={mentee.mentee_id || mentee.id || mentee.student_id}
+                        value={
+                          mentee.mentee_id || mentee.id || mentee.student_id
+                        }
+                      >
                         {mentee.name} — {display}
                       </option>
                     );
@@ -353,18 +555,39 @@ const MentorshipMatching = ({ externalStudents = [], showRawData = false }) => {
 
           {/* Action Buttons */}
           <div className="mm-actions">
-            <button onClick={handlePredict} disabled={!selectedMentor || !selectedMentee || matchLoading} className="mm-btn mm-btn-primary">
+            <button
+              onClick={handlePredict}
+              disabled={
+                !selectedMentor ||
+                !selectedMentee ||
+                matchLoading ||
+                !isConnected
+              }
+              className="mm-btn mm-btn-primary"
+            >
               {matchLoading ? (
-                <><span className="mm-spinner" /> Analyzing…</>
+                <>
+                  <span className="mm-spinner" /> Analyzing…
+                </>
               ) : (
-                <><Sparkles size={16} /> Predict Match</>
+                <>
+                  <Sparkles size={16} /> Predict Match
+                </>
               )}
             </button>
-            <button onClick={handleFindMentors} disabled={!selectedMentee || findLoading} className="mm-btn mm-btn-secondary">
+            <button
+              onClick={handleFindMentors}
+              disabled={!selectedMentee || findLoading || !isConnected}
+              className="mm-btn mm-btn-secondary"
+            >
               {findLoading ? (
-                <><span className="mm-spinner" /> Searching…</>
+                <>
+                  <span className="mm-spinner" /> Searching…
+                </>
               ) : (
-                <><Search size={16} /> Find Best Mentors</>
+                <>
+                  <Search size={16} /> Find Best Mentors
+                </>
               )}
             </button>
           </div>
@@ -374,7 +597,7 @@ const MentorshipMatching = ({ externalStudents = [], showRawData = false }) => {
             {matchResult && (
               <motion.div
                 initial={{ opacity: 0, y: 24, height: 0 }}
-                animate={{ opacity: 1, y: 0, height: 'auto' }}
+                animate={{ opacity: 1, y: 0, height: "auto" }}
                 exit={{ opacity: 0, y: -12, height: 0 }}
                 transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
                 className="mm-result"
@@ -385,11 +608,15 @@ const MentorshipMatching = ({ externalStudents = [], showRawData = false }) => {
                     <h4 className="mm-result-title">
                       <Shield size={18} strokeWidth={2} /> Match Analysis
                     </h4>
-                    <span className={`mm-rec-badge ${
-                      matchResult.compatibility_score >= 80 ? 'rec-high'
-                      : matchResult.compatibility_score >= 60 ? 'rec-mid'
-                      : 'rec-low'
-                    }`}>
+                    <span
+                      className={`mm-rec-badge ${
+                        matchResult.compatibility_score >= 80
+                          ? "rec-high"
+                          : matchResult.compatibility_score >= 60
+                            ? "rec-mid"
+                            : "rec-low"
+                      }`}
+                    >
                       {matchResult.recommendation}
                     </span>
                   </div>
@@ -400,43 +627,74 @@ const MentorshipMatching = ({ externalStudents = [], showRawData = false }) => {
                       <CircularGauge score={matchResult.compatibility_score} />
                       <div className="mm-confidence-chip">
                         <Activity size={14} />
-                        ML Confidence: {Math.round(matchResult.match_probability)}%
+                        ML Confidence:{" "}
+                        {Math.round(matchResult.match_probability)}%
                       </div>
                     </div>
 
                     <div className="mm-breakdown-section">
                       <h5 className="mm-breakdown-title">SCORE BREAKDOWN</h5>
                       <div className="mm-breakdown-list">
-                        {Object.entries(matchResult.breakdown || {}).map(([key, value], i) => {
-                          const rounded = Math.round(value);
-                          const Icon = BREAKDOWN_ICONS[key] || Star;
-                          const barColor = rounded >= 80 ? '#10B981' : rounded >= 60 ? '#F59E0B' : '#EF4444';
-                          const textColor = rounded >= 80 ? '#059669' : rounded >= 60 ? '#D97706' : '#DC2626';
-                          return (
-                            <motion.div
-                              key={key}
-                              initial={{ opacity: 0, x: -16 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: i * 0.06, duration: 0.35 }}
-                              className="mm-breakdown-row"
-                            >
-                              <div className="mm-breakdown-label">
-                                <Icon size={13} strokeWidth={2} style={{ color: barColor }} />
-                                <span>{BREAKDOWN_LABELS[key] || key.replace(/_/g, ' ')}</span>
-                              </div>
-                              <div className="mm-bar-track">
-                                <motion.div
-                                  initial={{ width: 0 }}
-                                  animate={{ width: `${Math.min(100, rounded)}%` }}
-                                  transition={{ duration: 0.9, ease: 'easeOut', delay: i * 0.06 }}
-                                  className="mm-bar-fill"
-                                  style={{ background: barColor }}
-                                />
-                              </div>
-                              <span className="mm-breakdown-value" style={{ color: textColor }}>{rounded}%</span>
-                            </motion.div>
-                          );
-                        })}
+                        {Object.entries(matchResult.breakdown || {}).map(
+                          ([key, value], i) => {
+                            const rounded = Math.round(value);
+                            const Icon = BREAKDOWN_ICONS[key] || Star;
+                            const barColor =
+                              rounded >= 80
+                                ? "#10B981"
+                                : rounded >= 60
+                                  ? "#F59E0B"
+                                  : "#EF4444";
+                            const textColor =
+                              rounded >= 80
+                                ? "#059669"
+                                : rounded >= 60
+                                  ? "#D97706"
+                                  : "#DC2626";
+                            return (
+                              <motion.div
+                                key={key}
+                                initial={{ opacity: 0, x: -16 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: i * 0.06, duration: 0.35 }}
+                                className="mm-breakdown-row"
+                              >
+                                <div className="mm-breakdown-label">
+                                  <Icon
+                                    size={13}
+                                    strokeWidth={2}
+                                    style={{ color: barColor }}
+                                  />
+                                  <span>
+                                    {BREAKDOWN_LABELS[key] ||
+                                      key.replace(/_/g, " ")}
+                                  </span>
+                                </div>
+                                <div className="mm-bar-track">
+                                  <motion.div
+                                    initial={{ width: 0 }}
+                                    animate={{
+                                      width: `${Math.min(100, rounded)}%`,
+                                    }}
+                                    transition={{
+                                      duration: 0.9,
+                                      ease: "easeOut",
+                                      delay: i * 0.06,
+                                    }}
+                                    className="mm-bar-fill"
+                                    style={{ background: barColor }}
+                                  />
+                                </div>
+                                <span
+                                  className="mm-breakdown-value"
+                                  style={{ color: textColor }}
+                                >
+                                  {rounded}%
+                                </span>
+                              </motion.div>
+                            );
+                          },
+                        )}
                       </div>
                     </div>
                   </div>
@@ -455,16 +713,31 @@ const MentorshipMatching = ({ externalStudents = [], showRawData = false }) => {
                 className="mm-matches"
               >
                 <h4 className="mm-matches-title">
-                  <Star size={18} strokeWidth={2} style={{ color: '#F59E0B' }} />
+                  <Star
+                    size={18}
+                    strokeWidth={2}
+                    style={{ color: "#F59E0B" }}
+                  />
                   Top {matches.length} Recommended Mentors
                 </h4>
 
-                <motion.div variants={stagger} initial="hidden" animate="show" className="mm-matches-list">
+                <motion.div
+                  variants={stagger}
+                  initial="hidden"
+                  animate="show"
+                  className="mm-matches-list"
+                >
                   {matches.map((match, index) => {
                     const mentorName = getMentorDisplayName(match);
-                    const skillsList = typeof match.skills === 'string'
-                      ? match.skills.split(',').map(s => s.trim()).filter(Boolean)
-                      : Array.isArray(match.skills) ? match.skills : [];
+                    const skillsList =
+                      typeof match.skills === "string"
+                        ? match.skills
+                            .split(",")
+                            .map((s) => s.trim())
+                            .filter(Boolean)
+                        : Array.isArray(match.skills)
+                          ? match.skills
+                          : [];
 
                     return (
                       <motion.div
@@ -474,33 +747,75 @@ const MentorshipMatching = ({ externalStudents = [], showRawData = false }) => {
                       >
                         <div className="mm-match-left" style={{ flex: 1 }}>
                           {/* Rank badge */}
-                          <div className={`mm-rank-badge rank-${index < 3 ? index + 1 : 'other'}`}>
+                          <div
+                            className={`mm-rank-badge rank-${index < 3 ? index + 1 : "other"}`}
+                          >
                             #{index + 1}
                           </div>
 
                           {/* Info */}
                           <div className="mm-match-info" style={{ flex: 1 }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-                              <div className="mm-match-name" style={{ fontSize: '15px', fontWeight: 700, color: '#0F172A' }}>
+                            <div
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "8px",
+                                flexWrap: "wrap",
+                              }}
+                            >
+                              <div
+                                className="mm-match-name"
+                                style={{
+                                  fontSize: "15px",
+                                  fontWeight: 700,
+                                  color: "#0F172A",
+                                }}
+                              >
                                 {mentorName}
                               </div>
                               {match.industry_role && (
-                                <span style={{
-                                  fontSize: '11px', fontWeight: 700, padding: '2px 8px', borderRadius: '6px',
-                                  background: '#EFF6FF', color: '#1D4ED8', border: '1px solid #DBEAFE'
-                                }}>
+                                <span
+                                  style={{
+                                    fontSize: "11px",
+                                    fontWeight: 700,
+                                    padding: "2px 8px",
+                                    borderRadius: "6px",
+                                    background: "#EFF6FF",
+                                    color: "#1D4ED8",
+                                    border: "1px solid #DBEAFE",
+                                  }}
+                                >
                                   {match.industry_role}
                                 </span>
                               )}
                             </div>
 
                             {/* Specific Details */}
-                            <div className="mm-match-meta" style={{ flexWrap: 'wrap', marginTop: '4px', gap: '6px', color: '#64748B', fontSize: '12px' }}>
-                              <span style={{ fontWeight: 600, color: '#4338CA' }}>{match.domain}</span>
+                            <div
+                              className="mm-match-meta"
+                              style={{
+                                flexWrap: "wrap",
+                                marginTop: "4px",
+                                gap: "6px",
+                                color: "#64748B",
+                                fontSize: "12px",
+                              }}
+                            >
+                              <span
+                                style={{ fontWeight: 600, color: "#4338CA" }}
+                              >
+                                {match.domain}
+                              </span>
                               <span className="mm-meta-dot">•</span>
                               {match.university && (
                                 <>
-                                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
+                                  <span
+                                    style={{
+                                      display: "inline-flex",
+                                      alignItems: "center",
+                                      gap: "3px",
+                                    }}
+                                  >
                                     <GraduationCap size={12} strokeWidth={2} />
                                     {match.university}
                                   </span>
@@ -509,7 +824,13 @@ const MentorshipMatching = ({ externalStudents = [], showRawData = false }) => {
                               )}
                               {match.location && (
                                 <>
-                                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
+                                  <span
+                                    style={{
+                                      display: "inline-flex",
+                                      alignItems: "center",
+                                      gap: "3px",
+                                    }}
+                                  >
                                     <MapPin size={12} strokeWidth={2} />
                                     {match.location}
                                   </span>
@@ -520,7 +841,13 @@ const MentorshipMatching = ({ externalStudents = [], showRawData = false }) => {
                               {match.availability_hours && (
                                 <>
                                   <span className="mm-meta-dot">•</span>
-                                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
+                                  <span
+                                    style={{
+                                      display: "inline-flex",
+                                      alignItems: "center",
+                                      gap: "3px",
+                                    }}
+                                  >
                                     <Clock size={12} strokeWidth={2} />
                                     {match.availability_hours}h/wk
                                   </span>
@@ -529,21 +856,41 @@ const MentorshipMatching = ({ externalStudents = [], showRawData = false }) => {
                               <span className="mm-meta-dot">•</span>
                               <span className="mm-verification-tag">
                                 {MEDAL_IMG[match.verification_level] ? (
-                                  <img src={MEDAL_IMG[match.verification_level]} alt="" className="mm-medal-img" />
-                                ) : MEDAL[match.verification_level] || '🥉'}
+                                  <img
+                                    src={MEDAL_IMG[match.verification_level]}
+                                    alt=""
+                                    className="mm-medal-img"
+                                  />
+                                ) : (
+                                  MEDAL[match.verification_level] || "🥉"
+                                )}
                                 {match.verification_level} Mentor
                               </span>
                             </div>
 
                             {/* Skills Badges */}
                             {skillsList.length > 0 && (
-                              <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap', marginTop: '6px' }}>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  gap: "5px",
+                                  flexWrap: "wrap",
+                                  marginTop: "6px",
+                                }}
+                              >
                                 {skillsList.slice(0, 3).map((skill, si) => (
-                                  <span key={si} style={{
-                                    fontSize: '10px', fontWeight: 600, padding: '1px 8px',
-                                    borderRadius: '5px', background: '#F8FAFC', color: '#64748B',
-                                    border: '1px solid #E2E8F0'
-                                  }}>
+                                  <span
+                                    key={si}
+                                    style={{
+                                      fontSize: "10px",
+                                      fontWeight: 600,
+                                      padding: "1px 8px",
+                                      borderRadius: "5px",
+                                      background: "#F8FAFC",
+                                      color: "#64748B",
+                                      border: "1px solid #E2E8F0",
+                                    }}
+                                  >
                                     {skill}
                                   </span>
                                 ))}
@@ -553,12 +900,19 @@ const MentorshipMatching = ({ externalStudents = [], showRawData = false }) => {
                         </div>
 
                         {/* Score */}
-                        <div className="mm-match-score-wrap" style={{ marginLeft: '16px' }}>
-                          <div className={`mm-match-score ${
-                            match.compatibility_score >= 80 ? 'score-high'
-                            : match.compatibility_score >= 60 ? 'score-mid'
-                            : 'score-low'
-                          }`}>
+                        <div
+                          className="mm-match-score-wrap"
+                          style={{ marginLeft: "16px" }}
+                        >
+                          <div
+                            className={`mm-match-score ${
+                              match.compatibility_score >= 80
+                                ? "score-high"
+                                : match.compatibility_score >= 60
+                                  ? "score-mid"
+                                  : "score-low"
+                            }`}
+                          >
                             {Math.round(match.compatibility_score)}%
                           </div>
                           <div className="mm-match-score-label">match</div>
@@ -582,56 +936,118 @@ const MentorshipMatching = ({ externalStudents = [], showRawData = false }) => {
           >
             <h3 className="mm-domains-title">Domain Distribution</h3>
             <div className="mm-domains-pills">
-              {Object.entries(stats.mentor_domains).map(([domain, count], i) => {
-                const colors = ['#7C3AED', '#2563EB', '#059669', '#D97706', '#E11D48', '#0284C7'];
-                const color = colors[i % colors.length];
-                return (
-                  <span key={domain} className="mm-domain-pill" style={{ '--pill-color': color }}>
-                    <span className="mm-domain-dot" style={{ background: color }} />
-                    {domain}
-                    <span className="mm-domain-count">{count}</span>
-                  </span>
-                );
-              })}
+              {Object.entries(stats.mentor_domains).map(
+                ([domain, count], i) => {
+                  const colors = [
+                    "#7C3AED",
+                    "#2563EB",
+                    "#059669",
+                    "#D97706",
+                    "#E11D48",
+                    "#0284C7",
+                  ];
+                  const color = colors[i % colors.length];
+                  return (
+                    <span
+                      key={domain}
+                      className="mm-domain-pill"
+                      style={{ "--pill-color": color }}
+                    >
+                      <span
+                        className="mm-domain-dot"
+                        style={{ background: color }}
+                      />
+                      {domain}
+                      <span className="mm-domain-count">{count}</span>
+                    </span>
+                  );
+                },
+              )}
             </div>
           </motion.div>
         )}
 
         {/* ─── Debug ─── */}
         {showRawData && selectedMentee && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mm-debug-card">
-            <h3 className="mm-debug-title">📊 Selected Student Profile (Debug)</h3>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="mm-debug-card"
+          >
+            <h3 className="mm-debug-title">
+              📊 Selected Student Profile (Debug)
+            </h3>
             {(() => {
-              const student = mentees.find(m => (m.mentee_id || m.id || m.student_id) === selectedMentee);
-              if (!student) return <p style={{ color: '#94A3B8' }}>No student selected</p>;
+              const student = mentees.find(
+                (m) => (m.mentee_id || m.id || m.student_id) === selectedMentee,
+              );
+              if (!student)
+                return <p style={{ color: "#94A3B8" }}>No student selected</p>;
               return (
                 <div style={{ fontSize: 12, lineHeight: 1.6 }}>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px 16px' }}>
-                    <div><strong>Name:</strong> {student.name}</div>
-                    <div><strong>Field:</strong> {student.field_of_study}</div>
-                    <div><strong>University:</strong> {student.university}</div>
-                    <div><strong>Location:</strong> {student.location}</div>
-                    <div><strong>Z-Score:</strong> {student.z_score}</div>
-                    <div><strong>Work Env:</strong> {student.work_environment}</div>
+                  <div
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "1fr 1fr",
+                      gap: "4px 16px",
+                    }}
+                  >
+                    <div>
+                      <strong>Name:</strong> {student.name}
+                    </div>
+                    <div>
+                      <strong>Field:</strong> {student.field_of_study}
+                    </div>
+                    <div>
+                      <strong>University:</strong> {student.university}
+                    </div>
+                    <div>
+                      <strong>Location:</strong> {student.location}
+                    </div>
+                    <div>
+                      <strong>Z-Score:</strong> {student.z_score}
+                    </div>
+                    <div>
+                      <strong>Work Env:</strong> {student.work_environment}
+                    </div>
                   </div>
                   <div style={{ marginTop: 6 }}>
-                    <strong>Interests:</strong> {(() => {
+                    <strong>Interests:</strong>{" "}
+                    {(() => {
                       let ints = student.interests || [];
-                      if (typeof ints === 'object' && !Array.isArray(ints)) ints = Object.values(ints);
-                      return Array.isArray(ints) ? ints.join(', ') : 'None';
+                      if (typeof ints === "object" && !Array.isArray(ints))
+                        ints = Object.values(ints);
+                      return Array.isArray(ints) ? ints.join(", ") : "None";
                     })()}
                   </div>
                   {student.al_results && (
                     <div style={{ marginTop: 4 }}>
-                      <strong>AL Results:</strong>{' '}
-                      <span style={{ display: 'inline-flex', gap: 4, flexWrap: 'wrap', marginTop: 2 }}>
+                      <strong>AL Results:</strong>{" "}
+                      <span
+                        style={{
+                          display: "inline-flex",
+                          gap: 4,
+                          flexWrap: "wrap",
+                          marginTop: 2,
+                        }}
+                      >
                         {Object.entries(student.al_results)
-                          .filter(([_, v]) => v && typeof v === 'string' && v.length <= 2)
+                          .filter(
+                            ([_, v]) =>
+                              v && typeof v === "string" && v.length <= 2,
+                          )
                           .map(([subject, grade]) => (
-                            <span key={subject} style={{
-                              padding: '2px 8px', borderRadius: 6, fontSize: 10,
-                              fontWeight: 700, background: '#F1F5F9', border: '1px solid #E2E8F0',
-                            }}>
+                            <span
+                              key={subject}
+                              style={{
+                                padding: "2px 8px",
+                                borderRadius: 6,
+                                fontSize: 10,
+                                fontWeight: 700,
+                                background: "#F1F5F9",
+                                border: "1px solid #E2E8F0",
+                              }}
+                            >
                               {subject}: {grade}
                             </span>
                           ))}
@@ -639,20 +1055,39 @@ const MentorshipMatching = ({ externalStudents = [], showRawData = false }) => {
                     </div>
                   )}
                   {student.career_goals?.length > 0 && (
-                    <div style={{ marginTop: 4 }}><strong>Career Goals:</strong> {student.career_goals.join(', ')}</div>
+                    <div style={{ marginTop: 4 }}>
+                      <strong>Career Goals:</strong>{" "}
+                      {student.career_goals.join(", ")}
+                    </div>
                   )}
                   {student.personality_traits && (
                     <div style={{ marginTop: 4 }}>
-                      <strong>Personality:</strong>{' '}
-                      <span style={{ display: 'inline-flex', gap: 4, flexWrap: 'wrap', marginTop: 2 }}>
-                        {Object.entries(student.personality_traits).map(([trait, value]) => (
-                          <span key={trait} style={{
-                            padding: '2px 8px', borderRadius: 6, fontSize: 10,
-                            fontWeight: 700, background: '#F1F5F9', border: '1px solid #E2E8F0',
-                          }}>
-                            {trait}: {value}/5
-                          </span>
-                        ))}
+                      <strong>Personality:</strong>{" "}
+                      <span
+                        style={{
+                          display: "inline-flex",
+                          gap: 4,
+                          flexWrap: "wrap",
+                          marginTop: 2,
+                        }}
+                      >
+                        {Object.entries(student.personality_traits).map(
+                          ([trait, value]) => (
+                            <span
+                              key={trait}
+                              style={{
+                                padding: "2px 8px",
+                                borderRadius: 6,
+                                fontSize: 10,
+                                fontWeight: 700,
+                                background: "#F1F5F9",
+                                border: "1px solid #E2E8F0",
+                              }}
+                            >
+                              {trait}: {value}/5
+                            </span>
+                          ),
+                        )}
                       </span>
                     </div>
                   )}

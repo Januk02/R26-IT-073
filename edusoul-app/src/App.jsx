@@ -1,39 +1,53 @@
-import { useState, useEffect, createContext, useContext } from 'react';
-import { AuthProvider, useAuth } from './contexts/AuthContext';
-import Sidebar, { SIDEBAR_WIDTH } from './components/Sidebar';
-import HomePage from './pages/HomePage';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import StudentDashboard from './pages/StudentDashboard';
-import MentorDashboard from '../Member4/pages/MentorDashboard';
-import MentorVerification from '../Member4/pages/MentorVerification';
-import VerificationHistory from '../Member4/pages/VerificationHistory';
-import CVVerification from '../Member4/pages/CVVerification';
-import ProtectedRoute from './components/ProtectedRoute';
-import StudyBot from './components/StudyBot';
-import ChatHub from './pages/ChatHub';
-import Member1DreamDegreeAdvisor from '../Member1/index';
-import DreamDegreeInput from '../Member1/pages/DreamDegreeInput';
-import Member2Courses from '../Member2/index';
-import Member3Analytics from '../Member3/index';
-import MentorshipPage from '../Member4/pages/MentorshipPage';
-import './App.css';
+import { useState, useEffect, createContext, useContext } from "react";
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import Sidebar, { SIDEBAR_WIDTH } from "./components/Sidebar";
+import HomePage from "./pages/HomePage";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import StudentDashboard from "./pages/StudentDashboard";
+import MentorDashboard from "../Member4/pages/MentorDashboard";
+import MentorProfilePage from "../Member4/pages/MentorProfilePage";
+import MentorVerification from "../Member4/pages/MentorVerification";
+import VerificationHistory from "../Member4/pages/VerificationHistory";
+import CVVerification from "../Member4/pages/CVVerification";
+import ProtectedRoute from "./components/ProtectedRoute";
+import StudyBot from "./components/StudyBot";
+import ChatHub from "./pages/ChatHub";
+import Member1DreamDegreeAdvisor from "../Member1/index";
+import DreamDegreeInput from "../Member1/pages/DreamDegreeInput";
+import Member2Courses from "../Member2/index";
+import Member3Analytics from "../Member3/index";
+import MentorshipPage from "../Member4/pages/MentorshipPage";
+import "./App.css";
 
-import { LanguageProvider, LanguageContext, useLanguage } from './contexts/LanguageContext';
+import {
+  LanguageProvider,
+  LanguageContext,
+  useLanguage,
+} from "./contexts/LanguageContext";
 export { LanguageContext, useLanguage };
 
 // ── Views that get the sidebar + layout shell ─────────────────
 const WITH_SIDEBAR = [
-  'dashboard',
-  'studentHome',
-  'mentorHub',
-  'messages',
-  'verification',
-  'cvVerification',
-  'history'
+  "dashboard",
+  "studentHome",
+  "mentorHub",
+  "messages",
+  "verification",
+  "cvVerification",
+  "history",
+  "mentorProfile",
 ];
 // Views that are full-screen (no parent sidebar, own layout)
-const FULL_SCREEN = ['home', 'login', 'register', 'onboarding', 'courses', 'dreamDegreeAdvisor', 'analytics'];
+const FULL_SCREEN = [
+  "home",
+  "login",
+  "register",
+  "onboarding",
+  "courses",
+  "dreamDegreeAdvisor",
+  "analytics",
+];
 
 // ── App shell layout ──────────────────────────────────────────
 function Layout({ currentView, setCurrentView, children }) {
@@ -42,16 +56,16 @@ function Layout({ currentView, setCurrentView, children }) {
   if (!showSidebar) return <>{children}</>;
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh' }}>
+    <div style={{ display: "flex", minHeight: "100vh" }}>
       <Sidebar currentView={currentView} setCurrentView={setCurrentView} />
       <main
         style={{
           flex: 1,
           marginLeft: SIDEBAR_WIDTH,
-          minHeight: '100vh',
-          overflow: 'auto',
-          background: '#f8faff',
-          transition: 'margin-left 0.3s ease',
+          minHeight: "100vh",
+          overflow: "auto",
+          background: "#f8faff",
+          transition: "margin-left 0.3s ease",
         }}
       >
         {children}
@@ -73,189 +87,215 @@ function Layout({ currentView, setCurrentView, children }) {
 // ── Main content router ───────────────────────────────────────
 function AppContent({ currentView, setCurrentView }) {
   const { user, userRole, loading: authLoading, logout } = useAuth();
-  const [registerRole, setRegisterRole] = useState('student');
+  const [registerRole, setRegisterRole] = useState("student");
   const [onboardingData, setOnboardingData] = useState(null);
   const [chatInitialMentor, setChatInitialMentor] = useState(null);
 
   // Redirect after login / on app load if already authenticated
   useEffect(() => {
     if (user && userRole) {
-      if (currentView === 'login' || currentView === 'register') {
+      if (currentView === "login" || currentView === "register") {
         // Fresh login/register → go straight to dashboard
-        setCurrentView(userRole === 'mentor' ? 'dashboard' : 'studentHome');
-      } else if (currentView === 'home') {
+        setCurrentView(userRole === "mentor" ? "dashboard" : "studentHome");
+      } else if (currentView === "home") {
         // Already logged in, landed on home → skip onboarding, go straight to dashboard
-        setCurrentView(userRole === 'mentor' ? 'dashboard' : 'studentHome');
+        setCurrentView(userRole === "mentor" ? "dashboard" : "studentHome");
       }
     }
     // Redirect unauthenticated users away from protected views
     if (!user && !authLoading && !FULL_SCREEN.includes(currentView)) {
-      setCurrentView('home');
+      setCurrentView("home");
     }
   }, [user, userRole, authLoading, currentView, setCurrentView]);
 
   // ── Handlers ──────────────────────────────────────────────
   const go = (view) => () => setCurrentView(view);
 
-  const goToRegister = (role = 'student') => {
+  const goToRegister = (role = "student") => {
     setRegisterRole(role);
-    setCurrentView('register');
+    setCurrentView("register");
   };
 
   const goToMessages = (mentor = null) => {
     setChatInitialMentor(mentor);
-    setCurrentView('messages');
+    setCurrentView("messages");
   };
 
   const content = (() => {
     switch (currentView) {
-
       // ── Public ──
-      case 'home':
+      case "home":
         return (
           <HomePage
-            onNavigateToLogin={go('login')}
+            onNavigateToLogin={go("login")}
             onNavigateToRegister={goToRegister}
           />
         );
 
-      case 'login':
-        return <Login onNavigateToRegister={goToRegister} onNavigateToHome={go('home')} />;
+      case "login":
+        return (
+          <Login
+            onNavigateToRegister={goToRegister}
+            onNavigateToHome={go("home")}
+          />
+        );
 
-      case 'register':
-        return <Register onNavigateToLogin={go('login')} onNavigateToHome={go('home')} initialRole={registerRole} />;
+      case "register":
+        return (
+          <Register
+            onNavigateToLogin={go("login")}
+            onNavigateToHome={go("home")}
+            initialRole={registerRole}
+          />
+        );
 
       // ── Onboarding (full-screen, no sidebar) ──
-      case 'onboarding':
+      case "onboarding":
         return (
           <ProtectedRoute>
             <DreamDegreeInput
               onAnalyze={(data) => {
                 setOnboardingData(data);
-                setCurrentView('studentHome');
+                setCurrentView("studentHome");
               }}
               onFinishOnboarding={() => {
-                setCurrentView('studentHome');
+                setCurrentView("studentHome");
               }}
-              onBack={go('home')}
+              onBack={go("home")}
             />
           </ProtectedRoute>
         );
 
       // ── Student ──
-      case 'dreamDegreeAdvisor':
+      case "dreamDegreeAdvisor":
         return (
           <ProtectedRoute>
             <Member1DreamDegreeAdvisor
-              onBack={go('studentHome')}
-              onLogin={go('login')}
+              onBack={go("studentHome")}
+              onLogin={go("login")}
               onLogout={logout}
-              onNavigateToDashboard={go('studentHome')}
+              onNavigateToDashboard={go("studentHome")}
               initialStudentData={onboardingData}
-              initialView={onboardingData ? 'results' : 'home'}
+              initialView={onboardingData ? "results" : "home"}
             />
           </ProtectedRoute>
         );
 
-      case 'studentHome':
+      case "studentHome":
         return (
           <ProtectedRoute>
             <StudentDashboard
-              onStartDreamDegreeAdvisor={go('dreamDegreeAdvisor')}
-              onNavigateToCourses={go('courses')}
-              onNavigateToAnalytics={go('analytics')}
-              onNavigateToMentorHub={go('mentorHub')}
+              onStartDreamDegreeAdvisor={go("dreamDegreeAdvisor")}
+              onNavigateToCourses={go("courses")}
+              onNavigateToAnalytics={go("analytics")}
+              onNavigateToMentorHub={go("mentorHub")}
               onNavigateToMessages={() => goToMessages(null)}
             />
           </ProtectedRoute>
         );
 
       // ── Member2: Courses ──
-      case 'courses':
+      case "courses":
         return (
           <ProtectedRoute>
-            <Member2Courses onBack={go('studentHome')} />
+            <Member2Courses onBack={go("studentHome")} />
           </ProtectedRoute>
         );
 
       // ── Member3: Analytics ──
-      case 'analytics':
+      case "analytics":
         return (
           <ProtectedRoute>
-            <Member3Analytics onBack={go('studentHome')} />
+            <Member3Analytics onBack={go("studentHome")} />
           </ProtectedRoute>
         );
 
       // ── Member4: Mentor Hub / AI Matching ──
-      case 'mentorHub':
+      case "mentorHub":
         return (
           <ProtectedRoute>
             <MentorshipPage
-              onBack={go(userRole === 'mentor' ? 'dashboard' : 'studentHome')}
+              onBack={go(userRole === "mentor" ? "dashboard" : "studentHome")}
+              onOpenChat={goToMessages}
             />
           </ProtectedRoute>
         );
 
       // ── Firebase Mentor-Student Chat ──
-      case 'messages':
+      case "messages":
         return (
           <ProtectedRoute>
             <ChatHub
-              onBack={go(userRole === 'mentor' ? 'dashboard' : 'studentHome')}
+              onBack={go(userRole === "mentor" ? "dashboard" : "studentHome")}
               initialMentor={chatInitialMentor}
             />
           </ProtectedRoute>
         );
 
       // ── Mentor ──
-      case 'dashboard':
+      case "dashboard":
         return (
           <ProtectedRoute>
             {authLoading || !userRole ? (
               <LoadingSpinner />
             ) : (
               <MentorDashboard
-                onStartVerification={go('verification')}
-                onViewHistory={go('history')}
-                onStartCVVerification={go('cvVerification')}
-                onMentorshipMatching={go('mentorHub')}
+                onStartVerification={go("verification")}
+                onViewHistory={go("history")}
+                onStartCVVerification={go("cvVerification")}
+                onMentorshipMatching={go("mentorHub")}
+                onEditProfile={go("mentorProfile")}
                 onNavigateToMessages={() => goToMessages(null)}
               />
             )}
           </ProtectedRoute>
         );
 
-      case 'verification':
+      case "verification":
         return (
           <ProtectedRoute>
             <MentorVerification
-              onComplete={go('dashboard')}
-              onCancel={go('dashboard')}
+              onComplete={go("dashboard")}
+              onCancel={go("dashboard")}
             />
           </ProtectedRoute>
         );
 
-      case 'cvVerification':
+      case "cvVerification":
         return (
           <ProtectedRoute>
             <CVVerification
-              onComplete={go('dashboard')}
-              onCancel={go('dashboard')}
+              onComplete={go("dashboard")}
+              onCancel={go("dashboard")}
             />
           </ProtectedRoute>
         );
 
-      case 'history':
+      case "history":
         return (
           <ProtectedRoute>
-            <VerificationHistory onClose={go('dashboard')} />
+            <VerificationHistory onClose={go("dashboard")} />
+          </ProtectedRoute>
+        );
+
+      case "mentorProfile":
+        return (
+          <ProtectedRoute>
+            {userRole === "mentor" ? (
+              <MentorProfilePage onBack={go("dashboard")} />
+            ) : (
+              <MentorshipPage
+                onBack={go("studentHome")}
+                onOpenChat={goToMessages}
+              />
+            )}
           </ProtectedRoute>
         );
 
       default:
         return (
           <HomePage
-            onNavigateToLogin={go('login')}
+            onNavigateToLogin={go("login")}
             onNavigateToRegister={goToRegister}
           />
         );
@@ -271,17 +311,30 @@ function AppContent({ currentView, setCurrentView }) {
 
 function LoadingSpinner() {
   return (
-    <div style={{
-      minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center',
-      background: '#f8faff',
-    }}>
-      <div style={{ textAlign: 'center' }}>
-        <div style={{
-          width: 44, height: 44, border: '4px solid #bfdbfe',
-          borderTopColor: '#1d4ed8', borderRadius: '50%',
-          animation: 'spin 0.8s linear infinite', margin: '0 auto 14px',
-        }} />
-        <p style={{ color: '#64748b', fontSize: 14 }}>Loading your dashboard…</p>
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "#f8faff",
+      }}
+    >
+      <div style={{ textAlign: "center" }}>
+        <div
+          style={{
+            width: 44,
+            height: 44,
+            border: "4px solid #bfdbfe",
+            borderTopColor: "#1d4ed8",
+            borderRadius: "50%",
+            animation: "spin 0.8s linear infinite",
+            margin: "0 auto 14px",
+          }}
+        />
+        <p style={{ color: "#64748b", fontSize: 14 }}>
+          Loading your dashboard…
+        </p>
       </div>
       <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
     </div>
@@ -290,7 +343,7 @@ function LoadingSpinner() {
 
 // ── Root ─────────────────────────────────────────────────────
 export default function App() {
-  const [currentView, setCurrentView] = useState('home');
+  const [currentView, setCurrentView] = useState("home");
 
   return (
     <LanguageProvider>

@@ -1,23 +1,23 @@
-import { 
-  collection, 
-  doc, 
-  getDoc, 
-  getDocs, 
-  setDoc, 
-  addDoc, 
-  updateDoc, 
-  query, 
-  where, 
-  orderBy, 
-  onSnapshot, 
-  increment
-} from 'firebase/firestore';
-import { db } from '../firebase';
+import {
+  collection,
+  doc,
+  getDoc,
+  setDoc,
+  addDoc,
+  updateDoc,
+  query,
+  where,
+  orderBy,
+  onSnapshot,
+  increment,
+} from "firebase/firestore";
+import { db } from "../firebase";
+import { fetchMentorsFromFirestore } from "../../Member4/services/mentorService";
 
 // Helper to generate consistent chat ID for 1-on-1 pairs
 export const getChatId = (studentId, mentorId) => {
-  const s = String(studentId).replace(/[^a-zA-Z0-9_-]/g, '_');
-  const m = String(mentorId).replace(/[^a-zA-Z0-9_-]/g, '_');
+  const s = String(studentId).replace(/[^a-zA-Z0-9_-]/g, "_");
+  const m = String(mentorId).replace(/[^a-zA-Z0-9_-]/g, "_");
   return `chat_${s}_${m}`;
 };
 
@@ -35,6 +35,20 @@ export const getCachedChats = (userId) => {
   } catch {
     return [];
   }
+};
+
+const isChatForUser = (chat, userId, userRole) => {
+  if (!chat || !chat.studentId || !chat.mentorId) return false;
+  const currentId = String(userId);
+  const studentId = String(chat.studentId);
+  const mentorId = String(chat.mentorId);
+
+  if (studentId === mentorId) return false;
+  if (userRole === "mentor")
+    return mentorId === currentId && studentId !== currentId;
+  if (userRole === "student")
+    return studentId === currentId && mentorId !== currentId;
+  return studentId === currentId || mentorId === currentId;
 };
 
 /**
@@ -76,28 +90,51 @@ export const saveCachedMessages = (chatId, msgs) => {
  */
 export const getOrCreateChat = async ({ student, mentor }) => {
   if (!student?.uid || (!mentor?.id && !mentor?.uid)) {
-    throw new Error('Student and Mentor IDs are required');
+    throw new Error("Student and Mentor IDs are required");
   }
 
   const studentId = String(student.uid);
   const mentorId = String(mentor.uid || mentor.id);
+  if (studentId === mentorId) {
+    throw new Error(
+      "A mentor cannot start a conversation with their own account",
+    );
+  }
   const chatId = getChatId(studentId, mentorId);
 
-  const studentName = student.displayName || `${student.firstName || ''} ${student.lastName || ''}`.trim() || student.email?.split('@')[0] || 'Student';
-  const mentorName = mentor.name || mentor.displayName || `${mentor.firstName || ''} ${mentor.lastName || ''}`.trim() || 'Mentor';
-  const mentorField = mentor.field || mentor.expertise?.[0] || 'Mentorship & Academic Guidance';
-  const mentorAvatar = mentor.avatar || (mentorName ? mentorName.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase() : 'M');
-  const mentorColor = mentor.color || '#7c3aed';
+  const studentName =
+    student.displayName ||
+    `${student.firstName || ""} ${student.lastName || ""}`.trim() ||
+    student.email?.split("@")[0] ||
+    "Student";
+  const mentorName =
+    mentor.name ||
+    mentor.displayName ||
+    `${mentor.firstName || ""} ${mentor.lastName || ""}`.trim() ||
+    "Mentor";
+  const mentorField =
+    mentor.field || mentor.expertise?.[0] || "Mentorship & Academic Guidance";
+  const mentorAvatar =
+    mentor.avatar ||
+    (mentorName
+      ? mentorName
+          .split(" ")
+          .map((n) => n[0])
+          .join("")
+          .slice(0, 2)
+          .toUpperCase()
+      : "M");
+  const mentorColor = mentor.color || "#7c3aed";
 
   const defaultChatData = {
     id: chatId,
     participants: [studentId, mentorId],
     studentId: studentId,
     studentName: studentName,
-    studentEmail: student.email || '',
+    studentEmail: student.email || "",
     mentorId: mentorId,
     mentorName: mentorName,
-    mentorEmail: mentor.email || '',
+    mentorEmail: mentor.email || "",
     mentorField: mentorField,
     mentorAvatar: mentorAvatar,
     mentorColor: mentorColor,
@@ -111,7 +148,7 @@ export const getOrCreateChat = async ({ student, mentor }) => {
   };
 
   try {
-    const chatRef = doc(db, 'chats', chatId);
+    const chatRef = doc(db, "chats", chatId);
     const chatSnap = await getDoc(chatRef);
 
     if (chatSnap.exists()) {
@@ -126,26 +163,33 @@ export const getOrCreateChat = async ({ student, mentor }) => {
     await setDoc(chatRef, defaultChatData, { merge: true });
 
     // Add initial welcome message in subcollection
-    const messagesRef = collection(db, 'chats', chatId, 'messages');
+    const messagesRef = collection(db, "chats", chatId, "messages");
     const initialMsg = {
       text: `Hello ${studentName}! I am ${mentorName} (${mentorField}). How can I assist you with your academic goals, degree selection, or career pathway today?`,
       senderId: mentorId,
       senderName: mentorName,
-      senderRole: 'mentor',
+      senderRole: "mentor",
       createdAt: new Date().toISOString(),
-      isInitial: true
+      isInitial: true,
     };
-    
-    await addDoc(messagesRef, initialMsg).catch(err => console.warn('Subcollection add notice:', err));
+
+    await addDoc(messagesRef, initialMsg).catch((err) =>
+      console.warn("Subcollection add notice:", err),
+    );
 
     // Save in caches
-    saveCachedMessages(chatId, [{ id: 'msg_welcome_' + Date.now(), ...initialMsg }]);
+    saveCachedMessages(chatId, [
+      { id: "msg_welcome_" + Date.now(), ...initialMsg },
+    ]);
     updateChatInCache(studentId, defaultChatData);
     updateChatInCache(mentorId, defaultChatData);
 
     return defaultChatData;
   } catch (error) {
-    console.warn('Firestore getOrCreateChat note (falling back to cache):', error.message);
+    console.warn(
+      "Firestore getOrCreateChat note (falling back to cache):",
+      error.message,
+    );
     // Return cached or fallback object
     updateChatInCache(studentId, defaultChatData);
     return defaultChatData;
@@ -154,7 +198,7 @@ export const getOrCreateChat = async ({ student, mentor }) => {
 
 const updateChatInCache = (userId, chatData) => {
   const cached = getCachedChats(userId);
-  const idx = cached.findIndex(c => c.id === chatData.id);
+  const idx = cached.findIndex((c) => c.id === chatData.id);
   if (idx >= 0) {
     cached[idx] = { ...cached[idx], ...chatData };
   } else {
@@ -166,45 +210,61 @@ const updateChatInCache = (userId, chatData) => {
 /**
  * Subscribe to all chats for a given user in real-time
  */
-export const subscribeToUserChats = (userId, userRole, onChatsUpdate, onError) => {
+export const subscribeToUserChats = (
+  userId,
+  userRole,
+  onChatsUpdate,
+  onError,
+) => {
   if (!userId) return () => {};
 
   // 1. Deliver cached chats immediately
-  const cached = getCachedChats(userId);
+  const cached = getCachedChats(userId).filter((chat) =>
+    isChatForUser(chat, userId, userRole),
+  );
   if (cached.length > 0) {
     onChatsUpdate(cached);
   }
 
   try {
-    const chatsRef = collection(db, 'chats');
+    const chatsRef = collection(db, "chats");
     const q = query(
       chatsRef,
-      where('participants', 'array-contains', String(userId))
+      where("participants", "array-contains", String(userId)),
     );
 
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const firestoreChats = [];
-      snapshot.forEach((d) => {
-        firestoreChats.push({ id: d.id, ...d.data() });
-      });
+    const unsubscribe = onSnapshot(
+      q,
+      (snapshot) => {
+        const firestoreChats = [];
+        snapshot.forEach((d) => {
+          const chat = { id: d.id, ...d.data() };
+          if (isChatForUser(chat, userId, userRole)) firestoreChats.push(chat);
+        });
 
-      // Merge with cache in case some were created locally
-      const mergedMap = new Map();
-      cached.forEach(c => mergedMap.set(c.id, c));
-      firestoreChats.forEach(c => mergedMap.set(c.id, c));
-      const merged = Array.from(mergedMap.values());
+        // Merge with cache in case some were created locally
+        const mergedMap = new Map();
+        cached.forEach((c) => mergedMap.set(c.id, c));
+        firestoreChats.forEach((c) => mergedMap.set(c.id, c));
+        const merged = Array.from(mergedMap.values());
 
-      merged.sort((a, b) => new Date(b.updatedAt || b.lastMessageTime || 0) - new Date(a.updatedAt || a.lastMessageTime || 0));
-      saveCachedChats(userId, merged);
-      onChatsUpdate(merged);
-    }, (err) => {
-      console.warn('Firestore chats listener notice:', err.message);
-      if (onError) onError(err);
-    });
+        merged.sort(
+          (a, b) =>
+            new Date(b.updatedAt || b.lastMessageTime || 0) -
+            new Date(a.updatedAt || a.lastMessageTime || 0),
+        );
+        saveCachedChats(userId, merged);
+        onChatsUpdate(merged);
+      },
+      (err) => {
+        console.warn("Firestore chats listener notice:", err.message);
+        if (onError) onError(err);
+      },
+    );
 
     return unsubscribe;
   } catch (error) {
-    console.warn('Unable to listen to chats:', error);
+    console.warn("Unable to listen to chats:", error);
     if (onError) onError(error);
     return () => {};
   }
@@ -223,32 +283,38 @@ export const subscribeToMessages = (chatId, onMessagesUpdate, onError) => {
   }
 
   try {
-    const messagesRef = collection(db, 'chats', chatId, 'messages');
-    const q = query(messagesRef, orderBy('createdAt', 'asc'));
+    const messagesRef = collection(db, "chats", chatId, "messages");
+    const q = query(messagesRef, orderBy("createdAt", "asc"));
 
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const msgs = [];
-      snapshot.forEach((doc) => {
-        msgs.push({ id: doc.id, ...doc.data() });
-      });
+    const unsubscribe = onSnapshot(
+      q,
+      (snapshot) => {
+        const msgs = [];
+        snapshot.forEach((doc) => {
+          msgs.push({ id: doc.id, ...doc.data() });
+        });
 
-      // Merge with local cache by ID / timestamp to avoid duplicate flicker
-      const mergedMap = new Map();
-      cached.forEach(m => mergedMap.set(m.id || m.createdAt, m));
-      msgs.forEach(m => mergedMap.set(m.id || m.createdAt, m));
-      const mergedList = Array.from(mergedMap.values());
-      mergedList.sort((a, b) => new Date(a.createdAt || 0) - new Date(b.createdAt || 0));
+        // Merge with local cache by ID / timestamp to avoid duplicate flicker
+        const mergedMap = new Map();
+        cached.forEach((m) => mergedMap.set(m.id || m.createdAt, m));
+        msgs.forEach((m) => mergedMap.set(m.id || m.createdAt, m));
+        const mergedList = Array.from(mergedMap.values());
+        mergedList.sort(
+          (a, b) => new Date(a.createdAt || 0) - new Date(b.createdAt || 0),
+        );
 
-      saveCachedMessages(chatId, mergedList);
-      onMessagesUpdate(mergedList);
-    }, (err) => {
-      console.warn('Firestore messages listener note:', err.message);
-      if (onError) onError(err);
-    });
+        saveCachedMessages(chatId, mergedList);
+        onMessagesUpdate(mergedList);
+      },
+      (err) => {
+        console.warn("Firestore messages listener note:", err.message);
+        if (onError) onError(err);
+      },
+    );
 
     return unsubscribe;
   } catch (error) {
-    console.warn('Unable to listen to messages:', error);
+    console.warn("Unable to listen to messages:", error);
     if (onError) onError(error);
     return () => {};
   }
@@ -257,7 +323,13 @@ export const subscribeToMessages = (chatId, onMessagesUpdate, onError) => {
 /**
  * Send a message in a chat room
  */
-export const sendMessage = async ({ chatId, senderId, senderName, senderRole, text }) => {
+export const sendMessage = async ({
+  chatId,
+  senderId,
+  senderName,
+  senderRole,
+  text,
+}) => {
   if (!chatId || !text?.trim()) return null;
 
   const trimmed = text.trim();
@@ -268,8 +340,8 @@ export const sendMessage = async ({ chatId, senderId, senderName, senderRole, te
     id: tempId,
     text: trimmed,
     senderId: String(senderId),
-    senderName: senderName || (senderRole === 'mentor' ? 'Mentor' : 'Student'),
-    senderRole: senderRole || 'student',
+    senderName: senderName || (senderRole === "mentor" ? "Mentor" : "Student"),
+    senderRole: senderRole || "student",
     createdAt: now,
   };
 
@@ -280,7 +352,7 @@ export const sendMessage = async ({ chatId, senderId, senderName, senderRole, te
 
   // 2. Persist to Firestore
   try {
-    const messagesRef = collection(db, 'chats', chatId, 'messages');
+    const messagesRef = collection(db, "chats", chatId, "messages");
     const docRef = await addDoc(messagesRef, {
       text: newMsg.text,
       senderId: newMsg.senderId,
@@ -292,7 +364,7 @@ export const sendMessage = async ({ chatId, senderId, senderName, senderRole, te
     newMsg.id = docRef.id;
 
     // Update parent chat doc
-    const chatRef = doc(db, 'chats', chatId);
+    const chatRef = doc(db, "chats", chatId);
     const updatePayload = {
       lastMessage: trimmed,
       lastMessageTime: now,
@@ -300,7 +372,7 @@ export const sendMessage = async ({ chatId, senderId, senderName, senderRole, te
       updatedAt: now,
     };
 
-    if (senderRole === 'student') {
+    if (senderRole === "student") {
       updatePayload.unreadMentor = increment(1);
     } else {
       updatePayload.unreadStudent = increment(1);
@@ -313,7 +385,10 @@ export const sendMessage = async ({ chatId, senderId, senderName, senderRole, te
 
     return newMsg;
   } catch (error) {
-    console.warn('Firestore message save note (message saved locally):', error.message);
+    console.warn(
+      "Firestore message save note (message saved locally):",
+      error.message,
+    );
     return newMsg;
   }
 };
@@ -324,8 +399,9 @@ export const sendMessage = async ({ chatId, senderId, senderName, senderRole, te
 export const markChatAsRead = async (chatId, userRole) => {
   if (!chatId) return;
   try {
-    const chatRef = doc(db, 'chats', chatId);
-    const field = userRole === 'mentor' ? { unreadMentor: 0 } : { unreadStudent: 0 };
+    const chatRef = doc(db, "chats", chatId);
+    const field =
+      userRole === "mentor" ? { unreadMentor: 0 } : { unreadStudent: 0 };
     await updateDoc(chatRef, field).catch(() => {});
   } catch {
     // Ignore non-fatal read updates
@@ -337,32 +413,21 @@ export const markChatAsRead = async (chatId, userRole) => {
  */
 export const fetchRegisteredMentors = async () => {
   try {
-    const usersRef = collection(db, 'users');
-    const q = query(usersRef, where('role', '==', 'mentor'));
-    const snapshot = await getDocs(q);
-    const registered = [];
-    snapshot.forEach(d => {
-      const data = d.data();
-      registered.push({
-        id: d.id,
-        uid: d.id,
-        name: `${data.firstName || ''} ${data.lastName || ''}`.trim() || data.displayName || data.email?.split('@')[0] || 'Mentor',
-        field: data.expertise?.[0] || data.field || 'Academic Guidance',
-        exp: data.experience || '5+ yrs',
-        rating: data.rating || 5.0,
-        sessions: data.sessions || 12,
-        avatar: (data.firstName?.[0] || data.email?.[0] || 'M').toUpperCase(),
-        color: '#7c3aed',
-        tags: data.expertise || ['Mentorship', 'Career Guidance'],
-        bio: data.bio || 'Verified mentor ready to assist students with their study and career path.',
+    const mentors = await fetchMentorsFromFirestore();
+    return mentors
+      .filter((mentor) => mentor.is_verified)
+      .map((mentor) => ({
+        ...mentor,
+        uid: String(mentor.uid || mentor.mentor_id || mentor.id),
+        id: String(mentor.id || mentor.mentor_id || mentor.uid),
+        field: mentor.specialization || mentor.domain || "Academic Guidance",
+        exp: `${mentor.experience_years || 0} yrs experience`,
+        tags: mentor.skills || mentor.expertise || [],
         available: true,
         isRegistered: true,
-        email: data.email
-      });
-    });
-    return registered;
+      }));
   } catch (error) {
-    console.warn('Could not fetch registered mentors from Firestore:', error);
+    console.warn("Could not fetch registered mentors from Firestore:", error);
     return [];
   }
 };

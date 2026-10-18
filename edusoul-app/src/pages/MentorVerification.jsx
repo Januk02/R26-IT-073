@@ -161,103 +161,407 @@ const MentorVerification = ({ onComplete, onCancel }) => {
     }
   };
 
-  // Analyze answer and generate score (mock AI analysis)
+  // Analyze answer and generate a stricter, domain-aware score.
   const analyzeAnswer = async (question, answerText) => {
-    // This is a mock analysis. In production, you would use an AI service like OpenAI API
-    // For now, we'll use a simple heuristic based on answer length and keywords
+    const text = (answerText || "").toLowerCase().trim();
 
-    const keywords = {
-      "Mentorship Skill": [
-        "approach",
-        "support",
-        "example",
-        "experience",
-        "guidance",
-        "patience",
-      ],
-      "Handling Challenges": [
-        "struggling",
-        "unmotivated",
-        "encourage",
-        "support",
-        "identify",
-        "help",
-      ],
-      "Communication & Relationship": [
-        "trust",
-        "feedback",
-        "open",
-        "honest",
-        "listen",
-        "understand",
-      ],
-      "Commitment & Boundaries": [
-        "time",
-        "commit",
-        "hours",
-        "professional",
-        "boundaries",
-        "respect",
-      ],
-      "Motivation & Values": [
-        "want",
-        "help",
-        "share",
-        "knowledge",
-        "growth",
-        "passion",
-      ],
-      Expectations: [
-        "expect",
-        "commitment",
-        "effort",
-        "communication",
-        "respect",
-        "engagement",
-      ],
-      Adaptability: [
-        "adjust",
-        "different",
-        "flexible",
-        "personalize",
-        "adapt",
-        "approach",
-      ],
-      "Self-awareness / Limits": [
-        "challenging",
-        "limit",
-        "refer",
-        "honest",
-        "know",
-        "boundaries",
-      ],
-      "Conflict / Rupture Repair": [
-        "disagree",
-        "respect",
-        "listen",
-        "understand",
-        "compromise",
-        "discuss",
-      ],
+    if (!text || text.length < 10) {
+      return 0;
+    }
+
+    const evaluationCriteria = {
+      "Mentorship Skill": {
+        essentialKeywords: [
+          "approach",
+          "method",
+          "strategy",
+          "style",
+          "technique",
+        ],
+        qualityKeywords: [
+          "support",
+          "guide",
+          "help",
+          "encourage",
+          "empower",
+          "facilitate",
+        ],
+        exampleKeywords: [
+          "example",
+          "instance",
+          "case",
+          "specific",
+          "particular",
+          "time",
+        ],
+        experienceKeywords: [
+          "experience",
+          "background",
+          "years",
+          "worked",
+          "practiced",
+        ],
+        weightings: { essential: 3, quality: 2, example: 2, experience: 1 },
+      },
+      "Handling Challenges": {
+        essentialKeywords: [
+          "struggling",
+          "unmotivated",
+          "difficult",
+          "challenge",
+          "problem",
+        ],
+        supportKeywords: [
+          "support",
+          "help",
+          "assist",
+          "encourage",
+          "motivate",
+          "inspire",
+        ],
+        strategyKeywords: [
+          "identify",
+          "understand",
+          "assess",
+          "analyze",
+          "diagnose",
+        ],
+        solutionKeywords: [
+          "solution",
+          "approach",
+          "strategy",
+          "plan",
+          "action",
+          "steps",
+        ],
+        weightings: { essential: 3, support: 2, strategy: 2, solution: 1 },
+      },
+      "Communication & Relationship": {
+        essentialKeywords: [
+          "trust",
+          "rapport",
+          "relationship",
+          "connection",
+          "bond",
+        ],
+        feedbackKeywords: [
+          "feedback",
+          "constructive",
+          "honest",
+          "direct",
+          "tough",
+          "difficult",
+        ],
+        listeningKeywords: [
+          "listen",
+          "understand",
+          "empathize",
+          "hear",
+          "attentive",
+        ],
+        opennessKeywords: [
+          "open",
+          "honest",
+          "transparent",
+          "sincere",
+          "genuine",
+        ],
+        weightings: { essential: 3, feedback: 2, listening: 2, openness: 1 },
+      },
+      "Commitment & Boundaries": {
+        essentialKeywords: [
+          "time",
+          "hours",
+          "commitment",
+          "dedication",
+          "availability",
+        ],
+        boundaryKeywords: [
+          "boundaries",
+          "limits",
+          "professional",
+          "appropriate",
+          "ethical",
+        ],
+        respectKeywords: [
+          "respect",
+          "confidentiality",
+          "privacy",
+          "trust",
+          "integrity",
+        ],
+        practicalKeywords: [
+          "realistic",
+          "practical",
+          "manageable",
+          "feasible",
+          "reasonable",
+        ],
+        weightings: { essential: 3, boundary: 3, respect: 2, practical: 1 },
+      },
+      "Motivation & Values": {
+        essentialKeywords: ["why", "motivation", "reason", "purpose", "drive"],
+        passionKeywords: [
+          "passion",
+          "love",
+          "enjoy",
+          "fulfillment",
+          "satisfaction",
+        ],
+        impactKeywords: [
+          "impact",
+          "difference",
+          "contribution",
+          "help",
+          "make",
+          "change",
+        ],
+        growthKeywords: [
+          "growth",
+          "development",
+          "learning",
+          "improvement",
+          "progress",
+        ],
+        weightings: { essential: 3, passion: 2, impact: 2, growth: 1 },
+      },
+      Expectations: {
+        essentialKeywords: ["expect", "requirement", "need", "should", "must"],
+        commitmentKeywords: [
+          "commitment",
+          "effort",
+          "dedication",
+          "engagement",
+          "participation",
+        ],
+        communicationKeywords: [
+          "communication",
+          "feedback",
+          "updates",
+          "progress",
+          "check-in",
+        ],
+        respectKeywords: [
+          "respect",
+          "professionalism",
+          "courtesy",
+          "consideration",
+        ],
+        weightings: {
+          essential: 3,
+          commitment: 2,
+          communication: 2,
+          respect: 1,
+        },
+      },
+      Adaptability: {
+        essentialKeywords: ["adjust", "adapt", "flexible", "modify", "change"],
+        personalizationKeywords: [
+          "personalize",
+          "individual",
+          "custom",
+          "tailor",
+          "specific",
+        ],
+        assessmentKeywords: [
+          "assess",
+          "evaluate",
+          "understand",
+          "identify",
+          "recognize",
+        ],
+        approachKeywords: [
+          "approach",
+          "method",
+          "technique",
+          "strategy",
+          "style",
+        ],
+        weightings: {
+          essential: 3,
+          personalization: 2,
+          assessment: 2,
+          approach: 1,
+        },
+      },
+      "Self-awareness / Limits": {
+        essentialKeywords: [
+          "challenging",
+          "difficult",
+          "limit",
+          "boundary",
+          "struggle",
+        ],
+        honestyKeywords: [
+          "honest",
+          "aware",
+          "recognize",
+          "admit",
+          "acknowledge",
+        ],
+        referralKeywords: [
+          "refer",
+          "redirect",
+          "specialist",
+          "expert",
+          "resource",
+        ],
+        learningKeywords: ["learn", "improve", "develop", "grow", "seek"],
+        weightings: { essential: 3, honesty: 2, referral: 2, learning: 1 },
+      },
+      "Conflict / Rupture Repair": {
+        essentialKeywords: [
+          "disagree",
+          "conflict",
+          "disagreement",
+          "tension",
+          "rupture",
+        ],
+        respectKeywords: [
+          "respect",
+          "validate",
+          "acknowledge",
+          "understand",
+          "empathize",
+        ],
+        discussionKeywords: [
+          "discuss",
+          "talk",
+          "communicate",
+          "dialogue",
+          "conversation",
+        ],
+        resolutionKeywords: [
+          "compromise",
+          "solution",
+          "resolve",
+          "agree",
+          "common ground",
+        ],
+        weightings: { essential: 3, respect: 2, discussion: 2, resolution: 1 },
+      },
     };
 
-    const domainKeywords = keywords[currentQuestion.domain] || [];
-    let keywordCount = 0;
+    const criteria = evaluationCriteria[question.domain];
+    if (!criteria) {
+      return 5;
+    }
 
-    domainKeywords.forEach((keyword) => {
-      if (answerText.toLowerCase().includes(keyword)) {
-        keywordCount++;
-      }
+    let totalScore = 0;
+    let maxPossibleScore = 0;
+
+    Object.keys(criteria).forEach((category) => {
+      if (category === "weightings") return;
+      const keywords = criteria[category];
+      const weight = criteria.weightings[category.replace("Keywords", "")];
+      maxPossibleScore += weight;
+
+      keywords.forEach((keyword) => {
+        if (text.includes(keyword)) {
+          totalScore += weight / keywords.length;
+        }
+      });
     });
 
-    // Base score from keyword relevance
-    let score = Math.min(5 + keywordCount, 8);
+    let qualityBonus = 0;
+    const wordCount = text.split(/\s+/).filter(Boolean).length;
+    qualityBonus += Math.min(1.5, Math.log1p(wordCount / 10) * 0.8);
 
-    // Bonus for longer, more detailed answers
-    if (answerText.length > 100) score += 1;
-    if (answerText.length > 200) score += 1;
+    const keywordDensity = totalScore / maxPossibleScore;
+    if (keywordDensity > 0.3 && wordCount < 80) {
+      qualityBonus += 0.6;
+    }
 
-    return Math.min(score, 10);
+    const sentenceCount = text.split(/[.!?]/).filter((s) => s.trim()).length;
+    if (sentenceCount > 2) qualityBonus += 0.4;
+    if (
+      text.includes("example") ||
+      text.includes("instance") ||
+      text.includes("specific")
+    ) {
+      qualityBonus += 0.6;
+    }
+    if (
+      text.includes("because") ||
+      text.includes("therefore") ||
+      text.includes("so") ||
+      text.includes("thus")
+    ) {
+      qualityBonus += 0.4;
+    }
+
+    const professionalTerms = [
+      "professional",
+      "appropriate",
+      "effective",
+      "successful",
+      "positive",
+      "constructive",
+      "approach",
+      "strategy",
+      "method",
+      "technique",
+      "process",
+      "systematic",
+      "understand",
+      "assess",
+      "evaluate",
+      "analyze",
+      "identify",
+      "recognize",
+      "support",
+      "guide",
+      "help",
+      "assist",
+      "encourage",
+      "empower",
+      "facilitate",
+      "communication",
+      "relationship",
+      "trust",
+      "rapport",
+      "connection",
+      "bond",
+    ];
+    const profTermsFound = professionalTerms.filter((term) =>
+      text.includes(term),
+    ).length;
+    qualityBonus += Math.min(profTermsFound * 0.12, 1.0);
+
+    const genericPhrases = ["i dont know", "not sure", "maybe", "perhaps"];
+    const genericFound = genericPhrases.filter((phrase) =>
+      text.includes(phrase),
+    ).length;
+    qualityBonus -= genericFound * 0.5;
+
+    const relevanceScore = totalScore / maxPossibleScore;
+    if (relevanceScore < 0.05) {
+      qualityBonus -= 2.0;
+    }
+
+    let finalScore = (totalScore / maxPossibleScore) * 6;
+    finalScore += qualityBonus;
+
+    if (question.domain === "Mentorship Skill" && text.includes("example")) {
+      finalScore += 0.5;
+    }
+    if (
+      question.domain === "Handling Challenges" &&
+      text.includes("understand") &&
+      text.includes("support")
+    ) {
+      finalScore += 0.5;
+    }
+    if (
+      question.domain === "Communication & Relationship" &&
+      text.includes("trust") &&
+      text.includes("feedback")
+    ) {
+      finalScore += 0.5;
+    }
+
+    finalScore = Math.max(1, Math.min(10, finalScore));
+    return Math.round(finalScore * 10) / 10;
   };
 
   // Save verification to Firestore

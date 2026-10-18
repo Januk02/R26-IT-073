@@ -13,6 +13,8 @@ import json
 from datetime import datetime
 from dotenv import load_dotenv
 from google import genai
+import firebase_admin
+from firebase_admin import credentials, firestore
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 load_dotenv(os.path.join(basedir, '.env'))
@@ -71,7 +73,115 @@ def format_mentor_name(raw_name, mentor_id):
     return REAL_MENTOR_NAMES[idx % len(REAL_MENTOR_NAMES)]
 
 def load_data():
-    """Load mentors and mentees datasets"""
+    """Load mentors and mentees datasets from Firestore"""
+    global df_mentors, df_mentees
+
+    # Initialize Firebase Admin SDK
+    try:
+        if not firebase_admin._apps:
+            # Try to get credentials from environment variables
+            project_id = os.getenv('FIREBASE_PROJECT_ID')
+            private_key = os.getenv('FIREBASE_PRIVATE_KEY')
+            client_email = os.getenv('FIREBASE_CLIENT_EMAIL')
+
+            if project_id and private_key and client_email:
+                # Use service account credentials from environment
+                cred = credentials.Certificate({
+                    "type": "service_account",
+                    "project_id": project_id,
+                    "private_key_id": os.getenv('FIREBASE_PRIVATE_KEY_ID', ''),
+                    "private_key": private_key.replace('\\n', '\n'),
+                    "client_email": client_email,
+                    "client_id": os.getenv('FIREBASE_CLIENT_ID', ''),
+                    "auth_uri": os.getenv('FIREBASE_AUTH_URI', 'https://accounts.google.com/o/oauth2/auth'),
+                    "token_uri": os.getenv('FIREBASE_TOKEN_URI', 'https://oauth2.googleapis.com/token'),
+                    "auth_provider_x509_cert_url": os.getenv('FIREBASE_AUTH_PROVIDER_X509_CERT_URL', 'https://www.googleapis.com/oauth2/v1/certs'),
+                    "client_x509_cert_url": os.getenv('FIREBASE_CLIENT_X509_CERT_URL', 'https://www.googleapis.com/robot/v1/metadata/x509/')
+                })
+                firebase_admin.initialize_app(cred)
+            else:
+                # Use Application Default Credentials (Google Cloud environment)
+                cred = credentials.ApplicationDefault()
+                firebase_admin.initialize_app(cred, {'projectId': project_id or 'edusoul-baeb2'})
+        db = firestore.client()
+        print("✅ Firebase Admin initialized")
+    except Exception as e:
+        print(f"⚠️ Firebase initialization failed: {e}")
+        print("Falling back to CSV files...")
+        load_from_csv()
+        return
+
+    # Fetch mentors from Firestore
+    try:
+        mentors_ref = db.collection('mentorProfiles')
+        mentors_docs = mentors_ref.stream()
+        mentors_data = []
+        for doc in mentors_docs:
+            mentor = doc.to_dict()
+            mentor['mentor_id'] = doc.id
+            # Ensure required fields exist
+            mentor.setdefault('name', 'Mentor')
+            mentor.setdefault('domain', mentor.get('specialization', 'General'))
+            mentor.setdefault('experience_years', mentor.get('yearsExperience', 5))
+            mentor.setdefault('skills', mentor.get('expertise', ''))
+            mentor.setdefault('location', mentor.get('location', 'Colombo'))
+            mentor.setdefault('availability_hours', mentor.get('availabilityHours', 4))
+            mentor.setdefault('languages', mentor.get('languages', 'English'))
+            mentor.setdefault('verification_level', mentor.get('verificationLevel', 'Bronze'))
+            mentor.setdefault('combined_verification_score', mentor.get('verificationScore', 70))
+            mentor.setdefault('university', mentor.get('university', 'University'))
+            mentor.setdefault('industry_role', mentor.get('industryRole', 'Specialist'))
+            mentors_data.append(mentor)
+
+        if mentors_data:
+            df_mentors = pd.DataFrame(mentors_data)
+            print(f"✅ Loaded {len(df_mentors)} mentors from Firestore")
+        else:
+            print("⚠️ No mentors found in Firestore")
+            df_mentors = None
+    except Exception as e:
+        print(f"⚠️ Error fetching mentors from Firestore: {e}")
+        df_mentors = None
+
+    # Fetch mentees/students from Firestore
+    try:
+        mentees_ref = db.collection('studentMentorshipProfiles')
+        mentees_docs = mentees_ref.stream()
+        mentees_data = []
+        for doc in mentees_docs:
+            mentee = doc.to_dict()
+            mentee['student_id'] = doc.id
+            # Ensure required fields exist
+            mentee.setdefault('name', 'Student')
+            mentee.setdefault('interests', mentee.get('interests', []))
+            mentee.setdefault('location', mentee.get('location', 'Colombo'))
+            mentee.setdefault('available_hours', mentee.get('availabilityHours', 4))
+            mentee.setdefault('languages', mentee.get('languages', 'English'))
+            mentee.setdefault('university', mentee.get('university', 'University'))
+            mentee.setdefault('year_of_study', 2)
+            mentee.setdefault('gpa', 3.0)
+            mentees_data.append(mentee)
+
+        if mentees_data:
+            df_mentees = pd.DataFrame(mentees_data)
+            print(f"✅ Loaded {len(df_mentees)} mentees from Firestore")
+        else:
+            print("⚠️ No mentees found in Firestore")
+            df_mentees = None
+    except Exception as e:
+        print(f"⚠️ Error fetching mentees from Firestore: {e}")
+        df_mentees = None
+
+    # Fallback to CSV if Firestore is empty or failed
+    if df_mentors is None or df_mentees is None or len(df_mentors) == 0 or len(df_mentees) == 0:
+        print("⚠️ Firestore data incomplete. Falling back to CSV files...")
+        load_from_csv()
+    elif df_mentors is None or df_mentees is None:
+        print("⚠️ Firestore data not available. Using synthetic data fallback.")
+        generate_synthetic_data()
+
+def load_from_csv():
+    """Load data from CSV files as fallback"""
     global df_mentors, df_mentees
 
     base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -109,10 +219,6 @@ def load_data():
             df_mentees = pd.read_csv(path)
             print(f"✅ Loaded {len(df_mentees)} mentees from {path}")
             break
-
-    if df_mentors is None or df_mentees is None:
-        print("⚠️ Warning: Could not load datasets. Using synthetic data fallback.")
-        generate_synthetic_data()
 
 def generate_synthetic_data():
     """Generate synthetic data if real data not available"""
@@ -555,6 +661,105 @@ def analyze_interview():
         print(f"❌ Error in analyze_interview: {e}")
         print(traceback.format_exc())
         return jsonify({'error': str(e)}), 500
+
+@app.route('/api/match-profiles', methods=['POST'])
+def match_live_profiles():
+    """Rank live Firestore student profiles against a registered mentor profile."""
+    try:
+        data = request.get_json() or {}
+        mentor_profile = data.get('mentor') or {}
+        student_profiles = data.get('students') or []
+        if not mentor_profile.get('mentorId') or not isinstance(student_profiles, list):
+            return jsonify({'error': 'A mentor profile and student profile list are required'}), 400
+
+        def values(value):
+            if isinstance(value, list):
+                return [str(item).strip() for item in value if str(item).strip()]
+            if isinstance(value, str):
+                return [item.strip() for item in value.split(',') if item.strip()]
+            return []
+
+        def overlap_score(left, right):
+            ignored = {'a', 'an', 'and', 'in', 'of', 'the', 'to', 'for', 'with'}
+            left_words = {word.lower().strip('.,') for word in str(left).split()} - ignored
+            right_words = {word.lower().strip('.,') for word in str(right).split()} - ignored
+            if not left_words or not right_words:
+                return 0
+            return round(len(left_words & right_words) / min(len(left_words), len(right_words)) * 100, 2)
+
+        mentor_skills = values(mentor_profile.get('skills')) + values(mentor_profile.get('expertise'))
+        mentor_skills += values(mentor_profile.get('qualifications')) + values(mentor_profile.get('highestDegree'))
+        mentor = pd.Series({
+            'mentor_id': mentor_profile.get('mentorId'),
+            'name': mentor_profile.get('name', 'Mentor'),
+            'domain': mentor_profile.get('specialization', ''),
+            'university': mentor_profile.get('university', ''),
+            'industry_role': mentor_profile.get('industryRole', ''),
+            'experience_years': int(mentor_profile.get('yearsExperience') or 0),
+            'skills': ','.join(mentor_skills),
+            'location': mentor_profile.get('location', ''),
+            'availability_hours': int(mentor_profile.get('availabilityHours') or 1),
+            'languages': ','.join(values(mentor_profile.get('languages'))),
+            'verification_level': mentor_profile.get('verificationLevel', 'Bronze'),
+            'combined_verification_score': mentor_profile.get('verificationScore', 60),
+        })
+
+        matches = []
+        for student in student_profiles[:1000]:
+            interests = values(student.get('interests')) + values(student.get('skills'))
+            interests += values(student.get('qualifications'))
+            interests += [student.get('dreamJob', ''), student.get('fieldOfStudy', ''), student.get('degreeProgram', '')]
+            mentee = pd.Series({
+                'student_id': student.get('studentId'),
+                'name': student.get('name', 'Student'),
+                'interests': [item for item in interests if item],
+                'location': student.get('location', ''),
+                'available_hours': int(student.get('availableHours') or 4),
+                'languages': ','.join(values(student.get('languages')) or ['English']),
+                'university': student.get('university', ''),
+                'year_of_study': student.get('yearOfStudy', 2),
+                'gpa': student.get('gpa', 3.0),
+            })
+            compatibility, breakdown = calculate_compatibility_score(mentor, mentee)
+            degree_match = overlap_score(
+                f"{student.get('degreeProgram', '')} {student.get('fieldOfStudy', '')}",
+                f"{mentor_profile.get('highestDegree', '')} {' '.join(values(mentor_profile.get('qualifications')))} {mentor_profile.get('specialization', '')}",
+            )
+            compatibility = round(compatibility * 0.85 + degree_match * 0.15, 2)
+            breakdown['degree_qualification_match'] = degree_match
+
+            features = {
+                'domain_match': int(mentor['domain'] in interests),
+                'university_match': int(mentor['university'] == mentee.get('university', '')),
+                'location_match': int(mentor['location'] == mentee.get('location', '')),
+                'mentor_experience': mentor['experience_years'],
+                'mentor_verification_score': mentor['combined_verification_score'],
+                'mentee_year': mentee.get('year_of_study', 2),
+                'mentee_gpa': mentee.get('gpa', 3.0),
+                'availability_match': int(mentor['availability_hours'] >= mentee.get('available_hours', 4)),
+                'language_match': int(bool(set(str(mentor['languages']).split(',')) & set(str(mentee['languages']).split(',')))),
+            }
+            confidence = round(float(model.predict_proba(pd.DataFrame([features]))[0][1] * 100), 2)
+            matches.append({
+                'student_id': student.get('studentId'),
+                'student_name': student.get('name', 'Student'),
+                'degree_program': student.get('degreeProgram', ''),
+                'field_of_study': student.get('fieldOfStudy', ''),
+                'location': student.get('location', ''),
+                'student_interests': [item for item in values(student.get('interests')) if item][:5],
+                'compatibility_score': compatibility,
+                'match_probability': confidence,
+                'breakdown': breakdown,
+            })
+
+        matches.sort(key=lambda item: item['compatibility_score'], reverse=True)
+        return jsonify({'matches': matches})
+    except Exception as e:
+        import traceback
+        print(f"❌ Error in match_live_profiles: {e}")
+        print(traceback.format_exc())
+        return jsonify({'error': str(e)}), 500
+
 
 @app.route('/api/stats', methods=['GET'])
 def get_stats():

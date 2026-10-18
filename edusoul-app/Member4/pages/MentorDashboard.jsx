@@ -1,48 +1,41 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useAuth } from '../../src/contexts/AuthContext';
-import MentorMedals from '../components/MentorMedals';
-import BrandHeader from '../components/BrandHeader';
-import ChatList from '../components/ChatList';
-import { useApiHealth, useMentorshipStats } from '../hooks/useMentorship';
+import { motion } from "framer-motion";
+import { useAuth } from "../../src/contexts/AuthContext";
+import MentorMedals from "../components/MentorMedals";
+import MentorMatchedStudents from "../components/MentorMatchedStudents";
+import BrandHeader from "../components/BrandHeader";
+import { useApiHealth, useMentorshipStats } from "../hooks/useMentorship";
 import {
   ShieldCheck,
-  History,
   FileText,
   Sparkles,
   MessageSquare,
-  Award,
   Users,
-  CheckCircle2,
   ArrowUpRight,
-  TrendingUp,
   BrainCircuit,
   Zap,
-  Globe,
-  Star,
   LogOut,
-  Target,
   BadgeCheck,
-  ChevronRight,
-  Activity,
-  Layers,
-} from 'lucide-react';
+} from "lucide-react";
 
-const MentorDashboard = ({ 
-  onStartVerification, 
-  onViewHistory, 
-  onStartCVVerification, 
-  onMentorshipMatching,
-  onNavigateToMessages
+const MentorDashboard = ({
+  onStartVerification,
+  onStartCVVerification,
+  onEditProfile,
+  onNavigateToMessages,
 }) => {
-  const { user, userRole, logout } = useAuth();
-  const [showChat, setShowChat] = useState(false);
-  const { isConnected, health, loading: healthLoading } = useApiHealth();
-  const { stats, loading: statsLoading } = useMentorshipStats();
+  const { user, logout } = useAuth();
+  const { isConnected } = useApiHealth();
+  const { stats } = useMentorshipStats();
 
-  const mentorName = user?.displayName || user?.email?.split('@')[0] || 'Mentor';
+  const mentorName =
+    user?.displayName || user?.email?.split("@")[0] || "Mentor";
+  const openMatchCenter = () =>
+    document
+      .getElementById("mentor-match-center")
+      ?.scrollIntoView({ behavior: "smooth" });
   const hour = new Date().getHours();
-  const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+  const greeting =
+    hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
 
   return (
     <>
@@ -410,17 +403,21 @@ const MentorDashboard = ({
         {/* ── Top Faculty Navigation Bar ── */}
         <header className="mentor-exec-nav">
           <div className="mentor-exec-nav-inner">
-            <BrandHeader 
+            <BrandHeader
               title="StudiFyx"
               subtitle="Faculty Mentor Command Portal"
               logoSize="w-12 h-12"
             />
             <div className="flex items-center gap-4">
               <div className="text-right hidden sm:block">
-                <p className="text-sm font-black text-slate-900">{user?.email}</p>
+                <p className="text-sm font-black text-slate-900">
+                  {user?.email}
+                </p>
                 <div className="flex items-center justify-end gap-1.5 mt-0.5">
                   <span className="w-2 h-2 rounded-full bg-purple-600 animate-pulse"></span>
-                  <p className="text-xs text-purple-700 font-extrabold uppercase tracking-wider">Faculty Mentor</p>
+                  <p className="text-xs text-purple-700 font-extrabold uppercase tracking-wider">
+                    Faculty Mentor
+                  </p>
                 </div>
               </div>
               <button
@@ -436,9 +433,9 @@ const MentorDashboard = ({
 
         {/* ── 3D Hero Command Banner with Executive Faculty Art ── */}
         <div className="mentor-exec-hero">
-          <img 
-            src="/executive_mentor_hero.jpg" 
-            alt="Faculty Mentor Command Center" 
+          <img
+            src="/executive_mentor_hero.jpg"
+            alt="Faculty Mentor Command Center"
             className="mentor-exec-hero-bg"
           />
           <div className="mentor-exec-hero-overlay" />
@@ -464,26 +461,35 @@ const MentorDashboard = ({
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
               >
-                Your verified faculty status, evaluation telemetry, and mentorship actions at a glance.
+                Your verified faculty status, evaluation telemetry, and
+                mentorship actions at a glance.
               </motion.p>
 
-              <motion.div 
+              <motion.div
                 className="hero-telemetry-row"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
                 <div className="hero-telemetry-chip">
-                  <span 
-                    className="hero-pulse-dot" 
-                    style={{ background: isConnected ? '#10B981' : '#F59E0B' }} 
+                  <span
+                    className="hero-pulse-dot"
+                    style={{ background: isConnected ? "#10B981" : "#F59E0B" }}
                   />
-                  <span>{isConnected ? 'ML Engine Live (Port 5000)' : 'Firebase Standby'}</span>
+                  <span>
+                    {isConnected
+                      ? "ML Engine Live (Port 5000)"
+                      : "Firebase Standby"}
+                  </span>
                 </div>
 
                 <div className="hero-telemetry-chip">
                   <Users size={14} className="text-purple-300" />
-                  <span>{stats?.total_mentors ? `${stats.total_mentors} Active Mentors` : '11,000+ Verified Pool'}</span>
+                  <span>
+                    {stats?.total_mentors
+                      ? `${stats.total_mentors} Active Mentors`
+                      : "11,000+ Verified Pool"}
+                  </span>
                 </div>
 
                 <div className="hero-telemetry-chip">
@@ -494,14 +500,14 @@ const MentorDashboard = ({
             </div>
 
             {/* 3D Live Faculty Card with Floating Bubbles */}
-            <motion.div 
+            <motion.div
               className="hero-faculty-card"
               initial={{ opacity: 0, scale: 0.92, x: 20 }}
               animate={{ opacity: 1, scale: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.15 }}
             >
               <img src="/executive_mentor_hero.jpg" alt="Faculty Mentor AI" />
-              
+
               <div className="hero-tag-bubble tag-bubble-top">
                 <div className="w-5 h-5 rounded-md bg-purple-600 flex items-center justify-center text-white text-[10px]">
                   <Sparkles size={11} />
@@ -521,9 +527,10 @@ const MentorDashboard = ({
 
         {/* ── Main Executive Body: Status Shown First ── */}
         <div className="mentor-exec-body">
-
           {/* ════════ 1. PRIMARY STATUS & ACCREDITATION TELEMETRY (SHOWN FIRST) ════════ */}
           <MentorMedals />
+
+          <MentorMatchedStudents />
 
           {/* ════════ 2. ACTION CAPABILITIES COMMAND HUB ════════ */}
           <div className="exec-actions-container">
@@ -539,11 +546,12 @@ const MentorDashboard = ({
 
             <div className="exec-capabilities-grid">
               {/* Action 1: AI Oral Verification */}
-              <div 
+              <div
                 className="exec-action-card"
                 style={{
-                  '--tile-hover-bg': 'linear-gradient(135deg, #7C3AED 0%, #6366F1 100%)',
-                  '--tile-accent': '#7C3AED'
+                  "--tile-hover-bg":
+                    "linear-gradient(135deg, #7C3AED 0%, #6366F1 100%)",
+                  "--tile-accent": "#7C3AED",
                 }}
                 onClick={onStartVerification}
               >
@@ -552,11 +560,16 @@ const MentorDashboard = ({
                     <div className="action-icon-box">
                       <ShieldCheck size={24} strokeWidth={2} />
                     </div>
-                    <span className="text-[11px] font-mono font-black text-purple-600 bg-purple-50 px-2 py-0.5 rounded-md border border-purple-200">60% WT</span>
+                    <span className="text-[11px] font-mono font-black text-purple-600 bg-purple-50 px-2 py-0.5 rounded-md border border-purple-200">
+                      60% WT
+                    </span>
                   </div>
                   <span className="action-tag-label">AI ORAL ASSESSMENT</span>
                   <h4 className="action-title">AI Oral Interview</h4>
-                  <p className="action-desc">AI-scored interview evaluating pedagogical empathy & boundaries.</p>
+                  <p className="action-desc">
+                    AI-scored interview evaluating pedagogical empathy &
+                    boundaries.
+                  </p>
                 </div>
                 <div className="action-arrow-link">
                   <span className="action-btn-text">Start Interview</span>
@@ -565,11 +578,12 @@ const MentorDashboard = ({
               </div>
 
               {/* Action 2: CV Evaluation */}
-              <div 
+              <div
                 className="exec-action-card"
                 style={{
-                  '--tile-hover-bg': 'linear-gradient(135deg, #059669 0%, #0D9488 100%)',
-                  '--tile-accent': '#059669'
+                  "--tile-hover-bg":
+                    "linear-gradient(135deg, #059669 0%, #0D9488 100%)",
+                  "--tile-accent": "#059669",
                 }}
                 onClick={onStartCVVerification}
               >
@@ -578,11 +592,16 @@ const MentorDashboard = ({
                     <div className="action-icon-box">
                       <FileText size={24} strokeWidth={2} />
                     </div>
-                    <span className="text-[11px] font-mono font-black text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">40% WT</span>
+                    <span className="text-[11px] font-mono font-black text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+                      40% WT
+                    </span>
                   </div>
                   <span className="action-tag-label">NLP DOCUMENT AI</span>
                   <h4 className="action-title">CV & Skill Audit</h4>
-                  <p className="action-desc">Upload credentials for semantic qualification & domain benchmarking.</p>
+                  <p className="action-desc">
+                    Upload credentials for semantic qualification & domain
+                    benchmarking.
+                  </p>
                 </div>
                 <div className="action-arrow-link">
                   <span className="action-btn-text">Upload CV</span>
@@ -590,54 +609,97 @@ const MentorDashboard = ({
                 </div>
               </div>
 
-              {/* Action 3: AI Mentee Matching */}
-              <div 
+              {/* Action 3: Matched Students */}
+              <div
                 className="exec-action-card"
                 style={{
-                  '--tile-hover-bg': 'linear-gradient(135deg, #2563EB 0%, #0EA5E9 100%)',
-                  '--tile-accent': '#2563EB'
+                  "--tile-hover-bg":
+                    "linear-gradient(135deg, #2563EB 0%, #0EA5E9 100%)",
+                  "--tile-accent": "#2563EB",
                 }}
-                onClick={onMentorshipMatching}
+                onClick={openMatchCenter}
               >
                 <div>
                   <div className="action-card-head">
                     <div className="action-icon-box">
                       <Sparkles size={24} strokeWidth={2} />
                     </div>
-                    <span className="text-[11px] font-mono font-black text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200">ML ENGINE</span>
+                    <span className="text-[11px] font-mono font-black text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200">
+                      ROSTER
+                    </span>
                   </div>
-                  <span className="action-tag-label">MATCHING ENGINE</span>
-                  <h4 className="action-title">AI Mentee Matching</h4>
-                  <p className="action-desc">Discover undergraduates needing your domain guidance.</p>
+                  <span className="action-tag-label">MENTORSHIP</span>
+                  <h4 className="action-title">Matched Students</h4>
+                  <p className="action-desc">
+                    Review students already matched with you and open their
+                    profiles.
+                  </p>
                 </div>
                 <div className="action-arrow-link">
-                  <span className="action-btn-text">Find Mentees</span>
+                  <span className="action-btn-text">View Students</span>
                   <ArrowUpRight size={16} className="text-slate-400" />
                 </div>
               </div>
 
               {/* Action 4: Mentee Chat */}
-              <div 
+              <div
                 className="exec-action-card"
                 style={{
-                  '--tile-hover-bg': 'linear-gradient(135deg, #4338CA 0%, #6366F1 100%)',
-                  '--tile-accent': '#4338CA'
+                  "--tile-hover-bg":
+                    "linear-gradient(135deg, #4338CA 0%, #6366F1 100%)",
+                  "--tile-accent": "#4338CA",
                 }}
-                onClick={onNavigateToMessages ? onNavigateToMessages : () => setShowChat(true)}
+                onClick={onNavigateToMessages}
               >
                 <div>
                   <div className="action-card-head">
                     <div className="action-icon-box">
                       <MessageSquare size={24} strokeWidth={2} />
                     </div>
-                    <span className="text-[11px] font-mono font-black text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-md border border-indigo-200">SYNC HUB</span>
+                    <span className="text-[11px] font-mono font-black text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-md border border-indigo-200">
+                      SYNC HUB
+                    </span>
                   </div>
                   <span className="action-tag-label">COLLABORATION</span>
                   <h4 className="action-title">Mentee Live Chat</h4>
-                  <p className="action-desc">Direct 1-on-1 messaging channel with your assigned students.</p>
+                  <p className="action-desc">
+                    Direct 1-on-1 messaging channel with your assigned students.
+                  </p>
                 </div>
                 <div className="action-arrow-link">
                   <span className="action-btn-text">Open Chat Hub</span>
+                  <ArrowUpRight size={16} className="text-slate-400" />
+                </div>
+              </div>
+
+              {/* Action 5: Mentor Profile */}
+              <div
+                className="exec-action-card"
+                style={{
+                  "--tile-hover-bg":
+                    "linear-gradient(135deg, #059669 0%, #0D9488 100%)",
+                  "--tile-accent": "#059669",
+                }}
+                onClick={onEditProfile}
+              >
+                <div>
+                  <div className="action-card-head">
+                    <div className="action-icon-box">
+                      <FileText size={24} strokeWidth={2} />
+                    </div>
+                    <span className="text-[11px] font-mono font-black text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+                      PROFILE
+                    </span>
+                  </div>
+                  <span className="action-tag-label">PROFESSIONAL DETAILS</span>
+                  <h4 className="action-title">Edit Mentor Profile</h4>
+                  <p className="action-desc">
+                    Update the expertise, qualifications, and availability
+                    students use to find you.
+                  </p>
+                </div>
+                <div className="action-arrow-link">
+                  <span className="action-btn-text">Edit Details</span>
                   <ArrowUpRight size={16} className="text-slate-400" />
                 </div>
               </div>
@@ -647,21 +709,12 @@ const MentorDashboard = ({
 
         {/* Floating Chat Hub Button */}
         <button
-          onClick={() => setShowChat(true)}
+          onClick={onNavigateToMessages}
           className="fixed bottom-6 right-6 bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-4 rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-all duration-300 z-40 flex items-center justify-center cursor-pointer border border-purple-300/40"
           title="Open Mentee Chat Hub"
         >
           <MessageSquare size={22} />
         </button>
-
-        {/* Chat Modal */}
-        {showChat && (
-          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden shadow-2xl border border-slate-200">
-              <ChatList onClose={() => setShowChat(false)} />
-            </div>
-          </div>
-        )}
       </div>
     </>
   );

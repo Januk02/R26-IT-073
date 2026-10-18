@@ -4,473 +4,63 @@
  * Dark hero banner, architectural cards, Framer Motion, medal images
  */
 
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useAuth } from '../../src/contexts/AuthContext';
-import { collection, query, getDocs } from 'firebase/firestore';
-import { db } from '../../src/firebase';
-import MentorshipMatching from '../components/MentorshipMatching';
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { useAuth } from "../../src/contexts/AuthContext";
+import { fetchMentorsFromFirestore } from "../services/mentorService";
+import MentorMatchedStudents from "../components/MentorMatchedStudents";
 import {
   Users,
-  Search,
   MapPin,
-  Mail,
-  Heart,
   GraduationCap,
-  Filter,
-  X,
   ChevronLeft,
-  ChevronRight,
   Sparkles,
   BookOpen,
   Award,
-} from 'lucide-react';
-
-/* ───── animation variants ───── */
-const stagger = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.06, delayChildren: 0.1 } },
-};
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] } },
-};
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.92 },
-  show: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
-};
-
-/* colour palette for avatar gradients */
-const GRADIENTS = [
-  'linear-gradient(135deg, #7C3AED 0%, #6366F1 100%)',
-  'linear-gradient(135deg, #2563EB 0%, #0EA5E9 100%)',
-  'linear-gradient(135deg, #059669 0%, #0D9488 100%)',
-  'linear-gradient(135deg, #D97706 0%, #EA580C 100%)',
-  'linear-gradient(135deg, #E11D48 0%, #EC4899 100%)',
-  'linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%)',
-  'linear-gradient(135deg, #0284C7 0%, #0EA5E9 100%)',
-  'linear-gradient(135deg, #DB2777 0%, #9333EA 100%)',
-];
-
-const INTEREST_COLORS = [
-  { bg: '#EDE9FE', text: '#6D28D9', border: '#DDD6FE' },
-  { bg: '#DBEAFE', text: '#1D4ED8', border: '#BFDBFE' },
-  { bg: '#D1FAE5', text: '#047857', border: '#A7F3D0' },
-  { bg: '#FEF3C7', text: '#B45309', border: '#FDE68A' },
-  { bg: '#FCE7F3', text: '#BE185D', border: '#FBCFE8' },
-];
-
-/* ═══════════════════════════════════════════════════════════ */
-/*  Student Card — Architectural Interactive Card             */
-/* ═══════════════════════════════════════════════════════════ */
-const StudentCard = ({ student, index }) => {
-  const hash = (student.name || '').split('').reduce((a, c) => a + c.charCodeAt(0), 0);
-  const gradient = GRADIENTS[hash % GRADIENTS.length];
-
-  const interests = (() => {
-    let ints = student.interests || [];
-    if (typeof ints === 'object' && !Array.isArray(ints)) ints = Object.values(ints);
-    return Array.isArray(ints) ? ints : [];
-  })();
-
-  return (
-    <motion.div
-      variants={fadeUp}
-      className="mentor-student-card"
-      style={{ '--card-hover-bg': gradient }}
-    >
-      {/* Top: avatar + field */}
-      <div className="card-head">
-        <div className="student-avatar" style={{ background: gradient }}>
-          <span>{(student.name || '?').charAt(0).toUpperCase()}</span>
-        </div>
-        <span className="index-num">#{String(index + 1).padStart(2, '0')}</span>
-      </div>
-
-      {/* Body */}
-      <div className="card-content">
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap', marginBottom: '6px' }}>
-          <span className="tag-line">{student.stream || student.field_of_study || 'General'}</span>
-          {student.major && student.stream && student.major.toLowerCase() !== student.stream.toLowerCase() && (
-            <span
-              style={{
-                fontSize: '10px',
-                fontWeight: 600,
-                textTransform: 'uppercase',
-                letterSpacing: '0.05em',
-                padding: '2px 8px',
-                borderRadius: '6px',
-                background: '#F3E8FF',
-                color: '#7E22CE',
-                border: '1px solid #E9D5FF'
-              }}
-            >
-              {student.major}
-            </span>
-          )}
-        </div>
-        <div className="card-main-title">{student.name}</div>
-
-        <div className="student-meta">
-          <div className="meta-row">
-            <Mail size={13} strokeWidth={1.8} />
-            <span className="meta-text truncate">{student.email || '—'}</span>
-          </div>
-          <div className="meta-row">
-            <MapPin size={13} strokeWidth={1.8} />
-            <span className="meta-text">{student.location || 'Not specified'}</span>
-          </div>
-        </div>
-
-        {/* Interest pills */}
-        {interests.length > 0 && (
-          <div className="interest-pills">
-            {interests.slice(0, 3).map((int, i) => {
-              const c = INTEREST_COLORS[i % INTEREST_COLORS.length];
-              return (
-                <span
-                  key={i}
-                  className="interest-pill"
-                  style={{ background: c.bg, color: c.text, borderColor: c.border }}
-                >
-                  {int}
-                </span>
-              );
-            })}
-            {interests.length > 3 && (
-              <span className="interest-pill interest-pill-more">+{interests.length - 3}</span>
-            )}
-          </div>
-        )}
-
-        {/* AL results */}
-        {student.al_results && Object.keys(student.al_results).length > 0 && (() => {
-          const subjects = Object.entries(student.al_results)
-            .filter(([k, v]) => v && typeof v === 'string' && v.length <= 2 && k !== 'stream' && k !== 'zScore')
-            .slice(0, 3);
-          if (subjects.length === 0) return null;
-          return (
-            <div className="meta-row al-row">
-              <Award size={13} strokeWidth={1.8} />
-              <span className="meta-text">
-                AL: {subjects.map(([s, g]) => `${s} ${g}`).join(', ')}
-              </span>
-            </div>
-          );
-        })()}
-      </div>
-    </motion.div>
-  );
-};
+  BriefcaseBusiness,
+  MessageSquare,
+  ShieldCheck,
+  Clock,
+} from "lucide-react";
 
 /* ═══════════════════════════════════════════════════════════ */
 /*  MAIN PAGE                                                 */
 /* ═══════════════════════════════════════════════════════════ */
-const MentorshipPage = ({ onBack }) => {
-  const { user } = useAuth();
-  const [students, setStudents] = useState([]);
-  const [filteredStudents, setFilteredStudents] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const MentorshipPage = ({ onBack, onOpenChat }) => {
+  const { user, userRole } = useAuth();
+  const isMentor = userRole === "mentor";
+  const [verifiedMentors, setVerifiedMentors] = useState([]);
+  const [mentorsLoading, setMentorsLoading] = useState(true);
+  const [mentorsError, setMentorsError] = useState(null);
 
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedField, setSelectedField] = useState('all');
-  const [selectedLocation, setSelectedLocation] = useState('all');
-  const [currentPage, setCurrentPage] = useState(1);
-  const [studentsPerPage] = useState(9);
-
-  const [allFields, setAllFields] = useState([]);
-  const [allLocations, setAllLocations] = useState([]);
-
-  const firstName = user?.displayName?.split(' ')[0] || user?.email?.split('@')[0] || 'User';
+  const firstName =
+    user?.displayName?.split(" ")[0] || user?.email?.split("@")[0] || "User";
   const hour = new Date().getHours();
-  const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
-
-  /* ── Fetch students ── */
+  const greeting =
+    hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
   useEffect(() => {
-    const fetchStudents = async () => {
-      try {
-        setLoading(true);
+    if (isMentor) return undefined;
 
-        const unifiedMap = new Map();
-        const cleanStr = (s) => (s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    let active = true;
+    fetchMentorsFromFirestore()
+      .then((mentors) => {
+        if (!active) return;
+        setVerifiedMentors(mentors.filter((mentor) => mentor.is_verified));
+        setMentorsError(null);
+      })
+      .catch((fetchError) => {
+        if (!active) return;
+        setMentorsError("Could not load verified mentors right now.");
+        console.error("Error loading verified mentors:", fetchError);
+      })
+      .finally(() => {
+        if (active) setMentorsLoading(false);
+      });
 
-        const addOrMergeDoc = (docId, rawData, source) => {
-          if (!rawData) return;
-          // Skip mentors from users collection
-          if (source === 'users' && rawData.role === 'mentor') return;
-
-          const emailKey = (rawData.email || '').toLowerCase().trim();
-          const uidKey = rawData.uid || rawData.userId;
-          const rawName = rawData.name || rawData.fullName || rawData.studentName || rawData.profile?.name || rawData.profile?.fullName || '';
-          const nameKey = cleanStr(rawName);
-          const docIdName = cleanStr(docId.replace(/_\d{10,}$/, ''));
-          const emailPrefix = emailKey ? cleanStr(emailKey.split('@')[0]) : '';
-
-          // Find if we already have this user in the map by UID, Email, Name, or DocID
-          let target = null;
-          if (uidKey && unifiedMap.has(uidKey)) {
-            target = unifiedMap.get(uidKey);
-          } else if (emailKey && unifiedMap.has(emailKey)) {
-            target = unifiedMap.get(emailKey);
-          } else if (nameKey && unifiedMap.has(`name_${nameKey}`)) {
-            target = unifiedMap.get(`name_${nameKey}`);
-          } else if (docIdName && docIdName.length > 2 && unifiedMap.has(`name_${docIdName}`)) {
-            target = unifiedMap.get(`name_${docIdName}`);
-          } else if (emailPrefix && emailPrefix.length > 2 && unifiedMap.has(`name_${emailPrefix}`)) {
-            target = unifiedMap.get(`name_${emailPrefix}`);
-          }
-
-          const targetObj = target || { id: docId };
-
-          // Deep merge all properties
-          Object.assign(targetObj, {
-            ...rawData,
-            id: targetObj.id || docId,
-            name: targetObj.name || rawName || rawData.name,
-            email: targetObj.email || rawData.email,
-            locationPreference: targetObj.locationPreference || rawData.locationPreference || rawData.location,
-            stream: targetObj.stream || rawData.stream || rawData.Stream || rawData.alStream || rawData.alResults?.stream || rawData.academicResults?.stream,
-            profile: { ...(targetObj.profile || {}), ...(rawData.profile || {}) },
-            alResults: { ...(targetObj.alResults || {}), ...(rawData.alResults || {}) },
-            academicResults: { ...(targetObj.academicResults || {}), ...(rawData.academicResults || {}) },
-            interests: (rawData.interests && rawData.interests.length > 0) ? rawData.interests : (targetObj.interests || []),
-            careerAspirations: (rawData.careerAspirations && rawData.careerAspirations.length > 0) ? rawData.careerAspirations : (targetObj.careerAspirations || []),
-          });
-
-          // Index by multiple keys for cross-collection matching
-          if (uidKey) unifiedMap.set(uidKey, targetObj);
-          if (emailKey) unifiedMap.set(emailKey, targetObj);
-          if (nameKey) unifiedMap.set(`name_${nameKey}`, targetObj);
-          if (docIdName && docIdName.length > 2) unifiedMap.set(`name_${docIdName}`, targetObj);
-          if (emailPrefix && emailPrefix.length > 2) unifiedMap.set(`name_${emailPrefix}`, targetObj);
-          unifiedMap.set(docId, targetObj);
-        };
-
-        const collectionsToFetch = [
-          'students',
-          'assessmentResults',
-          'assessments',
-          'users',
-          'mentees',
-          'recommendations',
-          'student_recommendations',
-          'career_assessments',
-        ];
-
-        for (const collName of collectionsToFetch) {
-          try {
-            const snap = await getDocs(query(collection(db, collName)));
-            if (!snap.empty) {
-              snap.forEach((d) => addOrMergeDoc(d.id, d.data(), collName));
-              console.log(`✅ Loaded ${snap.size} docs from '${collName}'`);
-            }
-          } catch (e) {
-            // collection might not exist or be restricted
-          }
-        }
-
-        // Extract distinct student objects
-        const uniqueDocs = Array.from(new Set(unifiedMap.values()));
-
-        const formatNameFromEmail = (email) => {
-          if (!email) return 'Student';
-          const prefix = email.split('@')[0];
-          const words = prefix.replace(/\d+$/, '').split(/[._-]+/).filter(Boolean);
-          if (words.length > 0) {
-            return words.map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
-          }
-          return prefix.charAt(0).toUpperCase() + prefix.slice(1);
-        };
-
-        const parseArrayField = (field) => {
-          if (!field) return [];
-          if (Array.isArray(field)) return field;
-          if (typeof field === 'object') return Object.values(field);
-          return [];
-        };
-
-        const studentsData = uniqueDocs.map((data, idx) => {
-          // Robust Name Resolution
-          const resolvedName =
-            data.name ||
-            data.fullName ||
-            data.displayName ||
-            data.studentName ||
-            data.profile?.name ||
-            data.profile?.fullName ||
-            data.profile?.displayName ||
-            (data.firstName ? `${data.firstName} ${data.lastName || ''}`.trim() : null) ||
-            (data.profile?.firstName ? `${data.profile.firstName} ${data.profile.lastName || ''}`.trim() : null) ||
-            formatNameFromEmail(data.email);
-
-          // Combined subjects from academicResults.subjects and alResults
-          const combinedSubjects = {
-            ...(data.academicResults?.subjects || {}),
-            ...(data.alResults?.subjects || {}),
-            ...(data.alResults || {}),
-            ...(data.subjects || {}),
-          };
-
-          // Subject-based stream inference fallback
-          let inferredStream = null;
-          if (
-            combinedSubjects.biology || combinedSubjects.Biology ||
-            combinedSubjects['Agricultural Science'] || combinedSubjects.agriculture ||
-            combinedSubjects.botany || combinedSubjects.zoology
-          ) {
-            inferredStream = 'Biological Science';
-          } else if (
-            combinedSubjects.combinedMathematics || combinedSubjects.combinedMaths ||
-            combinedSubjects['Combined Mathematics'] || combinedSubjects.higherMaths
-          ) {
-            inferredStream = 'Physical Science';
-          } else if (
-            combinedSubjects.accounting || combinedSubjects.Accounting ||
-            combinedSubjects.businessStudies || combinedSubjects['Business Studies'] ||
-            combinedSubjects.economics || combinedSubjects.Economics
-          ) {
-            inferredStream = 'Commerce';
-          } else if (
-            combinedSubjects.engineeringTechnology || combinedSubjects.biosystemsTechnology ||
-            combinedSubjects.sft || combinedSubjects.ict || combinedSubjects.ICT
-          ) {
-            inferredStream = 'Technology';
-          } else if (
-            combinedSubjects.sinhala || combinedSubjects.tamil ||
-            combinedSubjects.englishLit || combinedSubjects.history || combinedSubjects.geography
-          ) {
-            inferredStream = 'Arts';
-          }
-
-          // Stream & Major Resolution
-          const resolvedStream =
-            data.academicResults?.stream ||
-            data.academicResults?.Stream ||
-            data.alResults?.stream ||
-            data.alResults?.Stream ||
-            data.stream ||
-            data.Stream ||
-            data.alStream ||
-            data.ALStream ||
-            data.profile?.stream ||
-            data.profile?.Stream ||
-            data.streamName ||
-            data.subjectStream ||
-            inferredStream ||
-            null;
-
-          const resolvedMajor =
-            data.profile?.major ||
-            data.profile?.Major ||
-            data.major ||
-            data.Major ||
-            data.field_of_study ||
-            data.fieldOfStudy ||
-            data.degree ||
-            data.degreeName ||
-            data.course ||
-            data.profile?.field ||
-            data.profile?.fieldOfStudy ||
-            data.profile?.grade ||
-            data.grade ||
-            null;
-
-          const resolvedField = resolvedStream || resolvedMajor || 'General';
-
-          // Location Resolution
-          const resolvedLocation =
-            data.locationPreference ||
-            data.location ||
-            data.city ||
-            data.district ||
-            data.address ||
-            data.town ||
-            data.province ||
-            data.profile?.location ||
-            data.profile?.city ||
-            data.profile?.district ||
-            data.profile?.address ||
-            data.alResults?.district ||
-            data.alResults?.location ||
-            data.academicResults?.district ||
-            data.academicResults?.location ||
-            'Not specified';
-
-          const careerGoals = parseArrayField(data.careerAspirations || data.career_goals || data.profile?.careerAspirations);
-          const interests = parseArrayField(data.interests || data.hobbies || data.skills || data.profile?.interests || data.profile?.hobbies);
-          const resolvedZScore = data.academicResults?.zScore || data.zScore || data.z_score || data.profile?.zScore || '0';
-
-          return {
-            id: data.id || `student-${idx}`,
-            mentee_id: data.id || `student-${idx}`,
-            name: resolvedName,
-            email: data.email || '',
-            university: data.alResults?.university || data.university || data.profile?.university || 'Unknown University',
-            stream: resolvedStream,
-            major: resolvedMajor,
-            field_of_study: resolvedField,
-            career_goals: careerGoals,
-            interests: interests,
-            location: resolvedLocation,
-            personality_traits: data.personalityTraits || data.profile?.personalityTraits || {},
-            work_environment: data.workEnvironment || data.profile?.workEnvironment || 'Not specified',
-            social_interaction: data.socialInteraction || data.profile?.socialInteraction || 'Not specified',
-            z_score: resolvedZScore,
-            al_results: combinedSubjects,
-            stress_tolerance: data.stressTolerance || data.profile?.stressTolerance || 3,
-            travel_tolerance: data.travelTolerance || data.profile?.travelTolerance || 'Not specified',
-            status: data.status,
-            raw_data: data,
-          };
-        });
-
-        console.log('✅ Final unified students list:', studentsData);
-
-        setStudents(studentsData);
-        setFilteredStudents(studentsData);
-        setAllFields([...new Set(studentsData.map(s => s.field_of_study || 'General').filter(Boolean))].sort());
-        setAllLocations([...new Set(studentsData.map(s => s.location || 'Not specified').filter(Boolean))].sort());
-      } catch (err) {
-        console.error('Error fetching students:', err);
-        setError('Failed to load students. Please try again.');
-      } finally {
-        setLoading(false);
-      }
+    return () => {
+      active = false;
     };
-    fetchStudents();
-  }, []);
-
-  /* ── Filters ── */
-  useEffect(() => {
-    let filtered = students;
-    if (searchTerm) {
-      filtered = filtered.filter(student =>
-        student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        student.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (student.interests || []).some(interest =>
-          interest.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-      );
-    }
-    if (selectedField !== 'all') filtered = filtered.filter(s => s.field_of_study === selectedField);
-    if (selectedLocation !== 'all') filtered = filtered.filter(s => s.location === selectedLocation);
-    setFilteredStudents(filtered);
-    setCurrentPage(1);
-  }, [students, searchTerm, selectedField, selectedLocation]);
-
-  const totalPages = Math.ceil(filteredStudents.length / studentsPerPage);
-  const startIndex = (currentPage - 1) * studentsPerPage;
-  const endIndex = startIndex + studentsPerPage;
-  const currentStudents = filteredStudents.slice(startIndex, endIndex);
-  const hasActiveFilters = searchTerm || selectedField !== 'all' || selectedLocation !== 'all';
-
-  const resetFilters = () => {
-    setSearchTerm('');
-    setSelectedField('all');
-    setSelectedLocation('all');
-    setCurrentPage(1);
-  };
+  }, [isMentor]);
 
   /* ══════════════════════════════════════════════════════ */
   /*  RENDER                                               */
@@ -1190,7 +780,7 @@ const MentorshipPage = ({ onBack }) => {
           {/* Live badge */}
           <div className="live-badge">
             <span className="live-dot" />
-            ML ENGINE ACTIVE
+            MENTORSHIP HUB
           </div>
 
           <div className="mentor-hero-content">
@@ -1207,64 +797,49 @@ const MentorshipPage = ({ onBack }) => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.15 }}
               >
-                AI-powered mentor matching analyzes student profiles, interests, and career goals
-                to find the perfect mentor from our verified database.
+                {isMentor
+                  ? "Review students matched with you and open their shared profiles to understand their goals and background."
+                  : "Connect with verified mentors and view your personalized mentor recommendations."}
               </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className="hero-stats-row"
-              >
-                <div className="hero-stat-chip">
-                  <div className="chip-icon"><Users size={18} /></div>
-                  <div>
-                    <div className="chip-value">{students.length}</div>
-                    <div className="chip-label">Students</div>
-                  </div>
-                </div>
-                <div className="hero-stat-chip">
-                  <div className="chip-icon"><GraduationCap size={18} /></div>
-                  <div>
-                    <div className="chip-value">{allFields.length}</div>
-                    <div className="chip-label">Fields</div>
-                  </div>
-                </div>
-                <div className="hero-stat-chip">
-                  <div className="chip-icon"><MapPin size={18} /></div>
-                  <div>
-                    <div className="chip-value">{allLocations.length}</div>
-                    <div className="chip-label">Locations</div>
-                  </div>
-                </div>
-              </motion.div>
             </div>
 
             {/* 3D Illustration with floating badges */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9, x: 40 }}
               animate={{ opacity: 1, scale: 1, x: 0 }}
-              transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              transition={{
+                duration: 0.7,
+                delay: 0.2,
+                ease: [0.16, 1, 0.3, 1],
+              }}
               className="hero-illustration"
             >
               <img src="/mentor_hero.jpg" alt="AI Mentorship" />
 
               {/* Floating badges */}
               <div className="float-badge badge-1">
-                <div className="float-badge-icon" style={{ background: '#7C3AED' }}>
+                <div
+                  className="float-badge-icon"
+                  style={{ background: "#7C3AED" }}
+                >
                   <Sparkles size={14} />
                 </div>
-                AI Matching
+                Matched students
               </div>
               <div className="float-badge badge-2">
-                <div className="float-badge-icon" style={{ background: '#2563EB' }}>
+                <div
+                  className="float-badge-icon"
+                  style={{ background: "#2563EB" }}
+                >
                   <BookOpen size={14} />
                 </div>
                 11K+ Mentors
               </div>
               <div className="float-badge badge-3">
-                <div className="float-badge-icon" style={{ background: '#059669' }}>
+                <div
+                  className="float-badge-icon"
+                  style={{ background: "#059669" }}
+                >
                   <Award size={14} />
                 </div>
                 Verified
@@ -1275,217 +850,301 @@ const MentorshipPage = ({ onBack }) => {
 
         {/* ══════════ BODY CONTENT ══════════ */}
         <div className="mentor-body">
-          {loading ? (
-            /* ── Skeleton Loading ── */
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-              <div className="filters-card">
-                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
-                  <div className="skeleton-line" style={{ width: 42, height: 42, borderRadius: 12 }} />
-                  <div>
-                    <div className="skeleton-line" style={{ width: 160, height: 18, marginBottom: 6 }} />
-                    <div className="skeleton-line" style={{ width: 100, height: 12 }} />
+          {!isMentor ? (
+            <div className="filters-card">
+              <h2 className="filters-title">Verified mentors</h2>
+              <p className="filters-subtitle">
+                Browse verified mentors by expertise and start a conversation
+                directly.
+              </p>
+              {mentorsLoading ? (
+                <div className="empty-state">Loading verified mentors...</div>
+              ) : mentorsError ? (
+                <div className="empty-state">{mentorsError}</div>
+              ) : verifiedMentors.length === 0 ? (
+                <div className="empty-state">
+                  <div className="empty-icon-circle">
+                    <Users size={32} />
+                  </div>
+                  <div className="empty-title">
+                    No verified mentors available
+                  </div>
+                  <div className="empty-desc">
+                    Verified mentor profiles will appear here when available.
                   </div>
                 </div>
-                <div className="skeleton-grid">
-                  {[...Array(6)].map((_, i) => (
-                    <div key={i} className="skeleton-card">
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 20 }}>
-                        <div className="skeleton-line" style={{ width: 48, height: 48, borderRadius: 14 }} />
-                        <div className="skeleton-line" style={{ width: 28, height: 14, borderRadius: 6 }} />
-                      </div>
-                      <div className="skeleton-line" style={{ width: '40%', height: 10, marginBottom: 8 }} />
-                      <div className="skeleton-line" style={{ width: '70%', height: 16, marginBottom: 16 }} />
-                      <div className="skeleton-line" style={{ width: '90%', height: 10, marginBottom: 8 }} />
-                      <div className="skeleton-line" style={{ width: '60%', height: 10, marginBottom: 14 }} />
-                      <div style={{ display: 'flex', gap: 6 }}>
-                        <div className="skeleton-line" style={{ width: 60, height: 22, borderRadius: 6 }} />
-                        <div className="skeleton-line" style={{ width: 50, height: 22, borderRadius: 6 }} />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          ) : error ? (
-            /* ── Error State ── */
-            <motion.div
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="filters-card"
-            >
-              <div className="empty-state">
-                <div className="empty-icon-circle" style={{ background: '#FEE2E2', color: '#EF4444' }}>
-                  <X size={36} strokeWidth={1.5} />
-                </div>
-                <div className="empty-title" style={{ color: '#DC2626' }}>{error}</div>
-                <button
-                  onClick={() => window.location.reload()}
+              ) : (
+                <div
                   style={{
-                    marginTop: 16, padding: '10px 28px', borderRadius: 12,
-                    background: '#DC2626', color: 'white', border: 'none',
-                    fontWeight: 700, fontSize: 14, cursor: 'pointer',
-                    boxShadow: '0 4px 16px rgba(220, 38, 38, 0.3)',
+                    display: "grid",
+                    gridTemplateColumns:
+                      "repeat(auto-fit, minmax(min(100%, 310px), 1fr))",
+                    gap: 16,
+                    marginTop: 20,
                   }}
                 >
-                  Retry
-                </button>
-              </div>
-            </motion.div>
-          ) : (
-            <>
-              {/* ── Student Database Card ── */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="filters-card"
-              >
-                {/* Header */}
-                <div className="filters-header">
-                  <div className="filters-title-group">
-                    <div className="filters-icon-box">
-                      <Users size={20} strokeWidth={2} />
-                    </div>
-                    <div>
-                      <div className="filters-title">Student Database</div>
-                      <div className="filters-subtitle">
-                        {filteredStudents.length} of {students.length} students
-                      </div>
-                    </div>
-                  </div>
-                  {hasActiveFilters && (
-                    <button className="clear-filters-btn" onClick={resetFilters}>
-                      <X size={14} /> Clear Filters
-                    </button>
-                  )}
-                </div>
-
-                {/* Filter Controls */}
-                <div className="filters-row">
-                  <div className="filter-input-wrap">
-                    <Search size={16} className="input-icon" />
-                    <input
-                      type="text"
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      placeholder="Search by name, email, or interests…"
-                      className="filter-input"
-                    />
-                  </div>
-                  <select
-                    value={selectedField}
-                    onChange={(e) => setSelectedField(e.target.value)}
-                    className="filter-select"
-                  >
-                    <option value="all">All Fields</option>
-                    {allFields.map(f => <option key={f} value={f}>{f}</option>)}
-                  </select>
-                  <select
-                    value={selectedLocation}
-                    onChange={(e) => setSelectedLocation(e.target.value)}
-                    className="filter-select"
-                  >
-                    <option value="all">All Locations</option>
-                    {allLocations.map(l => <option key={l} value={l}>{l}</option>)}
-                  </select>
-                </div>
-
-                {/* Student Cards or Empty */}
-                <div style={{ marginTop: 24 }}>
-                  {students.length === 0 ? (
-                    <div className="empty-state">
-                      <div className="empty-icon-circle">
-                        <Users size={36} strokeWidth={1.5} />
-                      </div>
-                      <div className="empty-title">No student assessments found</div>
-                      <div className="empty-desc">Students need to complete their assessments first.</div>
-                    </div>
-                  ) : filteredStudents.length === 0 ? (
-                    <div className="empty-state">
-                      <div className="empty-icon-circle">
-                        <Search size={36} strokeWidth={1.5} />
-                      </div>
-                      <div className="empty-title">No students match your filters</div>
-                      <button className="clear-filters-btn" onClick={resetFilters} style={{ margin: '12px auto 0' }}>
-                        Clear all filters →
-                      </button>
-                    </div>
-                  ) : (
-                    <>
-                      <motion.div
-                        variants={stagger}
-                        initial="hidden"
-                        animate="show"
-                        className="students-grid"
+                  {verifiedMentors.map((mentor) => (
+                    <article
+                      key={mentor.uid || mentor.id}
+                      style={{
+                        background: "#fff",
+                        border: "1px solid #E2E8F0",
+                        borderRadius: 12,
+                        padding: 20,
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 12,
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "flex-start",
+                          justifyContent: "space-between",
+                          gap: 12,
+                        }}
                       >
-                        {currentStudents.map((student, i) => (
-                          <StudentCard key={student.id} student={student} index={startIndex + i} />
-                        ))}
-                      </motion.div>
-
-                      {/* Pagination */}
-                      {totalPages > 1 && (
-                        <div className="pagination-bar">
-                          <div className="pagination-info">
-                            Showing {startIndex + 1}–{Math.min(endIndex, filteredStudents.length)} of {filteredStudents.length}
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 12,
+                            minWidth: 0,
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: 46,
+                              height: 46,
+                              flex: "0 0 46px",
+                              borderRadius: 12,
+                              background: mentor.color || "#0F766E",
+                              color: "#fff",
+                              display: "grid",
+                              placeItems: "center",
+                              fontWeight: 800,
+                            }}
+                          >
+                            {mentor.avatar || mentor.name?.[0] || "M"}
                           </div>
-                          <div className="pagination-controls">
-                            <button
-                              className="page-btn"
-                              disabled={currentPage === 1}
-                              onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                          <div style={{ minWidth: 0 }}>
+                            <h3
+                              style={{
+                                margin: 0,
+                                color: "#0F172A",
+                                fontSize: 16,
+                                fontWeight: 750,
+                                overflowWrap: "anywhere",
+                              }}
                             >
-                              <ChevronLeft size={16} />
-                            </button>
-                            {[...Array(totalPages)].map((_, i) => {
-                              const page = i + 1;
-                              const isNear = Math.abs(page - currentPage) <= 1 || page === 1 || page === totalPages;
-                              if (!isNear && i > 0 && i < totalPages - 1) {
-                                const prevIsNear = Math.abs(i - currentPage) <= 1 || i === 1 || i === totalPages;
-                                if (!prevIsNear) return null;
-                                return <span key={page} style={{ color: '#CBD5E1', fontSize: 13 }}>…</span>;
-                              }
-                              if (isNear) {
-                                return (
-                                  <button
-                                    key={page}
-                                    className={`page-btn ${page === currentPage ? 'active' : ''}`}
-                                    onClick={() => setCurrentPage(page)}
-                                  >
-                                    {page}
-                                  </button>
-                                );
-                              }
-                              return null;
-                            })}
-                            <button
-                              className="page-btn"
-                              disabled={currentPage === totalPages}
-                              onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                              {mentor.name}
+                            </h3>
+                            <p
+                              style={{
+                                margin: "4px 0 0",
+                                color: "#475569",
+                                fontSize: 13,
+                              }}
                             >
-                              <ChevronRight size={16} />
-                            </button>
+                              {mentor.industry_role || mentor.specialization}
+                            </p>
                           </div>
                         </div>
+                        <span
+                          style={{
+                            flexShrink: 0,
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: 4,
+                            padding: "5px 8px",
+                            background:
+                              mentor.verification_level === "Silver"
+                                ? "#F1F5F9"
+                                : "#FEF3C7",
+                            color:
+                              mentor.verification_level === "Silver"
+                                ? "#475569"
+                                : "#92400E",
+                            borderRadius: 8,
+                            fontSize: 11,
+                            fontWeight: 750,
+                          }}
+                        >
+                          <ShieldCheck size={13} /> {mentor.verification_level}
+                        </span>
+                      </div>
+
+                      <div
+                        style={{
+                          display: "flex",
+                          flexWrap: "wrap",
+                          gap: "6px 14px",
+                          color: "#64748B",
+                          fontSize: 12,
+                        }}
+                      >
+                        <span
+                          style={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: 5,
+                          }}
+                        >
+                          <BriefcaseBusiness size={13} />
+                          {mentor.specialization || mentor.domain}
+                        </span>
+                        {mentor.university &&
+                          mentor.university !== "University" && (
+                            <span
+                              style={{
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: 5,
+                              }}
+                            >
+                              <GraduationCap size={13} />
+                              {mentor.university}
+                            </span>
+                          )}
+                        {mentor.location &&
+                          mentor.location !== "Not specified" && (
+                            <span
+                              style={{
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: 5,
+                              }}
+                            >
+                              <MapPin size={13} />
+                              {mentor.location}
+                            </span>
+                          )}
+                        <span
+                          style={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: 5,
+                          }}
+                        >
+                          <Clock size={13} />
+                          {mentor.experience_years} yrs experience
+                        </span>
+                      </div>
+
+                      {(mentor.oral_assessment_score !== null ||
+                        mentor.cv_skill_audit_score !== null ||
+                        mentor.overall_verification_score !== null) && (
+                        <div
+                          aria-label="Mentor verification scores"
+                          style={{
+                            display: "grid",
+                            gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+                            gap: 8,
+                            padding: 10,
+                            background: "#F8FAFC",
+                            border: "1px solid #E2E8F0",
+                            borderRadius: 8,
+                          }}
+                        >
+                          {[
+                            ["AI Oral", mentor.oral_assessment_score],
+                            ["CV & Skills", mentor.cv_skill_audit_score],
+                            ["Overall", mentor.overall_verification_score],
+                          ].map(([label, score]) => (
+                            <div key={label} style={{ textAlign: "center" }}>
+                              <div
+                                style={{
+                                  color: "#64748B",
+                                  fontSize: 10,
+                                  fontWeight: 700,
+                                }}
+                              >
+                                {label}
+                              </div>
+                              <div
+                                style={{
+                                  color:
+                                    label === "Overall" ? "#0F766E" : "#0F172A",
+                                  fontSize: 16,
+                                  fontWeight: 800,
+                                }}
+                              >
+                                {score === null ? "—" : `${Math.round(score)}%`}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
                       )}
-                    </>
-                  )}
-                </div>
-              </motion.div>
 
-              {/* ── ML Section Divider ── */}
-              <div className="ml-section-divider">
-                <div className="ml-divider-line" />
-                <div className="ml-divider-badge">
-                  <Sparkles size={14} />
-                  ML MATCHING ENGINE
-                </div>
-                <div className="ml-divider-line" />
-              </div>
+                      {mentor.bio && (
+                        <p
+                          style={{
+                            margin: 0,
+                            color: "#475569",
+                            fontSize: 13,
+                            lineHeight: 1.5,
+                          }}
+                        >
+                          {mentor.bio}
+                        </p>
+                      )}
+                      {mentor.skills?.length > 0 && (
+                        <div
+                          style={{ display: "flex", flexWrap: "wrap", gap: 6 }}
+                        >
+                          {mentor.skills.slice(0, 5).map((skill) => (
+                            <span
+                              key={skill}
+                              style={{
+                                padding: "4px 8px",
+                                background: "#F1F5F9",
+                                color: "#334155",
+                                borderRadius: 6,
+                                fontSize: 11,
+                                fontWeight: 600,
+                              }}
+                            >
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
+                      )}
 
-              {/* ── ML Matching Component ── */}
-              <MentorshipMatching externalStudents={students} showRawData={true} />
-            </>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          onOpenChat?.({
+                            uid: mentor.uid || mentor.mentor_id || mentor.id,
+                            id: mentor.id,
+                            name: mentor.name,
+                            field: mentor.specialization || mentor.domain,
+                            email: mentor.email,
+                          })
+                        }
+                        style={{
+                          marginTop: "auto",
+                          minHeight: 40,
+                          display: "inline-flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          gap: 8,
+                          border: 0,
+                          borderRadius: 8,
+                          background: "#0F766E",
+                          color: "#fff",
+                          fontWeight: 700,
+                          cursor: "pointer",
+                        }}
+                      >
+                        <MessageSquare size={16} /> Start chat
+                      </button>
+                    </article>
+                  ))}
+                </div>
+              )}
+            </div>
+          ) : (
+            <MentorMatchedStudents />
           )}
         </div>
       </div>

@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { mentorshipApi } from '../services/mentorshipApi';
+import { fetchMentorsFromFirestore, fetchMenteesFromFirestore, getFirestoreStats } from '../services/mentorService';
 
 export function useApiHealth() {
   const [health, setHealth] = useState(null);
@@ -36,12 +37,21 @@ export function useMentors() {
   useEffect(() => {
     const fetchMentors = async () => {
       try {
-        const result = await mentorshipApi.getMentors();
-        setMentors(result.mentors || []);
+        // Try to fetch from Firestore first (real data)
+        const firestoreMentors = await fetchMentorsFromFirestore();
+        setMentors(firestoreMentors);
         setError(null);
       } catch (err) {
-        setError(err.message);
-        setMentors([]);
+        console.warn('Failed to fetch from Firestore, trying API:', err);
+        // Fallback to API if Firestore fails
+        try {
+          const result = await mentorshipApi.getMentors();
+          setMentors(result.mentors || []);
+          setError(null);
+        } catch (apiErr) {
+          setError(apiErr.message);
+          setMentors([]);
+        }
       } finally {
         setLoading(false);
       }
@@ -61,12 +71,21 @@ export function useMentees() {
   useEffect(() => {
     const fetchMentees = async () => {
       try {
-        const result = await mentorshipApi.getMentees();
-        setMentees(result.mentees || []);
+        // Try to fetch from Firestore first (real data)
+        const firestoreMentees = await fetchMenteesFromFirestore();
+        setMentees(firestoreMentees);
         setError(null);
       } catch (err) {
-        setError(err.message);
-        setMentees([]);
+        console.warn('Failed to fetch from Firestore, trying API:', err);
+        // Fallback to API if Firestore fails
+        try {
+          const result = await mentorshipApi.getMentees();
+          setMentees(result.mentees || []);
+          setError(null);
+        } catch (apiErr) {
+          setError(apiErr.message);
+          setMentees([]);
+        }
       } finally {
         setLoading(false);
       }
@@ -137,12 +156,21 @@ export function useMentorshipStats() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const result = await mentorshipApi.getStats();
-        setStats(result);
+        // Try to fetch from Firestore first (real data)
+        const firestoreStats = await getFirestoreStats();
+        setStats(firestoreStats);
         setError(null);
       } catch (err) {
-        setError(err.message);
-        setStats(null);
+        console.warn('Failed to fetch stats from Firestore, trying API:', err);
+        // Fallback to API if Firestore fails
+        try {
+          const result = await mentorshipApi.getStats();
+          setStats(result);
+          setError(null);
+        } catch (apiErr) {
+          setError(apiErr.message);
+          setStats(null);
+        }
       } finally {
         setLoading(false);
       }
