@@ -68,6 +68,7 @@ export default function DreamDegreeResults({ studentData, backendResults, backwa
     return 'from-red-400 to-red-500';
   };
 
+  /* Cutoff comparison is hidden from the university cards.
   const getCutoffStatus = (cutoff) => {
     const diff = studentZScore - cutoff;
     if (diff >= 0.3) return { label: 'Above reference', color: 'text-emerald-700 bg-emerald-50 border-emerald-200', icon: '✓' };
@@ -75,6 +76,7 @@ export default function DreamDegreeResults({ studentData, backendResults, backwa
     if (diff >= -0.3) return { label: 'Near reference', color: 'text-orange-700 bg-orange-50 border-orange-200', icon: '!' };
     return { label: 'Below reference', color: 'text-red-700 bg-red-50 border-red-200', icon: '✗' };
   };
+  */
 
   /* ── University Card ── */
   const renderUniCard = (uni, isGov, showPreferToggle = true) => {
@@ -109,7 +111,7 @@ export default function DreamDegreeResults({ studentData, backendResults, backwa
 
         <UniversityDistance university={uni} studentDistrict={selectedDistrict} />
 
-        {tr(uni.z_score_requirements && Object.keys(uni.z_score_requirements).length > 0 && (
+        {/* {tr(uni.z_score_requirements && Object.keys(uni.z_score_requirements).length > 0 && (
           <div className="mb-3">
             <p className="text-gray-400 text-xs mb-2 font-semibold uppercase tracking-wider">{tr("Cutoff vs Your Z-Score (")}{tr(studentZScore)})</p>
             <p className="text-xs text-slate-600 mb-2">{tr('Stored cutoffs are not district-specific. Check current requirements with the institution.')}</p>
@@ -128,7 +130,7 @@ export default function DreamDegreeResults({ studentData, backendResults, backwa
               }))}
             </div>
           </div>
-        ))}
+        ))} */}
 
         {tr(uni.available_degrees && (
           <div className="mb-3">
