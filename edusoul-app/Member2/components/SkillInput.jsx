@@ -140,7 +140,7 @@ export default function SkillInput({ onSkillsChange, resetKey }) {
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           onFocus={() => setIsFocused(true)}
-          placeholder={skills.length === 0 
+          placeholder={skills.length === 0
             ? tr('Type a skill and press Enter (e.g. Python, Docker, React)...')
             : tr('Add Your Current Skills')
           }

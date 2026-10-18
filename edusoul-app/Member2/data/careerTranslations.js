@@ -295,6 +295,13 @@ export const careerMessages = {
     'ஒரு திறனை தட்டச்சு செய்து Enter அழுத்தவும் (எ.கா. Python, Docker)...'
   ],
   'skills selected': ['කුසලතා තෝරා ඇත', 'திறன்கள் தேர்ந்தெடுக்கப்பட்டன'],
+  
+  // Market Demand Indicators (Trilingual)
+  'Market Demand': ['වෙළඳපල ඉල්ලුම', 'சந்தை தேவை'],
+  'Very High': ['ඉතා ඉහළ', 'மிக அதிக'],
+  'High': ['ඉහළ', 'அதிக'],
+  'Moderate': ['මධ්‍යස්ථ', 'மிதமான'],
+  'Emerging': ['නැගී එන', 'வளர்ந்து வரும்'],
 };
 
 export function translateCareer(text, lang = 'en') {

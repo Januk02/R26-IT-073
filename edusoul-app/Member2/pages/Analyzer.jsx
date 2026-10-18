@@ -17,7 +17,7 @@ import './Analyzer.css';
 const CARD_THEMES = [
   { label: 'BEST FIT', icon: Trophy, gradient: 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)' },
   { label: '2ND MATCH', icon: Medal, gradient: 'linear-gradient(135deg, #6366F1 0%, #4F46E5 100%)' },
-  { label: '3RD MATCH', icon: Award, gradient: 'linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)' },
+  { label: '3RD MATCH', icon: Award, gradient: 'linear-gradient(135deg, #0284C7 0%, #0369A1 100%)' },
 ];
 
 const easeExpo = [0.16, 1, 0.3, 1];
@@ -27,8 +27,8 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.22,
-      delayChildren: 0.08
+      staggerChildren: 0.18,
+      delayChildren: 0.06
     }
   }
 };
@@ -36,13 +36,13 @@ const containerVariants = {
 const cardVariants = {
   hidden: { 
     opacity: 0, 
-    y: 55
+    y: 35
   },
   visible: { 
     opacity: 1, 
     y: 0, 
     transition: {
-      duration: 1.15,
+      duration: 0.85,
       ease: [0.16, 1, 0.3, 1]
     }
   }
@@ -53,18 +53,18 @@ const detailInnerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.18,
-      delayChildren: 0.45
+      staggerChildren: 0.14,
+      delayChildren: 0.35
     }
   }
 };
 
 const detailItemVariants = {
-  hidden: { opacity: 0, y: 25 },
+  hidden: { opacity: 0, y: 18 },
   visible: { 
     opacity: 1, 
     y: 0, 
-    transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] } 
+    transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] } 
   }
 };
 
@@ -73,19 +73,19 @@ const roadmapContainerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0.5
+      staggerChildren: 0.1,
+      delayChildren: 0.4
     }
   }
 };
 
 const roadmapNodeVariants = {
-  hidden: { opacity: 0, y: 18 },
+  hidden: { opacity: 0, y: 15 },
   visible: { 
     opacity: 1, 
     y: 0, 
     transition: {
-      duration: 0.65,
+      duration: 0.55,
       ease: [0.16, 1, 0.3, 1]
     }
   }
@@ -102,7 +102,7 @@ export default function Analyzer() {
   const [refreshKey, setRefreshKey] = useState(0);
   const [savedIndexes, setSavedIndexes] = useState(new Set());
   const [notification, setNotification] = useState(null);
-  const [engineStatus, setEngineStatus] = useState(null); // 'online' | 'degraded' | 'offline' | null
+  const [engineStatus, setEngineStatus] = useState(null);
 
   useEffect(() => {
     const checkHealth = async () => {
@@ -191,14 +191,14 @@ export default function Analyzer() {
   };
 
   const getReadinessColor = (value) => {
-    if (value >= 70) return 'var(--success)';
-    if (value >= 40) return 'var(--warning)';
-    return 'var(--danger)';
+    if (value >= 70) return '#059669'; // Emerald
+    if (value >= 40) return '#d97706'; // Warm Amber
+    return '#e11d48'; // Elegant Rose
   };
 
   return (
     <div className="analyzer">
-      {/* Toast */}
+      {/* Toast Notification */}
       <AnimatePresence>
         {notification && (
           <motion.div
@@ -216,7 +216,7 @@ export default function Analyzer() {
       {/* Header */}
       <div className="analyzer-header">
         <div className="analyzer-step-badge">
-          <Brain size={14} />
+          <Brain size={13} aria-hidden="true" />
           <span>{tr('AI CAREER SCANNER')}</span>
         </div>
         <h2 className="analyzer-title">
@@ -227,10 +227,10 @@ export default function Analyzer() {
         </p>
       </div>
 
-      {/* Engine Info */}
+      {/* Engine Capability Bar */}
       <div className="feature-highlight">
         <div className="feature-icon-bg">
-          <Sparkles size={18} />
+          <Sparkles size={17} aria-hidden="true" />
         </div>
         <div>
           <h4 className="feature-title">{tr('Core Engine Capabilities')}</h4>
@@ -240,14 +240,18 @@ export default function Analyzer() {
         </div>
       </div>
 
-      {/* Input Form */}
+      {/* Frosted Glass Input Card */}
       <div className="input-form">
         <div className="form-field">
           <div className="field-header">
             <label className="field-label">{tr('Add Your Current Skills')}</label>
             <span className="field-badge required">{tr('Priority')}</span>
           </div>
-          <SkillInput onSkillsChange={setCurrentSkills} resetKey={refreshKey} />
+          <SkillInput 
+            onSkillsChange={setCurrentSkills} 
+            resetKey={refreshKey}
+            externalSkills={currentSkills}
+          />
         </div>
 
         <div className="form-field">
@@ -260,28 +264,29 @@ export default function Analyzer() {
 
         <div className="form-actions">
           <button
-            className="generate-btn"
+            className="generate-btn glass-btn"
             onClick={generatePathways}
             disabled={currentSkills.length === 0 || isSearching}
             id="generate-pathway-btn"
           >
             {isSearching ? (
               <>
-                <Loader2 size={18} className="btn-spinner" />
-                <span>{tr('Analyzing Profile & Traversing Knowledge Graph...')}</span>
+                <Loader2 size={17} className="btn-spinner" />
+                <span>{tr('Analyzing Profile & Knowledge Graph...')}</span>
               </>
             ) : (
               <>
                 <span>{tr('Run AI Career Scan')}</span>
-                <ArrowRight size={18} />
+                <ArrowRight size={17} />
               </>
             )}
           </button>
           {top3Results && (
-            <button className="reset-btn" onClick={resetForm}>{tr('Reset View')}</button>
+            <button className="reset-btn glass-btn-secondary" onClick={resetForm}>{tr('Reset View')}</button>
           )}
         </div>
 
+        {/* Engine Status */}
         <div className={`engine-bar ${engineStatus === 'offline' ? 'offline' : engineStatus === 'degraded' ? 'degraded' : ''}`}>
           <div className={`pulse-dot ${engineStatus === 'offline' ? 'offline' : engineStatus === 'degraded' ? 'degraded' : ''}`} />
           <span>
@@ -296,7 +301,38 @@ export default function Analyzer() {
         </div>
       </div>
 
-      {/* Loading & Results Stagger */}
+      {/* ── Empty State: Frosted Glass Status Card (Eliminates the empty void without clutter) ── */}
+      {!top3Results && !isSearching && (
+        <motion.div 
+          className="analyzer-empty-card"
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, ease: easeExpo }}
+        >
+          <div className="empty-radar-wrap">
+            <div className="empty-radar-ring r1" />
+            <div className="empty-radar-ring r2" />
+            <div className="empty-radar-icon">
+              <Sparkles size={22} className="anim-sparkle" />
+            </div>
+          </div>
+          <h3>{tr('Ready for Career Intelligence Scan')}</h3>
+          <p>{tr('Enter your technical skills above and run the scanner to evaluate your profile across 100+ industry job benchmarks, calculate your SGI gap index, and unlock personalized milestone roadmaps.')}</p>
+          <div className="empty-highlights-row">
+            <span className="empty-pill">
+              <Gauge size={13} className="anim-gauge" /> {tr('Market Readiness')}
+            </span>
+            <span className="empty-pill">
+              <BarChart3 size={13} className="anim-barchart" /> {tr('SGI Gap Index')}
+            </span>
+            <span className="empty-pill">
+              <TrendingUp size={13} className="anim-trend" /> {tr('Market Demand')}
+            </span>
+          </div>
+        </motion.div>
+      )}
+
+      {/* Loading & Results */}
       <AnimatePresence mode="wait">
         {isSearching ? (
           <motion.div
@@ -314,16 +350,16 @@ export default function Analyzer() {
             <p>Running deep multi-layered profile analysis</p>
             <div className="loading-steps">
               <motion.div className="loading-step" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0 }}>
-                <CheckCircle2 size={14} /> Normalizing Skill Inputs
+                <CheckCircle2 size={14} /> Normalizing Technical Skills
               </motion.div>
               <motion.div className="loading-step" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
                 <CheckCircle2 size={14} /> Running Predictive Models
               </motion.div>
               <motion.div className="loading-step" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.0 }}>
-                <CheckCircle2 size={14} /> Validating Career Graphs
+                <CheckCircle2 size={14} /> Validating Career Knowledge Graph
               </motion.div>
               <motion.div className="loading-step" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 }}>
-                <Loader2 size={14} className="loading-spin" /> Calculating SGI Score
+                <Loader2 size={14} className="loading-spin" /> Calculating SGI Gap & Market Demand
               </motion.div>
             </div>
             <div className="loading-bar-track">
@@ -367,18 +403,18 @@ export default function Analyzer() {
                 <motion.div
                   key={index}
                   variants={cardVariants}
-                  className={`result-block ${isOpen ? 'expanded' : ''}`}
+                  className={`result-block tier-${index} ${isOpen ? 'expanded' : ''}`}
                 >
                   {/* Clickable Card Header */}
                   <button
-                    className={`career-card ${isOpen ? 'open' : ''}`}
+                    className={`career-card tier-${index} ${isOpen ? 'open' : ''}`}
                     onClick={() => toggleCard(index)}
                     aria-expanded={isOpen}
                   >
-                    {/* Top Row: Badge + Chevron */}
+                    {/* Top Row: Rank Badge + Chevron */}
                     <div className="career-card-top">
                       <div className="career-rank" style={{ background: theme.gradient }}>
-                        <ThemeIcon size={14} />
+                        <ThemeIcon size={13} />
                         <span>{tr(theme.label)}</span>
                       </div>
                       <motion.div
@@ -386,51 +422,77 @@ export default function Analyzer() {
                         animate={{ rotate: isOpen ? 180 : 0 }}
                         transition={{ duration: 0.3, ease: easeExpo }}
                       >
-                        <ChevronDown size={20} />
+                        <ChevronDown size={18} />
                       </motion.div>
                     </div>
 
                     {/* Role Name */}
                     <h4 className="career-role">{result.target_role}</h4>
 
-                    {/* Stats Cards */}
+                    {/* ── Modern Telemetry Stats with Animated Icons & Market Demand ── */}
                     <div className="career-metrics">
+                      {/* Metric 1: Market Readiness (Animated Gauge) */}
                       <div className="metric-item">
                         <div className="metric-icon readiness">
-                          <Gauge size={14} />
+                          <Gauge size={16} className="anim-gauge" />
                         </div>
                         <div className="metric-data">
-                          <span className="metric-value" style={{ color: readinessColor }}>{result.market_readiness.toFixed(0)}%</span>
+                          <span className="metric-value" style={{ color: readinessColor }}>
+                            {result.market_readiness.toFixed(0)}%
+                          </span>
                           <span className="metric-label">{tr('Market Readiness')}</span>
                         </div>
                       </div>
+
                       <div className="metric-sep" />
+
+                      {/* Metric 2: SGI Gap Index (Animated Bar Chart) */}
                       <div className="metric-item">
                         <div className="metric-icon sgi">
-                          <BarChart3 size={14} />
+                          <BarChart3 size={16} className="anim-barchart" />
                         </div>
                         <div className="metric-data">
                           <span className="metric-value">{result.sgi_score.toFixed(0)}%</span>
                           <span className="metric-label">{tr('SGI Gap Index')}</span>
                         </div>
                       </div>
+
                       <div className="metric-sep" />
-                      <div className="metric-item">
-                        <div className="metric-icon confidence">
-                          <TrendingUp size={14} />
-                        </div>
-                        <div className="metric-data">
-                          <span className="metric-value accent">{tr('High')}</span>
-                          <span className="metric-label">{tr('Confidence Score')}</span>
-                        </div>
-                      </div>
+
+                      {/* Metric 3: Real Market Demand (Calculated dynamically from Sri Lankan hiring dataset & Neo4j graph) */}
+                      {(() => {
+                        // 1. Extract dynamic market demand object (with safe fallback to 'High' if unpopulated)
+                        const demandData = (typeof result.market_demand === 'object' && result.market_demand !== null)
+                          ? result.market_demand
+                          : { level: result.market_demand || 'High', score: null, active_postings: null };
+                        
+                        // 2. Resolve categorical tier (e.g., 'Very High', 'High', 'Moderate', 'Emerging')
+                        const demandLevel = demandData.level || 'High';
+                        
+                        return (
+                          <div 
+                            className="metric-item"
+                            title={demandData.active_postings ? `${demandData.active_postings} active vacancies indexed in Sri Lanka (${demandData.growth || ''})` : 'Calculated from live industry hiring demand'}
+                          >
+                            <div className="metric-icon demand">
+                              <TrendingUp size={16} className="anim-trend" />
+                            </div>
+                            <div className="metric-data">
+                              <span className="metric-value accent">{tr(demandLevel)}</span>
+                              <span className="metric-label">{tr('Market Demand')}</span>
+                            </div>
+                          </div>
+                        );
+                      })()}
                     </div>
 
                     {/* Readiness Bar */}
                     <div className="readiness-bar">
                       <div className="readiness-bar-header">
                         <span>{tr('Market Readiness')}</span>
-                        <span>{result.market_readiness.toFixed(0)}%</span>
+                        <span style={{ color: readinessColor, fontWeight: 700 }}>
+                          {result.market_readiness.toFixed(0)}%
+                        </span>
                       </div>
                       <div className="readiness-bar-track">
                         <motion.div
@@ -446,7 +508,7 @@ export default function Analyzer() {
 
                   {/* Expandable Detail Panel */}
                   <motion.div
-                    className="detail-panel"
+                    className={`detail-panel tier-${index}`}
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ 
                       height: isOpen ? 'auto' : 0, 
@@ -460,44 +522,13 @@ export default function Analyzer() {
                       initial="hidden"
                       animate={isOpen ? "visible" : "hidden"}
                     >
-                      {/* Action Buttons */}
-                      <motion.div variants={detailItemVariants} className="detail-actions">
-                        <button
-                          className={`save-btn ${isSaved ? 'saved' : ''}`}
-                          onClick={(e) => { e.stopPropagation(); if (!isSaved) handleSavePathway(result, index); }}
-                          disabled={isSaved}
-                        >
-                          {isSaved ? <><CheckCircle2 size={16} /> {tr('Saved')}</> : <><Bookmark size={16} /> {tr('Save to My Pathways')}</>}
-                        </button>
-                      </motion.div>
-
-                      {/* Stats Banner */}
-                      <motion.div variants={detailItemVariants} className="detail-banner" style={{ background: theme.gradient }}>
-                        <span className="detail-banner-label">{tr('Target Career')}</span>
-                        <h4 className="detail-banner-role">{result.target_role}</h4>
-                        <div className="detail-banner-stats">
-                          <div className="dbs">
-                            <span className="dbs-value">{result.market_readiness.toFixed(0)}%</span>
-                            <span className="dbs-label">{tr('MARKET READINESS')}</span>
-                          </div>
-                          <div className="dbs-divider" />
-                          <div className="dbs">
-                            <span className="dbs-value">{result.sgi_score.toFixed(0)}%</span>
-                            <span className="dbs-label">{tr('SGI GAP INDEX')}</span>
-                          </div>
-                          <div className="dbs-divider" />
-                          <div className="dbs">
-                            <span className="dbs-value">{tr('High')}</span>
-                            <span className="dbs-label">{tr('Confidence Score')}</span>
-                          </div>
-                        </div>
-                      </motion.div>
-
-                      {/* Degree */}
+                      {/* Academic Pathway Alignment */}
                       <motion.div variants={detailItemVariants} className="detail-degree">
-                        <GraduationCap size={20} className="detail-degree-icon" />
-                        <div>
-                          <span className="detail-degree-label">{tr('Degree Affinity')}</span>
+                        <div className="detail-degree-icon-wrap">
+                          <GraduationCap size={22} className="detail-degree-icon" />
+                        </div>
+                        <div className="detail-degree-info">
+                          <span className="detail-degree-label">{tr('Recommended Academic Pathway')}</span>
                           <span className="detail-degree-value">{result.recommended_degree}</span>
                         </div>
                       </motion.div>
@@ -558,10 +589,21 @@ export default function Analyzer() {
                         </motion.div>
                       ) : (
                         <motion.div variants={detailItemVariants} className="perfect-match">
-                          <CheckCircle2 size={40} color="var(--success)" />
+                          <CheckCircle2 size={36} color="#10b981" />
                           <h4>{tr('All core skills mastered! Exceptional profile alignment.')}</h4>
                         </motion.div>
                       )}
+
+                      {/* Glass Action Button */}
+                      <motion.div variants={detailItemVariants} className="detail-actions">
+                        <button
+                          className={`save-btn glass-btn ${isSaved ? 'saved' : ''}`}
+                          onClick={(e) => { e.stopPropagation(); if (!isSaved) handleSavePathway(result, index); }}
+                          disabled={isSaved}
+                        >
+                          {isSaved ? <><CheckCircle2 size={16} /> {tr('Pathway Saved to Dashboard')}</> : <><Bookmark size={16} /> {tr('Save to My Pathways')}</>}
+                        </button>
+                      </motion.div>
                     </motion.div>
                   </motion.div>
                 </motion.div>

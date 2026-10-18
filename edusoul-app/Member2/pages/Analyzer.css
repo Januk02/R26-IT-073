@@ -1,201 +1,410 @@
-/* ============================================
-   ANALYZER PAGE — Career Module
-   ============================================ */
+/* ==========================================================================
+   ANALYZER PAGE — Dual-Theme Modern Glassmorphism Design System
+   Full Native Support for Dark & Light Themes
+   Crafted with Expert-Level UI/UX Polish
+   ========================================================================== */
 
 .analyzer {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  max-width: 880px;
+  gap: 22px;
+  max-width: 920px;
   margin: 0 auto;
   width: 100%;
 }
 
-/* ---- TOAST ---- */
+/* ── Toast Notifications ── */
 .toast {
   position: fixed;
-  top: 20px;
+  top: 24px;
   left: 50%;
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 12px 20px;
-  border-radius: var(--radius-md);
-  font-size: 14px;
-  font-weight: 600;
+  gap: 10px;
+  padding: 12px 22px;
+  border-radius: 12px;
+  font-size: 13.5px;
+  font-weight: 650;
   z-index: 9999;
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
-.toast.success { background: var(--success); color: white; }
-.toast.error { background: var(--danger); color: white; }
+.toast.success { background: #065f46; color: #ecfdf5; border: 1px solid #059669; }
+.toast.error { background: #991b1b; color: #fef2f2; border: 1px solid #dc2626; }
+.toast.warning { background: #92400e; color: #fffbeb; border: 1px solid #d97706; }
 
-/* ---- HEADER ---- */
-.analyzer-header { margin-bottom: 4px; }
+/* ── Header ── */
+.analyzer-header {
+  margin-bottom: 2px;
+}
 
 .analyzer-step-badge {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.2px;
-  color: var(--accent);
-  margin-bottom: 10px;
+  gap: 7px;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.2s ease;
 }
 
 .analyzer-title {
-  font-size: 34px;
-  font-weight: 800;
+  font-size: clamp(26px, 2.5vw, 34px);
+  font-weight: 850;
   line-height: 1.15;
-  color: var(--text-primary);
-  margin-bottom: 10px;
-  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+  letter-spacing: -0.6px;
+  color: var(--text-primary, #f8fafc);
+  transition: color 0.2s ease;
 }
 
 .analyzer-desc {
-  font-size: 15px;
-  color: var(--text-secondary);
-  line-height: 1.7;
-  max-width: 620px;
+  font-size: 14px;
+  line-height: 1.6;
+  max-width: 680px;
+  margin: 0;
+  color: var(--text-secondary, #94a3b8);
+  transition: color 0.2s ease;
 }
 
-/* ---- FEATURE ---- */
+/* ── Dual-Engine Capability Banner ── */
 .feature-highlight {
   display: flex;
   align-items: flex-start;
-  gap: 14px;
-  padding: 18px 20px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
+  gap: 16px;
+  padding: 16px 20px;
+  border-radius: 14px;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  background: var(--bg-card, rgba(20, 27, 45, 0.85));
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
 }
+
 .feature-icon-bg {
-  width: 40px;
-  height: 40px;
-  min-width: 40px;
-  border-radius: 50%;
-  background: var(--accent-subtle);
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #123e78 0%, #1e56b8 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--accent);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(18, 62, 120, 0.35);
 }
-.feature-title { font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 3px; }
-.feature-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
 
-/* ---- INPUT FORM ---- */
+.feature-title {
+  font-size: 13.5px;
+  font-weight: 750;
+  margin: 0 0 3px;
+  color: var(--text-primary, #f8fafc);
+  transition: color 0.2s ease;
+}
+
+.feature-desc {
+  font-size: 12px;
+  line-height: 1.55;
+  margin: 0;
+  color: var(--text-secondary, #94a3b8);
+  transition: color 0.2s ease;
+}
+
+/* ── Frosted Glass Input Card ── */
 .input-form {
   padding: 24px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
+  border-radius: 18px;
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  background: var(--bg-card, rgba(18, 24, 40, 0.82));
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.1));
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.35);
+  transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
 }
-.form-field { margin-bottom: 20px; }
+
+.form-field {
+  margin-bottom: 18px;
+}
+
 .field-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 8px;
 }
-.field-label { font-size: 12px; font-weight: 700; color: var(--text-secondary); letter-spacing: 0.7px; }
-.field-badge {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.4px;
-  padding: 3px 8px;
-  border-radius: var(--radius-sm);
+
+.field-label {
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: 0.5px;
+  color: var(--text-primary, #f1f5f9);
+  transition: color 0.2s ease;
 }
-.field-badge.required { background: var(--accent-subtle); color: var(--accent); }
-.field-badge.optional { background: var(--skeleton); color: var(--text-muted); }
+
+.field-badge {
+  font-size: 9.5px;
+  font-weight: 750;
+  letter-spacing: 0.5px;
+  padding: 2px 8px;
+  border-radius: 5px;
+}
 
 .form-actions {
   display: flex;
-  gap: 10px;
-  margin-top: 22px;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+/* ── Frosted Sapphire Blue Glass Buttons ── */
+.glass-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #123e78 0%, #1b53b3 55%, #3546a3 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: #ffffff !important;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 
+    0 8px 24px -4px rgba(18, 62, 120, 0.4),
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.45),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 48%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.26) 0%, rgba(255, 255, 255, 0) 100%);
+  border-radius: 12px 12px 0 0;
+  pointer-events: none;
+}
+
+.glass-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #16488a 0%, #2260cb 55%, #3f52ba 100%);
+  border-color: rgba(255, 255, 255, 0.45);
+  box-shadow: 
+    0 14px 32px -4px rgba(18, 62, 120, 0.5),
+    inset 0 1px 2px rgba(255, 255, 255, 0.65);
+}
+
+.glass-btn:hover:not(:disabled) svg {
+  transform: translateX(3px);
+}
+
+.glass-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  background: rgba(100, 116, 139, 0.35) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  box-shadow: none !important;
+  transform: none !important;
 }
 
 .generate-btn {
   flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 14px 24px;
-  background: var(--accent-gradient-btn);
-  color: white;
-  font-size: 15px;
+  gap: 10px;
+  padding: 13px 26px;
+  font-size: 14.5px;
+  font-weight: 750;
+}
+
+.btn-spinner {
+  animation: spin 1s linear infinite;
+}
+
+.glass-btn-secondary {
+  padding: 13px 22px;
+  font-size: 13.5px;
   font-weight: 700;
-  border-radius: var(--radius-md);
-  box-shadow: 0 2px 12px rgba(36,85,179, 0.3);
-  transition: all var(--duration-fast) var(--ease-out);
+  border-radius: 12px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  cursor: pointer;
+  transition: all 0.25s ease;
 }
-.generate-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(36,85,179, 0.4);
-}
-.generate-btn:disabled { opacity: 0.35; cursor: not-allowed; }
-.btn-spinner { animation: spin 1s linear infinite; }
 
-.reset-btn {
-  padding: 14px 24px;
-  color: var(--text-secondary);
-  font-size: 14px;
-  font-weight: 600;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border);
-  background: var(--bg-input);
-  transition: all var(--duration-fast);
-}
-.reset-btn:hover { background: var(--accent-muted); color: var(--text-primary); border-color: var(--border-hover); }
-
+/* ── Engine Status Bar ── */
 .engine-bar {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 7px;
-  margin-top: 16px;
-  font-size: 12px;
-  color: var(--success);
-  font-weight: 500;
-  transition: all var(--duration-fast);
+  margin-top: 14px;
+  font-size: 11.5px;
+  color: #10b981;
+  font-weight: 650;
 }
 
-.engine-bar.degraded {
-  color: #F59E0B;
+.pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+  animation: pulse-dot 2s ease-in-out infinite;
 }
 
-.engine-bar.offline {
-  color: var(--danger);
+@keyframes pulse-dot {
+  0%, 100% { opacity: 0.6; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.2); }
 }
 
-/* ---- LOADING ---- */
+/* ── Empty State Card ── */
+.analyzer-empty-card {
+  padding: 34px 28px;
+  border-radius: 18px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 4px;
+  transition: background 0.25s, border-color 0.25s;
+}
+
+.empty-radar-wrap {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.empty-radar-ring {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.empty-radar-ring.r1 {
+  inset: 0;
+  border: 1px dashed rgba(100, 116, 139, 0.3);
+  animation: radar-spin 18s linear infinite;
+}
+
+.empty-radar-ring.r2 {
+  inset: 8px;
+  border-style: solid;
+  border-color: rgba(59, 130, 246, 0.15);
+  animation: radar-spin-rev 12s linear infinite;
+}
+
+.empty-radar-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.anim-sparkle {
+  animation: sparkle-breath 3s ease-in-out infinite alternate;
+}
+
+@keyframes sparkle-breath {
+  0% { transform: scale(0.9) rotate(0deg); opacity: 0.7; }
+  100% { transform: scale(1.1) rotate(15deg); opacity: 1; }
+}
+
+@keyframes radar-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes radar-spin-rev {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+.analyzer-empty-card h3 {
+  font-size: 17px;
+  font-weight: 800;
+  margin: 0 0 6px;
+}
+
+.analyzer-empty-card p {
+  font-size: 13px;
+  line-height: 1.6;
+  max-width: 580px;
+  margin: 0 0 18px;
+}
+
+.empty-highlights-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.empty-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 650;
+  transition: all 0.2s ease;
+}
+
+/* ── Loading Animation ── */
 .loading-analysis {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   padding: 44px 20px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
+  border-radius: 18px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
+
 .loading-orb {
-  width: 64px;
-  height: 64px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
-  background: var(--accent-subtle);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 18px;
-  color: var(--accent);
+  margin-bottom: 16px;
 }
-.loading-spin { animation: spin 1.5s linear infinite; }
-.loading-analysis h3 { font-size: 17px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
-.loading-analysis p { font-size: 14px; color: var(--text-muted); margin-bottom: 18px; }
+
+.loading-spin {
+  animation: spin 1.4s linear infinite;
+}
+
+.loading-analysis h3 {
+  font-size: 17px;
+  font-weight: 800;
+  margin: 0 0 4px;
+}
+
+.loading-analysis p {
+  font-size: 13px;
+  margin: 0 0 18px;
+}
 
 .loading-steps {
   display: flex;
@@ -204,80 +413,105 @@
   margin-bottom: 20px;
   text-align: left;
 }
+
 .loading-step {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 13px;
-  color: var(--text-secondary);
-  font-weight: 500;
+  font-size: 12.5px;
+  font-weight: 600;
 }
-.loading-step svg { color: var(--success); flex-shrink: 0; }
+
+.loading-step svg {
+  color: #10b981;
+  flex-shrink: 0;
+}
 
 .loading-bar-track {
   width: 220px;
   height: 4px;
-  background: var(--skeleton);
   border-radius: 2px;
   overflow: hidden;
 }
-.loading-bar-fill { height: 100%; background: var(--accent-gradient); border-radius: 2px; }
 
-/* ---- RESULTS ---- */
-.results-section { display: flex; flex-direction: column; gap: 14px; }
+.loading-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #1b53b3, #7c3aed);
+  border-radius: 2px;
+}
+
+/* ── Results Section ── */
+.results-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
 .results-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: flex-end;
   margin-bottom: 2px;
 }
-.results-title { font-size: 22px; font-weight: 800; color: var(--text-primary); margin-bottom: 3px; letter-spacing: -0.3px; }
-.results-desc { font-size: 14px; color: var(--text-muted); }
+
+.results-title {
+  font-size: 20px;
+  font-weight: 850;
+  margin: 0 0 2px;
+  letter-spacing: -0.4px;
+  color: var(--text-primary, #f8fafc);
+  transition: color 0.2s ease;
+}
+
+.results-desc {
+  font-size: 13px;
+  margin: 0;
+  color: var(--text-secondary, #94a3b8);
+  transition: color 0.2s ease;
+}
+
 .results-meta {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 12px;
-  color: var(--text-muted);
-  font-weight: 600;
-  padding: 6px 12px;
-  background: var(--bg-card);
-  border-radius: var(--radius-full);
-  border: 1px solid var(--border);
+  font-size: 11px;
+  font-weight: 650;
+  padding: 5px 12px;
+  border-radius: 999px;
 }
 
 .result-block {
-  border-radius: var(--radius-xl);
+  border-radius: 22px;
   overflow: hidden;
-  transition: box-shadow var(--duration-normal) var(--ease-out);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
 }
 
-.result-block.expanded {
-  box-shadow: var(--shadow-lg), 0 0 0 1px var(--border-active);
-}
-
-.career-card {
+/* ── Liquid Glass Career Recommendation Card ── */
+.career-card,
+.analyzer .career-card {
   width: 100%;
   text-align: left;
-  padding: 22px 24px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-card);
+  padding: 22px 26px;
+  border-radius: 22px;
+  backdrop-filter: blur(28px) saturate(190%) contrast(102%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%) contrast(102%);
   cursor: pointer;
-  transition: all var(--duration-normal) var(--ease-out);
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  color: inherit;
+  display: block;
+  outline: none;
+  position: relative;
 }
 
 .career-card:hover {
-  border-color: var(--border-hover);
-  box-shadow: var(--shadow-card-hover);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 .career-card.open {
-  border-color: var(--border-active);
-  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-  border-bottom: none;
+  border-radius: 22px 22px 0 0;
   transform: none;
 }
 
@@ -292,318 +526,1361 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.5px;
-  color: white;
+  font-size: 10.5px;
+  font-weight: 850;
+  letter-spacing: 0.8px;
+  color: #ffffff;
   padding: 5px 12px;
-  border-radius: var(--radius-sm);
+  border-radius: 999px;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.4), 0 3px 10px rgba(0, 0, 0, 0.12);
 }
 
 .career-chevron {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: var(--bg-input);
-  color: var(--text-secondary);
-  transition: background var(--duration-fast);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s, color 0.2s, border-color 0.2s;
+  flex-shrink: 0;
 }
-.career-card:hover .career-chevron { background: var(--accent-subtle); color: var(--accent); }
 
 .career-role {
-  font-size: 20px;
-  font-weight: 800;
-  color: var(--text-primary);
-  margin-bottom: 16px;
-  letter-spacing: -0.3px;
+  font-size: 21px;
+  font-weight: 850;
+  margin: 0 0 16px;
+  letter-spacing: -0.4px;
+  transition: color 0.2s ease;
+  line-height: 1.2;
 }
 
-/* ---- METRIC ITEMS ---- */
+/* ── Metric Items & Liquid Glass Animated Icons ── */
 .career-metrics {
   display: flex;
   align-items: center;
-  gap: 0;
-  padding: 14px 0;
+  gap: 8px;
+  padding: 12px 14px;
   margin-bottom: 14px;
-  border-top: 1px solid var(--divider);
-  border-bottom: 1px solid var(--divider);
+  border-radius: 16px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: background 0.2s, border-color 0.2s;
 }
 
 .metric-item {
   flex: 1;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   justify-content: center;
+  cursor: pointer;
 }
 
 .metric-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: var(--radius-sm);
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.metric-icon.readiness { background: var(--success-subtle); color: var(--success); }
-.metric-icon.sgi { background: var(--warning-subtle); color: var(--warning); }
-.metric-icon.confidence { background: var(--accent-subtle); color: var(--accent); }
-
-.metric-data { display: flex; flex-direction: column; }
-.metric-value { font-size: 18px; font-weight: 800; color: var(--text-primary); line-height: 1.2; }
-.metric-value.accent { color: var(--accent); }
-.metric-label { font-size: 11px; color: var(--text-muted); font-weight: 500; margin-top: 1px; }
-
-.metric-sep {
-  width: 1px;
-  height: 36px;
-  background: var(--divider);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   flex-shrink: 0;
 }
 
-/* ---- READINESS BAR ---- */
+.metric-item:hover .metric-icon {
+  transform: scale(1.08);
+}
+
+/* ── ANIMATED ICONS ── */
+.anim-gauge {
+  transform-origin: center;
+  animation: gauge-pulse 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes gauge-pulse {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  35% { transform: rotate(14deg) scale(1.08); }
+  70% { transform: rotate(-8deg) scale(1.04); }
+}
+
+.anim-barchart {
+  animation: barchart-pulse 2.8s ease-in-out infinite;
+}
+
+@keyframes barchart-pulse {
+  0%, 100% { transform: translateY(0) scaleY(1); }
+  50% { transform: translateY(-2px) scaleY(1.12); }
+}
+
+.anim-trend {
+  animation: trend-glide 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite alternate;
+}
+
+@keyframes trend-glide {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(2px, -2px) scale(1.12); }
+}
+
+.metric-data {
+  display: flex;
+  flex-direction: column;
+}
+
+.metric-value {
+  font-size: 15.5px;
+  font-weight: 850;
+  line-height: 1.15;
+}
+
+.metric-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  margin-top: 2px;
+  letter-spacing: 0.2px;
+}
+
+.metric-sep {
+  width: 1px;
+  height: 28px;
+}
+
+/* ── Readiness Progress Bar ── */
+.readiness-bar {
+  margin-top: 4px;
+}
+
 .readiness-bar-header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-size: 11px;
-  font-weight: 600;
-  color: var(--text-muted);
+  font-weight: 700;
   margin-bottom: 6px;
-}
-.readiness-bar-track {
-  height: 5px;
-  background: var(--skeleton);
-  border-radius: 3px;
-  overflow: hidden;
-}
-.readiness-bar-fill {
-  height: 100%;
-  border-radius: 3px;
-  transition: background 0.3s;
+  letter-spacing: 0.3px;
 }
 
-/* DETAIL PANEL */
-.detail-panel {
+.readiness-bar-track {
+  width: 100%;
+  height: 7px;
+  border-radius: 999px;
   overflow: hidden;
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border);
-  border-top: none;
-  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.readiness-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Expanded Detail Panel (Liquid Glass Continuation) ── */
+.detail-panel {
+  padding: 22px 26px;
+  border-radius: 0 0 22px 22px;
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
 }
 
 .detail-inner {
-  padding: 22px 24px;
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.detail-actions { display: flex; gap: 10px; }
-.save-btn {
-  flex: 1;
+.detail-actions {
   display: flex;
+  margin-top: 4px;
+}
+
+/* ── Tier-Specific Liquid Glass Action Buttons ── */
+.save-btn {
+  width: 100%;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 13px;
-  background: var(--accent-gradient-btn);
-  color: white;
+  padding: 13px 20px;
   font-size: 14px;
-  font-weight: 700;
-  border-radius: var(--radius-md);
-  box-shadow: 0 2px 10px rgba(36,85,179, 0.2);
-  transition: all var(--duration-fast) var(--ease-out);
-}
-.save-btn:hover:not(:disabled) {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 18px rgba(36,85,179, 0.3);
-}
-.save-btn.saved {
-  background: var(--success);
-  box-shadow: 0 2px 10px rgba(34, 197, 94, 0.2);
-  cursor: default;
-}
-
-.detail-banner {
-  border-radius: var(--radius-lg);
-  padding: 24px;
-  color: white;
+  font-weight: 750;
+  border-radius: 14px;
   position: relative;
   overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  color: #ffffff !important;
 }
-.detail-banner::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 50%);
-  pointer-events: none;
-}
-.detail-banner-label {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  opacity: 0.75;
-  margin-bottom: 6px;
-  display: block;
-}
-.detail-banner-role { font-size: 22px; font-weight: 800; margin-bottom: 20px; }
-.detail-banner-stats {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-.dbs { text-align: center; flex: 1; }
-.dbs-value { display: block; font-size: 28px; font-weight: 800; line-height: 1.1; }
-.dbs-label { font-size: 10px; font-weight: 700; letter-spacing: 0.5px; opacity: 0.7; margin-top: 4px; display: block; }
-.dbs-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.2); flex-shrink: 0; }
 
+/* Tier 0: Warm Honey-Amber Liquid Glass Button (Matches Best Fit Gold Theme) */
+.detail-panel.tier-0 .save-btn,
+.tier-0 .save-btn {
+  background: linear-gradient(135deg, #d97706 0%, #b45309 60%, #92400e 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 
+    0 8px 24px -4px rgba(217, 119, 6, 0.45),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.6),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.2) !important;
+}
+
+.detail-panel.tier-0 .save-btn:hover:not(:disabled),
+.tier-0 .save-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 60%, #b45309 100%) !important;
+  border-color: rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 
+    0 12px 30px -4px rgba(217, 119, 6, 0.6),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Tier 1: Royal Iris / Indigo Liquid Glass Button (Matches 2nd Match Theme) */
+.detail-panel.tier-1 .save-btn,
+.tier-1 .save-btn {
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 60%, #3730a3 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 
+    0 8px 24px -4px rgba(99, 102, 241, 0.45),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.6),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.2) !important;
+}
+
+.detail-panel.tier-1 .save-btn:hover:not(:disabled),
+.tier-1 .save-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #818cf8 0%, #6366f1 60%, #4f46e5 100%) !important;
+  border-color: rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 
+    0 12px 30px -4px rgba(99, 102, 241, 0.6),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Tier 2: Ocean Azure / Cyan Liquid Glass Button (Matches 3rd Match Theme) */
+.detail-panel.tier-2 .save-btn,
+.tier-2 .save-btn {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 60%, #075985 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 
+    0 8px 24px -4px rgba(2, 132, 199, 0.45),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.6),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.2) !important;
+}
+
+.detail-panel.tier-2 .save-btn:hover:not(:disabled),
+.tier-2 .save-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 60%, #0369a1 100%) !important;
+  border-color: rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 
+    0 12px 30px -4px rgba(2, 132, 199, 0.6),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Saved State */
+.save-btn.saved,
+.detail-panel .save-btn.saved {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.35), inset 0 1px 1.5px rgba(255, 255, 255, 0.5) !important;
+  cursor: default !important;
+  transform: none !important;
+}
+
+/* Detail Degree Banner */
 .detail-degree {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 16px 18px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-xs);
+  padding: 14px 18px;
+  border-radius: 12px;
+  margin-bottom: 4px;
 }
-.detail-degree-icon { color: var(--accent); flex-shrink: 0; }
-.detail-degree-label { display: block; font-size: 11px; color: var(--text-muted); font-weight: 600; margin-bottom: 2px; }
-.detail-degree-value { font-size: 15px; font-weight: 700; color: var(--text-primary); }
 
-.roadmap-section { margin-top: 2px; }
-.roadmap-title {
+.detail-degree-icon {
+  flex-shrink: 0;
+}
+
+.detail-degree-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.detail-degree-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.detail-degree-value {
+  display: block;
+  font-size: 14.5px;
+  font-weight: 750;
+  line-height: 1.3;
+}
+
+/* Roadmap Timeline */
+.roadmap-timeline-section {
+  margin-bottom: 16px;
+}
+
+.roadmap-header {
   display: flex;
   align-items: center;
-  gap: 7px;
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 14px;
-}
-.roadmap-title svg { color: var(--accent); }
-.roadmap-count {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--text-muted);
-  background: var(--skeleton);
-  padding: 2px 8px;
-  border-radius: var(--radius-full);
-  margin-left: auto;
+  gap: 8px;
+  margin-bottom: 12px;
 }
 
-.roadmap-timeline { display: flex; flex-direction: column; }
-.roadmap-node { display: flex; gap: 12px; }
-.tl-track {
+.roadmap-title {
+  font-size: 13.5px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.roadmap-count {
+  font-size: 10px;
+  font-weight: 750;
+  padding: 2px 7px;
+  border-radius: 999px;
+}
+
+.roadmap-timeline {
+  display: flex;
+  flex-direction: column;
+}
+
+.roadmap-step {
+  display: flex;
+  gap: 12px;
+}
+
+.roadmap-step-left {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 26px;
-  min-width: 26px;
+  width: 20px;
+  flex-shrink: 0;
 }
+
 .tl-dot {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
+  background: #f59e0b;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  z-index: 2;
-  background: var(--accent);
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.4);
 }
-.tl-dot.critical { background: var(--danger); }
-.tl-dot.degree { background: var(--success); }
+.tl-dot.degree { background: #1b53b3; box-shadow: 0 0 8px rgba(27, 83, 179, 0.4); }
+.tl-dot.critical { background: #ef4444; box-shadow: 0 0 8px rgba(239, 68, 68, 0.4); }
+
 .tl-line {
   width: 2px;
   flex: 1;
-  background: var(--divider);
-  min-height: 16px;
+  min-height: 24px;
+  margin: 4px 0;
 }
 
 .roadmap-card {
   flex: 1;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--accent);
-  border-radius: var(--radius-md);
-  padding: 14px 16px;
+  padding: 10px 14px;
+  border-radius: 10px;
   margin-bottom: 10px;
-  box-shadow: var(--shadow-xs);
-  transition: all var(--duration-fast);
+  transition: background 0.2s, border-color 0.2s;
 }
-.roadmap-card:hover {
-  border-color: var(--border-hover);
-  box-shadow: var(--shadow-sm);
-}
+
 .roadmap-card.critical {
-  border-left-color: var(--danger);
-  background: var(--danger-subtle);
+  border-left: 3px solid #ef4444;
 }
+
 .roadmap-card-header {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: flex-start;
-  gap: 10px;
-  margin-bottom: 5px;
+  gap: 8px;
+  margin-bottom: 2px;
 }
-.roadmap-req-name { font-size: 14px; font-weight: 700; color: var(--text-primary); }
+
+.roadmap-req-name {
+  font-size: 13px;
+  font-weight: 750;
+}
 
 .roadmap-badge {
   font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.4px;
-  padding: 3px 7px;
-  border-radius: var(--radius-sm);
-  white-space: nowrap;
-  background: var(--accent-subtle);
-  color: var(--accent);
+  font-weight: 750;
+  padding: 2px 6px;
+  border-radius: 4px;
 }
-.roadmap-badge.critical { background: var(--danger-subtle); color: var(--danger); }
-.roadmap-badge.degree { background: var(--success-subtle); color: var(--success); }
+.roadmap-badge.critical { background: rgba(239, 68, 68, 0.15); color: #f87171; }
 
-.roadmap-card-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-bottom: 7px; }
+.roadmap-card-desc {
+  font-size: 10.5px;
+  margin: 0 0 6px;
+}
 
 .impact-forecast {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  color: var(--text-secondary);
-  padding: 8px 12px;
-  background: var(--bg-input);
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border);
+  gap: 5px;
+  font-size: 10.5px;
+  font-weight: 650;
+  padding: 3px 8px;
+  border-radius: 5px;
 }
-.impact-forecast svg { color: var(--warning); flex-shrink: 0; }
-.impact-forecast strong { color: var(--success); }
 
 .perfect-match {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  text-align: center;
-  padding: 36px;
-  background: var(--success-subtle);
-  border: 1px solid rgba(34, 197, 94, 0.15);
-  border-radius: var(--radius-lg);
+  gap: 12px;
+  padding: 16px;
+  border-radius: 10px;
 }
-.perfect-match h4 { font-size: 18px; font-weight: 800; color: var(--text-primary); margin-top: 8px; margin-bottom: 4px; }
-.perfect-match p { font-size: 14px; color: var(--text-muted); }
 
-@media (max-width: 768px) {
-  .analyzer-title { font-size: 26px; }
-  .input-form { padding: 18px; }
-  .career-card { padding: 18px; }
-  .career-metrics { flex-direction: column; gap: 12px; }
-  .metric-sep { width: 100%; height: 1px; }
-  .metric-item { justify-content: flex-start; padding-left: 12px; }
-  .results-header { flex-direction: column; gap: 10px; }
-  .detail-inner { padding: 18px; }
-  .detail-banner { padding: 18px; }
-  .detail-banner-stats { flex-direction: column; gap: 14px; }
-  .dbs-divider { width: 100%; height: 1px; }
+.perfect-match h4 {
+  font-size: 13.5px;
+  font-weight: 750;
+  margin: 0;
+}
+
+
+/* ==========================================================================
+   THEME ADAPTATION: DARK MODE ([data-theme="dark"])
+   Flawless, luxurious dark-glass styling
+   ========================================================================== */
+
+[data-theme="dark"] .analyzer-step-badge,
+.studyfyx-module[data-theme="dark"] .analyzer-step-badge {
+  background: rgba(30, 58, 138, 0.28);
+  border: 1px solid rgba(96, 165, 250, 0.35);
+  color: #93c5fd;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+[data-theme="dark"] .analyzer-title,
+.studyfyx-module[data-theme="dark"] .analyzer-title {
+  color: #f8fafc !important;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .analyzer-desc,
+.studyfyx-module[data-theme="dark"] .analyzer-desc {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .feature-highlight,
+.studyfyx-module[data-theme="dark"] .feature-highlight {
+  background: linear-gradient(135deg, rgba(20, 27, 45, 0.85) 0%, rgba(13, 19, 33, 0.75) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.09) !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.38) !important;
+}
+
+[data-theme="dark"] .feature-title,
+.studyfyx-module[data-theme="dark"] .feature-title {
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .feature-desc,
+.studyfyx-module[data-theme="dark"] .feature-desc {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .input-form,
+.studyfyx-module[data-theme="dark"] .input-form {
+  background: linear-gradient(135deg, rgba(18, 24, 40, 0.85) 0%, rgba(12, 17, 28, 0.76) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 
+    0 16px 40px -10px rgba(0, 0, 0, 0.55),
+    inset 0 1px 1px rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-theme="dark"] .field-label,
+.studyfyx-module[data-theme="dark"] .field-label {
+  color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .field-badge.required,
+.studyfyx-module[data-theme="dark"] .field-badge.required {
+  background: rgba(59, 130, 246, 0.22);
+  color: #93c5fd;
+  border: 1px solid rgba(59, 130, 246, 0.4);
+}
+
+[data-theme="dark"] .field-badge.optional,
+.studyfyx-module[data-theme="dark"] .field-badge.optional {
+  background: rgba(255, 255, 255, 0.06);
+  color: #94a3b8;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+[data-theme="dark"] .glass-btn-secondary,
+.studyfyx-module[data-theme="dark"] .glass-btn-secondary {
+  background: rgba(255, 255, 255, 0.08);
+  color: #f1f5f9;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+[data-theme="dark"] .glass-btn-secondary:hover,
+.studyfyx-module[data-theme="dark"] .glass-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="dark"] .analyzer-empty-card,
+.studyfyx-module[data-theme="dark"] .analyzer-empty-card {
+  background: linear-gradient(135deg, rgba(20, 26, 42, 0.78) 0%, rgba(13, 18, 30, 0.68) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.38) !important;
+}
+
+[data-theme="dark"] .empty-radar-icon,
+.studyfyx-module[data-theme="dark"] .empty-radar-icon {
+  background: rgba(59, 130, 246, 0.18);
+  color: #93c5fd;
+}
+
+[data-theme="dark"] .analyzer-empty-card h3,
+.studyfyx-module[data-theme="dark"] .analyzer-empty-card h3 {
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .analyzer-empty-card p,
+.studyfyx-module[data-theme="dark"] .analyzer-empty-card p {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .empty-pill,
+.studyfyx-module[data-theme="dark"] .empty-pill {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .loading-analysis,
+.studyfyx-module[data-theme="dark"] .loading-analysis {
+  background: rgba(20, 25, 40, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .loading-orb,
+.studyfyx-module[data-theme="dark"] .loading-orb {
+  background: rgba(59, 130, 246, 0.16);
+  color: #93c5fd;
+}
+
+[data-theme="dark"] .loading-analysis h3,
+.studyfyx-module[data-theme="dark"] .loading-analysis h3 {
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .loading-analysis p,
+.studyfyx-module[data-theme="dark"] .loading-analysis p {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .loading-step,
+.studyfyx-module[data-theme="dark"] .loading-step {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .loading-bar-track,
+.studyfyx-module[data-theme="dark"] .loading-bar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .results-title,
+.studyfyx-module[data-theme="dark"] .results-title {
+  color: #f8fafc !important;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .results-desc,
+.studyfyx-module[data-theme="dark"] .results-desc {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .results-meta,
+.studyfyx-module[data-theme="dark"] .results-meta {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+}
+
+/* ── Dark Mode Liquid Glass Tiered Career Cards ── */
+[data-theme="dark"] .career-card,
+.studyfyx-module[data-theme="dark"] .career-card {
+  backdrop-filter: blur(28px) saturate(190%) contrast(102%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%) contrast(102%);
+  cursor: pointer;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Rank 1: BEST FIT (Warm Honey-Amber Liquid Glass) */
+[data-theme="dark"] .career-card.tier-0,
+.studyfyx-module[data-theme="dark"] .career-card.tier-0,
+.analyzer .career-card.tier-0 {
+  background: linear-gradient(135deg, rgba(85, 48, 12, 0.72) 0%, rgba(52, 32, 14, 0.8) 50%, rgba(26, 18, 12, 0.9) 100%) !important;
+  border: 1.5px solid rgba(245, 158, 11, 0.42) !important;
+  box-shadow: inset 0 1.5px 1.5px rgba(254, 240, 138, 0.32), inset 0 -1.5px 2px rgba(0, 0, 0, 0.45), 0 16px 40px -8px rgba(0, 0, 0, 0.65), 0 0 20px rgba(245, 158, 11, 0.12) !important;
+}
+[data-theme="dark"] .career-card.tier-0:hover {
+  border-color: rgba(245, 158, 11, 0.65) !important;
+  box-shadow: inset 0 1.5px 2px rgba(254, 240, 138, 0.45), 0 22px 48px -6px rgba(0, 0, 0, 0.75), 0 0 28px rgba(245, 158, 11, 0.2) !important;
+}
+[data-theme="dark"] .career-card.tier-0 .career-chevron {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.38);
+  color: #fcd34d;
+  box-shadow: inset 0 1px 1px rgba(254, 240, 138, 0.25), 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+[data-theme="dark"] .career-card.tier-0:hover .career-chevron {
+  background: rgba(245, 158, 11, 0.25);
+  color: #ffffff;
+  border-color: rgba(245, 158, 11, 0.6);
+}
+[data-theme="dark"] .career-card.tier-0 .career-role {
+  color: #fef3c7 !important;
+}
+[data-theme="dark"] .career-card.tier-0 .career-metrics {
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(245, 158, 11, 0.18);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.04);
+}
+[data-theme="dark"] .career-card.tier-0 .metric-icon {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.32);
+  box-shadow: inset 0 1px 1px rgba(254, 240, 138, 0.2), 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+[data-theme="dark"] .career-card.tier-0 .metric-icon.readiness { color: #34d399; }
+[data-theme="dark"] .career-card.tier-0 .metric-icon.sgi { color: #fbbf24; }
+[data-theme="dark"] .career-card.tier-0 .metric-icon.demand { color: #f59e0b; }
+[data-theme="dark"] .career-card.tier-0 .metric-value { color: #fef3c7 !important; }
+[data-theme="dark"] .career-card.tier-0 .metric-label { color: #fde68a !important; }
+[data-theme="dark"] .career-card.tier-0 .metric-sep { background: rgba(245, 158, 11, 0.22); }
+[data-theme="dark"] .career-card.tier-0 .readiness-bar-track { background: rgba(0, 0, 0, 0.35); box-shadow: inset 0 1px 2px rgba(0,0,0,0.5); }
+[data-theme="dark"] .career-card.tier-0 .readiness-bar-header { color: #fde68a; }
+
+/* Rank 2: 2ND MATCH (Royal Iris / Indigo Liquid Glass) */
+[data-theme="dark"] .career-card.tier-1,
+.studyfyx-module[data-theme="dark"] .career-card.tier-1,
+.analyzer .career-card.tier-1 {
+  background: linear-gradient(135deg, rgba(46, 42, 108, 0.72) 0%, rgba(30, 30, 76, 0.8) 50%, rgba(16, 17, 38, 0.9) 100%) !important;
+  border: 1.5px solid rgba(99, 102, 241, 0.42) !important;
+  box-shadow: inset 0 1.5px 1.5px rgba(199, 210, 254, 0.32), inset 0 -1.5px 2px rgba(0, 0, 0, 0.45), 0 16px 40px -8px rgba(0, 0, 0, 0.65), 0 0 20px rgba(99, 102, 241, 0.12) !important;
+}
+[data-theme="dark"] .career-card.tier-1:hover {
+  border-color: rgba(99, 102, 241, 0.65) !important;
+  box-shadow: inset 0 1.5px 2px rgba(199, 210, 254, 0.45), 0 22px 48px -6px rgba(0, 0, 0, 0.75), 0 0 28px rgba(99, 102, 241, 0.2) !important;
+}
+[data-theme="dark"] .career-card.tier-1 .career-chevron {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.38);
+  color: #c7d2fe;
+  box-shadow: inset 0 1px 1px rgba(199, 210, 254, 0.25), 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+[data-theme="dark"] .career-card.tier-1:hover .career-chevron {
+  background: rgba(99, 102, 241, 0.25);
+  color: #ffffff;
+  border-color: rgba(99, 102, 241, 0.6);
+}
+[data-theme="dark"] .career-card.tier-1 .career-role {
+  color: #e0e7ff !important;
+}
+[data-theme="dark"] .career-card.tier-1 .career-metrics {
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(99, 102, 241, 0.18);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.04);
+}
+[data-theme="dark"] .career-card.tier-1 .metric-icon {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(99, 102, 241, 0.32);
+  box-shadow: inset 0 1px 1px rgba(199, 210, 254, 0.2), 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+[data-theme="dark"] .career-card.tier-1 .metric-icon.readiness { color: #34d399; }
+[data-theme="dark"] .career-card.tier-1 .metric-icon.sgi { color: #a5b4fc; }
+[data-theme="dark"] .career-card.tier-1 .metric-icon.demand { color: #818cf8; }
+[data-theme="dark"] .career-card.tier-1 .metric-value { color: #e0e7ff !important; }
+[data-theme="dark"] .career-card.tier-1 .metric-label { color: #c7d2fe !important; }
+[data-theme="dark"] .career-card.tier-1 .metric-sep { background: rgba(99, 102, 241, 0.22); }
+[data-theme="dark"] .career-card.tier-1 .readiness-bar-track { background: rgba(0, 0, 0, 0.35); box-shadow: inset 0 1px 2px rgba(0,0,0,0.5); }
+[data-theme="dark"] .career-card.tier-1 .readiness-bar-header { color: #c7d2fe; }
+
+/* Rank 3: 3RD MATCH (Ocean Azure / Cyan Liquid Glass) */
+[data-theme="dark"] .career-card.tier-2,
+.studyfyx-module[data-theme="dark"] .career-card.tier-2,
+.analyzer .career-card.tier-2 {
+  background: linear-gradient(135deg, rgba(14, 65, 102, 0.72) 0%, rgba(16, 48, 74, 0.8) 50%, rgba(10, 22, 36, 0.9) 100%) !important;
+  border: 1.5px solid rgba(2, 132, 199, 0.42) !important;
+  box-shadow: inset 0 1.5px 1.5px rgba(186, 230, 253, 0.32), inset 0 -1.5px 2px rgba(0, 0, 0, 0.45), 0 16px 40px -8px rgba(0, 0, 0, 0.65), 0 0 20px rgba(2, 132, 199, 0.12) !important;
+}
+[data-theme="dark"] .career-card.tier-2:hover {
+  border-color: rgba(2, 132, 199, 0.65) !important;
+  box-shadow: inset 0 1.5px 2px rgba(186, 230, 253, 0.45), 0 22px 48px -6px rgba(0, 0, 0, 0.75), 0 0 28px rgba(2, 132, 199, 0.2) !important;
+}
+[data-theme="dark"] .career-card.tier-2 .career-chevron {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(2, 132, 199, 0.38);
+  color: #7dd3fc;
+  box-shadow: inset 0 1px 1px rgba(186, 230, 253, 0.25), 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+[data-theme="dark"] .career-card.tier-2:hover .career-chevron {
+  background: rgba(2, 132, 199, 0.25);
+  color: #ffffff;
+  border-color: rgba(2, 132, 199, 0.6);
+}
+[data-theme="dark"] .career-card.tier-2 .career-role {
+  color: #e0f2fe !important;
+}
+[data-theme="dark"] .career-card.tier-2 .career-metrics {
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(2, 132, 199, 0.18);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.04);
+}
+[data-theme="dark"] .career-card.tier-2 .metric-icon {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(2, 132, 199, 0.32);
+  box-shadow: inset 0 1px 1px rgba(186, 230, 253, 0.2), 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+[data-theme="dark"] .career-card.tier-2 .metric-icon.readiness { color: #34d399; }
+[data-theme="dark"] .career-card.tier-2 .metric-icon.sgi { color: #7dd3fc; }
+[data-theme="dark"] .career-card.tier-2 .metric-icon.demand { color: #38bdf8; }
+[data-theme="dark"] .career-card.tier-2 .metric-value { color: #e0f2fe !important; }
+[data-theme="dark"] .career-card.tier-2 .metric-label { color: #bae6fd !important; }
+[data-theme="dark"] .career-card.tier-2 .metric-sep { background: rgba(2, 132, 199, 0.22); }
+[data-theme="dark"] .career-card.tier-2 .readiness-bar-track { background: rgba(0, 0, 0, 0.35); box-shadow: inset 0 1px 2px rgba(0,0,0,0.5); }
+[data-theme="dark"] .career-card.tier-2 .readiness-bar-header { color: #bae6fd; }
+
+[data-theme="dark"] .career-card.open {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Detail Panels in Dark Mode (Liquid Glass Continuation) */
+.detail-panel.tier-0,
+[data-theme="dark"] .detail-panel.tier-0,
+.studyfyx-module[data-theme="dark"] .detail-panel.tier-0 {
+  background: linear-gradient(180deg, rgba(50, 30, 14, 0.75) 0%, rgba(26, 18, 12, 0.92) 100%) !important;
+  border: 1.5px solid rgba(245, 158, 11, 0.42) !important;
+  border-top: none !important;
+  box-shadow: inset 0 1px 1px rgba(254, 240, 138, 0.2), 0 18px 40px -8px rgba(0, 0, 0, 0.7) !important;
+}
+
+.detail-panel.tier-1,
+[data-theme="dark"] .detail-panel.tier-1,
+.studyfyx-module[data-theme="dark"] .detail-panel.tier-1 {
+  background: linear-gradient(180deg, rgba(30, 30, 76, 0.75) 0%, rgba(16, 17, 38, 0.92) 100%) !important;
+  border: 1.5px solid rgba(99, 102, 241, 0.42) !important;
+  border-top: none !important;
+  box-shadow: inset 0 1px 1px rgba(199, 210, 254, 0.2), 0 18px 40px -8px rgba(0, 0, 0, 0.7) !important;
+}
+
+.detail-panel.tier-2,
+[data-theme="dark"] .detail-panel.tier-2,
+.studyfyx-module[data-theme="dark"] .detail-panel.tier-2 {
+  background: linear-gradient(180deg, rgba(16, 48, 74, 0.75) 0%, rgba(10, 22, 36, 0.92) 100%) !important;
+  border: 1.5px solid rgba(2, 132, 199, 0.42) !important;
+  border-top: none !important;
+  box-shadow: inset 0 1px 1px rgba(186, 230, 253, 0.2), 0 18px 40px -8px rgba(0, 0, 0, 0.7) !important;
+}
+
+/* Dark Mode Liquid Glass Action Buttons per Tier */
+[data-theme="dark"] .detail-panel.tier-0 .save-btn {
+  background: linear-gradient(135deg, #b45309 0%, #92400e 60%, #78350f 100%) !important;
+  border-color: rgba(245, 158, 11, 0.55) !important;
+  box-shadow: 
+    0 8px 24px -4px rgba(245, 158, 11, 0.3),
+    inset 0 1.5px 1.5px rgba(254, 240, 138, 0.4) !important;
+}
+[data-theme="dark"] .detail-panel.tier-0 .save-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #d97706 0%, #b45309 60%, #92400e 100%) !important;
+  box-shadow: 0 12px 28px -4px rgba(245, 158, 11, 0.45), inset 0 1.5px 2px rgba(254, 240, 138, 0.6) !important;
+}
+
+[data-theme="dark"] .detail-panel.tier-1 .save-btn {
+  background: linear-gradient(135deg, #4f46e5 0%, #4338ca 60%, #312e81 100%) !important;
+  border-color: rgba(99, 102, 241, 0.55) !important;
+  box-shadow: 
+    0 8px 24px -4px rgba(99, 102, 241, 0.3),
+    inset 0 1.5px 1.5px rgba(199, 210, 254, 0.4) !important;
+}
+[data-theme="dark"] .detail-panel.tier-1 .save-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 60%, #4338ca 100%) !important;
+  box-shadow: 0 12px 28px -4px rgba(99, 102, 241, 0.45), inset 0 1.5px 2px rgba(199, 210, 254, 0.6) !important;
+}
+
+[data-theme="dark"] .detail-panel.tier-2 .save-btn {
+  background: linear-gradient(135deg, #0369a1 0%, #075985 60%, #0c4a6e 100%) !important;
+  border-color: rgba(2, 132, 199, 0.55) !important;
+  box-shadow: 
+    0 8px 24px -4px rgba(2, 132, 199, 0.3),
+    inset 0 1.5px 1.5px rgba(186, 230, 253, 0.4) !important;
+}
+[data-theme="dark"] .detail-panel.tier-2 .save-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 60%, #075985 100%) !important;
+  box-shadow: 0 12px 28px -4px rgba(2, 132, 199, 0.45), inset 0 1.5px 2px rgba(186, 230, 253, 0.6) !important;
+}
+
+[data-theme="dark"] .detail-degree,
+.studyfyx-module[data-theme="dark"] .detail-degree {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+[data-theme="dark"] .detail-degree-icon-wrap,
+.studyfyx-module[data-theme="dark"] .detail-degree-icon-wrap {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(30, 58, 138, 0.3) 100%);
+  color: #93c5fd;
+  border: 1px solid rgba(59, 130, 246, 0.35);
+}
+
+[data-theme="dark"] .detail-degree-label,
+.studyfyx-module[data-theme="dark"] .detail-degree-label {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .detail-degree-value,
+.studyfyx-module[data-theme="dark"] .detail-degree-value {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .roadmap-title,
+.studyfyx-module[data-theme="dark"] .roadmap-title {
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .roadmap-count,
+.studyfyx-module[data-theme="dark"] .roadmap-count {
+  background: rgba(139, 92, 246, 0.2);
+  color: #c4b5fd;
+}
+
+[data-theme="dark"] .tl-line,
+.studyfyx-module[data-theme="dark"] .tl-line {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .roadmap-card,
+.studyfyx-module[data-theme="dark"] .roadmap-card {
+  background: rgba(22, 29, 48, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .roadmap-req-name,
+.studyfyx-module[data-theme="dark"] .roadmap-req-name {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .roadmap-badge,
+.studyfyx-module[data-theme="dark"] .roadmap-badge {
+  background: rgba(255, 255, 255, 0.07);
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .roadmap-badge.degree,
+.studyfyx-module[data-theme="dark"] .roadmap-badge.degree {
+  background: rgba(59, 130, 246, 0.2);
+  color: #93c5fd;
+}
+
+[data-theme="dark"] .roadmap-card-desc,
+.studyfyx-module[data-theme="dark"] .roadmap-card-desc {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .impact-forecast,
+.studyfyx-module[data-theme="dark"] .impact-forecast {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+}
+
+[data-theme="dark"] .perfect-match,
+.studyfyx-module[data-theme="dark"] .perfect-match {
+  background: rgba(6, 95, 70, 0.25);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #34d399;
+}
+
+
+/* ==========================================================================
+   THEME ADAPTATION: LIGHT MODE ([data-theme="light"])
+   Crisp, clean frosted glass on soft workspace
+   ========================================================================== */
+
+[data-theme="light"] .analyzer-step-badge,
+.studyfyx-module[data-theme="light"] .analyzer-step-badge {
+  background: rgba(18, 62, 120, 0.08);
+  border: 1px solid rgba(18, 62, 120, 0.18);
+  color: #123e78;
+  box-shadow: 0 2px 6px rgba(18, 62, 120, 0.04);
+}
+
+[data-theme="light"] .analyzer-title,
+.studyfyx-module[data-theme="light"] .analyzer-title {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .analyzer-desc,
+.studyfyx-module[data-theme="light"] .analyzer-desc {
+  color: #64748b !important;
+}
+
+[data-theme="light"] .feature-highlight,
+.studyfyx-module[data-theme="light"] .feature-highlight {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(248, 250, 252, 0.78) 100%) !important;
+  border: 1px solid rgba(226, 232, 240, 0.95) !important;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03) !important;
+}
+
+[data-theme="light"] .feature-title,
+.studyfyx-module[data-theme="light"] .feature-title {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .feature-desc,
+.studyfyx-module[data-theme="light"] .feature-desc {
+  color: #64748b !important;
+}
+
+[data-theme="light"] .input-form,
+.studyfyx-module[data-theme="light"] .input-form {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.74) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.98) !important;
+  box-shadow: 
+    0 10px 30px -8px rgba(15, 23, 42, 0.06),
+    inset 0 1px 1px rgba(255, 255, 255, 0.95) !important;
+}
+
+[data-theme="light"] .field-label,
+.studyfyx-module[data-theme="light"] .field-label {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .field-badge.required,
+.studyfyx-module[data-theme="light"] .field-badge.required {
+  background: rgba(18, 62, 120, 0.08);
+  color: #123e78;
+  border: 1px solid rgba(18, 62, 120, 0.18);
+}
+
+[data-theme="light"] .field-badge.optional,
+.studyfyx-module[data-theme="light"] .field-badge.optional {
+  background: #f1f5f9;
+  color: #64748b;
+  border: 1px solid #e2e8f0;
+}
+
+[data-theme="light"] .glass-btn-secondary,
+.studyfyx-module[data-theme="light"] .glass-btn-secondary {
+  background: rgba(255, 255, 255, 0.88);
+  color: #334155;
+  border: 1px solid rgba(203, 213, 225, 0.88);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+}
+
+[data-theme="light"] .glass-btn-secondary:hover,
+.studyfyx-module[data-theme="light"] .glass-btn-secondary:hover {
+  background: #ffffff;
+  color: #0f172a;
+  border-color: #94a3b8;
+}
+
+[data-theme="light"] .analyzer-empty-card,
+.studyfyx-module[data-theme="light"] .analyzer-empty-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(248, 250, 252, 0.65) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 10px 30px -8px rgba(15, 23, 42, 0.04) !important;
+}
+
+[data-theme="light"] .empty-radar-icon,
+.studyfyx-module[data-theme="light"] .empty-radar-icon {
+  background: rgba(18, 62, 120, 0.08);
+  color: #123e78;
+}
+
+[data-theme="light"] .analyzer-empty-card h3,
+.studyfyx-module[data-theme="light"] .analyzer-empty-card h3 {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .analyzer-empty-card p,
+.studyfyx-module[data-theme="light"] .analyzer-empty-card p {
+  color: #64748b !important;
+}
+
+[data-theme="light"] .empty-pill,
+.studyfyx-module[data-theme="light"] .empty-pill {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  color: #334155;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+}
+
+[data-theme="light"] .loading-analysis,
+.studyfyx-module[data-theme="light"] .loading-analysis {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+}
+
+[data-theme="light"] .loading-orb,
+.studyfyx-module[data-theme="light"] .loading-orb {
+  background: rgba(18, 62, 120, 0.08);
+  color: #123e78;
+}
+
+[data-theme="light"] .loading-analysis h3,
+.studyfyx-module[data-theme="light"] .loading-analysis h3 {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .loading-analysis p,
+.studyfyx-module[data-theme="light"] .loading-analysis p {
+  color: #64748b !important;
+}
+
+[data-theme="light"] .loading-step,
+.studyfyx-module[data-theme="light"] .loading-step {
+  color: #334155;
+}
+
+[data-theme="light"] .loading-bar-track,
+.studyfyx-module[data-theme="light"] .loading-bar-track {
+  background: #e2e8f0;
+}
+
+[data-theme="light"] .results-title,
+.studyfyx-module[data-theme="light"] .results-title {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .results-desc,
+.studyfyx-module[data-theme="light"] .results-desc {
+  color: #64748b !important;
+}
+
+[data-theme="light"] .results-meta,
+.studyfyx-module[data-theme="light"] .results-meta {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid #cbd5e1;
+  color: #475569;
+}
+
+/* ── Light Mode Liquid Glass Tiered Career Cards ── */
+[data-theme="light"] .career-card,
+.studyfyx-module[data-theme="light"] .career-card {
+  backdrop-filter: blur(28px) saturate(190%) contrast(102%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%) contrast(102%);
+  cursor: pointer;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Rank 1: BEST FIT (Warm Honey-Amber Liquid Glass) */
+[data-theme="light"] .career-card.tier-0,
+.studyfyx-module[data-theme="light"] .career-card.tier-0,
+.career-card.tier-0 {
+  background: linear-gradient(135deg, rgba(254, 240, 199, 0.78) 0%, rgba(253, 224, 118, 0.5) 48%, rgba(254, 249, 231, 0.82) 100%) !important;
+  border: 1.5px solid rgba(245, 158, 11, 0.45) !important;
+  box-shadow: 
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.95), 
+    inset 0 -1.5px 2px rgba(217, 119, 6, 0.14), 
+    0 14px 34px -4px rgba(217, 119, 6, 0.18),
+    0 0 20px rgba(245, 158, 11, 0.1) !important;
+}
+[data-theme="light"] .career-card.tier-0:hover {
+  border-color: rgba(245, 158, 11, 0.65) !important;
+  box-shadow: 
+    inset 0 1.5px 2px rgba(255, 255, 255, 1), 
+    0 20px 42px -4px rgba(217, 119, 6, 0.25),
+    0 0 28px rgba(245, 158, 11, 0.18) !important;
+}
+[data-theme="light"] .career-card.tier-0 .career-chevron {
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(245, 158, 11, 0.38);
+  color: #b45309;
+  box-shadow: inset 0 1.5px 1.5px #ffffff, 0 3px 8px rgba(217, 119, 6, 0.12);
+}
+[data-theme="light"] .career-card.tier-0:hover .career-chevron {
+  background: rgba(255, 255, 255, 0.95);
+  color: #78350f;
+  border-color: rgba(245, 158, 11, 0.6);
+}
+[data-theme="light"] .career-card.tier-0 .career-role {
+  color: #78350f !important;
+}
+[data-theme="light"] .career-card.tier-0 .career-metrics {
+  background: rgba(255, 255, 255, 0.48);
+  border: 1px solid rgba(245, 158, 11, 0.24);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.85);
+}
+[data-theme="light"] .career-card.tier-0 .metric-icon {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(245, 158, 11, 0.32);
+  box-shadow: inset 0 1.5px 1.5px #ffffff, 0 2px 6px rgba(217, 119, 6, 0.08);
+}
+[data-theme="light"] .career-card.tier-0 .metric-icon.readiness { color: #059669; }
+[data-theme="light"] .career-card.tier-0 .metric-icon.sgi { color: #d97706; }
+[data-theme="light"] .career-card.tier-0 .metric-icon.demand { color: #b45309; }
+[data-theme="light"] .career-card.tier-0 .metric-value { color: #78350f !important; }
+[data-theme="light"] .career-card.tier-0 .metric-label { color: #92400e !important; }
+[data-theme="light"] .career-card.tier-0 .metric-sep { background: rgba(245, 158, 11, 0.25); }
+[data-theme="light"] .career-card.tier-0 .readiness-bar-track { background: rgba(217, 119, 6, 0.12); box-shadow: inset 0 1px 2px rgba(217, 119, 6, 0.16); }
+[data-theme="light"] .career-card.tier-0 .readiness-bar-header { color: #92400e; }
+
+/* Rank 2: 2ND MATCH (Royal Iris / Indigo Liquid Glass) */
+[data-theme="light"] .career-card.tier-1,
+.studyfyx-module[data-theme="light"] .career-card.tier-1,
+.career-card.tier-1 {
+  background: linear-gradient(135deg, rgba(224, 231, 255, 0.78) 0%, rgba(199, 210, 254, 0.5) 48%, rgba(238, 242, 255, 0.82) 100%) !important;
+  border: 1.5px solid rgba(99, 102, 241, 0.42) !important;
+  box-shadow: 
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.95), 
+    inset 0 -1.5px 2px rgba(79, 70, 229, 0.14), 
+    0 14px 34px -4px rgba(79, 70, 229, 0.18),
+    0 0 20px rgba(99, 102, 241, 0.1) !important;
+}
+[data-theme="light"] .career-card.tier-1:hover {
+  border-color: rgba(99, 102, 241, 0.65) !important;
+  box-shadow: 
+    inset 0 1.5px 2px rgba(255, 255, 255, 1), 
+    0 20px 42px -4px rgba(79, 70, 229, 0.25),
+    0 0 28px rgba(99, 102, 241, 0.18) !important;
+}
+[data-theme="light"] .career-card.tier-1 .career-chevron {
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(99, 102, 241, 0.38);
+  color: #4f46e5;
+  box-shadow: inset 0 1.5px 1.5px #ffffff, 0 3px 8px rgba(79, 70, 229, 0.12);
+}
+[data-theme="light"] .career-card.tier-1:hover .career-chevron {
+  background: rgba(255, 255, 255, 0.95);
+  color: #312e81;
+  border-color: rgba(99, 102, 241, 0.6);
+}
+[data-theme="light"] .career-card.tier-1 .career-role {
+  color: #312e81 !important;
+}
+[data-theme="light"] .career-card.tier-1 .career-metrics {
+  background: rgba(255, 255, 255, 0.48);
+  border: 1px solid rgba(99, 102, 241, 0.24);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.85);
+}
+[data-theme="light"] .career-card.tier-1 .metric-icon {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  box-shadow: inset 0 1.5px 1.5px #ffffff, 0 2px 6px rgba(79, 70, 229, 0.08);
+}
+[data-theme="light"] .career-card.tier-1 .metric-icon.readiness { color: #059669; }
+[data-theme="light"] .career-card.tier-1 .metric-icon.sgi { color: #6366f1; }
+[data-theme="light"] .career-card.tier-1 .metric-icon.demand { color: #4f46e5; }
+[data-theme="light"] .career-card.tier-1 .metric-value { color: #312e81 !important; }
+[data-theme="light"] .career-card.tier-1 .metric-label { color: #4338ca !important; }
+[data-theme="light"] .career-card.tier-1 .metric-sep { background: rgba(99, 102, 241, 0.25); }
+[data-theme="light"] .career-card.tier-1 .readiness-bar-track { background: rgba(99, 102, 241, 0.12); box-shadow: inset 0 1px 2px rgba(99, 102, 241, 0.16); }
+[data-theme="light"] .career-card.tier-1 .readiness-bar-header { color: #4338ca; }
+
+/* Rank 3: 3RD MATCH (Ocean Azure / Cyan Liquid Glass) */
+[data-theme="light"] .career-card.tier-2,
+.studyfyx-module[data-theme="light"] .career-card.tier-2,
+.career-card.tier-2 {
+  background: linear-gradient(135deg, rgba(207, 250, 254, 0.78) 0%, rgba(165, 243, 252, 0.5) 48%, rgba(240, 253, 250, 0.82) 100%) !important;
+  border: 1.5px solid rgba(2, 132, 199, 0.42) !important;
+  box-shadow: 
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.95), 
+    inset 0 -1.5px 2px rgba(2, 132, 199, 0.14), 
+    0 14px 34px -4px rgba(2, 132, 199, 0.18),
+    0 0 20px rgba(2, 132, 199, 0.1) !important;
+}
+[data-theme="light"] .career-card.tier-2:hover {
+  border-color: rgba(2, 132, 199, 0.65) !important;
+  box-shadow: 
+    inset 0 1.5px 2px rgba(255, 255, 255, 1), 
+    0 20px 42px -4px rgba(2, 132, 199, 0.25),
+    0 0 28px rgba(2, 132, 199, 0.18) !important;
+}
+[data-theme="light"] .career-card.tier-2 .career-chevron {
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(2, 132, 199, 0.38);
+  color: #0284c7;
+  box-shadow: inset 0 1.5px 1.5px #ffffff, 0 3px 8px rgba(2, 132, 199, 0.12);
+}
+[data-theme="light"] .career-card.tier-2:hover .career-chevron {
+  background: rgba(255, 255, 255, 0.95);
+  color: #0c4a6e;
+  border-color: rgba(2, 132, 199, 0.6);
+}
+[data-theme="light"] .career-card.tier-2 .career-role {
+  color: #0c4a6e !important;
+}
+[data-theme="light"] .career-card.tier-2 .career-metrics {
+  background: rgba(255, 255, 255, 0.48);
+  border: 1px solid rgba(2, 132, 199, 0.24);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.85);
+}
+[data-theme="light"] .career-card.tier-2 .metric-icon {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(2, 132, 199, 0.3);
+  box-shadow: inset 0 1.5px 1.5px #ffffff, 0 2px 6px rgba(2, 132, 199, 0.08);
+}
+[data-theme="light"] .career-card.tier-2 .metric-icon.readiness { color: #059669; }
+[data-theme="light"] .career-card.tier-2 .metric-icon.sgi { color: #0284c7; }
+[data-theme="light"] .career-card.tier-2 .metric-icon.demand { color: #0369a1; }
+[data-theme="light"] .career-card.tier-2 .metric-value { color: #0c4a6e !important; }
+[data-theme="light"] .career-card.tier-2 .metric-label { color: #0369a1 !important; }
+[data-theme="light"] .career-card.tier-2 .metric-sep { background: rgba(2, 132, 199, 0.25); }
+[data-theme="light"] .career-card.tier-2 .readiness-bar-track { background: rgba(2, 132, 199, 0.12); box-shadow: inset 0 1px 2px rgba(2, 132, 199, 0.16); }
+[data-theme="light"] .career-card.tier-2 .readiness-bar-header { color: #0369a1; }
+
+[data-theme="light"] .career-card.open {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Detail Panels in Light Mode (Liquid Glass Continuation) */
+.detail-panel.tier-0,
+[data-theme="light"] .detail-panel.tier-0,
+.studyfyx-module[data-theme="light"] .detail-panel.tier-0 {
+  background: linear-gradient(180deg, rgba(253, 230, 138, 0.5) 0%, rgba(254, 243, 199, 0.72) 100%) !important;
+  border: 1.5px solid rgba(245, 158, 11, 0.45) !important;
+  border-top: none !important;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.9), 0 16px 36px -4px rgba(217, 119, 6, 0.16) !important;
+}
+
+.detail-panel.tier-1,
+[data-theme="light"] .detail-panel.tier-1,
+.studyfyx-module[data-theme="light"] .detail-panel.tier-1 {
+  background: linear-gradient(180deg, rgba(199, 210, 254, 0.5) 0%, rgba(224, 231, 255, 0.72) 100%) !important;
+  border: 1.5px solid rgba(99, 102, 241, 0.42) !important;
+  border-top: none !important;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.9), 0 16px 36px -4px rgba(79, 70, 229, 0.16) !important;
+}
+
+.detail-panel.tier-2,
+[data-theme="light"] .detail-panel.tier-2,
+.studyfyx-module[data-theme="light"] .detail-panel.tier-2 {
+  background: linear-gradient(180deg, rgba(165, 243, 252, 0.5) 0%, rgba(207, 250, 254, 0.72) 100%) !important;
+  border: 1.5px solid rgba(2, 132, 199, 0.42) !important;
+  border-top: none !important;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.9), 0 16px 36px -4px rgba(2, 132, 199, 0.16) !important;
+}
+
+[data-theme="light"] .detail-degree,
+.studyfyx-module[data-theme="light"] .detail-degree {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+}
+
+[data-theme="light"] .detail-degree-icon-wrap,
+.studyfyx-module[data-theme="light"] .detail-degree-icon-wrap {
+  background: linear-gradient(135deg, rgba(18, 62, 120, 0.1) 0%, rgba(27, 83, 179, 0.15) 100%);
+  color: #123e78;
+  border: 1px solid rgba(18, 62, 120, 0.15);
+}
+
+[data-theme="light"] .detail-degree-label,
+.studyfyx-module[data-theme="light"] .detail-degree-label {
+  color: #64748b;
+}
+
+[data-theme="light"] .detail-degree-value,
+.studyfyx-module[data-theme="light"] .detail-degree-value {
+  color: #0f172a;
+}
+
+[data-theme="light"] .roadmap-title,
+.studyfyx-module[data-theme="light"] .roadmap-title {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .roadmap-count,
+.studyfyx-module[data-theme="light"] .roadmap-count {
+  background: rgba(124, 58, 237, 0.1);
+  color: #7c3aed;
+}
+
+[data-theme="light"] .tl-line,
+.studyfyx-module[data-theme="light"] .tl-line {
+  background: #cbd5e1;
+}
+
+[data-theme="light"] .roadmap-card,
+.studyfyx-module[data-theme="light"] .roadmap-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+}
+
+[data-theme="light"] .roadmap-req-name,
+.studyfyx-module[data-theme="light"] .roadmap-req-name {
+  color: #0f172a;
+}
+
+[data-theme="light"] .roadmap-badge,
+.studyfyx-module[data-theme="light"] .roadmap-badge {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+[data-theme="light"] .roadmap-badge.degree,
+.studyfyx-module[data-theme="light"] .roadmap-badge.degree {
+  background: #f1f5f9;
+  color: #123e78;
+}
+
+[data-theme="light"] .roadmap-card-desc,
+.studyfyx-module[data-theme="light"] .roadmap-card-desc {
+  color: #64748b;
+}
+
+[data-theme="light"] .impact-forecast,
+.studyfyx-module[data-theme="light"] .impact-forecast {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+[data-theme="light"] .perfect-match,
+.studyfyx-module[data-theme="light"] .perfect-match {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #065f46;
+}
+
+/* ── Responsive Rules ── */
+@media (max-width: 900px) {
+  .career-metrics {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 600px) {
+  .analyzer-title {
+    font-size: 24px;
+  }
+  .form-actions {
+    flex-direction: column;
+  }
+  .career-metrics {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+  .metric-sep {
+    display: none;
+  }
+  .metric-item {
+    justify-content: flex-start;
+  }
+  .detail-banner-stats {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .dbs-divider {
+    display: none;
+  }
 }
