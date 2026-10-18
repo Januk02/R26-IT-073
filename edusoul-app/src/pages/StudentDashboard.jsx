@@ -76,21 +76,67 @@ export default function StudentDashboard({
         ? "Good afternoon"
         : "Good evening";
   const modules = [
-    { id: 'degree', icon: GraduationCap, category: 'Planning', label: 'DEGREE & UNIVERSITY', title: 'Dream Degree Advisor',
-      description: 'Connect your A/L profile and career goal with degree pathways, university options and a practical roadmap.',
-      action: 'Explore my degree path', onClick: onStartDreamDegreeAdvisor, tone: 'blue' },
-    { id: 'skills', icon: Target, category: 'Planning', label: 'CAREER & SKILLS', title: 'Career Pathway',
-      description: 'Understand the skills your chosen career needs and find learning opportunities to help you move forward.',
-      action: 'Build my career plan', onClick: onNavigateToCourses, tone: 'orange' },
-    { id: 'wellbeing', icon: Brain, category: 'Wellbeing', label: 'STUDY & BALANCE', title: 'Study & Stress Analytics',
-      description: 'Explore your study patterns and wellbeing insights to create a more balanced approach to learning.',
-      action: 'Open my analytics', onClick: onNavigateToAnalytics, tone: 'teal' },
-    { id: 'mentors', icon: Users, category: 'Community', label: 'PEOPLE & GUIDANCE', title: 'Mentorship Hub',
-      description: 'Find mentors who can help you understand your options, strengthen your skills and plan your next step.',
-      action: 'Explore mentors', onClick: onNavigateToMentorHub, tone: 'violet' },
-    { id: 'messages', icon: MessageSquare, category: 'Community', label: 'CONVERSATIONS', title: 'Mentor Messages',
-      description: 'Keep your questions, feedback and conversations with mentors together in one place.',
-      action: 'Open messages', onClick: onNavigateToMessages || onNavigateToMentorHub, tone: 'rose' },
+    {
+      id: "degree",
+      icon: GraduationCap,
+      category: "Planning",
+      label: "DEGREE & UNIVERSITY",
+      title: "Dream Degree Advisor",
+      description:
+        "Connect your A/L profile and career goal with degree pathways, university options and a practical roadmap.",
+      action: "Explore my degree path",
+      onClick: onStartDreamDegreeAdvisor,
+      tone: "blue",
+    },
+    {
+      id: "skills",
+      icon: Target,
+      category: "Planning",
+      label: "CAREER & SKILLS",
+      title: "Career Pathway",
+      description:
+        "Understand the skills your chosen career needs and find learning opportunities to help you move forward.",
+      action: "Build my career plan",
+      onClick: onNavigateToCourses,
+      tone: "orange",
+    },
+    {
+      id: "wellbeing",
+      icon: Brain,
+      category: "Wellbeing",
+      label: "STUDY & BALANCE",
+      title:
+        "AI-Based Student Mood Analysis and Personalized Study Recommendation",
+      description:
+        "Explore your study patterns and wellbeing insights to create a more balanced approach to learning.",
+      action: "Open my analytics",
+      onClick: onNavigateToAnalytics,
+      tone: "blue",
+    },
+    {
+      id: "mentors",
+      icon: Users,
+      category: "Community",
+      label: "PEOPLE & GUIDANCE",
+      title: "Mentorship Hub",
+      description:
+        "Find mentors who can help you understand your options, strengthen your skills and plan your next step.",
+      action: "Explore mentors",
+      onClick: onNavigateToMentorHub,
+      tone: "orange",
+    },
+    {
+      id: "messages",
+      icon: MessageSquare,
+      category: "Community",
+      label: "CONVERSATIONS",
+      title: "Mentor Messages",
+      description:
+        "Keep your questions, feedback and conversations with mentors together in one place.",
+      action: "Open messages",
+      onClick: onNavigateToMessages || onNavigateToMentorHub,
+      tone: "blue",
+    },
   ];
   const visibleModules = modules.filter(
     (module) =>

@@ -1,74 +1,74 @@
-import React, { useState } from 'react';
-import { ThemeProvider } from './context/ThemeContext';
-import Member3Landing from './pages/Landing';
-import StressAnalyticsHome from './pages/StressAnalyticsHome';
-import StudyPlanner from './pages/StudyPlanner';
-import ProgressReport from './pages/ProgressReport';
-import AnalyticsDashboard from './pages/AnalyticsDashboard';
-import { ArrowLeft, Home as HomeIcon } from 'lucide-react';
+import { useState } from "react";
+import { ThemeProvider } from "./context/ThemeContext";
+import Member3Landing from "./pages/Landing";
+import StressAnalyticsHome from "./pages/StressAnalyticsHome";
+import StudyPlanner from "./pages/CalendarStudyPlanner";
+import ProgressReport from "./pages/ProgressReport";
+import AnalyticsDashboard from "./pages/AnalyticsDashboard";
+import { ArrowLeft, Home as HomeIcon } from "lucide-react";
 
 export default function Member3Analytics({ onBack }) {
-  const [view, setView] = useState('landing');
+  const [view, setView] = useState("landing");
 
   return (
     <ThemeProvider>
       <div className="member3-root-container">
-        {view === 'landing' && (
+        {view === "landing" && (
           <Member3Landing
-            onLaunchHub={() => setView('home')}
-            onViewPlanner={() => setView('planner')}
-            onViewReport={() => setView('report')}
-            onViewDashboard={() => setView('dashboard')}
+            onLaunchHub={() => setView("home")}
+            onViewPlanner={() => setView("planner")}
+            onViewReport={() => setView("report")}
+            onViewDashboard={() => setView("dashboard")}
             onBackToPortal={onBack}
           />
         )}
 
-        {view === 'home' && (
+        {view === "home" && (
           <div className="member3-inner-view">
-            <InnerTopNav 
-              title="Stress & Biometric Telemetry Hub" 
-              onBackToLanding={() => setView('landing')} 
-              onBackToPortal={onBack} 
+            <InnerTopNav
+              title="AI-Based Student Mood Analysis and Personalized Study Recommendation"
+              onBackToLanding={() => setView("landing")}
+              onBackToPortal={onBack}
             />
             <StressAnalyticsHome
-              onViewPlanner={() => setView('planner')}
-              onViewReport={() => setView('report')}
+              onViewPlanner={() => setView("planner")}
+              onViewReport={() => setView("report")}
             />
           </div>
         )}
 
-        {view === 'planner' && (
+        {view === "planner" && (
           <div className="member3-inner-view">
-            <InnerTopNav 
-              title="Bio-Adaptive Study Planner" 
-              onBackToLanding={() => setView('landing')} 
-              onBackToPortal={onBack} 
+            <InnerTopNav
+              title="Bio-Adaptive Study Planner"
+              onBackToLanding={() => setView("landing")}
+              onBackToPortal={onBack}
             />
-            <StudyPlanner onBack={() => setView('home')} />
+            <StudyPlanner onBack={() => setView("home")} />
           </div>
         )}
 
-        {view === 'report' && (
+        {view === "report" && (
           <div className="member3-inner-view">
-            <InnerTopNav 
-              title="Clinical Progress & Wellness Report" 
-              onBackToLanding={() => setView('landing')} 
-              onBackToPortal={onBack} 
+            <InnerTopNav
+              title="Clinical Progress & Wellness Report"
+              onBackToLanding={() => setView("landing")}
+              onBackToPortal={onBack}
             />
-            <ProgressReport onBack={() => setView('home')} />
+            <ProgressReport onBack={() => setView("home")} />
           </div>
         )}
 
-        {view === 'dashboard' && (
+        {view === "dashboard" && (
           <div className="member3-inner-view">
-            <InnerTopNav 
-              title="Learning Analytics & Study Heatmap" 
-              onBackToLanding={() => setView('landing')} 
-              onBackToPortal={onBack} 
+            <InnerTopNav
+              title="Learning Analytics & Study Heatmap"
+              onBackToLanding={() => setView("landing")}
+              onBackToPortal={onBack}
             />
             <AnalyticsDashboard
-              onViewPlanner={() => setView('planner')}
-              onViewReport={() => setView('report')}
+              onViewPlanner={() => setView("planner")}
+              onViewReport={() => setView("report")}
             />
           </div>
         )}
@@ -96,17 +96,17 @@ function InnerTopNav({ title, onBackToLanding, onBackToPortal }) {
         <button
           onClick={onBackToLanding}
           style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.4rem',
-            background: 'rgba(255, 255, 255, 0.1)',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
-            color: '#fff',
-            padding: '0.4rem 0.85rem',
-            borderRadius: '8px',
-            cursor: 'pointer',
-            fontSize: '0.82rem',
-            fontWeight: 600
+            display: "flex",
+            alignItems: "center",
+            gap: "0.4rem",
+            background: "rgba(255, 255, 255, 0.1)",
+            border: "1px solid rgba(255, 255, 255, 0.2)",
+            color: "#fff",
+            padding: "0.4rem 0.85rem",
+            borderRadius: "8px",
+            cursor: "pointer",
+            fontSize: "0.82rem",
+            fontWeight: 600,
           }}
           title="Back to Member 3 Landing Page"
         >

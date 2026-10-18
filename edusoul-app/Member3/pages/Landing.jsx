@@ -2,22 +2,44 @@ import studyfyxLogo from '../../src/assets/studyfyxlogo.png';
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
-  Activity, Heart, Zap, Brain, Clock, Calendar, Sparkles, RefreshCw,
-  AlertTriangle, CheckCircle2, TrendingUp, Watch, Flame,
-  Smile, ShieldCheck, Play, Sun, Moon, Home as HomeIcon, Target,
-  ArrowRight, ArrowUpRight, BarChart3, FileText, Cpu, ChevronRight
-} from 'lucide-react';
-import { useTheme } from '../context/ThemeContext';
-import { checkModelBackendHealth } from '../services/healthService';
-import heroAvatar from '../../src/assets/stress_hero_3d.png';
-import './Landing.css';
+  Activity,
+  Heart,
+  Zap,
+  Brain,
+  Clock,
+  Calendar,
+  Sparkles,
+  RefreshCw,
+  AlertTriangle,
+  CheckCircle2,
+  TrendingUp,
+  Watch,
+  Flame,
+  Smile,
+  ShieldCheck,
+  Play,
+  Sun,
+  Moon,
+  Home as HomeIcon,
+  Target,
+  ArrowRight,
+  ArrowUpRight,
+  BarChart3,
+  FileText,
+  Cpu,
+  ChevronRight,
+} from "lucide-react";
+import { useTheme } from "../context/ThemeContext";
+import { checkModelBackendHealth } from "../services/healthService";
+import heroAvatar from "../../src/assets/stress_hero_3d.png";
+import "./Landing.css";
 
-export default function Member3Landing({ 
-  onLaunchHub, 
-  onViewPlanner, 
-  onViewReport, 
-  onViewDashboard, 
-  onBackToPortal 
+export default function Member3Landing({
+  onLaunchHub,
+  onViewPlanner,
+  onViewReport,
+  onViewDashboard,
+  onBackToPortal,
 }) {
   const { theme, toggleTheme } = useTheme();
   const [modelOnline, setModelOnline] = useState(false);
@@ -67,23 +89,40 @@ export default function Member3Landing({
           <div className="stress-nav-brand" onClick={onLaunchHub}>
             <img src={studyfyxLogo} alt="Studyfyx" className="studyfyx-module-logo" />
             <div className="stress-brand-text">
-              <span className="stress-brand-title">Stress & Bio-Analytics AI</span>
-              <span className="stress-brand-subtitle">STUDYFYX COGNITIVE WELL-BEING</span>
+              <span className="stress-brand-title">
+                Stress & Bio-Analytics AI
+              </span>
+              <span className="stress-brand-subtitle">
+                STUDYFYX COGNITIVE WELL-BEING
+              </span>
             </div>
           </div>
 
           <nav className="stress-nav-links">
-            <a href="#hero" className="stress-nav-link active">Overview</a>
-            <a href="#features" className="stress-nav-link">Features</a>
-            <a href="#model-status" className="stress-nav-link">AI Model</a>
-            <a href="#workflow" className="stress-nav-link">How It Works</a>
+            <a href="#hero" className="stress-nav-link active">
+              Overview
+            </a>
+            <a href="#features" className="stress-nav-link">
+              Features
+            </a>
+            <a href="#model-status" className="stress-nav-link">
+              AI Model
+            </a>
+            <a href="#workflow" className="stress-nav-link">
+              How It Works
+            </a>
           </nav>
 
           <div className="stress-nav-actions">
             {/* Model Live Indicator */}
-            <div className={`model-live-pill ${modelOnline ? 'online' : 'offline'}`} title="Stress Analyzer API Status (Port 8001)">
+            <div
+              className={`model-live-pill ${modelOnline ? "online" : "offline"}`}
+              title="Stress Analyzer API Status (Port 8001)"
+            >
               <span className="live-dot" />
-              <span className="live-text">{modelOnline ? 'ML Engine Live' : 'Offline / Local AI'}</span>
+              <span className="live-text">
+                {modelOnline ? "ML Engine Live" : "Offline / Local AI"}
+              </span>
             </div>
 
             <button
@@ -100,7 +139,7 @@ export default function Member3Landing({
               onClick={toggleTheme}
               aria-label="Toggle Theme"
             >
-              {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
+              {theme === "dark" ? <Sun size={17} /> : <Moon size={17} />}
             </button>
 
             <button className="stress-cta-primary-btn" onClick={onLaunchHub}>
@@ -127,15 +166,20 @@ export default function Member3Landing({
             </div>
 
             <h1 className="stress-hero-title">
-              Balance.<br />
-              Focus.<br />
-              <span className="stress-gradient-text">Thrive.</span>
+              AI-Based Student
+              <br />
+              Mood Analysis and
+              <br />
+              Personalized Study
+              <br />
+              <span className="stress-gradient-text">Recommendation</span>
             </h1>
 
             <p className="stress-hero-description">
-              Intelligent student cognitive health analytics powered by Random Forest AI. 
-              Sync smartwatch telemetry, predict stress and mood in real time, and dynamically 
-              adapt your study schedules to prevent burnout and maximize retention.
+              Intelligent student cognitive health analytics powered by Random
+              Forest AI. Sync smartwatch telemetry, predict stress and mood in
+              real time, and dynamically adapt your study schedules to prevent
+              burnout and maximize retention.
             </p>
 
             <div className="stress-hero-cta-group">
@@ -144,7 +188,10 @@ export default function Member3Landing({
                 <ArrowRight size={18} />
               </button>
 
-              <button className="stress-hero-btn-secondary" onClick={onViewPlanner}>
+              <button
+                className="stress-hero-btn-secondary"
+                onClick={onViewPlanner}
+              >
                 <div className="stress-play-bubble">
                   <Play size={14} fill="currentColor" />
                 </div>
@@ -191,7 +238,7 @@ export default function Member3Landing({
             <motion.div
               className="stress-floating-card card-top-right"
               animate={{ y: [0, -8, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               onClick={onLaunchHub}
             >
               <div className="card-icon-box cyan">
@@ -207,7 +254,12 @@ export default function Member3Landing({
             <motion.div
               className="stress-floating-card card-mid-left"
               animate={{ y: [0, 8, 0] }}
-              transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+              transition={{
+                duration: 4.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 0.5,
+              }}
               onClick={onLaunchHub}
             >
               <div className="card-icon-box emerald">
@@ -223,7 +275,12 @@ export default function Member3Landing({
             <motion.div
               className="stress-floating-card card-bottom-left"
               animate={{ y: [0, -6, 0] }}
-              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+              transition={{
+                duration: 5,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 1,
+              }}
               onClick={onViewPlanner}
             >
               <div className="card-icon-box violet">
@@ -239,7 +296,12 @@ export default function Member3Landing({
             <motion.div
               className="stress-floating-card card-bottom-right"
               animate={{ y: [0, 7, 0] }}
-              transition={{ duration: 4.2, repeat: Infinity, ease: 'easeInOut', delay: 0.8 }}
+              transition={{
+                duration: 4.2,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 0.8,
+              }}
               onClick={onViewReport}
             >
               <div className="card-icon-box amber">
@@ -258,10 +320,13 @@ export default function Member3Landing({
       <section id="features" className="stress-features-section">
         <div className="stress-section-header">
           <div className="stress-section-badge">PLATFORM CAPABILITIES</div>
-          <h2 className="stress-section-title">Everything You Need for Peak Cognitive Health</h2>
+          <h2 className="stress-section-title">
+            Everything You Need for Peak Cognitive Health
+          </h2>
           <p className="stress-section-subtitle">
-            Harness real physiological signals and cutting-edge machine learning to eliminate study fatigue,
-            enhance brain retention, and safeguard your mental well-being.
+            Harness real physiological signals and cutting-edge machine learning
+            to eliminate study fatigue, enhance brain retention, and safeguard
+            your mental well-being.
           </p>
         </div>
 
@@ -276,10 +341,13 @@ export default function Member3Landing({
             <div className="stress-feature-icon-wrapper cyan">
               <Activity size={26} />
             </div>
-            <h3 className="stress-feature-card-title">Real-Time Biometric Sync</h3>
+            <h3 className="stress-feature-card-title">
+              Real-Time Biometric Sync
+            </h3>
             <p className="stress-feature-card-desc">
-              Streams continuous smartwatch telemetry including heart rate, SpO2 blood oxygen, sleep duration, 
-              skin temperature, and active calories directly into Firestore.
+              Streams continuous smartwatch telemetry including heart rate, SpO2
+              blood oxygen, sleep duration, skin temperature, and active
+              calories directly into Firestore.
             </p>
             <div className="stress-feature-card-footer">
               <span>Open Vitals Hub</span>
@@ -297,10 +365,13 @@ export default function Member3Landing({
             <div className="stress-feature-icon-wrapper emerald">
               <Brain size={26} />
             </div>
-            <h3 className="stress-feature-card-title">Random Forest Mood Classifier</h3>
+            <h3 className="stress-feature-card-title">
+              Random Forest Mood Classifier
+            </h3>
             <p className="stress-feature-card-desc">
-              Trained on 2,000+ clinical records with 94.50% test accuracy. Evaluates multi-parameter physiology 
-              to accurately classify Happy, Neutral, Stressed, and Fatigue states.
+              Trained on 2,000+ clinical records with 94.50% test accuracy.
+              Evaluates multi-parameter physiology to accurately classify Happy,
+              Neutral, Stressed, and Fatigue states.
             </p>
             <div className="stress-feature-card-footer">
               <span>Test AI Classifier</span>
@@ -318,10 +389,13 @@ export default function Member3Landing({
             <div className="stress-feature-icon-wrapper violet">
               <Clock size={26} />
             </div>
-            <h3 className="stress-feature-card-title">Bio-Adaptive Study Planner</h3>
+            <h3 className="stress-feature-card-title">
+              Bio-Adaptive Study Planner
+            </h3>
             <p className="stress-feature-card-desc">
-              Dynamically scales your study intervals—from 50-minute peak focus blocks down to 15-minute 
-              stress recovery sessions—based on real-time nervous system readings.
+              Dynamically scales your study intervals—from 50-minute peak focus
+              blocks down to 15-minute stress recovery sessions—based on
+              real-time nervous system readings.
             </p>
             <div className="stress-feature-card-footer">
               <span>Open Study Planner</span>
@@ -339,10 +413,13 @@ export default function Member3Landing({
             <div className="stress-feature-icon-wrapper amber">
               <BarChart3 size={26} />
             </div>
-            <h3 className="stress-feature-card-title">Longitudinal Progress Reports</h3>
+            <h3 className="stress-feature-card-title">
+              Longitudinal Progress Reports
+            </h3>
             <p className="stress-feature-card-desc">
-              Deep clinical analytics with multi-day biometric trends, cognitive readiness scores, 
-              stress distributions, and exportable academic wellness audits.
+              Deep clinical analytics with multi-day biometric trends, cognitive
+              readiness scores, stress distributions, and exportable academic
+              wellness audits.
             </p>
             <div className="stress-feature-card-footer">
               <span>View Full Reports</span>
@@ -362,16 +439,25 @@ export default function Member3Landing({
                 <Cpu size={16} />
                 <span>RANDOM FOREST CLASSIFIER ARCHITECTURE</span>
               </div>
-              <div className={`model-status-chip ${modelOnline ? 'active' : 'idle'}`}>
+              <div
+                className={`model-status-chip ${modelOnline ? "active" : "idle"}`}
+              >
                 <span className="dot" />
-                <span>{modelOnline ? 'FastAPI Server Live (Port 8001)' : 'Local Decision Fallback Active'}</span>
+                <span>
+                  {modelOnline
+                    ? "FastAPI Server Live (Port 8001)"
+                    : "Local Decision Fallback Active"}
+                </span>
               </div>
             </div>
 
-            <h3 className="model-title">Precision ML Trained on Student Biometric Data</h3>
+            <h3 className="model-title">
+              Precision ML Trained on Student Biometric Data
+            </h3>
             <p className="model-desc">
-              The backend engine processes 8 key physiological signals to predict student emotional states and calculate
-              a real-time Cognitive Readiness Index (0–100%).
+              The backend engine processes 8 key physiological signals to
+              predict student emotional states and calculate a real-time
+              Cognitive Readiness Index (0–100%).
             </p>
 
             <div className="model-stats-grid">
@@ -398,11 +484,17 @@ export default function Member3Landing({
             </div>
 
             <div className="model-actions-row">
-              <button className="model-action-btn primary" onClick={onLaunchHub}>
+              <button
+                className="model-action-btn primary"
+                onClick={onLaunchHub}
+              >
                 <span>Test Live Inference</span>
                 <ArrowRight size={16} />
               </button>
-              <button className="model-action-btn secondary" onClick={onViewDashboard}>
+              <button
+                className="model-action-btn secondary"
+                onClick={onViewDashboard}
+              >
                 <span>Learning Analytics</span>
                 <ChevronRight size={16} />
               </button>
@@ -415,7 +507,9 @@ export default function Member3Landing({
       <section id="workflow" className="stress-workflow-section">
         <div className="stress-section-header">
           <div className="stress-section-badge">SIMPLE 3-STEP WORKFLOW</div>
-          <h2 className="stress-section-title">How Stress & Bio-Analytics AI Works</h2>
+          <h2 className="stress-section-title">
+            How Stress & Bio-Analytics AI Works
+          </h2>
         </div>
 
         <div className="stress-workflow-grid">
@@ -423,8 +517,8 @@ export default function Member3Landing({
             <div className="step-number">01</div>
             <h4 className="step-title">Sync Your Vitals</h4>
             <p className="step-desc">
-              Connect your smartwatch via Bluetooth Low Energy (BLE) or simulate live telemetry readings 
-              with our built-in watch data emitter.
+              Connect your smartwatch via Bluetooth Low Energy (BLE) or simulate
+              live telemetry readings with our built-in watch data emitter.
             </p>
           </div>
 
@@ -434,8 +528,9 @@ export default function Member3Landing({
             <div className="step-number">02</div>
             <h4 className="step-title">Instant AI Stress Analysis</h4>
             <p className="step-desc">
-              The 94.5% accurate Random Forest model analyzes your heart rate, SpO2, sleep, and stress score 
-              to determine your cognitive readiness state.
+              The 94.5% accurate Random Forest model analyzes your heart rate,
+              SpO2, sleep, and stress score to determine your cognitive
+              readiness state.
             </p>
           </div>
 
@@ -445,8 +540,9 @@ export default function Member3Landing({
             <div className="step-number">03</div>
             <h4 className="step-title">Adaptive High-Retention Study</h4>
             <p className="step-desc">
-              Follow bio-synchronized study sessions, take timely relaxation breaks, and prevent academic burnout 
-              with intelligent daily guidance.
+              Follow bio-synchronized study sessions, take timely relaxation
+              breaks, and prevent academic burnout with intelligent daily
+              guidance.
             </p>
           </div>
         </div>
@@ -459,7 +555,8 @@ export default function Member3Landing({
           <div className="stress-bottom-cta-content">
             <h2>Ready to Eliminate Burnout & Maximize Your Study Output?</h2>
             <p>
-              Join students utilizing biometric intelligence and machine learning to achieve optimal academic balance.
+              Join students utilizing biometric intelligence and machine
+              learning to achieve optimal academic balance.
             </p>
             <div className="stress-bottom-cta-buttons">
               <button className="stress-cta-large-btn" onClick={onLaunchHub}>
@@ -481,19 +578,34 @@ export default function Member3Landing({
             <div className="stress-brand-badge mini">
               <Activity size={18} className="stress-brand-icon" />
             </div>
-            <span className="stress-footer-brand-title">Stress & Bio-Analytics AI · StudyFyX</span>
+            <span className="stress-footer-brand-title">
+              Stress & Bio-Analytics AI · StudyFyX
+            </span>
           </div>
 
           <div className="stress-footer-meta">
-            <p>© 2026 StudyFyX Ecosystem · Member 3 Cognitive Health. All rights reserved.</p>
+            <p>
+              © 2026 StudyFyX Ecosystem · Member 3 Cognitive Health. All rights
+              reserved.
+            </p>
           </div>
 
           <div className="stress-footer-links">
-            <button onClick={handleBackToHub} className="stress-footer-link">Portal</button>
-            <button onClick={onLaunchHub} className="stress-footer-link">Vitals Hub</button>
-            <button onClick={onViewPlanner} className="stress-footer-link">Study Planner</button>
-            <button onClick={onViewReport} className="stress-footer-link">Progress Report</button>
-            <button onClick={onViewDashboard} className="stress-footer-link">Analytics</button>
+            <button onClick={handleBackToHub} className="stress-footer-link">
+              Portal
+            </button>
+            <button onClick={onLaunchHub} className="stress-footer-link">
+              Vitals Hub
+            </button>
+            <button onClick={onViewPlanner} className="stress-footer-link">
+              Study Planner
+            </button>
+            <button onClick={onViewReport} className="stress-footer-link">
+              Progress Report
+            </button>
+            <button onClick={onViewDashboard} className="stress-footer-link">
+              Analytics
+            </button>
           </div>
         </div>
       </footer>

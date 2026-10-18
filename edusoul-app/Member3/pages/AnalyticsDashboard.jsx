@@ -1,18 +1,46 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 const studyHours = [2, 3.5, 1.5, 4, 2.5, 5, 3];
 const subjectData = [
-  { name: 'Combined Maths', score: 78, color: '#1d4ed8', hours: 14 },
-  { name: 'Physics',        score: 65, color: '#0891b2', hours: 10 },
-  { name: 'Chemistry',      score: 72, color: '#7c3aed', hours: 12 },
+  { name: "Combined Maths", score: 78, color: "#1d4ed8", hours: 14 },
+  { name: "Physics", score: 65, color: "#0891b2", hours: 10 },
+  { name: "Chemistry", score: 72, color: "#7c3aed", hours: 12 },
 ];
 
 const insights = [
-  { icon: '📈', title: 'Best Study Day', value: 'Saturday', sub: '5 hrs average', color: '#1d4ed8', bg: '#eff6ff' },
-  { icon: '⏰', title: 'Weekly Hours', value: '21.5 hrs', sub: 'This week', color: '#0d9488', bg: '#f0fdfa' },
-  { icon: '🎯', title: 'Top Subject', value: 'Combined Maths', sub: 'Score: 78%', color: '#7c3aed', bg: '#f5f3ff' },
-  { icon: '🔥', title: 'Study Streak', value: '7 Days', sub: 'Keep it up!', color: '#d97706', bg: '#fffbeb' },
+  {
+    icon: "📈",
+    title: "Best Study Day",
+    value: "Saturday",
+    sub: "5 hrs average",
+    color: "#1d4ed8",
+    bg: "#eff6ff",
+  },
+  {
+    icon: "⏰",
+    title: "Weekly Hours",
+    value: "21.5 hrs",
+    sub: "This week",
+    color: "#0d9488",
+    bg: "#f0fdfa",
+  },
+  {
+    icon: "🎯",
+    title: "Top Subject",
+    value: "Combined Maths",
+    sub: "Score: 78%",
+    color: "#7c3aed",
+    bg: "#f5f3ff",
+  },
+  {
+    icon: "🔥",
+    title: "Study Streak",
+    value: "7 Days",
+    sub: "Keep it up!",
+    color: "#d97706",
+    bg: "#fffbeb",
+  },
 ];
 
 export default function AnalyticsDashboard({ onViewPlanner, onViewReport }) {
@@ -134,19 +162,29 @@ export default function AnalyticsDashboard({ onViewPlanner, onViewReport }) {
 
       <div className="ad-root">
         <div className="ad-header">
-          <h1>📊 Learning Analytics</h1>
+          <h1>
+            AI-Based Student Mood Analysis and Personalized Study Recommendation
+          </h1>
           <p>Track your study patterns, performance, and progress over time</p>
           <div className="ad-header-actions">
-            <button className="ad-header-btn" onClick={onViewPlanner}>📅 Study Planner</button>
-            <button className="ad-header-btn" onClick={onViewReport}>📄 Full Report</button>
+            <button className="ad-header-btn" onClick={onViewPlanner}>
+              📅 Study Planner
+            </button>
+            <button className="ad-header-btn" onClick={onViewReport}>
+              📄 Full Report
+            </button>
           </div>
         </div>
 
         <div className="ad-body">
           {/* Insights */}
           <div className="ad-insights">
-            {insights.map(i => (
-              <div key={i.title} className="ad-insight" style={{ '--color': i.color, '--bg': i.bg }}>
+            {insights.map((i) => (
+              <div
+                key={i.title}
+                className="ad-insight"
+                style={{ "--color": i.color, "--bg": i.bg }}
+              >
                 <div className="ad-insight-icon">{i.icon}</div>
                 <div>
                   <div className="ad-insight-title">{i.title}</div>
@@ -166,7 +204,10 @@ export default function AnalyticsDashboard({ onViewPlanner, onViewReport }) {
                 {weekDays.map((day, i) => (
                   <div key={day} className="ad-bar-wrap">
                     <div className="ad-bar-val">{studyHours[i]}h</div>
-                    <div className="ad-bar" style={{ height: `${(studyHours[i] / maxHours) * 90}%` }} />
+                    <div
+                      className="ad-bar"
+                      style={{ height: `${(studyHours[i] / maxHours) * 90}%` }}
+                    />
                     <div className="ad-bar-label">{day}</div>
                   </div>
                 ))}
@@ -176,14 +217,21 @@ export default function AnalyticsDashboard({ onViewPlanner, onViewReport }) {
             {/* Subject scores */}
             <div className="ad-card">
               <div className="ad-card-title">Subject Performance</div>
-              {subjectData.map(s => (
-                <div key={s.name} className="ad-subject" style={{ '--color': s.color }}>
+              {subjectData.map((s) => (
+                <div
+                  key={s.name}
+                  className="ad-subject"
+                  style={{ "--color": s.color }}
+                >
                   <div className="ad-subject-header">
                     <span className="ad-subject-name">{s.name}</span>
                     <span className="ad-subject-score">{s.score}%</span>
                   </div>
                   <div className="ad-subject-bar">
-                    <div className="ad-subject-fill" style={{ width: `${s.score}%` }} />
+                    <div
+                      className="ad-subject-fill"
+                      style={{ width: `${s.score}%` }}
+                    />
                   </div>
                 </div>
               ))}
@@ -196,19 +244,37 @@ export default function AnalyticsDashboard({ onViewPlanner, onViewReport }) {
             <div className="ad-heatmap">
               {Array.from({ length: 84 }).map((_, i) => {
                 const intensity = Math.random();
-                let bg = '#f1f5f9';
-                if (intensity > 0.7) bg = '#7c3aed';
-                else if (intensity > 0.5) bg = '#a78bfa';
-                else if (intensity > 0.3) bg = '#ddd6fe';
-                return <div key={i} className="ad-heatmap-day" style={{ background: bg }} />;
+                let bg = "#f1f5f9";
+                if (intensity > 0.7) bg = "#7c3aed";
+                else if (intensity > 0.5) bg = "#a78bfa";
+                else if (intensity > 0.3) bg = "#ddd6fe";
+                return (
+                  <div
+                    key={i}
+                    className="ad-heatmap-day"
+                    style={{ background: bg }}
+                  />
+                );
               })}
             </div>
             <div className="ad-legend">
               Less
-              <div className="ad-legend-box" style={{ background: '#f1f5f9' }} />
-              <div className="ad-legend-box" style={{ background: '#ddd6fe' }} />
-              <div className="ad-legend-box" style={{ background: '#a78bfa' }} />
-              <div className="ad-legend-box" style={{ background: '#7c3aed' }} />
+              <div
+                className="ad-legend-box"
+                style={{ background: "#f1f5f9" }}
+              />
+              <div
+                className="ad-legend-box"
+                style={{ background: "#ddd6fe" }}
+              />
+              <div
+                className="ad-legend-box"
+                style={{ background: "#a78bfa" }}
+              />
+              <div
+                className="ad-legend-box"
+                style={{ background: "#7c3aed" }}
+              />
               More
             </div>
           </div>
